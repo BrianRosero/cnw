@@ -1,17 +1,15 @@
-import Typography from '@mui/material/Typography';
+import React from 'react';
+import IframeComponent from './ContenedorConURL';
+//muestra la pagina de la empresa alojada en un contenedor
+//pendiente, necesario aplicar configuracion para que sea relativa
+const App: React.FC = () => {
+  const urlExterna = 'https://www.cnw.co/nuestra-red/';
 
-import Meta from '@/components/Meta';
-import { FullSizeCenteredFlexBox } from '@/components/styled';
-
-function Page1() {
   return (
-    <>
-      <Meta title="Desarrollo" />
-      <FullSizeCenteredFlexBox>
-        <Typography variant="h3">Desarrollo</Typography>
-      </FullSizeCenteredFlexBox>
-    </>
+    <div>
+      <IframeComponent src={urlExterna} />
+    </div>
   );
-}
+};
 
-export default Page1;
+export default App;

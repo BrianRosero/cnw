@@ -1,17 +1,16 @@
-import Typography from '@mui/material/Typography';
+// App.tsx
+import React from 'react';
+import ContenedorConURL from './ContenedorConURL';
+// Inicio de la pagina de configuración para la url de OSTiket
+const App: React.FC = () => {
+  const url = 'http://helpdesk.cnw.co/scp/index.php'; // la URL que deseas mostrar
 
-import Meta from '@/components/Meta';
-import { FullSizeCenteredFlexBox } from '@/components/styled';
-
-function Page2() {
   return (
-    <>
-      <Meta title="page 2" />
-      <FullSizeCenteredFlexBox>
-        <Typography variant="h3">Page 2</Typography>
-      </FullSizeCenteredFlexBox>
-    </>
+    <div>
+      <ContenedorConURL url={url} />
+    </div>
   );
-}
+};
 
-export default Page2;
+export default App;
+
