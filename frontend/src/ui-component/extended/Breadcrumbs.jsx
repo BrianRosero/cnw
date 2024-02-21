@@ -9,7 +9,7 @@ import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
 import config from '../../config';
-import { gridSpacing } from '../../actions/types';
+import { gridSpacing } from '../../actions/types.jsx';
 
 // assets
 import { IconTallymark1 } from '@tabler/icons-react';

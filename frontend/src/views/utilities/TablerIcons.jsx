@@ -18,9 +18,9 @@ const IFrameWrapper = styled('iframe')(({ theme }) => ({
 // =============================|| TABLER ICONS ||============================= //
 
 const TablerIcons = () => (
-  <MainCard title="Tabler Icons" secondary={<SecondaryAction icon={<LinkIcon fontSize="small" />} link="https://tablericons.com/" />}>
+  <MainCard title="CONSULNETWORKS" secondary={<SecondaryAction icon={<LinkIcon fontSize="small" />} link="https://www.cnw.co/" />}>
     <Card sx={{ overflow: 'hidden' }}>
-      <IFrameWrapper title="Tabler Icons" width="100%" src="https://tablericons.com/" />
+      <IFrameWrapper title="CONSULNETWORKS" width="100%" src="https://www.cnw.co/" />
     </Card>
   </MainCard>
 );

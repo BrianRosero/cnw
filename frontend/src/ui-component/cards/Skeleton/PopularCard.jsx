@@ -3,7 +3,7 @@ import { Card, CardContent, Grid } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 
 // project imports
-import { gridSpacing } from '../../../actions/types';
+import { gridSpacing } from '../../../actions/types.jsx';
 
 // ==============================|| SKELETON - POPULAR CARD ||============================== //
 
