@@ -10,18 +10,18 @@ import { Navigate } from 'react-router-dom';
  * @param {PropTypes.node} children children element/node
  */
 const AuthGuard = ({ children }) => {
-    const account = useSelector((state) => state.account);
-    const { isLoggedIn } = account;
+  const account = useSelector((state) => state.account);
+  const { isLoggedIn } = account;
 
-    if (!isLoggedIn) {
-        return <Navigate to="/login" />;
-    }
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
 
-    return children;
+  return children;
 };
 
 AuthGuard.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default AuthGuard;

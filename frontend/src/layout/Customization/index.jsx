@@ -14,7 +14,7 @@ import {
   RadioGroup,
   Slider,
   Tooltip,
-  Typography
+  Typography,
 } from '@mui/material';
 import { IconSettings } from '@tabler/icons-react';
 
@@ -107,7 +107,7 @@ const Customization = () => {
             top: '25%',
             position: 'fixed',
             right: 10,
-            zIndex: theme.zIndex.speedDial
+            zIndex: theme.zIndex.speedDial,
           }}
         >
           <AnimateButton type="rotate">
@@ -124,8 +124,8 @@ const Customization = () => {
         open={open}
         PaperProps={{
           sx: {
-            width: 280
-          }
+            width: 280,
+          },
         }}
       >
         <PerfectScrollbar component="div">
@@ -146,7 +146,7 @@ const Customization = () => {
                       label="Roboto"
                       sx={{
                         '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
                       }}
                     />
                     <FormControlLabel
@@ -155,7 +155,7 @@ const Customization = () => {
                       label="Poppins"
                       sx={{
                         '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
                       }}
                     />
                     <FormControlLabel
@@ -164,7 +164,7 @@ const Customization = () => {
                       label="Inter"
                       sx={{
                         '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
                       }}
                     />
                   </RadioGroup>
@@ -195,8 +195,8 @@ const Customization = () => {
                       color="secondary"
                       sx={{
                         '& .MuiSlider-valueLabel': {
-                          color: 'secondary.light'
-                        }
+                          color: 'secondary.light',
+                        },
                       }}
                     />
                   </Grid>

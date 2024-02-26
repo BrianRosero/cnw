@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
@@ -24,7 +24,7 @@ import {
   Popper,
   Stack,
   Switch,
-  Typography
+  Typography,
 } from '@mui/material';
 
 // third-party
@@ -33,7 +33,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 // project imports
 import MainCard from '../../../../ui-component/cards/MainCard';
 import Transitions from '../../../../ui-component/extended/Transitions';
-import UpgradePlanCard from './UpgradePlanCard';
+//import UpgradePlanCard from './UpgradePlanCard';
 import User1 from '@/assets/images/users/user-round.svg';
 
 // assets
@@ -49,7 +49,6 @@ const ProfileSection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [sdm, setSdm] = useState(true);
   const [value, setValue] = useState('');
   const [notification, setNotification] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -58,9 +57,6 @@ const ProfileSection = () => {
    * anchorRef is used on different componets and specifying one type leads to other views throwing an error
    * */
   const anchorRef = useRef(null);
-  const handleLogout = async () => {
-    console.log('Logout');
-  };
 
   const logOut = useCallback(() => {
     dispatch(logout());
@@ -109,12 +105,12 @@ const ProfileSection = () => {
             background: `${theme.palette.primary.dark}!important`,
             color: theme.palette.primary.dark,
             '& svg': {
-              stroke: theme.palette.primary.light
-            }
+              stroke: theme.palette.primary.light,
+            },
           },
           '& .MuiChip-label': {
-            lineHeight: 0
-          }
+            lineHeight: 0,
+          },
         }}
         icon={
           <Avatar
@@ -122,7 +118,7 @@ const ProfileSection = () => {
             sx={{
               ...theme.typography.mediumAvatar,
               margin: '8px 0 8px 8px !important',
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
             ref={anchorRef}
             aria-controls={open ? 'menu-list-grow' : undefined}
@@ -150,10 +146,10 @@ const ProfileSection = () => {
             {
               name: 'offset',
               options: {
-                offset: [0, 14]
-              }
-            }
-          ]
+                offset: [0, 14],
+              },
+            },
+          ],
         }}
       >
         {({ TransitionProps }) => (
@@ -166,9 +162,9 @@ const ProfileSection = () => {
                       <Stack direction="row" spacing={0.5} alignItems="center">
                         <Typography component="span" variant="h3" sx={{ fontWeight: 400 }}>
                           {currentUser ? (
-                                <Typography color={theme.palette.primary.main} variant="h3">
-                                  {currentUser.username}
-                                </Typography>
+                            <Typography color={theme.palette.primary.main} variant="h3">
+                              {currentUser.username}
+                            </Typography>
                           ) : (
                             <div>
                             </div>
@@ -190,7 +186,7 @@ const ProfileSection = () => {
                       }
                       aria-describedby="search-helper-text"
                       inputProps={{
-                        'aria-label': 'weight'
+                        'aria-label': 'weight',
                       }}
                     />
                     <Divider />
@@ -202,7 +198,7 @@ const ProfileSection = () => {
                       <Card
                         sx={{
                           bgcolor: theme.palette.primary.light,
-                          my: 2
+                          my: 2,
                         }}
                       >
                         <CardContent>
@@ -235,11 +231,11 @@ const ProfileSection = () => {
                           backgroundColor: theme.palette.background.paper,
                           borderRadius: '10px',
                           [theme.breakpoints.down('md')]: {
-                            minWidth: '100%'
+                            minWidth: '100%',
                           },
                           '& .MuiListItemButton-root': {
-                            mt: 0.5
-                          }
+                            mt: 0.5,
+                          },
                         }}
                       >
                         <ListItemButton
@@ -250,7 +246,8 @@ const ProfileSection = () => {
                           <ListItemIcon>
                             <IconSettings stroke={1.5} size="1.3rem" />
                           </ListItemIcon>
-                          <ListItemText primary={<Typography variant="body2">Configuraciones de la cuenta</Typography>} />
+                          <ListItemText
+                            primary={<Typography variant="body2">Configuraciones de la cuenta</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                           sx={{ borderRadius: `${customization.borderRadius}px` }}
@@ -272,7 +269,7 @@ const ProfileSection = () => {
                                     size="small"
                                     sx={{
                                       bgcolor: theme.palette.warning.dark,
-                                      color: theme.palette.background.default
+                                      color: theme.palette.background.default,
                                     }}
                                   />
                                 </Grid>

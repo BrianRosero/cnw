@@ -9,7 +9,7 @@ export const initialState = {
   defaultId: 'default',
   fontFamily: config.fontFamily,
   borderRadius: config.borderRadius,
-  opened: true
+  opened: true,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
@@ -21,22 +21,22 @@ const customizationSlice = (state = initialState, action) => {
       id = action.id;
       return {
         ...state,
-        isOpen: [id]
+        isOpen: [id],
       };
     case actionTypes.SET_MENU:
       return {
         ...state,
-        opened: action.opened
+        opened: action.opened,
       };
     case actionTypes.SET_FONT_FAMILY:
       return {
         ...state,
-        fontFamily: action.fontFamily
+        fontFamily: action.fontFamily,
       };
     case actionTypes.SET_BORDER_RADIUS:
       return {
         ...state,
-        borderRadius: action.borderRadius
+        borderRadius: action.borderRadius,
       };
     default:
       return state;

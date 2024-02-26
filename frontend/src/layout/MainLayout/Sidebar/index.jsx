@@ -12,7 +12,7 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
 import MenuCard from './MenuCard';
-import { drawerWidth } from '../../../actions/types.jsx';
+import { drawerWidth } from '@/actions/types.jsx';
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -33,13 +33,14 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
           style={{
             height: !matchUpMd ? 'calc(100vh - 56px)' : 'calc(100vh - 88px)',
             paddingLeft: '16px',
-            paddingRight: '16px'
+            paddingRight: '16px',
           }}
         >
           <MenuList />
           <MenuCard />
           <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
-            <Chip label={import.meta.env.REACT_APP_VERSION} disabled chipcolor="secondary" size="small" sx={{ cursor: 'pointer' }} />
+            <Chip label={import.meta.env.REACT_APP_VERSION} disabled chipcolor="secondary" size="small"
+                  sx={{ cursor: 'pointer' }} />
           </Stack>
         </PerfectScrollbar>
       </BrowserView>
@@ -48,7 +49,8 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
           <MenuList />
           <MenuCard />
           <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
-            <Chip label={import.meta.env.REACT_APP_VERSION} disabled chipcolor="secondary" size="small" sx={{ cursor: 'pointer' }} />
+            <Chip label={import.meta.env.REACT_APP_VERSION} disabled chipcolor="secondary" size="small"
+                  sx={{ cursor: 'pointer' }} />
           </Stack>
         </Box>
       </MobileView>
@@ -58,7 +60,8 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
   const container = window !== undefined ? () => window.document.body : undefined;
 
   return (
-    <Box component="nav" sx={{ flexShrink: { md: 0 }, width: matchUpMd ? drawerWidth : 'auto' }} aria-label="mailbox folders">
+    <Box component="nav" sx={{ flexShrink: { md: 0 }, width: matchUpMd ? drawerWidth : 'auto' }}
+         aria-label="mailbox folders">
       <Drawer
         container={container}
         variant={matchUpMd ? 'persistent' : 'temporary'}
@@ -72,9 +75,9 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
             color: theme.palette.text.primary,
             borderRight: 'none',
             [theme.breakpoints.up('md')]: {
-              top: '88px'
-            }
-          }
+              top: '88px',
+            },
+          },
         }}
         ModalProps={{ keepMounted: true }}
         color="inherit"
@@ -88,7 +91,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
 Sidebar.propTypes = {
   drawerOpen: PropTypes.bool,
   drawerToggle: PropTypes.func,
-  window: PropTypes.object
+  window: PropTypes.object,
 };
 
 export default Sidebar;

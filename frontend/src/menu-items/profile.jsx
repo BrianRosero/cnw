@@ -6,7 +6,7 @@ const icons = {
   IconTypography,
   IconPalette,
   IconShadow,
-  IconWindmill
+  IconWindmill,
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -22,7 +22,7 @@ const profile = {
       type: 'item',
       url: '/profile/home',
       icon: icons.IconTypography,
-      breadcrumbs: false
+      breadcrumbs: false,
     },
     {
       id: 'profile',
@@ -30,7 +30,7 @@ const profile = {
       type: 'item',
       url: '/profile/profile',
       icon: icons.IconPalette,
-      breadcrumbs: false
+      breadcrumbs: false,
     },
     {
       id: 'Admin',
@@ -38,9 +38,9 @@ const profile = {
       type: 'item',
       url: '/profile/admin',
       icon: icons.IconPalette,
-      breadcrumbs: false
+      breadcrumbs: false,
     },
-  ]
+  ],
 };
 
 export default profile;

@@ -21,16 +21,16 @@ import chartData from './chart-data/total-growth-bar-chart';
 const status = [
   {
     value: 'today',
-    label: 'Today'
+    label: 'Today',
   },
   {
     value: 'month',
-    label: 'This Month'
+    label: 'This Month',
   },
   {
     value: 'year',
-    label: 'This Year'
-  }
+    label: 'This Year',
+  },
 ];
 
 // ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
@@ -58,28 +58,28 @@ const TotalGrowthBarChart = ({ isLoading }) => {
       xaxis: {
         labels: {
           style: {
-            colors: [primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary]
-          }
-        }
+            colors: [primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary],
+          },
+        },
       },
       yaxis: {
         labels: {
           style: {
-            colors: [primary]
-          }
-        }
+            colors: [primary],
+          },
+        },
       },
       grid: {
-        borderColor: grey200
+        borderColor: grey200,
       },
       tooltip: {
-        theme: 'light'
+        theme: 'light',
       },
       legend: {
         labels: {
-          colors: grey500
-        }
-      }
+          colors: grey500,
+        },
+      },
     };
 
     // do not load chart when loading
@@ -108,7 +108,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <TextField id="standard-select-currency" select value={value} onChange={(e) => setValue(e.target.value)}>
+                  <TextField id="standard-select-currency" select value={value}
+                             onChange={(e) => setValue(e.target.value)}>
                     {status.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
@@ -129,7 +130,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
 };
 
 TotalGrowthBarChart.propTypes = {
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 
 export default TotalGrowthBarChart;

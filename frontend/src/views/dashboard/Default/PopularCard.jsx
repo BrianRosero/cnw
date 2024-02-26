@@ -50,7 +50,7 @@ const PopularCard = ({ isLoading }) => {
                       fontSize="small"
                       sx={{
                         color: theme.palette.primary[200],
-                        cursor: 'pointer'
+                        cursor: 'pointer',
                       }}
                       aria-controls="menu-popular-card"
                       aria-haspopup="true"
@@ -65,11 +65,11 @@ const PopularCard = ({ isLoading }) => {
                       variant="selectedMenu"
                       anchorOrigin={{
                         vertical: 'bottom',
-                        horizontal: 'right'
+                        horizontal: 'right',
                       }}
                       transformOrigin={{
                         vertical: 'top',
-                        horizontal: 'right'
+                        horizontal: 'right',
                       }}
                     >
                       <MenuItem onClick={handleClose}> Today</MenuItem>
@@ -107,7 +107,7 @@ const PopularCard = ({ isLoading }) => {
                                 borderRadius: '5px',
                                 backgroundColor: theme.palette.success.light,
                                 color: theme.palette.success.dark,
-                                ml: 2
+                                ml: 2,
                               }}
                             >
                               <KeyboardArrowUpOutlinedIcon fontSize="small" color="inherit" />
@@ -148,7 +148,7 @@ const PopularCard = ({ isLoading }) => {
                                 borderRadius: '5px',
                                 backgroundColor: theme.palette.orange.light,
                                 color: theme.palette.orange.dark,
-                                marginLeft: 1.875
+                                marginLeft: 1.875,
                               }}
                             >
                               <KeyboardArrowDownOutlinedIcon fontSize="small" color="inherit" />
@@ -189,7 +189,7 @@ const PopularCard = ({ isLoading }) => {
                                 borderRadius: '5px',
                                 backgroundColor: theme.palette.success.light,
                                 color: theme.palette.success.dark,
-                                ml: 2
+                                ml: 2,
                               }}
                             >
                               <KeyboardArrowUpOutlinedIcon fontSize="small" color="inherit" />
@@ -230,7 +230,7 @@ const PopularCard = ({ isLoading }) => {
                                 borderRadius: '5px',
                                 backgroundColor: theme.palette.orange.light,
                                 color: theme.palette.orange.dark,
-                                ml: 2
+                                ml: 2,
                               }}
                             >
                               <KeyboardArrowDownOutlinedIcon fontSize="small" color="inherit" />
@@ -271,7 +271,7 @@ const PopularCard = ({ isLoading }) => {
                                 borderRadius: '5px',
                                 backgroundColor: theme.palette.orange.light,
                                 color: theme.palette.orange.dark,
-                                ml: 2
+                                ml: 2,
                               }}
                             >
                               <KeyboardArrowDownOutlinedIcon fontSize="small" color="inherit" />
@@ -303,7 +303,7 @@ const PopularCard = ({ isLoading }) => {
 };
 
 PopularCard.propTypes = {
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 
 export default PopularCard;

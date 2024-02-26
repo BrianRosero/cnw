@@ -8,6 +8,6 @@ import { widget } from './widget.jsx';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [dashboard, profile, widget, pages, utilities, other]
+  items: [dashboard, profile, widget, pages, utilities, other],
 };
 export default menuItems;

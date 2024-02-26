@@ -10,7 +10,8 @@ const TotalIncomeCard = () => (
         <ListItemAvatar>
           <Skeleton variant="rectangular" width={44} height={44} />
         </ListItemAvatar>
-        <ListItemText sx={{ py: 0 }} primary={<Skeleton variant="rectangular" height={20} />} secondary={<Skeleton variant="text" />} />
+        <ListItemText sx={{ py: 0 }} primary={<Skeleton variant="rectangular" height={20} />}
+                      secondary={<Skeleton variant="text" />} />
       </ListItem>
     </List>
   </Card>

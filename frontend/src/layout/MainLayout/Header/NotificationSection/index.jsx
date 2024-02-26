@@ -18,7 +18,7 @@ import {
   Stack,
   TextField,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material';
 
 // third-party
@@ -36,20 +36,20 @@ import { IconBell } from '@tabler/icons-react';
 const status = [
   {
     value: 'all',
-    label: 'Todas las notificaciones'
+    label: 'Todas las notificaciones',
   },
   {
     value: 'new',
-    label: 'Recientes'
+    label: 'Recientes',
   },
   {
     value: 'unread',
-    label: 'Sin Leer'
+    label: 'Sin Leer',
   },
   {
     value: 'other',
-    label: 'Otras'
-  }
+    label: 'Otras',
+  },
 ];
 
 // ==============================|| NOTIFICATION ||============================== //
@@ -95,8 +95,8 @@ const NotificationSection = () => {
           ml: 2,
           mr: 3,
           [theme.breakpoints.down('md')]: {
-            mr: 2
-          }
+            mr: 2,
+          },
         }}
       >
         <ButtonBase sx={{ borderRadius: '12px' }}>
@@ -110,8 +110,8 @@ const NotificationSection = () => {
               color: theme.palette.secondary.dark,
               '&[aria-controls="menu-list-grow"],&:hover': {
                 background: theme.palette.primary.dark,
-                color: theme.palette.secondary.dark
-              }
+                color: theme.palette.secondary.dark,
+              },
             }}
             ref={anchorRef}
             aria-controls={open ? 'menu-list-grow' : undefined}
@@ -135,10 +135,10 @@ const NotificationSection = () => {
             {
               name: 'offset',
               options: {
-                offset: [matchesXs ? 5 : 0, 20]
-              }
-            }
-          ]
+                offset: [matchesXs ? 5 : 0, 20],
+              },
+            },
+          ],
         }}
       >
         {({ TransitionProps }) => (
@@ -157,7 +157,7 @@ const NotificationSection = () => {
                               label="01"
                               sx={{
                                 color: theme.palette.background.default,
-                                bgcolor: theme.palette.warning.dark
+                                bgcolor: theme.palette.warning.dark,
                               }}
                             />
                           </Stack>
@@ -170,7 +170,8 @@ const NotificationSection = () => {
                       </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                      <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 205px)', overflowX: 'hidden' }}>
+                      <PerfectScrollbar
+                        style={{ height: '100%', maxHeight: 'calc(100vh - 205px)', overflowX: 'hidden' }}>
                         <Grid container direction="column" spacing={2}>
                           <Grid item xs={12}>
                             <Box sx={{ px: 2, pt: 0.25 }}>
@@ -181,7 +182,7 @@ const NotificationSection = () => {
                                 value={value}
                                 onChange={handleChange}
                                 SelectProps={{
-                                  native: true
+                                  native: true,
                                 }}
                               >
                                 {status.map((option) => (

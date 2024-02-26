@@ -13,10 +13,11 @@ const UtilsColor = Loadable(lazy(() => import('../views/utilities/Color.jsx')));
 const UtilsShadow = Loadable(lazy(() => import('../views/utilities/Shadow.jsx')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('../views/utilities/MaterialIcons.jsx')));
 const UtilsTablerIcons = Loadable(lazy(() => import('../views/utilities/TablerIcons.jsx')));
-import Home from "../views/pages/Home.jsx";
-import Profile from "../views/pages/Profile.jsx";
-import BoardUser from "../views/pages/BoardUser.jsx";
-import BoardAdmin from "../views/pages/BoardAdmin.jsx";
+
+import Home from '../views/pages/Home.jsx';
+import Profile from '../views/pages/Profile.jsx';
+import BoardUser from '../views/pages/BoardUser.jsx';
+import BoardAdmin from '../views/pages/BoardAdmin.jsx';
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('../views/sample-page/index.jsx')));
@@ -29,103 +30,103 @@ const MainRoutes = {
   children: [
     {
       path: '/',
-      element: <DashboardDefault />
+      element: <DashboardDefault />,
     },
     {
       path: 'dashboard',
       children: [
         {
           path: 'default',
-          element: <DashboardDefault />
-        }
-      ]
+          element: <DashboardDefault />,
+        },
+      ],
     },
     {
       path: 'profile',
       children: [
         {
           path: 'home',
-          element: <Home />
-        }
-      ]
+          element: <Home />,
+        },
+      ],
     },
     {
       path: 'profile',
       children: [
         {
           path: 'profile',
-          element: <Profile />
-        }
-      ]
+          element: <Profile />,
+        },
+      ],
     },
     {
       path: 'profile',
       children: [
         {
           path: 'user',
-          element: <BoardUser />
-        }
-      ]
+          element: <BoardUser />,
+        },
+      ],
     },
     {
       path: 'profile',
       children: [
         {
           path: 'admin',
-          element: <BoardAdmin />
-        }
-      ]
+          element: <BoardAdmin />,
+        },
+      ],
     },
     {
       path: 'utils',
       children: [
         {
           path: 'util-typography',
-          element: <UtilsTypography />
-        }
-      ]
+          element: <UtilsTypography />,
+        },
+      ],
     },
     {
       path: 'utils',
       children: [
         {
           path: 'util-color',
-          element: <UtilsColor />
-        }
-      ]
+          element: <UtilsColor />,
+        },
+      ],
     },
     {
       path: 'utils',
       children: [
         {
           path: 'util-shadow',
-          element: <UtilsShadow />
-        }
-      ]
+          element: <UtilsShadow />,
+        },
+      ],
     },
     {
       path: 'icons',
       children: [
         {
           path: 'tabler-icons',
-          element: <UtilsTablerIcons />
-        }
-      ]
+          element: <UtilsTablerIcons />,
+        },
+      ],
     },
     {
       path: 'icons',
       children: [
         {
           path: 'material-icons',
-          element: <UtilsMaterialIcons />
-        }
-      ]
+          element: <UtilsMaterialIcons />,
+        },
+      ],
     },
     {
       path: 'sample-page',
-      element: <SamplePage />
-    }
-  ]
+      element: <SamplePage />,
+    },
+  ],
 };
 
 export default MainRoutes;

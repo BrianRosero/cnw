@@ -17,7 +17,8 @@ const CardSecondaryAction = ({ title, link, icon }) => {
           <Avatar component={Link} href={link} target="_blank" alt="MUI Logo" size="badge" color="primary" outline>
             <svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0)">
-                <path d="M100 260.9V131L212.5 195.95V239.25L137.5 195.95V282.55L100 260.9Z" fill={theme.palette.primary[800]} />
+                <path d="M100 260.9V131L212.5 195.95V239.25L137.5 195.95V282.55L100 260.9Z"
+                      fill={theme.palette.primary[800]} />
                 <path
                   d="M212.5 195.95L325 131V260.9L250 304.2L212.5 282.55L287.5 239.25V195.95L212.5 239.25V195.95Z"
                   fill={theme.palette.primary.main}
@@ -49,7 +50,7 @@ const CardSecondaryAction = ({ title, link, icon }) => {
 CardSecondaryAction.propTypes = {
   icon: PropTypes.node,
   link: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default CardSecondaryAction;

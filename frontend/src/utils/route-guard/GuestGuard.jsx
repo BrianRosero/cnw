@@ -13,18 +13,18 @@ import config from '../../config';
  * @param {PropTypes.node} children children element/node
  */
 const GuestGuard = ({ children }) => {
-    const account = useSelector((state) => state.account);
-    const { isLoggedIn } = account;
+  const account = useSelector((state) => state.account);
+  const { isLoggedIn } = account;
 
-    if (isLoggedIn) {
-        return <Navigate to={config.defaultPath} />;
-    }
+  if (isLoggedIn) {
+    return <Navigate to={config.defaultPath} />;
+  }
 
-    return children;
+  return children;
 };
 
 GuestGuard.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default GuestGuard;

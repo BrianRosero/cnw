@@ -22,8 +22,8 @@ const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
   top: '-55px !important',
   padding: '0 12px',
   [theme.breakpoints.down('sm')]: {
-    padding: '0 10px'
-  }
+    padding: '0 10px',
+  },
 }));
 
 const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(({ theme }) => ({
@@ -33,16 +33,16 @@ const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(({ theme 
   paddingRight: 16,
   '& input': {
     background: 'transparent !important',
-    paddingLeft: '4px !important'
+    paddingLeft: '4px !important',
   },
   [theme.breakpoints.down('lg')]: {
-    width: 250
+    width: 250,
   },
   [theme.breakpoints.down('md')]: {
     width: '100%',
     marginLeft: 4,
-    background: '#fff'
-  }
+    background: '#fff',
+  },
 }));
 
 const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(({ theme }) => ({
@@ -52,8 +52,8 @@ const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(({ theme }) => (
   color: theme.palette.secondary.dark,
   '&:hover': {
     background: theme.palette.primary.dark,
-    color: theme.palette.secondary.dark
-  }
+    color: theme.palette.secondary.dark,
+  },
 }));
 
 // ==============================|| SEARCH INPUT - MOBILE||============================== //
@@ -90,8 +90,8 @@ const MobileSearch = ({ value, setValue, popupState }) => {
                   color: theme.palette.orange.dark,
                   '&:hover': {
                     background: theme.palette.orange.dark,
-                    color: theme.palette.orange.light
-                  }
+                    color: theme.palette.orange.light,
+                  },
                 }}
                 {...bindToggle(popupState)}
               >
@@ -110,7 +110,7 @@ const MobileSearch = ({ value, setValue, popupState }) => {
 MobileSearch.propTypes = {
   value: PropTypes.string,
   setValue: PropTypes.func,
-  popupState: PopupState
+  popupState: PopupState,
 };
 
 // ==============================|| SEARCH INPUT ||============================== //
@@ -123,11 +123,9 @@ const SearchSection = () => {
   const handleSearch = (searchValue) => {
     // Perform search logic here, e.g., filter data based on searchValue
     // For demonstration purpose, let's assume we have some data
-    const searchData = [
-
-    ];
+    const searchData = [];
     const filteredResults = searchData.filter(item =>
-      item.name.toLowerCase().includes(searchValue.toLowerCase())
+      item.name.toLowerCase().includes(searchValue.toLowerCase()),
     );
     setSearchResults(filteredResults);
   };
@@ -154,8 +152,8 @@ const SearchSection = () => {
                           background: '#fff',
                           [theme.breakpoints.down('sm')]: {
                             border: 0,
-                            boxShadow: 'none'
-                          }
+                            boxShadow: 'none',
+                          },
                         }}
                       >
                         <Box sx={{ p: 2 }}>

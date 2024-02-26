@@ -26,8 +26,8 @@ const Header = ({ handleLeftDrawerToggle }) => {
           width: 228,
           display: 'flex',
           [theme.breakpoints.down('md')]: {
-            width: 'auto'
-          }
+            width: 'auto',
+          },
         }}
       >
         <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
@@ -44,8 +44,8 @@ const Header = ({ handleLeftDrawerToggle }) => {
               color: theme.palette.secondary.dark,
               '&:hover': {
                 background: theme.palette.primary.dark,
-                color: theme.palette.secondary.dark
-              }
+                color: theme.palette.secondary.dark,
+              },
             }}
             onClick={handleLeftDrawerToggle}
             color="inherit"
@@ -68,7 +68,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
 };
 
 Header.propTypes = {
-  handleLeftDrawerToggle: PropTypes.func
+  handleLeftDrawerToggle: PropTypes.func,
 };
 
 export default Header;

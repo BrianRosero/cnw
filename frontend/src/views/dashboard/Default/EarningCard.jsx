@@ -34,8 +34,8 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     right: -95,
     [theme.breakpoints.down('sm')]: {
       top: -105,
-      right: -140
-    }
+      right: -140,
+    },
   },
   '&:before': {
     content: '""',
@@ -49,9 +49,9 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     opacity: 0.5,
     [theme.breakpoints.down('sm')]: {
       top: -155,
-      right: -70
-    }
-  }
+      right: -70,
+    },
+  },
 }));
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
@@ -86,7 +86,7 @@ const EarningCard = ({ isLoading }) => {
                         ...theme.typography.commonAvatar,
                         ...theme.typography.largeAvatar,
                         backgroundColor: theme.palette.secondary[800],
-                        mt: 1
+                        mt: 1,
                       }}
                     >
                       <img src={EarningIcon} alt="Notification" />
@@ -100,7 +100,7 @@ const EarningCard = ({ isLoading }) => {
                         ...theme.typography.mediumAvatar,
                         backgroundColor: theme.palette.secondary.dark,
                         color: theme.palette.secondary[200],
-                        zIndex: 1
+                        zIndex: 1,
                       }}
                       aria-controls="menu-earning-card"
                       aria-haspopup="true"
@@ -117,11 +117,11 @@ const EarningCard = ({ isLoading }) => {
                       variant="selectedMenu"
                       anchorOrigin={{
                         vertical: 'bottom',
-                        horizontal: 'right'
+                        horizontal: 'right',
                       }}
                       transformOrigin={{
                         vertical: 'top',
-                        horizontal: 'right'
+                        horizontal: 'right',
                       }}
                     >
                       <MenuItem onClick={handleClose}>
@@ -143,7 +143,8 @@ const EarningCard = ({ isLoading }) => {
               <Grid item>
                 <Grid container alignItems="center">
                   <Grid item>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$500.00</Typography>
+                    <Typography
+                      sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$500.00</Typography>
                   </Grid>
                   <Grid item>
                     <Avatar
@@ -151,7 +152,7 @@ const EarningCard = ({ isLoading }) => {
                         cursor: 'pointer',
                         ...theme.typography.smallAvatar,
                         backgroundColor: theme.palette.secondary[200],
-                        color: theme.palette.secondary.dark
+                        color: theme.palette.secondary.dark,
                       }}
                     >
                       <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
@@ -164,7 +165,7 @@ const EarningCard = ({ isLoading }) => {
                   sx={{
                     fontSize: '1rem',
                     fontWeight: 500,
-                    color: theme.palette.secondary[200]
+                    color: theme.palette.secondary[200],
                   }}
                 >
                   Total Earning
@@ -179,7 +180,7 @@ const EarningCard = ({ isLoading }) => {
 };
 
 EarningCard.propTypes = {
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 
 export default EarningCard;

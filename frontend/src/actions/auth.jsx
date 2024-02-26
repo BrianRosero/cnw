@@ -5,12 +5,12 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
-} from "./types";
+} from './types';
 
-import AuthService from "../services/auth.service";
+import AuthService from '../services/auth.service';
 
-export const register = (username, email, password) => (dispatch) => {
-  return AuthService.register(username, email, password).then(
+export const register = (name, lastname, username, email, password) => (dispatch) => {
+  return AuthService.register(name, lastname, username, email, password).then(
     (response) => {
       dispatch({
         type: REGISTER_SUCCESS,
@@ -41,7 +41,7 @@ export const register = (username, email, password) => (dispatch) => {
       });
 
       return Promise.reject();
-    }
+    },
   );
 };
 
@@ -73,7 +73,7 @@ export const login = (username, password) => (dispatch) => {
       });
 
       return Promise.reject();
-    }
+    },
   );
 };
 
