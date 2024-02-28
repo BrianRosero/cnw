@@ -1,8 +1,8 @@
 {
-  "name": "cnw",
+  "name": "cnw_frontend",
   "version": "1.0.0",
   "type": "module",
-  "description": "Dashboard para administración de Consulnetworks",
+  "description": "Dashboard para administración Consulnetworks",
   "homepage": "https://www.cnw.co/",
   "repository": {
     "type": "git",

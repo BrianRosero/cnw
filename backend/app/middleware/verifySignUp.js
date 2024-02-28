@@ -2,6 +2,19 @@ const db = require("../models");
 const ROLES = db.ROLES;
 const User = db.user;
 
+checkValidNameAndLastname = (req, res, next) => {
+  if (!req.body.names || req.body.names.length < 2 || req.body.names.length > 30) {
+    res.status(400).send({ message: "El nombre no es válido!" });
+    return;
+  }
+
+  if (!req.body.lastname || req.body.lastname.length < 2 || req.body.lastname.length > 30) {
+    res.status(400).send({ message: "El apellido no es válido!" });
+    return;
+  }
+  next();
+};
+
 checkDuplicateUsernameOrEmail = (req, res, next) => {
   // Username
   User.findOne({
@@ -50,6 +63,7 @@ checkRolesExisted = (req, res, next) => {
 };
 
 const verifySignUp = {
+  checkValidNameAndLastname: checkValidNameAndLastname,
   checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail,
   checkRolesExisted: checkRolesExisted
 };

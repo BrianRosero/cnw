@@ -91,6 +91,8 @@ const FirebaseRegister = ({ ...others }) => {
   }, []);
 
   const initialValues = {
+    /*names: '',
+    lastname: '',*/
     username: '',
     email: '',
     password: '',
@@ -98,7 +100,7 @@ const FirebaseRegister = ({ ...others }) => {
 
   const onSubmit = (values, { setSubmitting }) => {
     setSuccessful(false);
-    dispatch(register(values.username, values.email, values.password))
+    dispatch(register(values.username, values.email, values.password, values.names, values.lastname,))
       .then(() => {
         setSuccessful(true);
         navigate('/login');
@@ -199,6 +201,16 @@ const FirebaseRegister = ({ ...others }) => {
           } else if (values.password.length < 6 || values.password.length > 40) {
             errors.password = 'La contraseña debe tener entre 6 y 40 caracteres.';
           }
+          if (!values.names) {
+            errors.names = 'Se requiere tu Nombre!';
+          } else if (values.names.length < 2 || values.names.length > 30) {
+            errors.names = 'Tu nombre debe tener entre 2 y 20 caracteres.';
+          }
+          if (!values.lastname) {
+            errors.lastname = 'Se requiere tu Apellido!';
+          } else if (values.lastname.length < 2 || values.lastname.length > 30) {
+            errors.lastname = 'Tu apellido debe tener entre 2 y 20 caracteres.';
+          }
           return errors;
         }}
       >
@@ -207,6 +219,44 @@ const FirebaseRegister = ({ ...others }) => {
             {!successful && (
               <div>
                 <Grid container spacing={matchDownSM ? 0 : 2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Nombre"
+                      margin="normal"
+                      id="name"
+                      type="text"
+                      name="names"
+                      value={values.names}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      error={touched.names && Boolean(errors.names)}
+                    />
+                    {touched.names && errors.names && (
+                      <FormHelperText error id="helper-text-name">
+                        {errors.names}
+                      </FormHelperText>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Apellido"
+                      margin="normal"
+                      id="lastname"
+                      type="text"
+                      name="lastname"
+                      value={values.lastname}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      error={touched.lastname && Boolean(errors.lastname)}
+                    />
+                    {touched.lastname && errors.lastname && (
+                      <FormHelperText error id="helper-text-lastname">
+                        {errors.lastname}
+                      </FormHelperText>
+                    )}
+                  </Grid>
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
