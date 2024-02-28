@@ -91,8 +91,8 @@ const FirebaseRegister = ({ ...others }) => {
   }, []);
 
   const initialValues = {
-    /*names: '',
-    lastname: '',*/
+    names: '',
+    lastname: '',
     username: '',
     email: '',
     password: '',
