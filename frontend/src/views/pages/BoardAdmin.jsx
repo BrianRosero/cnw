@@ -1,35 +1,110 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Typography, Grid, Card, CardContent, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Pagination, Button
+} from '@mui/material';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-import UserService from '../../services/user.service.jsx';
+const UsuariosData = [
+  { id: 1, nombre: 'Usuario 1', email: 'usuario1@example.com', rol: 'Administrador' },
+  { id: 2, nombre: 'Usuario 2', email: 'usuario2@example.com', rol: 'Usuario' },
+  { id: 3, nombre: 'Usuario 3', email: 'usuario3@example.com', rol: 'Usuario' },
+  // Agregar más datos de usuarios según sea necesario
+];
 
-const BoardUser = () => {
-  const [content, setContent] = useState('');
+const VentasData = [
+  { fecha: '2022-01-01', cantidad: 10 },
+  { fecha: '2022-01-02', cantidad: 15 },
+  { fecha: '2022-01-03', cantidad: 20 },
+  // Agregar más datos de ventas según sea necesario
+];
 
-  useEffect(() => {
-    UserService.getUserBoard().then(
-      (response) => {
-        setContent(response.data);
-      },
-      (error) => {
-        const _content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+const Administracion = () => {
+  const [page, setPage] = useState(1);
+  const [rowsPerPage] = useState(5);
 
-        setContent(_content);
-      },
-    );
-  }, []);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
+    <div style={{ padding: '20px' }}>
+      <Typography variant="h4" gutterBottom>Panel de Administración</Typography>
+
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>Usuarios</Typography>
+              <Typography variant="body2" color="textSecondary">Total: {UsuariosData.length}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>Conexiones</Typography>
+              <Typography variant="body2" color="textSecondary">Total: {VentasData.reduce((total, venta) => total + venta.cantidad, 0)}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        {/* Agregar más tarjetas para otras funciones de administración */}
+      </Grid>
+
+      <Typography variant="h5" gutterBottom style={{ marginTop: '30px' }}>Usuarios</Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Rol</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+                ? UsuariosData.slice((page - 1) * rowsPerPage, page * rowsPerPage)
+                : UsuariosData
+            ).map((usuario) => (
+              <TableRow key={usuario.id}>
+                <TableCell>{usuario.id}</TableCell>
+                <TableCell>{usuario.nombre}</TableCell>
+                <TableCell>{usuario.email}</TableCell>
+                <TableCell>{usuario.rol}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Pagination
+        style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
+        count={Math.ceil(UsuariosData.length / rowsPerPage)}
+        page={page}
+        onChange={handleChangePage}
+        variant="outlined"
+        shape="rounded"
+      />
+
+      {/* Gráfico de ventas */}
+      <Typography variant="h5" gutterBottom style={{ marginTop: '30px' }}>Gráfico de conexiones</Typography>
+      <ResponsiveContainer width="100%" height={400}>
+        <LineChart
+          data={VentasData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="fecha" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="cantidad" stroke="#8884d8" />
+        </LineChart>
+      </ResponsiveContainer>
+
+      {/* Agregar más contenido, como botones de acción, estadísticas, etc. */}
     </div>
   );
 };
 
-export default BoardUser;
+export default Administracion;

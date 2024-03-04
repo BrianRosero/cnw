@@ -163,7 +163,7 @@ const ProfileSection = () => {
                         <Typography component="span" variant="h3" sx={{ fontWeight: 400 }}>
                           {currentUser ? (
                             <Typography color={theme.palette.primary.main} variant="h3">
-                              {currentUser.username}
+                              {currentUser.names} {currentUser.lastname}
                             </Typography>
                           ) : (
                             <div>
@@ -261,7 +261,7 @@ const ProfileSection = () => {
                             primary={
                               <Grid container spacing={1} justifyContent="space-between">
                                 <Grid item>
-                                  <Typography variant="body2">Perfil Social</Typography>
+                                  <Typography variant="body2" href="/profile/profile">Perfil Social</Typography>
                                 </Grid>
                                 <Grid item>
                                   <Chip

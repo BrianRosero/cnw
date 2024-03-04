@@ -1,5 +1,5 @@
 // assets
-import { IconKey, IconReceipt2, IconBug, IconBellRinging, IconPhoneCall } from '@tabler/icons-react';
+import { IconKey, IconReceipt2, IconBug, IconBellRinging, IconPhoneCall, IconBrandChrome, IconLayoutKanban, IconChartBar, IconMessages, IconCalendar, IconReport } from '@tabler/icons-react';
 
 // constant
 const icons = {
@@ -8,30 +8,60 @@ const icons = {
   IconBug,
   IconBellRinging,
   IconPhoneCall,
+  IconBrandChrome,
+  IconLayoutKanban,
+  IconChartBar,
+  IconMessages,
+  IconCalendar,
+  IconReport,
 };
 
 //-----------------------|| EXTRA PAGES MENU ITEMS ||-----------------------//
-
 export const widget = {
   id: 'widget',
   title: 'Widget',
   caption: 'Widget',
   type: 'group',
   children: [
+
     {
       id: 'estadisticas',
       title: 'Estadisticas',
       type: 'item',
-      url: '/utils/util-color',
-      icon: icons['IconPalette'],
+      url: '/widget/estadistics',
+      icon: icons['IconChartBar'],
       breadcrumbs: false,
     },
     {
-      id: 'util-color',
-      title: 'Color',
+      id: 'kanban',
+      title: 'Kanban',
       type: 'item',
-      url: '/utils/util-color',
-      icon: icons['IconPalette'],
+      url: 'widget/kanban',
+      icon: icons['IconLayoutKanban'],
+      breadcrumbs: false,
+    },
+    {
+      id: 'chat',
+      title: 'Chat',
+      type: 'item',
+      url: 'widget/chat',
+      icon: icons['IconMessages'],
+      breadcrumbs: false,
+    },
+    {
+      id: 'calendar',
+      title: 'Calendario',
+      type: 'item',
+      url: 'widget/calendar',
+      icon: icons['IconCalendar'],
+      breadcrumbs: false,
+    },
+    {
+      id: 'reports',
+      title: 'Reportes',
+      type: 'item',
+      url: 'widget/reports',
+      icon: icons['IconReport'],
       breadcrumbs: false,
     },
   ],

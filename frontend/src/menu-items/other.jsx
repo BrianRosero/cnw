@@ -1,8 +1,8 @@
 // assets
-import { IconBrandChrome, IconHelp } from '@tabler/icons-react';
+import { IconBrandChrome, IconHelp, IconMailQuestion } from '@tabler/icons-react';
 
 // constant
-const icons = { IconBrandChrome, IconHelp };
+const icons = { IconBrandChrome, IconHelp, IconMailQuestion };
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
@@ -12,15 +12,23 @@ const other = {
   children: [
     {
       id: 'sample-page',
-      title: 'Sample Page',
+      title: 'Pagina de ejemplo',
       type: 'item',
       url: '/sample-page',
       icon: icons.IconBrandChrome,
       breadcrumbs: false,
     },
     {
+      id: 'preguntas',
+      title: 'Preguntas',
+      type: 'item',
+      url: '/others/preguntas',
+      icon: icons.IconMailQuestion,
+      breadcrumbs: false,
+    },
+    {
       id: 'documentation',
-      title: 'Documentation',
+      title: 'Documentación',
       type: 'item',
       url: 'https://codedthemes.gitbook.io/berry/',
       icon: icons.IconHelp,

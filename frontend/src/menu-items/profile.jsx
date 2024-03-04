@@ -1,5 +1,5 @@
 // assets
-import { IconTypography, IconPalette, IconShadow, IconWindmill } from '@tabler/icons-react';
+import { IconTypography, IconPalette, IconShadow, IconWindmill, IconHome, IconUserCircle,IconUserCog } from '@tabler/icons-react';
 
 // constant
 const icons = {
@@ -7,13 +7,16 @@ const icons = {
   IconPalette,
   IconShadow,
   IconWindmill,
+  IconHome,
+  IconUserCircle,
+  IconUserCog,
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
 const profile = {
   id: 'profile',
-  title: 'Profile',
+  title: 'Perfil',
   type: 'group',
   children: [
     {
@@ -21,25 +24,41 @@ const profile = {
       title: 'Home',
       type: 'item',
       url: '/profile/home',
-      icon: icons.IconTypography,
+      icon: icons.IconHome,
       breadcrumbs: false,
     },
     {
       id: 'profile',
-      title: 'profile',
+      title: 'Perfil',
       type: 'item',
       url: '/profile/profile',
-      icon: icons.IconPalette,
+      icon: icons.IconUserCircle,
       breadcrumbs: false,
     },
     {
       id: 'Admin',
-      title: 'Admin',
+      title: 'Administración',
       type: 'item',
       url: '/profile/admin',
-      icon: icons.IconPalette,
+      icon: icons.IconUserCog,
       breadcrumbs: false,
     },
+   /* {
+      id: 'User',
+      title: 'Usuario',
+      type: 'item',
+      url: '/profile/user',
+      icon: icons.IconPalette,
+      breadcrumbs: false,
+    },*/
+    /*{
+      id: 'Moderator',
+      title: 'Moderador',
+      type: 'item',
+      url: '/profile/moderator',
+      icon: icons.IconPalette,
+      breadcrumbs: false,
+    },*/
   ],
 };
 

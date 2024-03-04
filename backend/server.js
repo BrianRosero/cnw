@@ -28,7 +28,7 @@ db.sequelize.sync().then(() => {
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Bienvenido esta es la aplicación CONSULNETWORKS." });
 });
 
 // routes

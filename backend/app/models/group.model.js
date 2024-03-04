@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Group = sequelize.define("group", {
+  const Group = sequelize.define("groups", {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
@@ -12,7 +12,11 @@ module.exports = (sequelize, Sequelize) => {
     },
     nit: {
       type: Sequelize.STRING
+    },
+    logo: {
+      type: Sequelize.STRING
     }
   });
+
   return Group;
 };

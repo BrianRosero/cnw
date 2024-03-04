@@ -18,6 +18,16 @@ import Home from '../views/pages/Home.jsx';
 import Profile from '../views/pages/Profile.jsx';
 import BoardUser from '../views/pages/BoardUser.jsx';
 import BoardAdmin from '../views/pages/BoardAdmin.jsx';
+import Kanban from '../views/pages/Kanban.jsx';
+import Estadisticas from '../views/pages/Estadisticas.jsx';
+import BoardModerator from '@/views/pages/BoardModerator.jsx';
+import Rendimiento from '../views/pages/Rendimiento.jsx';
+import Chat from '../views/pages/Chat.jsx';
+import Calendario from '../views/pages/Calendario.jsx';
+import CRM from '../views/pages/CRM.jsx';
+import Consulnetworks from '@/views/pages/Consulnetworks.jsx';
+import Preguntas from '@/views/pages/Preguntas.jsx';
+import Reportes from '@/views/pages/Reportes.jsx';
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('../views/sample-page/index.jsx')));
@@ -38,6 +48,24 @@ const MainRoutes = {
         {
           path: 'default',
           element: <DashboardDefault />,
+        },
+      ],
+    },
+    {
+      path: 'dashboard',
+      children: [
+        {
+          path: 'crm',
+          element: <CRM />,
+        },
+      ],
+    },
+    {
+      path: 'dashboard',
+      children: [
+        {
+          path: 'rendimiento',
+          element: <Rendimiento />,
         },
       ],
     },
@@ -74,6 +102,69 @@ const MainRoutes = {
         {
           path: 'admin',
           element: <BoardAdmin />,
+        },
+      ],
+    },
+    {
+      path: 'profile',
+      children: [
+        {
+          path: 'moderator',
+          element: <BoardModerator />,
+        },
+      ],
+    },
+    {
+      path: 'widget',
+      children: [
+        {
+          path: 'kanban',
+          element: <Kanban />,
+        },
+      ],
+    },
+    {
+      path: 'widget',
+      children: [
+        {
+          path: 'chat',
+          element: <Chat />,
+        },
+      ],
+    },
+    {
+      path: 'widget',
+      children: [
+        {
+          path: 'calendar',
+          element: <Calendario />,
+        },
+      ],
+    },
+    {
+      path: 'widget',
+      children: [
+        {
+          path: 'estadistics',
+          element: <Estadisticas />,
+        },
+      ],
+    },
+    {
+      path: 'widget',
+      children: [
+        {
+          path: 'reports',
+          element: <Reportes />,
+        },
+      ],
+    },
+    {
+      path: 'integrations',
+      children: [
+        {
+          path: 'consulnetworks',
+          element: <Consulnetworks />,
         },
       ],
     },
@@ -125,6 +216,15 @@ const MainRoutes = {
     {
       path: 'sample-page',
       element: <SamplePage />,
+    },
+    {
+      path: 'others',
+      children: [
+        {
+          path: 'preguntas',
+          element: <Preguntas />,
+        },
+      ],
     },
   ],
 };

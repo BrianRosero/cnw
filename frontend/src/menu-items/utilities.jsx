@@ -18,7 +18,7 @@ const utilities = {
   children: [
     {
       id: 'util-typography',
-      title: 'Typography',
+      title: 'Tipografia',
       type: 'item',
       url: '/utils/util-typography',
       icon: icons.IconTypography,
@@ -26,7 +26,7 @@ const utilities = {
     },
     {
       id: 'util-color',
-      title: 'Color',
+      title: 'Colores',
       type: 'item',
       url: '/utils/util-color',
       icon: icons.IconPalette,
@@ -34,7 +34,7 @@ const utilities = {
     },
     {
       id: 'util-shadow',
-      title: 'Shadow',
+      title: 'Sombras',
       type: 'item',
       url: '/utils/util-shadow',
       icon: icons.IconShadow,
@@ -42,7 +42,7 @@ const utilities = {
     },
     {
       id: 'icons',
-      title: 'Icons',
+      title: 'Iconos',
       type: 'collapse',
       icon: icons.IconWindmill,
       children: [
