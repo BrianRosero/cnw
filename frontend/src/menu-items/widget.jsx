@@ -64,5 +64,13 @@ export const widget = {
       icon: icons['IconReport'],
       breadcrumbs: false,
     },
+    {
+      id: 'tickets',
+      title: 'Tickets',
+      type: 'item',
+      url: 'widget/tickets',
+      icon: icons['IconReport'],
+      breadcrumbs: false,
+    },
   ],
 };

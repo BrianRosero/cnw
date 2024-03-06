@@ -43,7 +43,7 @@ const PopularCard = ({ isLoading }) => {
               <Grid item xs={12}>
                 <Grid container alignContent="center" justifyContent="space-between">
                   <Grid item>
-                    <Typography variant="h4">Popular Stocks</Typography>
+                    <Typography variant="h4">Acciones populares</Typography>
                   </Grid>
                   <Grid item>
                     <MoreHorizOutlinedIcon
@@ -72,9 +72,9 @@ const PopularCard = ({ isLoading }) => {
                         horizontal: 'right',
                       }}
                     >
-                      <MenuItem onClick={handleClose}> Today</MenuItem>
-                      <MenuItem onClick={handleClose}> This Month</MenuItem>
-                      <MenuItem onClick={handleClose}> This Year </MenuItem>
+                      <MenuItem onClick={handleClose}> Hoy</MenuItem>
+                      <MenuItem onClick={handleClose}> Este Mes</MenuItem>
+                      <MenuItem onClick={handleClose}> Este Año </MenuItem>
                     </Menu>
                   </Grid>
                 </Grid>
@@ -88,7 +88,7 @@ const PopularCard = ({ isLoading }) => {
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography variant="subtitle1" color="inherit">
-                          Bajaj Finery
+                          Valores de prueba
                         </Typography>
                       </Grid>
                       <Grid item>
@@ -119,7 +119,7 @@ const PopularCard = ({ isLoading }) => {
                   </Grid>
                   <Grid item>
                     <Typography variant="subtitle2" sx={{ color: 'success.dark' }}>
-                      10% Profit
+                      10% Ganancia
                     </Typography>
                   </Grid>
                 </Grid>
@@ -160,7 +160,7 @@ const PopularCard = ({ isLoading }) => {
                   </Grid>
                   <Grid item>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.orange.dark }}>
-                      10% loss
+                      10% Perdida
                     </Typography>
                   </Grid>
                 </Grid>
@@ -170,7 +170,7 @@ const PopularCard = ({ isLoading }) => {
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography variant="subtitle1" color="inherit">
-                          Reliance
+                          Dependencia
                         </Typography>
                       </Grid>
                       <Grid item>
@@ -201,7 +201,7 @@ const PopularCard = ({ isLoading }) => {
                   </Grid>
                   <Grid item>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.success.dark }}>
-                      10% Profit
+                      10% Ganancia
                     </Typography>
                   </Grid>
                 </Grid>
@@ -242,7 +242,7 @@ const PopularCard = ({ isLoading }) => {
                   </Grid>
                   <Grid item>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.orange.dark }}>
-                      10% loss
+                      10% Perdida
                     </Typography>
                   </Grid>
                 </Grid>
@@ -283,7 +283,7 @@ const PopularCard = ({ isLoading }) => {
                   </Grid>
                   <Grid item>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.orange.dark }}>
-                      10% loss
+                      10% Perdida
                     </Typography>
                   </Grid>
                 </Grid>
@@ -292,7 +292,7 @@ const PopularCard = ({ isLoading }) => {
           </CardContent>
           <CardActions sx={{ p: 1.25, pt: 0, justifyContent: 'center' }}>
             <Button size="small" disableElevation>
-              View All
+              Ver todo
               <ChevronRightOutlinedIcon />
             </Button>
           </CardActions>

@@ -28,6 +28,7 @@ import CRM from '../views/pages/CRM.jsx';
 import Consulnetworks from '@/views/pages/Consulnetworks.jsx';
 import Preguntas from '@/views/pages/Preguntas.jsx';
 import Reportes from '@/views/pages/Reportes.jsx';
+import Tickets from '@/views/pages/Tickets.jsx';
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('../views/sample-page/index.jsx')));
@@ -165,6 +166,15 @@ const MainRoutes = {
         {
           path: 'consulnetworks',
           element: <Consulnetworks />,
+        },
+      ],
+    },
+    {
+      path: 'widget',
+      children: [
+        {
+          path: 'tickets',
+          element: <Tickets />,
         },
       ],
     },

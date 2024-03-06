@@ -125,16 +125,16 @@ const EarningCard = ({ isLoading }) => {
                       }}
                     >
                       <MenuItem onClick={handleClose}>
-                        <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Import Card
+                        <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Importar
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
-                        <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Data
+                        <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copiar datos
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
-                        <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} /> Export
+                        <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} /> Exportar
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
-                        <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
+                        <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Documentos archivados
                       </MenuItem>
                     </Menu>
                   </Grid>
@@ -144,7 +144,7 @@ const EarningCard = ({ isLoading }) => {
                 <Grid container alignItems="center">
                   <Grid item>
                     <Typography
-                      sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$500.00</Typography>
+                      style={{color:'#004a8f'}} sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$500.00</Typography>
                   </Grid>
                   <Grid item>
                     <Avatar
@@ -168,7 +168,7 @@ const EarningCard = ({ isLoading }) => {
                     color: theme.palette.secondary[200],
                   }}
                 >
-                  Total Earning
+                  Total Pedidos
                 </Typography>
               </Grid>
             </Grid>

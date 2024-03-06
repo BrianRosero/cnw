@@ -76,7 +76,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
       {isLoading ? (
         <SkeletonTotalOrderCard />
       ) : (
-        <CardWrapper border={false} content={false}>
+        <CardWrapper border={false} content={false} sx={{background: '#004a8f'}}>
           <Box sx={{ p: 2.25 }}>
             <Grid container direction="column">
               <Grid item>
@@ -87,7 +87,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.largeAvatar,
-                        backgroundColor: theme.palette.primary[800],
+                        backgroundColor: '',
                         color: '#fff',
                         mt: 1,
                       }}
@@ -103,7 +103,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                       sx={{ color: 'inherit' }}
                       onClick={(e) => handleChangeTime(e, true)}
                     >
-                      Month
+                      Mes
                     </Button>
                     <Button
                       disableElevation
@@ -112,7 +112,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                       sx={{ color: 'inherit' }}
                       onClick={(e) => handleChangeTime(e, false)}
                     >
-                      Year
+                      Año
                     </Button>
                   </Grid>
                 </Grid>
@@ -150,7 +150,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                             color: theme.palette.primary[200],
                           }}
                         >
-                          Total Order
+                          Total Ordenes
                         </Typography>
                       </Grid>
                     </Grid>

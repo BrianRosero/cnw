@@ -178,7 +178,7 @@ const ProfileSection = () => {
                       id="input-search-profile"
                       value={value}
                       onChange={(e) => setValue(e.target.value)}
-                      placeholder="Search profile options"
+                      placeholder="Buscar opciones en el Perfil"
                       startAdornment={
                         <InputAdornment position="start">
                           <IconSearch stroke={1.5} size="1rem" color={theme.palette.grey[500]} />

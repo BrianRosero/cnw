@@ -13,7 +13,7 @@ import Chart from 'react-apexcharts';
 // project imports
 import SkeletonTotalGrowthBarChart from '../../../ui-component/cards/Skeleton/TotalGrowthBarChart';
 import MainCard from '../../../ui-component/cards/MainCard';
-import { gridSpacing } from '../../../actions/types.jsx';
+import { gridSpacing } from '@/actions/types.jsx';
 
 // chart data
 import chartData from './chart-data/total-growth-bar-chart';
@@ -21,15 +21,15 @@ import chartData from './chart-data/total-growth-bar-chart';
 const status = [
   {
     value: 'today',
-    label: 'Today',
+    label: 'Hoy',
   },
   {
     value: 'month',
-    label: 'This Month',
+    label: 'Este Mes',
   },
   {
     value: 'year',
-    label: 'This Year',
+    label: 'Este Año',
   },
 ];
 
@@ -100,7 +100,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 <Grid item>
                   <Grid container direction="column" spacing={1}>
                     <Grid item>
-                      <Typography variant="subtitle2">Total Growth</Typography>
+                      <Typography variant="subtitle2">Total </Typography>
                     </Grid>
                     <Grid item>
                       <Typography variant="h3">$2,324.00</Typography>

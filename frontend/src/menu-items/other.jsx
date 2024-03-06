@@ -30,7 +30,8 @@ const other = {
       id: 'documentation',
       title: 'Documentación',
       type: 'item',
-      url: 'https://codedthemes.gitbook.io/berry/',
+      /*url: 'https://codedthemes.gitbook.io/berry/',*/
+      url: '#',
       icon: icons.IconHelp,
       external: true,
       target: true,
