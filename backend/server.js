@@ -22,7 +22,7 @@ const Role = db.role;
 // db.sequelize.sync();
 // force: true will drop the table if it already exists
 db.sequelize.sync().then(() => {
-  console.log('Database synchronized');
+  console.log('Base de datos sincronizada');
   initial();
 });
 
@@ -38,7 +38,7 @@ require('./app/routes/user.routes')(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`El Servidor se está ejecutando en el puerto ${PORT}.`);
 });
 
 function initial() {
@@ -66,6 +66,6 @@ function initial() {
         }
       })
       .catch(err => {
-        console.error('Error checking roles:', err);
+        console.error('Error revisando los roles:', err);
       });
 }

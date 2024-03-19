@@ -114,7 +114,7 @@ const ProfileSection = () => {
         }}
         icon={
           <Avatar
-            src={User1}
+            src={User1}Iphone
             sx={{
               ...theme.typography.mediumAvatar,
               margin: '8px 0 8px 8px !important',
