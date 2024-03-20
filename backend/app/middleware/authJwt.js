@@ -11,13 +11,12 @@ verifyToken = (req, res, next) => {
       message: "No tienes acceso!"
     });
   }
-
   jwt.verify(token,
             config.secret,
             (err, decoded) => {
               if (err) {
                 return res.status(401).send({
-                  message: "Unauthorized!",
+                  message: "No tienes permiso!",
                 });
               }
               req.userId = decoded.id;
@@ -29,14 +28,13 @@ isAdmin = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "admin") {
+        if (roles[i].name === "administrador") {
           next();
           return;
         }
       }
-
       res.status(403).send({
-        message: "Require Admin Role!"
+        message: "Requiere Rol de Administrador !"
       });
       return;
     });
@@ -64,19 +62,19 @@ isModeratorOrAdmin = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "moderator") {
+        if (roles[i].name === "moderador") {
           next();
           return;
         }
 
-        if (roles[i].name === "admin") {
+        if (roles[i].name === "administrador") {
           next();
           return;
         }
       }
 
       res.status(403).send({
-        message: "Require Moderator or Admin Role!"
+        message: "Requiere Rol de Moderador o Administrador !"
       });
     });
   });

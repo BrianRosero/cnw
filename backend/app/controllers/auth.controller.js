@@ -17,6 +17,8 @@ exports.signup = (req, res) => {
     password: bcrypt.hashSync(req.body.password, 8),
     names: req.body.names,
     lastname: req.body.lastname,
+    profile: req.body.profile,
+    description: req.body.description,
   })
     .then(user => {
       if (req.body.roles) {
@@ -106,6 +108,8 @@ exports.signin = (req, res) => {
           accessToken: token,
           names: user.names,
           lastname: user.lastname,
+          profile: user.profile,
+          description: user.description,
         });
       });
     })

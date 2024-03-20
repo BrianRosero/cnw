@@ -37,7 +37,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
     }).then(user => {
       if (user) {
         res.status(400).send({
-          message: "El nombre de usuario ya está en uso!"
+          message: "El correo electronico ya está en uso!"
         });
         return;
       }

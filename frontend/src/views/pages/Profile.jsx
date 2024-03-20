@@ -47,7 +47,7 @@ const ProfilePage = () => {
             <Avatar style={{ width: '100px', height: '100px', margin: '0 auto 20px' }} alt="Brian Rosero" src={User1} />
             <Typography variant="h4" gutterBottom>{currentUser.username}</Typography>
             <Typography variant="h4" gutterBottom>{currentUser.names} {currentUser.lastname}</Typography>
-            <Typography variant="subtitle1" gutterBottom>Ingeniero de tecnologia y desarrollo</Typography>
+            <Typography variant="subtitle1" gutterBottom>{currentUser.profile}</Typography>
             <Divider style={{ margin: '20px auto', width: '50%' }} />
             <Typography variant="body1" gutterBottom><Email /> {currentUser.email}</Typography>
             <Typography variant="body1" gutterBottom><LocationOn /> Cali, Valle del Cauca.</Typography>
@@ -79,10 +79,7 @@ const ProfilePage = () => {
           <Paper style={{ padding: '40px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', marginBottom: '20px' }}>
             <Typography variant="h5" gutterBottom>Acerca de Mí</Typography>
             <Typography variant="body1" gutterBottom>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu neque
-              non enim gravida lobortis. Aenean dictum nec nisi sed lacinia. Integer vitae
-              condimentum magna. Pellentesque habitant morbi tristique senectus et netus et
-              malesuada fames ac turpis egestas.
+              {currentUser.description}
             </Typography>
           </Paper>
           <Paper style={{ padding: '40px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', marginBottom: '20px' }}>

@@ -49,23 +49,23 @@ function initial() {
           // Si no hay roles, crear los roles
           Role.create({
             id: 1,
-            name: "user"
+            name: "usuario"
           });
 
           Role.create({
             id: 2,
-            name: "moderator"
+            name: "moderador"
           });
 
           Role.create({
             id: 3,
-            name: "admin"
+            name: "administrador"
           });
         } else {
           console.log('No se han creado algunos roles porque ya existen');
         }
       })
       .catch(err => {
-        console.error('Error revisando los roles:', err);
+        console.error('Error al revisar los roles:', err);
       });
 }
