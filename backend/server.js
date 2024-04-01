@@ -1,7 +1,20 @@
 const express = require("express");
 const cors = require("cors");
-
 const app = express();
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const httpServer = createServer(app);
+const io = new Server(httpServer, { /* options */ });
+
+io.on("connection", (socket) => {
+  // ...
+});
+
+httpServer.listen(3000);
+
+const count = io.engine.clientsCount;
+// may or may not be similar to the count of Socket instances in the main namespace, depending on your usage
+const count2 = io.of("/").sockets.size;
 
 var corsOptions = {
   origin: ["http://localhost:8081", "http://localhost:8082", "http://localhost:5173", "http://localhost:3000/"]
