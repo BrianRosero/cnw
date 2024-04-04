@@ -15,9 +15,9 @@ const IFrameWrapper = styled('iframe')(({ theme }) => ({
 // ============================|| MATERIAL ICONS ||============================ //
 
 const MaterialIcons = () => (
-  <MainCard title="CONSULNETWORKS" secondary={<SecondaryAction link="https://www.cnw.co/" />}>
+  <MainCard title="CONSULNETWORKS" secondary={<SecondaryAction link="http://phantom.consulnetworks.com.co:8081/ispsuite/plsql/www_inicio.inicio" />}>
     <Card sx={{ overflow: 'hidden' }}>
-      <IFrameWrapper title="Pagina Consulnetworks" width="100%" src="https://www.cnw.co/" />
+      <IFrameWrapper title="Pagina Consulnetworks" width="100%" src="http://phantom.consulnetworks.com.co:8081/ispsuite/plsql/www_inicio.inicio" />
     </Card>
   </MainCard>
 );
