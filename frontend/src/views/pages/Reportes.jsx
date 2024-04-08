@@ -1,65 +1,90 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Typography, Button, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React,{useState} from 'react'
+// Import the main component
+import { Viewer } from '@react-pdf-viewer/core'; // install this library
+// Plugins
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'; // install this library
+// Import the styles
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+// Worker
+import { Worker } from '@react-pdf-viewer/core'; // install this library
 
-const Reportes = () => {
-  const [loading, setLoading] = useState(false);
-  const [reports, setReports] = useState([]);
+export const Reportes = () => {
 
-  useEffect(() => {
-    setLoading(true);
-    // Simulando llamada a una API para obtener los reportes
-    setTimeout(() => {
-      const mockReports = [
-        { id: 1, date: '2024-03-01', process: 'Proceso A', status: 'Completado' },
-        { id: 2, date: '2024-03-02', process: 'Proceso B', status: 'Pendiente' },
-        { id: 3, date: '2024-03-03', process: 'Proceso C', status: 'En curso' }
-      ];
-      setReports(mockReports);
-      setLoading(false);
-    }, 1000);
-  }, []);
+  // Create new plugin instance
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
+  // for onchange event
+  const [pdfFile, setPdfFile]=useState(null);
+  const [pdfFileError, setPdfFileError]=useState('');
+
+  // for submit event
+  const [viewPdf, setViewPdf]=useState(null);
+
+  // onchange event
+  const fileType=['application/pdf'];
+  const handlePdfFileChange=(e)=>{
+    let selectedFile=e.target.files[0];
+    if(selectedFile){
+      if(selectedFile&&fileType.includes(selectedFile.type)){
+        let reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onloadend = (e) =>{
+          setPdfFile(e.target.result);
+          setPdfFileError('');
+        }
+      }
+      else{
+        setPdfFile(null);
+        setPdfFileError('Por favor selecciona un archivo PDF');
+      }
+    }
+    else{
+      console.log('Selecciona tu archivo');
+    }
+  }
+
+  // form submit
+  const handlePdfFileSubmit=(e)=>{
+    e.preventDefault();
+    if(pdfFile!==null){
+      setViewPdf(pdfFile);
+    }
+    else{
+      setViewPdf(null);
+    }
+  }
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Reportes Diarios de Procesos Contratados
-      </Typography>
-      <Button variant="contained" color="primary" component={Link} to="/create-report">
-        Crear Reporte
-      </Button>
-      {loading ? (
-        <Typography variant="body1">Cargando...</Typography>
-      ) : (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Fecha</TableCell>
-              <TableCell>Proceso</TableCell>
-              <TableCell>Estado</TableCell>
-              <TableCell>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {reports.map((report) => (
-              <TableRow key={report.id}>
-                <TableCell>{report.id}</TableCell>
-                <TableCell>{report.date}</TableCell>
-                <TableCell>{report.process}</TableCell>
-                <TableCell>{report.status}</TableCell>
-                <TableCell>
-                  <Button variant="outlined" component={Link} to={`/report/${report.id}`}>
-                    Ver Detalles
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
-    </Container>
-  );
-};
+    <div className='container'>
 
-export default Reportes;
+      <br></br>
+
+      <form className='form-group' onSubmit={handlePdfFileSubmit}>
+        <input type="file" className='form-control'
+               required onChange={handlePdfFileChange}
+        />
+        {pdfFileError&&<div className='error-msg'>{pdfFileError}</div>}
+        <br></br>
+        <button type="submit" className='btn btn-success btn-lg'>
+          Visualizar
+        </button>
+      </form>
+      <br></br>
+      <h4>Vizualizador PDF</h4>
+      <div className='pdf-container'>
+        {/* show pdf conditionally (if we have one)  */}
+        {viewPdf&&<><Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
+        <Viewer fileUrl={viewPdf}
+                  plugins={[defaultLayoutPluginInstance]} />
+        </Worker></>}
+
+        {/* if we dont have pdf or viewPdf state is null */}
+        {!viewPdf&&<>No se ha seleccionado ningun PDF</>}
+      </div>
+
+    </div>
+  )
+}
+
+export default Reportes
