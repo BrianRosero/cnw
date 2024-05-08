@@ -1,0 +1,85 @@
+/* Estilos del logo */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos adicionales */
+.mainContent {
+    padding-top: 160px;
+}
+
+.appBar {
+    background-color: #ffffff;
+    border-radius: 8px;
+    position: auto;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 0;
+}
+
+.logoText {
+    font-family: 'Barlow Condensed', Helvetica, Arial, Lucida, sans-serif;
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.menuLinks {
+    display: flex;
+    align-items: center;
+}
+
+.menuItem {
+    font-family: 'Barlow Condensed', Helvetica, Arial, Lucida, sans-serif;
+    margin-right: 20px;
+    color: #004884;
+    font-weight: bold;
+}
+
+.card {
+    background-color: #ffffff;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.cardTitle {
+    font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
+    font-size: 1.5rem;
+    color: #004884;
+    font-weight: bold;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.testimonial {
+    background-color: #c3c1c1;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.testimonialText {
+    margin-bottom: 10px;
+}
+
+.testimonialAuthor {
+    font-weight: bold;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}

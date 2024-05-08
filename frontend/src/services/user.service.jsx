@@ -19,9 +19,19 @@ const getAdminBoard = () => {
   return axios.get(API_URL + 'admin', { headers: authHeader() });
 };
 
+const getAdminESECENTRO = () => {
+  return axios.get(API_URL + 'adminESECENTRO', { headers: authHeader() });
+};
+
+const getAdminCAMARA = () => {
+  return axios.get(API_URL + 'adminCAMARA', { headers: authHeader() });
+};
+
 export default {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
+  getAdminESECENTRO,
+  getAdminCAMARA,
 };

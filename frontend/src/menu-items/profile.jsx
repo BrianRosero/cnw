@@ -1,5 +1,13 @@
 // assets
-import { IconTypography, IconPalette, IconShadow, IconWindmill, IconHome, IconUserCircle,IconUserCog } from '@tabler/icons-react';
+import {
+  IconTypography,
+  IconPalette,
+  IconShadow,
+  IconWindmill,
+  IconHome,
+  IconUserCircle,
+  IconUserCog,
+} from '@tabler/icons-react';
 
 // constant
 const icons = {
@@ -20,7 +28,7 @@ const profile = {
   type: 'group',
   children: [
     {
-      id: 'Home',
+      id: 'home',
       title: 'Home',
       type: 'item',
       url: '/profile/home',
@@ -28,7 +36,7 @@ const profile = {
       breadcrumbs: false,
     },
     {
-      id: 'profile',
+      id: 'perfil',
       title: 'Perfil',
       type: 'item',
       url: '/profile/profile',
@@ -43,14 +51,14 @@ const profile = {
       icon: icons.IconUserCog,
       breadcrumbs: false,
     },
-   /* {
+    {
       id: 'User',
       title: 'Usuario',
       type: 'item',
       url: '/profile/user',
       icon: icons.IconPalette,
       breadcrumbs: false,
-    },*/
+    },
     /*{
       id: 'Moderator',
       title: 'Moderador',

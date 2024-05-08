@@ -5,19 +5,21 @@ import MainLayout from '../layout/MainLayout/index.jsx';
 import Loadable from '../ui-component/Loadable.jsx';
 
 // dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('../views/dashboard/Default/index.jsx')));
+const DashboardDefault1 = Loadable(lazy(() => import('../views/pages/Consulnetworks.jsx')));
 
 // utilities routing
-const UtilsTypography = Loadable(lazy(() => import('../views/utilities/Typography.jsx')));
-const UtilsColor = Loadable(lazy(() => import('../views/utilities/Color.jsx')));
-const UtilsShadow = Loadable(lazy(() => import('../views/utilities/Shadow.jsx')));
-const UtilsMaterialIcons = Loadable(lazy(() => import('../views/utilities/MaterialIcons.jsx')));
-const UtilsTablerIcons = Loadable(lazy(() => import('../views/utilities/TablerIcons.jsx')));
+const UtilsTypography = Loadable(lazy(() => import('../views/pages/utilities/Typography.jsx')));
+const UtilsColor = Loadable(lazy(() => import('../views/pages/utilities/Color.jsx')));
+const UtilsShadow = Loadable(lazy(() => import('../views/pages/utilities/Shadow.jsx')));
+const UtilsMaterialIcons = Loadable(lazy(() => import('../views/pages/utilities/MaterialIcons.jsx')));
+const UtilsTablerIcons = Loadable(lazy(() => import('../views/pages/utilities/TablerIcons.jsx')));
+
+const Graficos = Loadable(lazy(() => import('../views/dashboard/Default/index.jsx')));
+const Panel = Loadable(lazy(() => import('../views/pages/Inicio/Panel.jsx')));
 
 import Home from '../views/pages/Home.jsx';
 import Profile from '../views/pages/Profile.jsx';
-import BoardUser from '../views/pages/BoardUser.jsx';
-import BoardAdmin from '../views/pages/BoardAdmin.jsx';
+import Administrador from '../views/pages/Administrador.jsx';
 import Kanban from '../views/pages/Kanban.jsx';
 import Estadisticas from '../views/pages/Estadisticas.jsx';
 import BoardModerator from '@/views/pages/BoardModerator.jsx';
@@ -29,9 +31,12 @@ import Consulnetworks from '@/views/pages/Consulnetworks.jsx';
 import Preguntas from '@/views/pages/Preguntas.jsx';
 import Reportes from '@/views/pages/Reportes.jsx';
 import Tickets from '@/views/pages/Tickets.jsx';
+import BoardAdmin from '@/views/pages/BoardAdmin.jsx';
+import BoardUser from '@/views/pages/BoardUser.jsx';
+import BoardESECENTRO from '@/views/pages/ESECENTRO/BoardESECENTRO2.jsx';
 
 // sample page routing
-const SamplePage = Loadable(lazy(() => import('../views/sample-page/index.jsx')));
+const SamplePage = Loadable(lazy(() => import('../views/pages/sample-page/index.jsx')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -41,14 +46,23 @@ const MainRoutes = {
   children: [
     {
       path: '/',
-      element: <DashboardDefault />,
+      element: <DashboardDefault1 />,
     },
     {
       path: 'dashboard',
       children: [
         {
-          path: 'default',
-          element: <DashboardDefault />,
+          path: 'inicio',
+          element: <DashboardDefault1 />,
+        },
+      ],
+    },
+    {
+      path: 'dashboard',
+      children: [
+        {
+          path: 'panel-de-control',
+          element: <Panel />,
         },
       ],
     },
@@ -67,6 +81,33 @@ const MainRoutes = {
         {
           path: 'rendimiento',
           element: <Rendimiento />,
+        },
+      ],
+    },
+    {
+      path: 'dashboard',
+      children: [
+        {
+          path: 'BoardAdministrator',
+          element: <BoardAdmin />,
+        },
+      ],
+    },
+    {
+      path: 'dashboard',
+      children: [
+        {
+          path: 'BoardModerator',
+          element: <BoardModerator />,
+        },
+      ],
+    },
+    {
+      path: 'dashboard',
+      children: [
+        {
+          path: 'BoardESECENTRO',
+          element: <BoardESECENTRO />,
         },
       ],
     },
@@ -102,7 +143,7 @@ const MainRoutes = {
       children: [
         {
           path: 'admin',
-          element: <BoardAdmin />,
+          element: <Administrador />,
         },
       ],
     },

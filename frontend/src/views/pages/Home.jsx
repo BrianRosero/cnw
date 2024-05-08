@@ -1,15 +1,41 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Typography, Button, TextField, Grid, Card, CardContent } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import UserService from "../../services/user.service";
+import EventBus from "../../common/EventBus";
 
 const validationSchema = yup.object({
   name: yup.string().required('El nombre es requerido'),
   email: yup.string().email('Formato de email inválido').required('El email es requerido'),
   message: yup.string().required('El mensaje es requerido'),
 });
-
 const Home = () => {
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    UserService.getModeratorBoard().then(
+      (response) => {
+        setContent(response.data);
+      },
+      (error) => {
+        const _content =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setContent(_content);
+
+        if (error.response && error.response.status === 401) {
+          EventBus.dispatch("logout");
+        }
+      }
+    );
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -22,6 +48,8 @@ const Home = () => {
       console.log(values);
     },
   });
+
+
 
   return (
     <Container maxWidth="lg">

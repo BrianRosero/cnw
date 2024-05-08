@@ -1,10 +1,11 @@
 // assets
-import { IconDashboard, IconTimeline, IconAlignBoxBottomCenter } from '@tabler/icons-react';
+import { IconDashboard, IconTimeline, IconAlignBoxBottomCenter, IconHome } from '@tabler/icons-react';
 
 // constant
-const icons = { IconDashboard, IconTimeline, IconAlignBoxBottomCenter, };
+const icons = { IconDashboard, IconTimeline, IconAlignBoxBottomCenter, IconHome };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
+
 
 const dashboard = {
   id: 'dashboard',
@@ -13,9 +14,17 @@ const dashboard = {
   children: [
     {
       id: 'default',
-      title: 'Dashboard',
+      title: 'Inicio',
       type: 'item',
-      url: '/dashboard/default',
+      url: '/dashboard/inicio',
+      icon: icons.IconHome,
+      breadcrumbs: false,
+    },
+    {
+      id: 'panel',
+      title: 'Panel de control',
+      type: 'item',
+      url: '/dashboard/panel-de-control',
       icon: icons.IconDashboard,
       breadcrumbs: false,
     },
@@ -32,6 +41,30 @@ const dashboard = {
       title: 'CRM',
       type: 'item',
       url: '/dashboard/crm',
+      icon: icons.IconAlignBoxBottomCenter,
+      breadcrumbs: false,
+    },
+    {
+      id: 'BoardAdministrator',
+      title: 'BoardAdministrator',
+      type: 'item',
+      url: '/dashboard/BoardAdministrator',
+      icon: icons.IconAlignBoxBottomCenter,
+      breadcrumbs: false,
+    },
+    {
+      id: 'BoarModerator',
+      title: 'ESE CENTRO',
+      type: 'item',
+      url: '/dashboard/BoardModerator',
+      icon: icons.IconAlignBoxBottomCenter,
+      breadcrumbs: false,
+    },
+    {
+      id: 'BoarESECENTRO',
+      title: 'Administración',
+      type: 'item',
+      url: '/dashboard/BoardESECENTRO',
       icon: icons.IconAlignBoxBottomCenter,
       breadcrumbs: false,
     },

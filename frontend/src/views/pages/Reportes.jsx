@@ -54,12 +54,9 @@ export const Reportes = () => {
       setViewPdf(null);
     }
   }
-
   return (
     <div className='container'>
-
       <br></br>
-
       <form className='form-group' onSubmit={handlePdfFileSubmit}>
         <input type="file" className='form-control'
                required onChange={handlePdfFileChange}
