@@ -24,9 +24,11 @@
 }
 
 .nav-link {
-    color: #000000;
+    color: #fdfdfd;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 15px;
+    border-bottom: #004a8f;
+    border-right: #004a8f;
 }
 
 .nav-link:hover {

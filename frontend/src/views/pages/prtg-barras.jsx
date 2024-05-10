@@ -24,7 +24,7 @@ const BoardESECENTRO = () => {
     fetchData();
 
     // Establecer un intervalo para realizar solicitudes periódicas cada 5 segundos
-    const intervalId = setInterval(fetchData, 1);
+    const intervalId = setInterval(fetchData, 1000);
 
     // Limpiar el intervalo al desmontar el componente
     return () => clearInterval(intervalId);

@@ -124,16 +124,55 @@ app.get("/", (req, res) => {
   res.json({ message: "Bienvenido esta es la aplicación CONSULNETWORKS." });
 });
 
-//route prtg
+// app.get('/prtg-api', async (req, res) => {
+//   try {
+//     const response = await axios.get('https://200.29.239.5/api/table.json', {
+//       httpsAgent: new https.Agent({
+//         rejectUnauthorized: false
+//       }),
+//       params: {
+//         content: 'sensors',
+//         output: 'json',
+//         columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
+//         username: 'prtgadmin',
+//         password: 'prtgadmin',
+//       }
+//     });
+//     res.json(response.data);
+//   } catch (error) {
+//     console.error('Error fetching data from PRTG API:', error);
+//     res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
+//   }
+// });
+
 app.get('/prtg-api', async (req, res) => {
   try {
     const response = await axios.get('http://10.99.0.228:8080/api/table.json', {
       params: {
         content: 'sensors',
         output: 'json',
-        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite',
+        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
         username: 'prtgadmin',
-        password: 'prtgadmin'
+        password: 'prtgadmin',
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching data from PRTG API:', error);
+    res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
+  }
+});
+
+app.get('/prtg-api/ESECENTRO', async (req, res) => {
+  try {
+    const response = await axios.get('http://10.99.0.228:8080/api/table.json', {
+      params: {
+        content: 'sensors',
+        output: 'json',
+        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
+        username: 'prtgadmin',
+        password: 'prtgadmin',
+        filter_objid: 2102, // Filtrar por el ID del sensor
       }
     });
     res.json(response.data);
