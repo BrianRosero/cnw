@@ -1,19 +1,19 @@
 require('dotenv').config();
 const express = require("express");
-const path = require('path');
+//const path = require('path');
 const cors = require("cors");
 const app = express();
-const { Pool } = require('pg');
-const { Server } = require("socket.io"); // Use Server from socket.io
+//const { Pool } = require('pg');
+//const { Server } = require("socket.io"); // Use Server from socket.io
 const axios = require("axios");
 // Load database info to connect
-const pgUser = process.env.PG_USER;
-const pgPass = process.env.PG_PASS;
-const serverLoc = process.env.PG_SERVER;
-const dbName = process.env.DB_NAME;
-const connString = 'tcp://'+pgUser+':'+pgPass+'@'+serverLoc+':5432/'+dbName;   //username:password@location:port/dbname
+//const pgUser = process.env.PG_USER;
+//const pgPass = process.env.PG_PASS;
+//const serverLoc = process.env.PG_SERVER;
+//const dbName = process.env.DB_NAME;
+//const connString = 'tcp://'+pgUser+':'+pgPass+'@'+serverLoc+':5432/'+dbName;   //username:password@location:port/dbname
 
-var server = app.listen(8083);
+/*var server = app.listen(8083);
 //Listen on socket
 // Use Server constructor
 var io = new Server(server, {
@@ -94,10 +94,10 @@ io.on('connection', function(socket) {
       socket.emit("tableSize", res.rows[0]);
     })
   })
-})
+})*/
 
 var corsOptions = {
-  origin: ["http://localhost:8081", "http://localhost:8082", "http://localhost:5173", "http://localhost:3000/", "http://10.99.0.228:8082", "http://consulnetworks.co:8082"]
+  origin: ["http://localhost:8081", "http://localhost:8082", "http://localhost:8083", "http://localhost:5173", "http://localhost:3000/", "http://10.99.0.228:8083", "http://consulnetworks.co:8082"]
 };
 
 app.use(cors(corsOptions));
@@ -172,7 +172,7 @@ app.get('/prtg-api/ESECENTRO', async (req, res) => {
         columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
         username: 'prtgadmin',
         password: 'prtgadmin',
-        filter_objid: 2102, // Filtrar por el ID del sensor
+        filter_objid: 2099, // Filtrar por el ID del sensor
       }
     });
     res.json(response.data);

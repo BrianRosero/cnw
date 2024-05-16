@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button, List, ListItem, Grid, Box } from '@mui/material';
 import { CheckCircleOutline as CheckIcon, ErrorOutline as ErrorIcon } from '@mui/icons-material';
 import GraficoServidor1 from './CLOCOSMIAP01.jsx';
-import GraficoServidor2 from './CLOCOSMIAP02.jsx';
+import GraficoServidor2 from './COCLOSMIAP04.jsx';
 import GraficoServidor3 from './CLOCOSMIAP03.jsx';
 
-// Definimos una paleta de colores inspirada en Monday.com
 const colors = {
   active: '#64B5F6',
   inactive: '#E57373',
   background: '#ffffff',
   button: '#004a8f',
   textWhite: '#FFFFFF',
-  hoverRed: '#FF0000', // Nuevo color rojo para el hover
+  hoverRed: '#5AAE41',
 };
 
 const Dashboard = () => {
@@ -20,29 +19,27 @@ const Dashboard = () => {
     { id: 1, nombre: 'Servidor 1', estado: 'Activo', carga: 75, usuarios: 102 },
     { id: 2, nombre: 'Servidor 2', estado: 'Inactivo', carga: 0, usuarios: 0 },
     { id: 3, nombre: 'Servidor 3', estado: 'Activo', carga: 60, usuarios: 50 },
-    // Agrega más servidores con datos simulados
   ]);
   const [servidorSeleccionado, setServidorSeleccionado] = useState(null);
   const [graficoSeleccionado, setGraficoSeleccionado] = useState(null);
 
   const handleServidorClick = (servidor) => {
     setServidorSeleccionado(servidor);
-    // Restablecer el gráfico seleccionado cuando se cambia de servidor
     setGraficoSeleccionado(null);
   };
 
-  const handleGraficoClick = (grafico) => {
-    setGraficoSeleccionado(grafico);
+  const handleGraficoClick = (id) => {
+    setGraficoSeleccionado(id);
   };
 
   return (
     <Box sx={{ padding: '20px', backgroundColor: colors.background }}>
-      <Typography variant="h1" sx={{ textAlign: 'center', marginBottom: '20px', color: colors.active }}>Dashboard Futurista</Typography>
+      <Typography variant="h1" sx={{ textAlign: 'center', marginBottom: '20px', color: colors.button }}>Dashboard</Typography>
       <Card style={{ marginBottom: 20, backgroundColor: '#FFFFFF', borderRadius: '8px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
         <CardContent>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={3}>
-              <Typography variant="h5" component="h2" sx={{ color: colors.active, marginBottom: '20px' }}>Servidores</Typography>
+            <Grid item xs={12} md={2}>
+              <Typography variant="h5" component="h2" sx={{ color: colors.button, marginBottom: '20px' }}>Servidores</Typography>
               <List sx={{ backgroundColor: colors.background, borderRadius: '8px', padding: '10px' }}>
                 {servidores.map((servidor) => (
                   <ListItem
@@ -52,17 +49,23 @@ const Dashboard = () => {
                     sx={{
                       marginBottom: '10px',
                       borderRadius: '4px',
-                      backgroundColor: servidorSeleccionado === servidor ? colors.button : '#FFFFFF',
+                      backgroundColor: servidorSeleccionado === servidor ? colors.button : '#fff',
                       boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                       '&:hover': {
                         backgroundColor: colors.hoverRed,
+                        color: '#fff',
                       }
                     }}
                   >
-                    <Typography variant="body1" className={servidor.estado === 'Activo' ? 'activo' : ''} style={{ color: servidorSeleccionado === servidor ? colors.textWhite : 'inherit' }}>{servidor.nombre} - Estado: {servidor.estado}</Typography>
-                    {servidor.estado === 'Activo' ? <CheckIcon sx={{ color: colors.active, marginLeft: 'auto' }} /> : <ErrorIcon sx={{ color: colors.inactive, marginLeft: 'auto' }} />}
+                    <Typography variant="body1" style={{ color: servidorSeleccionado === servidor ? colors.textWhite : 'inherit' }}>
+                      {servidor.nombre} - Estado: {servidor.estado}
+                    </Typography>
+                    {servidor.estado === 'Activo' ? (
+                      <CheckIcon sx={{ color: colors.active, marginLeft: 'auto' }} />
+                    ) : (
+                      <ErrorIcon sx={{ color: colors.inactive, marginLeft: 'auto' }} />
+                    )}
                   </ListItem>
-
                 ))}
               </List>
               {servidorSeleccionado && (
@@ -71,7 +74,7 @@ const Dashboard = () => {
             </Grid>
             {graficoSeleccionado && (
               <Grid item xs={12} md={9}>
-                <GraficoDetalle grafico={graficoSeleccionado} />
+                <GraficoDetalle id={graficoSeleccionado} />
               </Grid>
             )}
           </Grid>
@@ -88,8 +91,7 @@ const ServidorDetalles = ({ servidor, onGraficoClick }) => (
     <Typography variant="body1" gutterBottom>Carga promedio: {servidor.carga}%</Typography>
     <Typography variant="body1" gutterBottom>Usuarios conectados: {servidor.usuarios}</Typography>
     <Button
-      onClick={() => onGraficoClick(`Grafico${servidor.id}`)}
-      disabled={!servidor}
+      onClick={() => onGraficoClick(servidor.id)}
       sx={{
         marginTop: '20px',
         backgroundColor: colors.button,
@@ -104,15 +106,12 @@ const ServidorDetalles = ({ servidor, onGraficoClick }) => (
   </div>
 );
 
-const GraficoDetalle = ({ grafico }) => (
+const GraficoDetalle = ({ id }) => (
   <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-    {grafico === 'Grafico1' && <GraficoServidor1 />}
-    {grafico === 'Grafico2' && <GraficoServidor2 />}
-    {grafico === 'Grafico3' && <GraficoServidor3 />}
+    {id === 1 && <GraficoServidor1 />}
+    {id === 2 && <GraficoServidor2 />}
+    {id === 3 && <GraficoServidor3 />}
   </CardContent>
 );
-
-// Suponiendo que GraficoServidor1, GraficoServidor2 y GraficoServidor3 son componentes de gráficos específicos para cada servidor
-// Debes sustituir estos componentes por los reales que tengas en tu aplicación.
 
 export default Dashboard;

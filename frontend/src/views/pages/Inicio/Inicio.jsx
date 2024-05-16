@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Link, Card, CardContent, Grid, Hidden } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Link, Card, CardContent, Grid} from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import axios from 'axios';
 

@@ -1,57 +1,215 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+import React, { useState, useEffect } from 'react';
+import Chart from 'react-apexcharts';
+//import axios from 'axios';
 
-const SensorCardWrapper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  margin: theme.spacing(2),
-  maxWidth: 400,
-  textAlign: "center",
-}));
+const CombinedAreaGraph = () => {
+  const initialData = [
+    { x: '2024-05-01', y: 50 },
+    { x: '2024-05-02', y: 45 },
+    { x: '2024-05-03', y: 60 },
+    { x: '2024-05-04', y: 30 },
+    { x: '2024-05-05', y: 70 },
+    { x: '2024-05-06', y: 55 },
+  ];
 
-const SensorCard = ({ sensor }) => {
-  return (
-    <SensorCardWrapper>
-      <h3>{sensor.sensor}</h3>
-      <p><strong>ID:</strong> {sensor.objid}</p>
-      <p><strong>Mensaje:</strong> {sensor.probe}</p>
-      <p><strong>Sensor IP:</strong> {sensor.device}</p>
-      <p><strong>Grupo:</strong> {sensor.group}</p>
-      <p><strong>Estado:</strong> {sensor.status}</p>
-      <p><strong>Último valor:</strong> {sensor.lastvalue}</p>
-      <p><strong>Prioridad:</strong> {sensor.priority}</p>
-    </SensorCardWrapper>
-  );
-};
-// objid, probe, group, device, sensor, status, message, lastvalue, priority, favorite, deviceid, device_type,device_manufacturer,device_uptime',
-
-const SENSOR1 = () => {
-  const [sensorData, setSensorData] = useState([]);
+  const [data, setData] = useState(initialData);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/prtg-api/ESECENTRO');
-        setSensorData(response.data.sensors);
-      } catch (error) {
-        console.error('Error fetching sensor data:', error);
-      }
-    };
-    // Realizar la primera solicitud al montar el componente
-    fetchData();
+    const interval = setInterval(() => {
+      setData(prevData => prevData.map((point, index) => {
+        if (index === prevData.length - 1) {
+          return { ...point, y: point.y + Math.floor(Math.random() * 20) - 10 };
+        } else {
+          return point;
+        }
+      }));
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  return (
-    <div>
-      <h1>Datos de Sensores</h1>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {sensorData.map(sensor => (
-          <SensorCard key={sensor.objid} sensor={sensor} />
-        ))}
-      </div>
-    </div>
-  );
-};
+  const options = {
+    chart: {
+      id: 'area-chart',
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 800,
+        animateGradually: {
+          enabled: true,
+          delay: 150
+        },
+        dynamicAnimation: {
+          enabled: true,
+          speed: 800
+        }
+      },
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: true,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true
+        },
+      },
+    },
+    colors: ['#5e8bff'],
+    dataLabels: {
+      enabled: false
+    },
+    markers: {
+      size: 5,
+      colors: ['#5e8bff']
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 2
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+        stops: [0, 100]
+      }
+    },
+    xaxis: {
+      type: 'datetime',
+      labels: {
+        style: {
+          colors: '#9aa0ac'
+        },
+        format: 'dd MMM'
+      }
+    },
+    yaxis: {
+      title: {
+        text: 'Consumo (MBits)',
+        style: {
+          color: '#9aa0ac'
+        }
+      },
+      labels: {
+        style: {
+          colors: '#9aa0ac'
+        }
+      }
+    },
+    tooltip: {
+      x: {
+        format: 'dd MMM yyyy'
+      }
+    },
+    grid: {
+      borderColor: '#f1f3fa'
+    },
+    title: {
+      text: 'Consumo Diario de MBits',
+      align: 'center',
+      style: {
+        color: '#333',
+        fontSize: '20px',
+        fontFamily: 'Arial, sans-serif'
+      }
+    },
+    responsive: [{
+      breakpoint: 768,
+      options: {
+        chart: {
+          width: '100%',
+          height: 300,
+          toolbar: {
+            show: false
+          }
+        },
+        markers: {
+          size: 3
+        },
+        title: {
+          style: {
+            fontSize: '16px'
+          }
+        },
+        xaxis: {
+          labels: {
+            show: true,
+            rotate: -45,
+            rotateAlways: true,
+            style: {
+              fontSize: '12px'
+            }
+          }
+        },
+        yaxis: {
+          labels: {
+            show: true,
+            style: {
+              fontSize: '12px'
+            }
+          }
+        }
+      }
+    }]
+  };
 
-export default SENSOR1;
+  return (
+    <>
+      <style>
+        {`
+          .area-graph-container {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          .selected-data {
+            margin-top: 20px;
+          }
+          .selected-data h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+          }
+          .selected-data ul {
+            list-style: none;
+            padding: 0;
+          }
+          .selected-data li {
+            font-size: 16px;
+            margin-bottom: 5px;
+          }
+          @media (max-width: 768px) {
+            .area-graph-container {
+              padding: 10px;
+            }
+            .selected-data h3 {
+              font-size: 16px;
+            }
+            .selected-data li {
+              font-size: 14px;
+            }
+          }
+        `}
+      </style>
+      <div className="area-graph-container">
+        <Chart
+          options={options}
+          series={[{ data: data }]}
+          type="area"
+          width="100%"
+          height={400}
+        />
+      </div>
+    </>
+  );
+}
+
+export default CombinedAreaGraph;

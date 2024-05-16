@@ -1,0 +1,21 @@
+.home-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    flex-grow: 1;
+    margin: 10px;
+    max-width: calc(50% - 20px); /* Tamaño máximo de las tarjetas (dos por fila) */
+}
+
+.wide-card {
+    max-width: calc(100% - 40px); /* Tamaño máximo de las tarjetas de barras y líneas */
+}
+
+@media (max-width: 768px) {
+    .card {
+        max-width: calc(100% - 20px); /* Una tarjeta por fila en pantallas pequeñas */
+    }
+}

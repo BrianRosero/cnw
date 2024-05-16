@@ -12,7 +12,7 @@ import logoCliente5 from '@/assets/images/OZONO.png';
 // Importar componentes de páginas
 import ESECENTRO from '@/views/pages/ESECENTRO/Inicio.jsx';
 import Inicio from '@/views/pages/Inicio/Inicio.jsx';
-import Pagina3 from '@/views/pages/Reportes.jsx';
+import COSMITET from '@/views/pages/COSMITET/Inicio.jsx';
 
 import './style.css'; // Importar el archivo de estilos CSS
 
@@ -90,8 +90,8 @@ function Dashboard() {
         return <ESECENTRO />;
       case 'inicio':
         return <Inicio />;
-      case 'pagina3':
-        return <Pagina3 />;
+      case 'cosmitet':
+        return <COSMITET />;
       default:
         return null;
     }
@@ -111,8 +111,8 @@ function Dashboard() {
               <LogoImage onClick={() => handleButtonClick('esecentro')} src={logoCliente1} alt="Logo"
                          style={{ width: '90%' }} />
             </CardWrapper>
-            <CardWrapper>
-              <LogoImage onClick={() => handleButtonClick('pagina1')} src={logoCliente2} alt="Logo"
+            <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
+              <LogoImage onClick={() => handleButtonClick('cosmitet')} src={logoCliente2} alt="Logo"
                          style={{ width: '105%' }} />
             </CardWrapper>
             <CardWrapper>
