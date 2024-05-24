@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { IconDashboard, IconTimeline, IconAlignBoxBottomCenter, IconHome } from '@tabler/icons-react';
-
+import { IconHome } from '@tabler/icons-react';
 
 import logoCliente1 from '@/assets/images/ESECENTRO.jpg';
 import logoCliente2 from '@/assets/images/CAMARACC.svg';
@@ -11,7 +10,7 @@ import logoCliente5 from '@/assets/images/OZONO.png';
 
 // Importar componentes de páginas
 import ESECENTRO from '@/views/pages/ESECENTRO/Inicio.jsx';
-import Inicio from '@/views/pages/Inicio/Inicio.jsx';
+import Inicio from '@/views/pages/CONSULNETWORKS/Inicio.jsx';
 import COSMITET from '@/views/pages/COSMITET/Inicio.jsx';
 
 import './style.css'; // Importar el archivo de estilos CSS
@@ -58,15 +57,9 @@ const Header = ({ onBackButtonClick }) => {
   return (
     <div className="navbar">
       <ul className="nav-list">
-        {/*<button className="nav-link" onClick={onBackButtonClick}*/}
-        {/*        style={{ width: 'auto', height: 'auto', background: '#004a8f', borderRadius: '8px' }}>*/}
-        {/*  <IconHome size={24} strokeWidth={1.5} color="#fff" />*/}
-        {/*</button>*/}
-        {/*<b> - </b>*/}
         <button className="nav-link" onClick={onBackButtonClick}
                 style={{ width: 'auto', height: 'auto', background: '#004a8f', color: '#fff', borderColor: '#004a8f', borderRadius: '8px', alignContent: 'center'}}>
-          <IconHome size={24} strokeWidth={1.5} color="#fff">
-          </IconHome>
+          <IconHome size={24} strokeWidth={1.5} color="#fff" />
         </button>
       </ul>
     </div>
@@ -108,24 +101,19 @@ function Dashboard() {
         ) : (
           <CardContainer>
             <CardWrapper onClick={() => handleButtonClick('esecentro')}>
-              <LogoImage onClick={() => handleButtonClick('esecentro')} src={logoCliente1} alt="Logo"
-                         style={{ width: '90%' }} />
+              <LogoImage src={logoCliente1} alt="Logo" style={{ width: '90%' }} />
             </CardWrapper>
             <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
-              <LogoImage onClick={() => handleButtonClick('cosmitet')} src={logoCliente2} alt="Logo"
-                         style={{ width: '105%' }} />
+              <LogoImage src={logoCliente4} alt="Logo" style={{ width: '105%' }} />
             </CardWrapper>
-            <CardWrapper>
-              <LogoImage onClick={() => handleButtonClick('pagina1')} src={logoCliente3} alt="Logo"
-                         style={{ width: '100%' }} />
+            <CardWrapper onClick={() => handleButtonClick('pagina1')}>
+              <LogoImage src={logoCliente3} alt="Logo" style={{ width: '100%' }} />
             </CardWrapper>
-            <CardWrapper>
-              <LogoImage onClick={() => handleButtonClick('pagina1')} src={logoCliente4} alt="Logo"
-                         style={{ width: '110%' }} />
+            <CardWrapper onClick={() => handleButtonClick('pagina1')}>
+              <LogoImage src={logoCliente2} alt="Logo" style={{ width: '110%' }} />
             </CardWrapper>
-            <CardWrapper>
-              <LogoImage onClick={() => handleButtonClick('pagina1')} src={logoCliente5} alt="Logo"
-                         style={{ width: '100%' }} />
+            <CardWrapper onClick={() => handleButtonClick('pagina1')}>
+              <LogoImage src={logoCliente5} alt="Logo" style={{ width: '100%' }} />
             </CardWrapper>
           </CardContainer>
         )}

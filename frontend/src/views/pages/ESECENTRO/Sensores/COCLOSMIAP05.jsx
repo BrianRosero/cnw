@@ -1,32 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import Chart from 'react-apexcharts';
-//import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Chart from "react-apexcharts";
 
-const CombinedAreaGraph = () => {
-  const initialData = [
-    { x: '2024-05-01', y: 50 },
-    { x: '2024-05-02', y: 45 },
-    { x: '2024-05-03', y: 60 },
-    { x: '2024-05-04', y: 30 },
-    { x: '2024-05-05', y: 70 },
-    { x: '2024-05-06', y: 55 },
-  ];
-
-  const [data, setData] = useState(initialData);
+const SENSOR1 = () => {
+  const [sensorData, setSensorData] = useState([]);
+  const [sensorValues, setSensorValues] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setData(prevData => prevData.map((point, index) => {
-        if (index === prevData.length - 1) {
-          return { ...point, y: point.y + Math.floor(Math.random() * 20) - 10 };
-        } else {
-          return point;
-        }
-      }));
-    }, 1000);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/prtg-api/ESECENTRO');
+        setSensorData(response.data.sensors);
 
-    return () => clearInterval(interval);
+        // Preparar datos para el gráfico
+        const values = response.data.sensors.map(sensor => ({
+          name: sensor.objid,
+          value: parseFloat(sensor.lastvalue.replace(/[^0-9.-]+/g,""))  // Asegurar que los valores sean números
+        }));
+        setSensorValues(prevValues => [...prevValues, ...values]);
+      } catch (error) {
+        console.error('Error fetching sensor data:', error);
+      }
+    };
+
+    // Realizar la primera solicitud al montar el componente
+    fetchData();
+
+    // Configurar un temporizador para actualizar los datos cada 3 segundos
+    const intervalId = setInterval(fetchData, 3000);
+
+    // Limpiar el temporizador cuando el componente se desmonta
+    return () => clearInterval(intervalId);
   }, []);
+
+  console.log("Valores del sensor en el estado:", sensorValues);
+
+  // Seleccionar solo los últimos 100 valores
+  const lastValues = sensorValues.slice(-100);
+
+  const series = [
+    {
+      name: "Valor del Sensor",
+      data: lastValues.map((sensor) => sensor.value),
+    }
+  ];
 
   const options = {
     chart: {
@@ -89,7 +106,7 @@ const CombinedAreaGraph = () => {
     },
     yaxis: {
       title: {
-        text: 'Consumo (MBits)',
+        text: 'Valor del Sensor (Mbit/s)',
         style: {
           color: '#9aa0ac'
         }
@@ -202,7 +219,7 @@ const CombinedAreaGraph = () => {
       <div className="area-graph-container">
         <Chart
           options={options}
-          series={[{ data: data }]}
+          series={series}
           type="area"
           width="100%"
           height={400}
@@ -210,6 +227,6 @@ const CombinedAreaGraph = () => {
       </div>
     </>
   );
-}
+};
 
-export default CombinedAreaGraph;
+export default SENSOR1;

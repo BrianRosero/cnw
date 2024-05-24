@@ -15,7 +15,7 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('../views/pages/utilities/
 const UtilsTablerIcons = Loadable(lazy(() => import('../views/pages/utilities/TablerIcons.jsx')));
 
 const Graficos = Loadable(lazy(() => import('../views/dashboard/Default/index.jsx')));
-const Panel = Loadable(lazy(() => import('../views/pages/Inicio/Panel.jsx')));
+const Panel = Loadable(lazy(() => import('../views/pages/INICIO/Panel.jsx')));
 
 import Home from '../views/pages/Home.jsx';
 import Profile from '../views/pages/Profile.jsx';
@@ -33,7 +33,7 @@ import Reportes from '@/views/pages/Reportes.jsx';
 import Tickets from '@/views/pages/Tickets.jsx';
 import BoardAdmin from '@/views/pages/BoardAdmin.jsx';
 import BoardUser from '@/views/pages/BoardUser.jsx';
-import BoardESECENTRO from '@/views/pages/ESECENTRO/BoardESECENTRO2.jsx';
+import BoardESECENTRO from '@/views/pages/ESECENTRO/Prueba/BoardESECENTRO2.jsx';
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('../views/pages/sample-page/index.jsx')));

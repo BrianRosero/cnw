@@ -97,7 +97,7 @@ io.on('connection', function(socket) {
 })*/
 
 var corsOptions = {
-  origin: ["http://localhost:8081", "http://localhost:8082", "http://localhost:8083", "http://localhost:5173", "http://localhost:3000/", "http://10.99.0.228:8083", "http://consulnetworks.co:8082"]
+  origin: ["http://localhost:8081", "http://localhost:8082", "http://localhost:8083", "http://localhost:5173", "http://localhost:3000/", "http://10.99.0.228:8083", "http://consulnetworks.co:8082", "http://10.99.0.228:8082"]
 };
 
 app.use(cors(corsOptions));

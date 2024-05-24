@@ -1,12 +1,12 @@
 // Tu código con mejoras de diseño
 
 import React, { useState, useEffect } from "react";
-import UserService from "../../../services/user.service.jsx";
-import EventBus from "../../../common/EventBus.jsx";
-import PrtgBarras from '../prtg-barras.jsx';
-import PrtgLineas from '../prtg-lineas.jsx';
-import PrtgPastel from '../prtg-pastel.jsx';
-import PrtgPastelSimple from '../prtg-pastelsimple.jsx';
+import UserService from "../../../../services/user.service.jsx";
+import EventBus from "../../../../common/EventBus.jsx";
+import PrtgBarras from '../../prtg-barras.jsx';
+import PrtgLineas from '../../prtg-lineas.jsx';
+import PrtgPastel from '../../prtg-pastel.jsx';
+import PrtgPastelSimple from '../../prtg-pastelsimple.jsx';
 import { Typography, Box, Container, List, ListItem, Card, CardContent, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import empresa1 from '@/assets/images/ESECENTRO.jpg';

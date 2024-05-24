@@ -1,126 +1,261 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Chart from "react-apexcharts";
+import { openDB } from 'idb';
 
 const SENSOR1 = () => {
-  const [sensorData, setSensorData] = useState([]);
   const [sensorValues, setSensorValues] = useState([]);
+  const [numValues, setNumValues] = useState(100);
+
+  let db;
+
+  const initDB = useCallback(async () => {
+    try {
+      const dbInstance = await openDB('sensorDB', 1, {
+        upgrade(db) {
+          db.createObjectStore('sensorStore', { keyPath: 'id', autoIncrement: true });
+        },
+      });
+      return dbInstance;
+    } catch (error) {
+      console.error('Error initializing database:', error);
+      return null;
+    }
+  }, []);
+
+  const fetchData = useCallback(async (dbInstance) => {
+    if (!dbInstance) return;
+    try {
+      const response = await axios.get('http://localhost:8080/prtg-api/ESECENTRO');
+      const values = response.data.sensors.map(sensor => ({
+        name: sensor.objid,
+        value: parseFloat(sensor.lastvalue.replace(/[^0-9.-]+/g, "")),
+        time: new Date().toLocaleTimeString()
+      }));
+
+      const tx = dbInstance.transaction('sensorStore', 'readwrite');
+      const store = tx.objectStore('sensorStore');
+      await Promise.all(values.map(async (value) => {
+        try {
+          await store.add(value);
+        } catch (error) {
+          console.error('Error adding value to the store:', error);
+        }
+      }));
+
+      const allValues = await store.getAll();
+      setSensorValues(allValues);
+    } catch (error) {
+      console.error('Error fetching sensor data:', error);
+    }
+  }, []);
+
+  const handleVisibilityChange = useCallback(() => {
+    if (document.visibilityState === 'visible') {
+      fetchData(db);
+    }
+  }, [fetchData, db]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/prtg-api/ESECENTRO');
-        setSensorData(response.data.sensors);
+    let intervalId;
+    let dbInstance;
 
-        // Preparar datos para el gráfico
-        const values = response.data.sensors.map(sensor => ({
-          name: sensor.objid,
-          value: parseFloat(sensor.lastvalue.replace(/[^0-9.-]+/g,""))  // Asegurar que los valores sean números
-        }));
-        setSensorValues(prevValues => [...prevValues, ...values]);
-      } catch (error) {
-        console.error('Error fetching sensor data:', error);
+    const setupDataFetching = async () => {
+      dbInstance = await initDB();
+      db = dbInstance; // Set the global db variable
+      if (dbInstance) {
+        fetchData(dbInstance);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        intervalId = setInterval(() => fetchData(dbInstance), 60000);
       }
     };
 
-    // Realizar la primera solicitud al montar el componente
-    fetchData();
+    setupDataFetching();
 
-    // Configurar un temporizador para actualizar los datos cada 3 segundos
-    const intervalId = setInterval(fetchData, 3000);
+    return () => {
+      clearInterval(intervalId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [initDB, fetchData, handleVisibilityChange]);
 
-    // Limpiar el temporizador cuando el componente se desmonta
-    return () => clearInterval(intervalId);
-  }, []);
-
-  console.log("Valores del sensor en el estado:", sensorValues);
-
-  // Seleccionar solo los últimos 15 valores
-  const lastValues = sensorValues.slice(-100);
+  const lastValues = sensorValues.slice(-numValues);
 
   const series = [
     {
       name: "Valor del Sensor",
-      data: lastValues.map((sensor) => sensor.value),
+      data: lastValues.map(sensor => sensor.value),
     }
   ];
 
   const options = {
     chart: {
-      id: "sensor-chart",
-      toolbar: {
-        show: false
+      id: 'sensor-chart',
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 800,
+        animateGradually: {
+          enabled: true,
+          delay: 150
+        },
+        dynamicAnimation: {
+          enabled: true,
+          speed: 800
+        }
       },
-      zoom: {
-        enabled: false
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: true,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true
+        },
+      },
+    },
+    colors: ['#004a8f'],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 2
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+        stops: [0, 100]
+      }
+    },
+    xaxis: {
+      type: 'category',
+      categories: lastValues.map(sensor => sensor.time),
+      labels: {
+        format: 'HH:mm:ss'
       }
     },
     yaxis: {
       title: {
-        text: 'Valor del Sensor Mbit/s',
+        text: 'Consumo (Mbit/s)',
+        style: {
+          color: '#9aa0ac'
+        }
       },
+      labels: {
+        style: {
+          colors: '#9aa0ac'
+        }
+      }
     },
     tooltip: {
-      y: {
-        formatter: function (value) {
-          return `${value} Mbit/s`;
-        }
+      x: {
+        format: 'HH:mm:ss'
       }
     },
     legend: {
       position: 'top',
     },
-    responsive: [
-      {
-        breakpoint: 1024,
-        options: {
-          chart: {
-            width: '100%',
+    grid: {
+      borderColor: '#f1f3fa'
+    },
+    title: {
+      text: 'Consumo Diario de MBits',
+      align: 'center',
+      style: {
+        color: '#333',
+        fontSize: '20px',
+        fontFamily: 'Arial, sans-serif'
+      }
+    },
+    responsive: [{
+      breakpoint: 768,
+      options: {
+        chart: {
+          width: '100%',
+          height: 300,
+          toolbar: {
+            show: false
           }
         },
-      },
-      {
-        breakpoint: 600,
-        options: {
-          chart: {
-            width: '100%',
+        markers: {
+          size: 3
+        },
+        title: {
+          style: {
+            fontSize: '16px'
           }
         },
-      },
-    ],
-  };
-
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    boxSizing: 'border-box',
-  };
-
-  const headerStyle = {
-    textAlign: 'center',
-  };
-
-  const chartContainerStyle = {
-    width: '200%', // Ajustar el ancho del contenedor del gráfico
-    height: '300px', // Ajustar la altura del contenedor del gráfico
+        xaxis: {
+          labels: {
+            show: true,
+            rotate: -45,
+            rotateAlways: true,
+            style: {
+              fontSize: '12px'
+            }
+          }
+        },
+        yaxis: {
+          labels: {
+            show: true,
+            style: {
+              fontSize: '12px'
+            }
+          }
+        }
+      }
+    }]
   };
 
   return (
-    <div style={containerStyle}>
-      <h1 style={headerStyle}>Datos de Sensores</h1>
-      <div style={chartContainerStyle}>
-        <h2 style={headerStyle}>Gráfico de Valor del Sensor</h2>
-        <Chart
-          options={options}
-          series={series}
-          type="line"
-          width="100%"
-          height="100%"
-        />
+    <>
+      <style>
+        {`
+          .area-graph-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+          }
+          .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+          }
+          .button-container button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #004a8f;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+          }
+          .button-container button:hover {
+            background-color: #00376b;
+          }
+        `}
+      </style>
+      <div className="area-graph-container">
+        <div className="button-container">
+          <button onClick={() => setNumValues(30)}>30 minutos</button>
+          <button onClick={() => setNumValues(60)}>1 hora</button>
+          <button onClick={() => setNumValues(1440)}>24 horas</button>
+        </div>
+        <Chart options={options} series={series} type="area" height={350} />
       </div>
-    </div>
+    </>
   );
 };
 

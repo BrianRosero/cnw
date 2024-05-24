@@ -139,3 +139,22 @@ export function unregister() {
       });
   }
 }
+
+// Este código se ejecutará en un hilo de fondo separado
+
+self.addEventListener('message', async function(e) {
+  try {
+    const response = await fetch('http://localhost:8080/prtg-api/ESECENTRO');
+    const data = await response.json();
+
+    const sensorValues = data.sensors.map(sensor => ({
+      name: sensor.objid,
+      value: parseFloat(sensor.lastvalue.replace(/[^0-9.-]+/g, ""))
+    }));
+
+    self.postMessage(sensorValues);
+  } catch (error) {
+    console.error('Error fetching sensor data:', error);
+  }
+});
+
