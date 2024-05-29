@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button, List, ListItem, Grid, Box } from '@mui/material';
 import { CheckCircleOutline as CheckIcon, ErrorOutline as ErrorIcon } from '@mui/icons-material';
 import GraficoServidor1 from '../ESECENTRO/Sensores/COCLOSMIAP01.jsx';
-import GraficoServidor2 from '../ESECENTRO/Sensores/COCLOSMIAP05.jsx';
+import GraficoServidor2 from '../ESECENTRO/Sensores/COCLOSMIAP06.jsx';
 import GraficoServidor3 from '../ESECENTRO/Sensores/COCLOSMIAP04.jsx';
 
 const colors = {

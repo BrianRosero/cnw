@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Card, CardContent } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Card, CardContent, CardActionArea } from '@mui/material';
 import { styled } from '@mui/system';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
@@ -8,20 +8,11 @@ import 'react-resizable/css/styles.css';
 // Importar componentes de gráficos
 import Barra from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP02.jsx';
 import Donut from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP04.jsx';
-import Area from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
+import Area from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP06.jsx';
 import Linea from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
+import Linea2 from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP06.jsx';
 import Consumo from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
 import Info from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
-
-const StyledCard = styled(Card)(({ theme }) => ({
-  background: '#fff',
-  borderRadius: '8px',
-  color: '#000',
-  overflow: 'hidden',
-  boxShadow: theme.shadows[3],
-  height: '100%',
-  position: 'relative',
-}));
 
 const DragHandle = styled('div')({
   width: '100%',
@@ -54,16 +45,30 @@ const DragHandleBottomRight = styled(DragHandle)({
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const HomePage = () => {
-  const layout = [
-    { i: 'donut', x: 0, y: 0, w: 12, h: 3 },
-    { i: 'barra1', x: 0, y: 2, w: 3, h: 2 },
-    { i: 'barra2', x: 3, y: 2, w: 3, h: 2 },
-    { i: 'area', x: 6, y: 2, w: 3, h: 2 },
-    { i: 'linea1', x: 9, y: 2, w: 3, h: 2 },
-    { i: 'linea2', x: 0, y: 4, w: 6, h: 2 },
-    { i: 'info', x: 6, y: 4, w: 6, h: 2 },
-    { i: 'consumo', x: 0, y: 6, w: 12, h: 2 }
+  const defaultLayout = [
+    { i: 'barra2', x: 0, y: 0, w: 2, h: 2 },
+    { i: 'barra1', x: 2, y: 0, w: 2, h: 2 },
+    { i: 'donut', x: 6, y: 0, w: 8, h: 3 },
+    { i: 'area', x: 0, y: 3, w: 4, h: 3  },
+    { i: 'info', x: 6, y: 4, w: 8, h: 2 },
+    { i: 'linea1', x: 0, y: 6, w: 3, h: 3 },
+    { i: 'linea2', x: 3, y: 6, w: 6, h: 3 },
+    { i: 'consumo', x: 9, y: 6, w: 3, h: 3 }
   ];
+
+  const [layout, setLayout] = useState(defaultLayout);
+
+  useEffect(() => {
+    const savedLayout = localStorage.getItem('grid-layout');
+    if (savedLayout) {
+      setLayout(JSON.parse(savedLayout));
+    }
+  }, []);
+
+  const handleLayoutChange = (currentLayout) => {
+    setLayout(currentLayout);
+    localStorage.setItem('grid-layout', JSON.stringify(currentLayout));
+  };
 
   return (
     <Box sx={{ flexGrow: 1, padding: 2, height: '100vh' }}>
@@ -76,9 +81,10 @@ const HomePage = () => {
         isResizable
         isDraggable
         draggableHandle=".drag-handle"
+        onLayoutChange={(layout) => handleLayoutChange(layout)}
       >
         <div key="donut">
-          <StyledCard>
+          <CardActionArea style={{ background: '#fff', borderRadius: '8px', color: '#000', overflow: 'hidden', height: '100%', position: 'relative' }}>
             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Donut />
             </CardContent>
@@ -86,10 +92,10 @@ const HomePage = () => {
             <DragHandleTopRight className="drag-handle" />
             <DragHandleBottomLeft className="drag-handle" />
             <DragHandleBottomRight className="drag-handle" />
-          </StyledCard>
+          </CardActionArea>
         </div>
         <div key="barra1">
-          <StyledCard>
+          <CardActionArea style={{ background: '#fff', borderRadius: '8px', color: '#000', overflow: 'hidden', height: '100%', position: 'relative' }}>
             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Barra />
             </CardContent>
@@ -97,10 +103,10 @@ const HomePage = () => {
             <DragHandleTopRight className="drag-handle" />
             <DragHandleBottomLeft className="drag-handle" />
             <DragHandleBottomRight className="drag-handle" />
-          </StyledCard>
+          </CardActionArea>
         </div>
         <div key="barra2">
-          <StyledCard>
+          <CardActionArea style={{ background: '#fff', borderRadius: '8px', color: '#000', overflow: 'hidden', height: '100%', position: 'relative' }}>
             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Barra />
             </CardContent>
@@ -108,10 +114,10 @@ const HomePage = () => {
             <DragHandleTopRight className="drag-handle" />
             <DragHandleBottomLeft className="drag-handle" />
             <DragHandleBottomRight className="drag-handle" />
-          </StyledCard>
+          </CardActionArea>
         </div>
         <div key="area">
-          <StyledCard>
+          <CardActionArea style={{ background: '#fff', borderRadius: '8px', color: '#000', overflow: 'hidden', height: '100%', position: 'relative' }}>
             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Area />
             </CardContent>
@@ -119,10 +125,10 @@ const HomePage = () => {
             <DragHandleTopRight className="drag-handle" />
             <DragHandleBottomLeft className="drag-handle" />
             <DragHandleBottomRight className="drag-handle" />
-          </StyledCard>
+          </CardActionArea>
         </div>
         <div key="linea1">
-          <StyledCard>
+          <CardActionArea style={{ background: '#fff', borderRadius: '8px', color: '#000', overflow: 'hidden', height: '100%', position: 'relative' }}>
             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Linea />
             </CardContent>
@@ -130,21 +136,21 @@ const HomePage = () => {
             <DragHandleTopRight className="drag-handle" />
             <DragHandleBottomLeft className="drag-handle" />
             <DragHandleBottomRight className="drag-handle" />
-          </StyledCard>
+          </CardActionArea>
         </div>
         <div key="linea2">
-          <StyledCard>
+          <CardActionArea style={{ background: '#fff', borderRadius: '8px', color: '#000', overflow: 'hidden', height: '100%', position: 'relative' }}>
             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-              <Linea />
+              <Linea2 />
             </CardContent>
             <DragHandleTopLeft className="drag-handle" />
             <DragHandleTopRight className="drag-handle" />
             <DragHandleBottomLeft className="drag-handle" />
             <DragHandleBottomRight className="drag-handle" />
-          </StyledCard>
+          </CardActionArea>
         </div>
         <div key="info">
-          <StyledCard>
+          <CardActionArea style={{ background: '#fff', borderRadius: '8px', color: '#000', overflow: 'hidden', height: '100%', position: 'relative' }}>
             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Info />
             </CardContent>
@@ -152,18 +158,18 @@ const HomePage = () => {
             <DragHandleTopRight className="drag-handle" />
             <DragHandleBottomLeft className="drag-handle" />
             <DragHandleBottomRight className="drag-handle" />
-          </StyledCard>
+          </CardActionArea>
         </div>
         <div key="consumo">
-          <StyledCard>
-            <CardContent>
+          <CardActionArea style={{ background: '#fff', borderRadius: '8px', color: '#000', overflow: 'hidden', height: '100%', position: 'relative' }}>
+            <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Consumo />
             </CardContent>
             <DragHandleTopLeft className="drag-handle" />
             <DragHandleTopRight className="drag-handle" />
             <DragHandleBottomLeft className="drag-handle" />
             <DragHandleBottomRight className="drag-handle" />
-          </StyledCard>
+          </CardActionArea>
         </div>
       </ResponsiveGridLayout>
     </Box>

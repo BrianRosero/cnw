@@ -3,7 +3,7 @@ import axios from "axios";
 import Chart from "react-apexcharts";
 import { openDB } from 'idb';
 
-const SENSOR1 = () => {
+const CombinedSensors = () => {
   const [sensorValues, setSensorValues] = useState([]);
   const [numValues, setNumValues] = useState(100);
 
@@ -78,18 +78,23 @@ const SENSOR1 = () => {
     };
   }, [initDB, fetchData, handleVisibilityChange]);
 
-  const lastValues = sensorValues.slice(-numValues);
+  const lastValuesSensor1 = sensorValues.filter(sensor => sensor.name === 2099).slice(-numValues);
+  const lastValuesSensor2 = sensorValues.filter(sensor => sensor.name === 2098).slice(-numValues);
 
   const series = [
     {
-      name: "Valor del Sensor",
-      data: lastValues.map(sensor => sensor.value),
+      name: "Maquina Productiva",
+      data: lastValuesSensor1.map(sensor => sensor.value),
+    },
+    {
+      name: "Maquina Pruebas",
+      data: lastValuesSensor2.map(sensor => sensor.value),
     }
   ];
 
   const options = {
     chart: {
-      id: 'sensor-chart',
+      id: 'combined-sensors-chart',
       animations: {
         enabled: true,
         easing: 'easeinout',
@@ -116,7 +121,7 @@ const SENSOR1 = () => {
         },
       },
     },
-    colors: ['#004a8f'],
+    colors: ['#004a8f', '#00b8a9'],
     dataLabels: {
       enabled: false
     },
@@ -135,7 +140,7 @@ const SENSOR1 = () => {
     },
     xaxis: {
       type: 'category',
-      categories: lastValues.map(sensor => sensor.time),
+      categories: lastValuesSensor1.map(sensor => sensor.time), // Assuming both sensors have the same time points
       labels: {
         format: 'HH:mm:ss'
       }
@@ -259,4 +264,4 @@ const SENSOR1 = () => {
   );
 };
 
-export default SENSOR1;
+export default CombinedSensors;

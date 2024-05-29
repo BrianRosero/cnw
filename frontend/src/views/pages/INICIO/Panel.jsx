@@ -101,7 +101,7 @@ function Dashboard() {
         ) : (
           <CardContainer>
             <CardWrapper onClick={() => handleButtonClick('esecentro')}>
-              <LogoImage src={logoCliente1} alt="Logo" style={{ width: '90%' }} />
+              <LogoImage src={logoCliente1} alt="Logo" style={{ width: '80%' }} />
             </CardWrapper>
             <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
               <LogoImage src={logoCliente4} alt="Logo" style={{ width: '105%' }} />
