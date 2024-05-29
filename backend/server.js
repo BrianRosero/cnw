@@ -60,7 +60,37 @@ app.get('/prtg-api/ESECENTRO', async (req, res) => {
         columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
         username: 'prtgadmin',
         password: 'prtgadmin',
-        filter_objid: [2099, 2098] // Filtrar por los IDs de los sensores
+        filter_objid: [2099, 2098, 2126] // Filtrar por los IDs de los sensores
+      },
+      paramsSerializer: params => {
+        // Serializa los parámetros para incluir múltiples filter_objid
+        return Object.entries(params)
+          .map(([key, value]) => {
+            if (Array.isArray(value)) {
+              return value.map(val => `${key}=${val}`).join('&');
+            }
+            return `${key}=${value}`;
+          })
+          .join('&');
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching data from PRTG API:', error);
+    res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
+  }
+});
+
+app.get('/prtg-api/ESECENTRO', async (req, res) => {
+  try {
+    const response = await axios.get('http://10.99.0.228:8080/api/table.json', {
+      params: {
+        content: 'sensors',
+        output: 'json',
+        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime,cpu_utilization,memory_usage,free_memory,process_memory_usage,stack_size,heap_size,coverage,health,downtime,response_time',
+        username: 'prtgadmin',
+        password: 'prtgadmin',
+        filter_objid: [2126] // Filtrar por los IDs de los sensores
       },
       paramsSerializer: params => {
         // Serializa los parámetros para incluir múltiples filter_objid

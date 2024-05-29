@@ -16,7 +16,7 @@ import logo from '@/assets/images/ESECENTRO/LOGO-WEB.png'
 // Importar componentes de páginas
 import Rendimiento from '@/views/pages/ESECENTRO/Sensors.jsx'
 import INICIO from '@/views/pages/CONSULNETWORKS/Inicio.jsx'
-import Maquina from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP01.jsx'
+import Maquina from '@/views/pages/COSMITET/Sensores/sensor1.jsx'
 
 // Estilos con Emotion
 const styles = {
