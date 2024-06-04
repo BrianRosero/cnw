@@ -1,15 +1,12 @@
 require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
-const app = express();
 const axios = require("axios");
+const https = require('https');
+const app = express();
 
-
-var corsOptions = {
-  origin: ["http://localhost:8081", "http://localhost:8082", "http://localhost:8083", "http://localhost:5173", "http://localhost:3000/", "http://10.99.0.228:8083", "http://consulnetworks.co:8082", "http://10.99.0.228:8082"]
-};
-
-app.use(cors(corsOptions));
+// Configurar CORS para permitir cualquier origen
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -33,27 +30,33 @@ app.get("/", (req, res) => {
   res.json({ message: "Bienvenido esta es la aplicación CONSULNETWORKS." });
 });
 
+// Configurar agente HTTPS para aceptar certificados autofirmados
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false, // Ignorar el certificado autofirmado
+});
+
 app.get('/prtg-api', async (req, res) => {
   try {
-    const response = await axios.get('http://10.99.0.228:8080/api/table.json', {
+    const response = await axios.get('http://192.168.200.158:80/api/table.json', {
       params: {
         content: 'sensors',
         output: 'json',
         columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
         username: 'prtgadmin',
         password: 'prtgadmin',
-      }
+      },
+      httpsAgent
     });
     res.json(response.data);
   } catch (error) {
-    console.error('Error fetching data from PRTG API:', error);
+    console.error('Error fetching data from PRTG API:', error.message);
     res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
   }
 });
 
 app.get('/prtg-api/ESECENTRO', async (req, res) => {
   try {
-    const response = await axios.get('http://10.99.0.228:8080/api/table.json', {
+    const response = await axios.get('http://192.168.200.158:80/api/table.json', {
       params: {
         content: 'sensors',
         output: 'json',
@@ -72,25 +75,26 @@ app.get('/prtg-api/ESECENTRO', async (req, res) => {
             return `${key}=${value}`;
           })
           .join('&');
-      }
+      },
+      httpsAgent
     });
     res.json(response.data);
   } catch (error) {
-    console.error('Error fetching data from PRTG API:', error);
+    console.error('Error fetching data from PRTG API:', error.message);
     res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
   }
 });
 
-app.get('/prtg-api/ESECENTRO', async (req, res) => {
+app.get('/prtg-api/CAMARACC', async (req, res) => {
   try {
-    const response = await axios.get('http://10.99.0.228:8080/api/table.json', {
+    const response = await axios.get('http://192.168.200.158:80/api/table.json', {
       params: {
         content: 'sensors',
         output: 'json',
-        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime,cpu_utilization,memory_usage,free_memory,process_memory_usage,stack_size,heap_size,coverage,health,downtime,response_time',
+        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
         username: 'prtgadmin',
         password: 'prtgadmin',
-        filter_objid: [2126] // Filtrar por los IDs de los sensores
+        filter_objid: [1001] // Filtrar por los IDs de los sensores
       },
       paramsSerializer: params => {
         // Serializa los parámetros para incluir múltiples filter_objid
@@ -102,11 +106,63 @@ app.get('/prtg-api/ESECENTRO', async (req, res) => {
             return `${key}=${value}`;
           })
           .join('&');
-      }
+      },
+      httpsAgent
     });
     res.json(response.data);
   } catch (error) {
-    console.error('Error fetching data from PRTG API:', error);
+    console.error('Error fetching data from PRTG API:', error.message);
+    res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
+  }
+});
+
+app.get('/prtg-api/CAMARACC/maquina', async (req, res) => {
+  try {
+    const response = await axios.get('http://192.168.200.158/api/table.json', {
+      params: {
+        content: 'channels',
+        columns: 'objid,channel,name,lastvalue,lastvalue_raw,lastvalue_diff,min,max,avg',
+        count: 50,
+        id: 1001,
+        username: 'prtgadmin',
+        password: 'prtgadmin'
+      },
+      paramsSerializer: params => {
+        return Object.entries(params)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&');
+      },
+      httpsAgent // Agregar el agente HTTPS
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching data from PRTG API:', error.message);
+    res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
+  }
+});
+
+app.get('/prtg-api/CAMARACC/maquina1', async (req, res) => {
+  try {
+    const response = await axios.get('http://192.168.200.158/api/table.json', {
+      params: {
+        content: 'channels',
+        columns: 'objid,channel,name,lastvalue,lastvalue_raw,lastvalue_diff,min,max,avg',
+        id: 2200,
+        username: 'prtgadmin',
+        password: 'prtgadmin'
+      },
+      paramsSerializer: params => {
+        return Object.entries(params)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&');
+      },
+      httpsAgent // Agregar el agente HTTPS
+    });
+
+    const channelData = response.data.channels || [];
+    res.json({ channels: channelData });
+  } catch (error) {
+    console.error('Error fetching data from PRTG API:', error.message);
     res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
   }
 });

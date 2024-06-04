@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './style.css'; // Estilos CSS globales
 // Importa los logotipos
 import logoCliente1 from '@/assets/images/ESECENTRO.jpg';
-import logoCliente2 from '@/assets/images/CAMARACC.svg';
+import logoCliente2 from '@/assets/images/CAMARACC/CAMARACC.svg';
 import logoCliente3 from '@/assets/images/DUANA.png';
 import logoCliente4 from '@/assets/images/COSMITET.png';
 import logoCliente5 from '@/assets/images/SERTORI.jpg';

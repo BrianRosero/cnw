@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { IconHome } from '@tabler/icons-react';
 
 import logoCliente1 from '@/assets/images/ESECENTRO.jpg';
-import logoCliente2 from '@/assets/images/CAMARACC.svg';
+import logoCliente2 from '@/assets/images/CAMARACC/CAMARACC.svg';
 import logoCliente3 from '@/assets/images/DUANA.png';
 import logoCliente4 from '@/assets/images/COSMITET.png';
 import logoCliente5 from '@/assets/images/OZONO.png';
@@ -12,6 +12,7 @@ import logoCliente5 from '@/assets/images/OZONO.png';
 import ESECENTRO from '@/views/pages/ESECENTRO/Inicio.jsx';
 import Inicio from '@/views/pages/CONSULNETWORKS/Inicio.jsx';
 import COSMITET from '@/views/pages/COSMITET/Inicio.jsx';
+import CAMARACC from '@/views/pages/CAMARACC/Inicio.jsx';
 
 import './style.css'; // Importar el archivo de estilos CSS
 
@@ -85,6 +86,8 @@ function Dashboard() {
         return <Inicio />;
       case 'cosmitet':
         return <COSMITET />;
+      case 'camaracc':
+        return <CAMARACC />;
       default:
         return null;
     }
@@ -109,7 +112,7 @@ function Dashboard() {
             <CardWrapper onClick={() => handleButtonClick('pagina1')}>
               <LogoImage src={logoCliente3} alt="Logo" style={{ width: '100%' }} />
             </CardWrapper>
-            <CardWrapper onClick={() => handleButtonClick('pagina1')}>
+            <CardWrapper onClick={() => handleButtonClick('camaracc')}>
               <LogoImage src={logoCliente2} alt="Logo" style={{ width: '110%' }} />
             </CardWrapper>
             <CardWrapper onClick={() => handleButtonClick('pagina1')}>

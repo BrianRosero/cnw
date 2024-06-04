@@ -31,6 +31,6 @@ export default defineConfig({
     open: true,
     // this sets a default port to 3000
     port: 8082,
-    host: '10.99.0.228',
+    host: '192.168.200.155',
   },
 });

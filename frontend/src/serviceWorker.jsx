@@ -140,11 +140,11 @@ export function unregister() {
   }
 }
 
-// Este código se ejecutará en un hilo de fondo separado
+/*// Este código se ejecutará en un hilo de fondo separado
 
 self.addEventListener('message', async function(e) {
   try {
-    const response = await fetch('http://localhost:8080/prtg-api/ESECENTRO');
+    const response = await fetch('http://192.168.200.155:80/prtg-api/CAMARACC');
     const data = await response.json();
 
     const sensorValues = data.sensors.map(sensor => ({
@@ -156,5 +156,5 @@ self.addEventListener('message', async function(e) {
   } catch (error) {
     console.error('Error fetching sensor data:', error);
   }
-});
+});*/
 
