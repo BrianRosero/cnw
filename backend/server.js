@@ -206,6 +206,22 @@ function initial() {
           id: 5,
           name: "administrador-CAMARA-Y-COMERCIO"
         });
+        Role.create({
+          id: 6,
+          name: "administrador-COSMITET"
+        });
+        Role.create({
+          id: 7,
+          name: "administrador-DUANA"
+        });
+        Role.create({
+          id: 8,
+          name: "administrador-OZONO"
+        });
+        Role.create({
+          id: 9,
+          name: "administrador-ROCHE"
+        });
       } else {
         console.log('No se han creado algunos roles porque ya existen');
       }

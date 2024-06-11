@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, Grid, Box } from '@mui/material';
 import { styled } from '@mui/system';
+import EventBus from "@/common/EventBus";
+import UserService from '@/services/user.service.jsx';
 
 const channelIDs = {
   cpuReadyPercent: 6,
@@ -31,9 +33,59 @@ const MetricItem = styled(Box)(({ theme }) => ({
 }));
 
 const MachineCard = ({ sensorId }) => {
+  const [content, setContent] = useState("");
   const [channelData, setChannelData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [isAdminESECENTRO, setIsAdminESECENTRO] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    UserService.getAdminESECENTRO().then(
+      (response) => {
+        setContent(response.data);
+        setIsAdminESECENTRO(true);
+      },
+      (error) => {
+        const errorMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setContent(errorMessage);
+
+        if (error.response && error.response.status === 401) {
+          EventBus.dispatch("logout");
+        }
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    UserService.getAdminBoard().then(
+      (response) => {
+        setContent(response.data);
+        setIsAdmin(true);
+      },
+      (error) => {
+        const errorMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setContent(errorMessage);
+
+        if (error.response && error.response.status === 401) {
+          EventBus.dispatch("logout");
+        }
+      }
+    );
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +118,7 @@ const MachineCard = ({ sensorId }) => {
     return <p>{error}</p>;
   }
 
-  const metrics = [
+  const metricsAdmin = [
     { label: 'CPU Lista ', value: channelData[channelIDs.cpuReadyPercent]?.lastvalue || 'N/A' },
     { label: 'Uso de CPU ', value: channelData[channelIDs.cpuUsage]?.lastvalue || 'N/A' },
     { label: 'Lectura Disco ', value: channelData[channelIDs.diskRead]?.lastvalue || 'N/A' },
@@ -80,22 +132,57 @@ const MachineCard = ({ sensorId }) => {
     { label: 'Datos Usados en Red', value: channelData[channelIDs.networkUsage]?.lastvalue || 'N/A' },
   ];
 
-  return (
-    <StyledCard>
-      <CardContent>
-        <Grid container>
-          <Grid container spacing={1}>
-            {metrics.map((metric, index) => (
-              <MetricItem key={index}>
-                <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
-                <Typography> </Typography>
-                <Typography variant="h4" style={{ color: '#15708d' }}>{metric.value}</Typography>
-              </MetricItem>
-            ))}
+  const metrics = [
+    { label: 'Uso de CPU ', value: channelData[channelIDs.cpuUsage]?.lastvalue || 'N/A' },
+    { label: 'Uso de Disco ', value: channelData[channelIDs.diskUsage]?.lastvalue || 'N/A' },
+    { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryConsumed]?.lastvalue || 'N/A' },
+    { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryConsumedPercent]?.lastvalue || 'N/A' },
+    ];
+
+  if (isAdminESECENTRO) {
+    return (
+      <StyledCard>
+        <CardContent>
+          <Grid container>
+            <Grid container spacing={1}>
+              {metrics.map((metric, index) => (
+                <MetricItem key={index}>
+                  <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
+                  <Typography> </Typography>
+                  <Typography variant="h4" style={{ color: '#15708d' }}>{metric.value}</Typography>
+                </MetricItem>
+              ))}
+            </Grid>
           </Grid>
-        </Grid>
-      </CardContent>
-    </StyledCard>
+        </CardContent>
+      </StyledCard>
+    );
+  }
+  if (isAdmin) {
+    return (
+      <StyledCard>
+        <CardContent>
+          <Grid container>
+            <Grid container spacing={1}>
+              {metricsAdmin.map((metric, index) => (
+                <MetricItem key={index}>
+                  <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
+                  <Typography> </Typography>
+                  <Typography variant="h4" style={{ color: '#15708d' }}>{metric.value}</Typography>
+                </MetricItem>
+              ))}
+            </Grid>
+          </Grid>
+        </CardContent>
+      </StyledCard>
+    );
+  }
+  return (
+    <div className="container">
+      <header className="jumbotron">
+        <h3>{content}</h3>
+      </header>
+    </div>
   );
 };
 

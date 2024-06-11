@@ -65,7 +65,6 @@ const BoardESECENTRO = () => {
       if (sensorTypeFilter !== "Todos") {
         filtered = realtimedata.sensors.filter(sensor => sensor.type === sensorTypeFilter);
       }
-
       setFilteredSensors(filtered);
     }
   }, [realtimedata, sensorTypeFilter]);

@@ -23,8 +23,24 @@ const getAdminESECENTRO = () => {
   return axios.get(API_URL + 'adminESECENTRO', { headers: authHeader() });
 };
 
-const getAdminCAMARA = () => {
-  return axios.get(API_URL + 'adminCAMARA', { headers: authHeader() });
+const getAdminCAMARACC = () => {
+  return axios.get(API_URL + 'adminCAMARACC', { headers: authHeader() });
+};
+
+const getAdminCOSMITET = () => {
+  return axios.get(API_URL + 'adminCOSMITET', { headers: authHeader() });
+};
+
+const getAdminDUANA = () => {
+  return axios.get(API_URL + 'adminDUANA', { headers: authHeader() });
+};
+
+const getAdminOZONO = () => {
+  return axios.get(API_URL + 'adminOZONO', { headers: authHeader() });
+};
+
+const getAdminROCHE = () => {
+  return axios.get(API_URL + 'adminROCHE', { headers: authHeader() });
 };
 
 export default {
@@ -33,5 +49,9 @@ export default {
   getModeratorBoard,
   getAdminBoard,
   getAdminESECENTRO,
-  getAdminCAMARA,
+  getAdminCAMARACC,
+  getAdminCOSMITET,
+  getAdminDUANA,
+  getAdminOZONO,
+  getAdminROCHE,
 };

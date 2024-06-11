@@ -37,8 +37,32 @@ module.exports = function (app) {
     );
 
     app.get(
-      "/api/test/adminCAMARA",
-      [authJwt.verifyToken, authJwt.isAdminCAMARA],
-      controller.adminCAMARA,
+      "/api/test/adminCAMARACC",
+      [authJwt.verifyToken, authJwt.isAdminCAMARACC],
+      controller.adminCAMARACC,
+    );
+
+    app.get(
+      "/api/test/adminCOSMITET",
+      [authJwt.verifyToken, authJwt.isAdminCOSMITET],
+      controller.adminCOSMITET,
+    );
+
+    app.get(
+      "/api/test/adminDUANA",
+      [authJwt.verifyToken, authJwt.isAdminDUANA],
+      controller.adminDUANA,
+    );
+
+    app.get(
+      "/api/test/adminOZONO",
+      [authJwt.verifyToken, authJwt.isAdminOZONO],
+      controller.adminOZONO,
+    );
+
+    app.get(
+      "/api/test/adminROCHE",
+      [authJwt.verifyToken, authJwt.isAdminROCHE],
+      controller.adminROCHE,
     );
 };

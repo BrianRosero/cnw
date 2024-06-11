@@ -72,7 +72,7 @@ isAdminESECENTRO = (req, res, next) => {
   });
 };
 
-isAdminCAMARA = (req, res, next) => {
+isAdminCAMARACC = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
@@ -83,6 +83,70 @@ isAdminCAMARA = (req, res, next) => {
       }
       res.status(403).send({
         message: "No tienes permisos de CAMARA Y COMERCIO!"
+      });
+    });
+  });
+};
+
+isAdminCOSMITET = (req, res, next) => {
+  User.findByPk(req.userId).then(user => {
+    user.getRoles().then(roles => {
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].name === "administrador-COSMITET") {
+          next();
+          return;
+        }
+      }
+      res.status(403).send({
+        message: "No tienes permisos de COSMITET!"
+      });
+    });
+  });
+};
+
+isAdminDUANA = (req, res, next) => {
+  User.findByPk(req.userId).then(user => {
+    user.getRoles().then(roles => {
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].name === "administrador-DUANA") {
+          next();
+          return;
+        }
+      }
+      res.status(403).send({
+        message: "No tienes permisos de DUANA!"
+      });
+    });
+  });
+};
+
+isAdminOZONO = (req, res, next) => {
+  User.findByPk(req.userId).then(user => {
+    user.getRoles().then(roles => {
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].name === "administrador-OZONO") {
+          next();
+          return;
+        }
+      }
+      res.status(403).send({
+        message: "No tienes permisos de OZONO!"
+      });
+    });
+  });
+};
+
+isAdminROCHE = (req, res, next) => {
+  User.findByPk(req.userId).then(user => {
+    user.getRoles().then(roles => {
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].name === "administrador-ROCHE") {
+          next();
+          return;
+        }
+      }
+      res.status(403).send({
+        message: "No tienes permisos de ROCHE!"
       });
     });
   });
@@ -113,7 +177,11 @@ const authJwt = {
   isAdmin: isAdmin,
   isModerator: isModerator,
   isAdminESECENTRO: isAdminESECENTRO,
-  isAdminCAMARA: isAdminCAMARA,
-  isModeratorOrAdmin: isModeratorOrAdmin
+  isAdminCAMARACC: isAdminCAMARACC,
+  isAdminCOSMITET: isAdminCOSMITET,
+  isAdminDUANA: isAdminDUANA,
+  isAdminOZONO: isAdminOZONO,
+  isAdminROCHE: isAdminROCHE,
+  isModeratorOrAdmin: isModeratorOrAdmin,
 };
 module.exports = authJwt;

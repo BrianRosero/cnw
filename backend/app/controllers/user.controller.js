@@ -18,6 +18,22 @@ exports.adminESECENTRO = (req, res) => {
   res.status(200).send("Contenido para ESE CENTRO.");
 };
 
-exports.adminCAMARA = (req, res) => {
+exports.adminCAMARACC = (req, res) => {
   res.status(200).send("Contenido para camara de comercio");
+};
+
+exports.adminCOSMITET = (req, res) => {
+  res.status(200).send("Contenido para COSMITET");
+};
+
+exports.adminDUANA = (req, res) => {
+  res.status(200).send("Contenido para DUANA");
+};
+
+exports.adminOZONO = (req, res) => {
+  res.status(200).send("Contenido para camara de OZONO");
+};
+
+exports.adminROCHE = (req, res) => {
+  res.status(200).send("Contenido para camara de ROCHE");
 };

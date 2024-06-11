@@ -124,9 +124,6 @@ const MachineCard = ({ sensorId }) => {
   return (
     <StyledCard>
       <CardContent>
-        <Typography variant="h5" gutterBottom>
-          COCLOESECAP02
-        </Typography>
         <Grid>
           <Chart options={chartOptions} series={chartSeries} type="radialBar" height={350} />
         </Grid>
