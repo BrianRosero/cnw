@@ -35,7 +35,7 @@ const httpsAgent = new https.Agent({
   rejectUnauthorized: false, // Ignorar el certificado autofirmado
 });
 
-app.get('/prtg-api', async (req, res) => {
+/*app.get('/prtg-api', async (req, res) => {
   try {
     const response = await axios.get('http://192.168.200.158:80/api/table.json', {
       params: {
@@ -52,9 +52,9 @@ app.get('/prtg-api', async (req, res) => {
     console.error('Error fetching data from PRTG API:', error.message);
     res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
   }
-});
+});*/
 
-app.get('/prtg-api/ESECENTRO', async (req, res) => {
+/*app.get('/prtg-api/ESECENTRO', async (req, res) => {
   try {
     const response = await axios.get('http://192.168.200.158:80/api/table.json', {
       params: {
@@ -83,9 +83,9 @@ app.get('/prtg-api/ESECENTRO', async (req, res) => {
     console.error('Error fetching data from PRTG API:', error.message);
     res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
   }
-});
+});*/
 
-app.get('/prtg-api/CAMARACC', async (req, res) => {
+/*app.get('/prtg-api/CAMARACC', async (req, res) => {
   try {
     const response = await axios.get('http://192.168.200.158:80/api/table.json', {
       params: {
@@ -114,9 +114,9 @@ app.get('/prtg-api/CAMARACC', async (req, res) => {
     console.error('Error fetching data from PRTG API:', error.message);
     res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
   }
-});
+});*/
 
-app.get('/prtg-api/CAMARACC/maquina', async (req, res) => {
+/*app.get('/prtg-api/CAMARACC/maquina', async (req, res) => {
   try {
     const response = await axios.get('http://192.168.200.158/api/table.json', {
       params: {
@@ -139,15 +139,17 @@ app.get('/prtg-api/CAMARACC/maquina', async (req, res) => {
     console.error('Error fetching data from PRTG API:', error.message);
     res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
   }
-});
+});*/
 
-app.get('/prtg-api/CAMARACC/maquina1', async (req, res) => {
+app.get('/prtg-api/ESECENTRO/COCLOESECAP02/:sensorId', async (req, res) => {
+  const sensorId = req.params.sensorId;
+
   try {
     const response = await axios.get('http://192.168.200.158/api/table.json', {
       params: {
         content: 'channels',
-        columns: 'objid,channel,name,lastvalue,lastvalue_raw,lastvalue_diff,min,max,avg',
-        id: 2200,
+        columns: 'objid,channel,name,lastvalue',
+        id: sensorId,
         username: 'prtgadmin',
         password: 'prtgadmin'
       },
@@ -156,9 +158,8 @@ app.get('/prtg-api/CAMARACC/maquina1', async (req, res) => {
           .map(([key, value]) => `${key}=${value}`)
           .join('&');
       },
-      httpsAgent // Agregar el agente HTTPS
+      httpsAgent
     });
-
     const channelData = response.data.channels || [];
     res.json({ channels: channelData });
   } catch (error) {

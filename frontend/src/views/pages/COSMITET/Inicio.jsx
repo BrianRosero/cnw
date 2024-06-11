@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Button, List, ListItem, Grid, Box } from
 import { CheckCircleOutline as CheckIcon, ErrorOutline as ErrorIcon } from '@mui/icons-material';
 import GraficoServidor1 from '../ESECENTRO/Sensores/COCLOSMIAP01.jsx';
 import GraficoServidor2 from '../ESECENTRO/Sensores/COCLOSMIAP06.jsx';
-import GraficoServidor3 from '@/views/pages/CAMARACC/Sensors/Informacion.jsx';
+import GraficoServidor3 from '@/views/pages/ESECENTRO/Sensores/Graficas/Información.jsx';
 
 const colors = {
   active: '#64B5F6',
