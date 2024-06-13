@@ -1,13 +1,17 @@
+require('dotenv').config();
+
 module.exports = {
-  HOST: "localhost",
-  USER: "postgres",
-  PASSWORD: "S0p0rt32023",
-  DB: "cnw",
-  dialect: "postgres",
+  HOST: process.env.HOST,
+  USER: process.env.USER,
+  PASSWORD: process.env.PASSWORD,
+  //Br14nR0s3r0 port:5432
+  //ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+  DB: process.env.DB,
+  dialect: process.env.DIALECT,
   pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
+    max: parseInt(process.env.POOL_MAX, 10),
+    min: parseInt(process.env.POOL_MIN, 10),
+    acquire: parseInt(process.env.POOL_ACQUIRE, 10),
+    idle: parseInt(process.env.POOL_IDLE, 10)
   }
 };
