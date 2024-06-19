@@ -1,4 +1,3 @@
-import * as path from 'path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -23,7 +22,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': './src'
     },
   },
   server: {
@@ -33,4 +32,6 @@ export default defineConfig({
     port: 8082,
     host: '192.168.200.155',
   },
+
 });
+

@@ -15,12 +15,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "https-preview": "serve dist",
     "prepare": "husky"
   },
   "dependencies": {
+    "@babel/runtime": "^7.24.7",
     "@emotion/babel-plugin": "^11.11.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
@@ -88,6 +89,7 @@
     "yup": "^1.3.3"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.24.7",
     "@redux-devtools/extension": "^3.3.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20.11.18",
