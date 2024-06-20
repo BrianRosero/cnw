@@ -1,6 +1,6 @@
-#!/bin/bash
-git checkout deb
-git pull origin deb
+@echo off
+git checkout dev
+git pull origin dev
 git checkout master
-git merge deb
+git merge dev
 git push origin master
