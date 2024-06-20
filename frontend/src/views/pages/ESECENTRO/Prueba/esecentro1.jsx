@@ -4,7 +4,7 @@ import { Button, Typography, AppBar, Toolbar, Container, Card, Grid, Collapse, B
 import { styled } from '@mui/system';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './style.css'; // Estilos CSS globales
-import Reporte from '@/views/pages/Reportes.jsx'; // Ajusta la ruta según la ubicación real del componente
+import Reporte from '../../../../views/pages/Reportes.jsx'; // Ajusta la ruta según la ubicación real del componente
 
 // Estilos Emotion
 const MainContent = styled(Container)({
@@ -27,11 +27,11 @@ const FuturisticCard = styled(Card)({
 });
 
 // Importa los logotipos
-import logoCliente1 from '@/assets/images/ESECENTRO.jpg';
-import logoCliente2 from '@/assets/images/CAMARACC/CAMARACC.svg';
-import logoCliente3 from '@/assets/images/DUANA.png';
-import logoCliente4 from '@/assets/images/COSMITET.png';
-import logoCliente5 from '@/assets/images/SERTORI.jpg';
+import logoCliente1 from '../../../../assets/images/ESECENTRO.jpg';
+import logoCliente2 from '../../../../assets/images/CAMARACC/CAMARACC.svg';
+import logoCliente3 from '../../../../assets/images/DUANA.png';
+import logoCliente4 from '../../../../assets/images/COSMITET.png';
+import logoCliente5 from '../../../../assets/images/SERTORI.jpg';
 
 // Datos de ejemplo
 const clientes = [

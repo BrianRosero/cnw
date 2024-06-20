@@ -13,7 +13,7 @@ import Chart from 'react-apexcharts';
 // project imports
 import SkeletonTotalGrowthBarChart from '../../../ui-component/cards/Skeleton/TotalGrowthBarChart';
 import MainCard from '../../../ui-component/cards/MainCard';
-import { gridSpacing } from '@/actions/types.jsx';
+import { gridSpacing } from '../../../actions/types.jsx';
 
 // chart data
 import chartData from './chart-data/total-growth-bar-chart';

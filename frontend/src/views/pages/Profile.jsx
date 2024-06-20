@@ -3,7 +3,7 @@ import { Avatar, Typography, Button, Grid, Paper, Divider, List, ListItem, ListI
 import { Email, LocationOn, Work } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import User1 from '@/assets/images/users/user-round.svg';
+import User1 from '../../assets/images/users/user-round.svg';
 
 const ProfilePage = () => {
   const { user: currentUser } = useSelector((state) => state.auth);

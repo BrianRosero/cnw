@@ -22,18 +22,18 @@ import Profile from '../views/pages/Profile.jsx';
 import Administrador from '../views/pages/Administrador.jsx';
 import Kanban from '../views/pages/Kanban.jsx';
 import Estadisticas from '../views/pages/Estadisticas.jsx';
-import BoardModerator from '@/views/pages/BoardModerator.jsx';
+import BoardModerator from '../views/pages/BoardModerator.jsx';
 import Rendimiento from '../views/pages/Rendimiento.jsx';
 import Chat from '../views/pages/Chat.jsx';
 import Calendario from '../views/pages/Calendario.jsx';
 import CRM from '../views/pages/CRM.jsx';
-import Consulnetworks from '@/views/pages/Consulnetworks.jsx';
-import Preguntas from '@/views/pages/Preguntas.jsx';
-import Reportes from '@/views/pages/Reportes.jsx';
-import Tickets from '@/views/pages/Tickets.jsx';
-import BoardAdmin from '@/views/pages/BoardAdmin.jsx';
-import BoardUser from '@/views/pages/BoardUser.jsx';
-import BoardESECENTRO from '@/views/pages/ESECENTRO/Prueba/BoardESECENTRO2.jsx';
+import Consulnetworks from '../views/pages/Consulnetworks.jsx';
+import Preguntas from '../views/pages/Preguntas.jsx';
+import Reportes from '../views/pages/Reportes.jsx';
+import Tickets from '../views/pages/Tickets.jsx';
+import BoardAdmin from '../views/pages/BoardAdmin.jsx';
+import BoardUser from '../views/pages/BoardUser.jsx';
+import BoardESECENTRO from '../views/pages/ESECENTRO/Prueba/BoardESECENTRO2.jsx';
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('../views/pages/sample-page/index.jsx')));

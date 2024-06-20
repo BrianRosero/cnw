@@ -6,14 +6,14 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
-import Info1 from '@/views/pages/ESECENTRO/Sensores/COCLOESECAP02/info.jsx';
-import RadialBar1 from '@/views/pages/ESECENTRO/Sensores/COCLOESECAP02/bar.jsx';
+import Info1 from '../ESECENTRO/Sensores/COCLOESECAP02/info.jsx';
+import RadialBar1 from '../ESECENTRO/Sensores/COCLOESECAP02/bar.jsx';
 
-import GraficoServidor2 from '@/views/pages/ESECENTRO/Sensores/Graficas/RadialBar.jsx';
-import GraficoServidor3 from '@/views/pages/CAMARACC/Sensors/Informacion.jsx';
-import Donut from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP02.jsx';
-import Linea from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP04.jsx';
-import Linea2 from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP04.jsx';
+import GraficoServidor2 from '../ESECENTRO/Sensores/Graficas/RadialBar.jsx';
+import GraficoServidor3 from '../CAMARACC/Sensors/Informacion.jsx';
+import Donut from '../ESECENTRO/Sensores/COCLOSMIAP02.jsx';
+import Linea from '../ESECENTRO/Sensores/COCLOSMIAP04.jsx';
+import Linea2 from '../ESECENTRO/Sensores/COCLOSMIAP04.jsx';
 
 const styles = {
   tabs: {

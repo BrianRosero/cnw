@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { IconHome } from '@tabler/icons-react';
-import EventBus from '@/common/EventBus.jsx';
+import EventBus from '../../../common/EventBus.jsx';
 
-import logoCNW from '@/assets/images/CNW.svg';
-import logoESECENTRO from '@/assets/images/ESECENTRO.jpg';
-import logoCAMARACC from '@/assets/images/CAMARACC/CAMARACC.svg';
-import logoDUANA from '@/assets/images/DUANA.png';
-import logoCOSMITET from '@/assets/images/COSMITET.png';
-import logoOZONO from '@/assets/images/OZONO.png';
-import logoSSOFIA from '@/assets/images/SSOFIA.png';
-import logoDUARTE from '@/assets/images/DUARTE.jpg';
-import logoPENITAS from '@/assets/images/PEÑITAS.png';
-import logoROCHE from '@/assets/images/ROCHE.png';
+import logoCNW from '../../../assets/images/CNW.svg';
+import logoESECENTRO from '../../../assets/images/ESECENTRO.jpg';
+import logoCAMARACC from '../../../assets/images/CAMARACC/CAMARACC.svg';
+import logoDUANA from '../../../assets/images/DUANA.png';
+import logoCOSMITET from '../../../assets/images/COSMITET.png';
+import logoOZONO from '../../../assets/images/OZONO.png';
+import logoSSOFIA from '../../../assets/images/SSOFIA.png';
+import logoDUARTE from '../../../assets/images/DUARTE.jpg';
+import logoPENITAS from '../../../assets/images/PEÑITAS.png';
+import logoROCHE from '../../../assets/images/ROCHE.png';
 
 // Importar componentes de páginas
-import ESECENTRO from '@/views/pages/ESECENTRO/Inicio.jsx';
-import CNW from '@/views/pages/CONSULNETWORKS/Inicio.jsx';
-import COSMITET from '@/views/pages/COSMITET/Inicio.jsx';
-import CAMARACC from '@/views/pages/CAMARACC/Inicio.jsx';
+import ESECENTRO from '../../../views/pages/ESECENTRO/Inicio.jsx';
+import CNW from '../../../views/pages/CONSULNETWORKS/Inicio.jsx';
+import COSMITET from '../../../views/pages/COSMITET/Inicio.jsx';
+import CAMARACC from '../../../views/pages/CAMARACC/Inicio.jsx';
 
 import './style.css';
-import UserService from '@/services/user.service.jsx'; // Importar el archivo de estilos CSS
+import UserService from '../../../services/user.service.jsx'; // Importar el archivo de estilos CSS
 
 const CardContainer = styled.div`
     display: flex;

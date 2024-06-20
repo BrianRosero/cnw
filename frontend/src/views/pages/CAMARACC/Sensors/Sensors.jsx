@@ -6,14 +6,14 @@ import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
 // Importar componentes de gráficos
-import Barra from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP02.jsx';
-import Donut from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP04.jsx';
-import Area from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP06.jsx';
-import Linea from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
-import Linea2 from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP06.jsx';
-import Consumo from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
-import Info from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
-import Productiva from '@/views/pages/CAMARACC/Sensors/Informacion.jsx'
+import Barra from '../../../../views/pages/ESECENTRO/Sensores/COCLOSMIAP02.jsx';
+import Donut from '../../../../views/pages/ESECENTRO/Sensores/COCLOSMIAP04.jsx';
+import Area from '../../../../views/pages/ESECENTRO/Sensores/COCLOSMIAP06.jsx';
+import Linea from '../../../../views/pages/COSMITET/Sensores/sensor1.jsx';
+import Linea2 from '../../../../views/pages/ESECENTRO/Sensores/COCLOSMIAP06.jsx';
+import Consumo from '../../../../views/pages/COSMITET/Sensores/sensor1.jsx';
+import Info from '../../../../views/pages/COSMITET/Sensores/sensor1.jsx';
+import Productiva from '../../../../views/pages/CAMARACC/Sensors/Informacion.jsx'
 
 const DragHandle = styled('div')({
   width: '100%',

@@ -11,11 +11,11 @@ import {
   CardContent,
   Grid, Hidden,
 } from '@mui/material';
-import logo from '@/assets/images/CAMARACC/Logo.jpg';
+import logo from '../../../assets/images/CAMARACC/Logo.jpg';
 
 // Importar componentes de páginas
-import Rendimiento from '@/views/pages/CAMARACC/Sensors/Sensors.jsx';
-import Pruebas from '@/views/pages/CAMARACC/Sensors/Pruebas.jsx'
+import Rendimiento from '../../../views/pages/CAMARACC/Sensors/Sensors.jsx';
+import Pruebas from '../../../views/pages/CAMARACC/Sensors/Pruebas.jsx'
 
 // Estilos con Emotion
 const styles = {

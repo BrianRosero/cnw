@@ -6,12 +6,12 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
-import GraficoServidor1 from '@/views/pages/CAMARACC/Sensors/Informacion.jsx';
-import GraficoServidor2 from '@/views/pages/CAMARACC/Sensors/Informacion.jsx';
-import GraficoServidor3 from '@/views/pages/CAMARACC/Sensors/Informacion.jsx';
-import Donut from '@/views/pages/CAMARACC/Sensors/Informacion.jsx';
-import Linea from '@/views/pages/CAMARACC/Sensors/Informacion.jsx';
-import Linea2 from '@/views/pages/CAMARACC/Sensors/Informacion.jsx';
+import GraficoServidor1 from '../../../../views/pages/CAMARACC/Sensors/Informacion.jsx';
+import GraficoServidor2 from '../../../../views/pages/CAMARACC/Sensors/Informacion.jsx';
+import GraficoServidor3 from '../../../../views/pages/CAMARACC/Sensors/Informacion.jsx';
+import Donut from '../../../../views/pages/CAMARACC/Sensors/Informacion.jsx';
+import Linea from '../../../../views/pages/CAMARACC/Sensors/Informacion.jsx';
+import Linea2 from '../../../../views/pages/CAMARACC/Sensors/Informacion.jsx';
 
 const styles = {
   tabs: {

@@ -4,11 +4,11 @@ import { Button, Typography, AppBar, Toolbar, Container, Card, Grid, Collapse, B
 import { styled } from '@mui/system';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // Importa los logotipos
-import logoCliente1 from '@/assets/images/ESECENTRO.jpg';
-import logoCliente2 from '@/assets/images/CAMARACC/CAMARACC.svg';
-import logoCliente3 from '@/assets/images/DUANA.png';
-import logoCliente4 from '@/assets/images/COSMITET.png';
-import logoCliente5 from '@/assets/images/SERTORI.jpg';
+import logoCliente1 from '../../../../assets/images/ESECENTRO.jpg';
+import logoCliente2 from '../../../../assets/images/CAMARACC/CAMARACC.svg';
+import logoCliente3 from '../../../../assets/images/DUANA.png';
+import logoCliente4 from '../../../../assets/images/COSMITET.png';
+import logoCliente5 from '../../../../assets/images/SERTORI.jpg';
 import './style.css'; // Estilos CSS globales
 
 // Estilos Emotion
@@ -57,15 +57,15 @@ function BoardESECENTRO() {
   const getReporteComponent = (reporte) => {
     switch (reporte) {
       case 'ReporteCliente1':
-        return import('@/views/pages/Reportes.jsx');
+        return import('../../../pages/Reportes.jsx');
       case 'ReporteCliente2':
-        return import('@/views/pages/sample-page/index.jsx');
+        return import('../../../pages/sample-page/index.jsx');
       case 'ReporteCliente3':
-        return import('@/views/pages/Reportes.jsx');
+        return import('../../../pages/Reportes.jsx');
       case 'ReporteCliente4':
-        return import('@/views/pages/Reportes.jsx');
+        return import('../../../pages/Reportes.jsx');
       case 'ReporteCliente5':
-        return import('@/views/pages/Reportes.jsx');
+        return import('../../../pages/Reportes.jsx');
       default:
         return null;
     }

@@ -10,9 +10,9 @@ import TotalOrderLineChartCard from './TotalOrderLineChartCard';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
-import { gridSpacing } from '@/actions/types.jsx';
+import { gridSpacing } from '../../../actions/types.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '@/actions/auth.jsx';
+import { logout } from '../../../actions/auth.jsx';
 import EventBus from '../../../common/EventBus.jsx';
 import { Navigate } from 'react-router-dom';
 

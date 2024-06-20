@@ -3,12 +3,12 @@ import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 // Importar componentes de gráficos
-import Barra from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
-import Donut from '@/views/pages/ESECENTRO/Sensores/COCLOSMIAP04.jsx';
-import Area from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
-import Linea from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
-import Consumo from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
-import Info from '@/views/pages/COSMITET/Sensores/sensor1.jsx';
+import Barra from '../COSMITET/Sensores/sensor1.jsx';
+import Donut from '../ESECENTRO/Sensores/COCLOSMIAP04.jsx';
+import Area from '../COSMITET/Sensores/sensor1.jsx';
+import Linea from '../COSMITET/Sensores/sensor1.jsx';
+import Consumo from '../COSMITET/Sensores/sensor1.jsx';
+import Info from '../COSMITET/Sensores/sensor1.jsx';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   background: '#fff',

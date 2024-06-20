@@ -4,7 +4,7 @@ import utilities from './utilities.jsx';
 import other from './other.jsx';
 import profile from '../menu-items/profile.jsx';
 import { widget } from './widget.jsx';
-import integrations from '@/menu-items/integrations.jsx';
+import integrations from '../menu-items/integrations.jsx';
 
 // ==============================|| MENU ITEMS ||============================== //
 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, Grid, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import EventBus from "@/common/EventBus";
-import UserService from '@/services/user.service.jsx';
+import EventBus from "../../../../../common/EventBus";
+import UserService from '../../../../../services/user.service.jsx';
 
 const channelIDs = {
   cpuReadyPercent: 6,

@@ -26,7 +26,7 @@ import {
 import * as Yup from 'yup';
 
 
-import { login } from '@/actions/auth.jsx';
+import { login } from '../../../actions/auth.jsx';
 import AnimateButton from '../../../ui-component/extended/AnimateButton.jsx';
 
 // assets

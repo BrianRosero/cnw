@@ -23,14 +23,14 @@ import {
   useMediaQuery,
 } from '@mui/material';
 
-import { register } from '@/actions/auth.jsx';
+import { register } from '../../../actions/auth.jsx';
 
 // project imports
 import useScriptRef from '../../../hooks/useScriptRef.jsx';
 import Google from '../../../assets/images/icons/social-google.svg';
 import Microsoft from '../../../assets/images/icons/Microsoft_logo.svg';
 import AnimateButton from '../../../ui-component/extended/AnimateButton.jsx';
-import { strengthColor, strengthIndicator } from '@/utils/password-strength.jsx';
+import { strengthColor, strengthIndicator } from '../../../utils/password-strength.jsx';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';

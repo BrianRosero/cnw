@@ -9,7 +9,7 @@ import PrtgPastel from '../../prtg-pastel.jsx';
 import PrtgPastelSimple from '../../prtg-pastelsimple.jsx';
 import { Typography, Box, Container, List, ListItem, Card, CardContent, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
-import empresa1 from '@/assets/images/ESECENTRO.jpg';
+import empresa1 from '../../../../assets/images/ESECENTRO.jpg';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
