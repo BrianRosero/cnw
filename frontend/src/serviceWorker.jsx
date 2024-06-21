@@ -140,21 +140,3 @@ export function unregister() {
   }
 }
 
-/*// Este código se ejecutará en un hilo de fondo separado
-
-self.addEventListener('message', async function(e) {
-  try {
-    const response = await fetch('http://192.168.200.155:80/prtg-api/CAMARACC');
-    const data = await response.json();
-
-    const sensorValues = data.sensors.map(sensor => ({
-      name: sensor.objid,
-      value: parseFloat(sensor.lastvalue.replace(/[^0-9.-]+/g, ""))
-    }));
-
-    self.postMessage(sensorValues);
-  } catch (error) {
-    console.error('Error fetching sensor data:', error);
-  }
-});*/
-

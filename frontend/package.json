@@ -17,6 +17,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "start": "serve dist",
     "https-preview": "serve dist",
     "prepare": "husky"
   },
