@@ -15,8 +15,8 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('../views/pages/utilities/
 const UtilsTablerIcons = Loadable(lazy(() => import('../views/pages/utilities/TablerIcons.jsx')));
 
 const Graficos = Loadable(lazy(() => import('../views/dashboard/Default/index.jsx')));
-const Panel = Loadable(lazy(() => import('../views/pages/INICIO/Panel.jsx')));
 
+import Panel from '../views/pages/INICIO/Panel.jsx';
 import Home from '../views/pages/Home.jsx';
 import Profile from '../views/pages/Profile.jsx';
 import Administrador from '../views/pages/Administrador.jsx';
