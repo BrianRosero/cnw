@@ -2,6 +2,8 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import manifest from './manifest.json';
+import path from 'path';
+
 
 export default defineConfig({
   plugins: [
@@ -19,7 +21,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      // eslint-disable-next-line no-undef
       '@': path.resolve(__dirname, './src'),
+      // eslint-disable-next-line no-undef
       '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
