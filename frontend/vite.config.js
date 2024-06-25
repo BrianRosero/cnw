@@ -19,8 +19,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': '/src',
+      '@': path.resolve(__dirname, './src'),
+      '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
     },
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   server: {
     open: true,
