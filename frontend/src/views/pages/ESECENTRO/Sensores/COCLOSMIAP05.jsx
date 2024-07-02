@@ -9,7 +9,7 @@ const SENSOR1 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/prtg-api/ESECENTRO');
+        const response = await axios.get('http://192.168.200.155:8080/prtg-api/ESECENTRO');
         setSensorData(response.data.sensors);
 
         // Preparar datos para el gráfico

@@ -17,7 +17,7 @@ import logoROCHE from '../../../assets/images/ROCHE.png';
 // Importar componentes de páginas
 import ESECENTRO from '../../../views/pages/ESECENTRO/Inicio.jsx';
 import CNW from '../../../views/pages/CONSULNETWORKS/Inicio.jsx';
-import COSMITET from '../../../views/pages/COSMITET/Inicio.jsx';
+import COSMITET from '../../../views/pages/COSMITET/COSMITET/Inicio.jsx';
 import CAMARACC from '../../../views/pages/CAMARACC/Inicio.jsx';
 
 import './style.css';
@@ -300,6 +300,8 @@ function Dashboard() {
         return null;
     }
   };
+
+
 
   if (isModerator) {
     return (

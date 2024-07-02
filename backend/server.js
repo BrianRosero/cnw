@@ -1,18 +1,42 @@
 require('dotenv').config();
 const express = require("express");
+const bodyParser = require('body-parser');
 const cors = require("cors");
 const axios = require("axios");
 const https = require('https');
 const app = express();
+const sqlite3 = require('sqlite3').verbose();
+const cron = require('node-cron');
 
 // Configurar CORS para permitir cualquier origen
 app.use(cors());
 
+app.use(bodyParser.json());
 // parse requests of content-type - application/json
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+// Conectar a la base de datos SQLite
+const dbs = new sqlite3.Database('graficas.db');
+
+// Crear la tabla si no existe
+dbs.run(`
+  CREATE TABLE IF NOT EXISTS history_data (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sensor_id INTEGER,
+    cpu_usage REAL,
+    disk_usage REAL,
+    memory_usage REAL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+// Configurar agente HTTPS para aceptar certificados autofirmados
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false, // Ignorar el certificado autofirmado
+});
 
 // database
 const db = require("./app/models");
@@ -25,125 +49,93 @@ db.sequelize.sync().then(() => {
   initial();
 });
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Bienvenido esta es la aplicación CONSULNETWORKS." });
-});
-
-// Configurar agente HTTPS para aceptar certificados autofirmados
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false, // Ignorar el certificado autofirmado
-});
-
-/*app.get('/prtg-api', async (req, res) => {
+// Función para obtener y guardar datos de sensores
+const fetchAndSaveSensorData = async (sensorId) => {
   try {
-    const response = await axios.get('http://192.168.200.158:80/api/table.json', {
-      params: {
-        content: 'sensors',
-        output: 'json',
-        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
-        username: 'prtgadmin',
-        password: 'prtgadmin',
-      },
-      httpsAgent
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error('Error fetching data from PRTG API:', error.message);
-    res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
-  }
-});*/
-
-/*app.get('/prtg-api/ESECENTRO', async (req, res) => {
-  try {
-    const response = await axios.get('http://192.168.200.158:80/api/table.json', {
-      params: {
-        content: 'sensors',
-        output: 'json',
-        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
-        username: 'prtgadmin',
-        password: 'prtgadmin',
-        filter_objid: [2099, 2098, 2126] // Filtrar por los IDs de los sensores
-      },
-      paramsSerializer: params => {
-        // Serializa los parámetros para incluir múltiples filter_objid
-        return Object.entries(params)
-          .map(([key, value]) => {
-            if (Array.isArray(value)) {
-              return value.map(val => `${key}=${val}`).join('&');
-            }
-            return `${key}=${value}`;
-          })
-          .join('&');
-      },
-      httpsAgent
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error('Error fetching data from PRTG API:', error.message);
-    res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
-  }
-});*/
-
-/*app.get('/prtg-api/CAMARACC', async (req, res) => {
-  try {
-    const response = await axios.get('http://192.168.200.158:80/api/table.json', {
-      params: {
-        content: 'sensors',
-        output: 'json',
-        columns: 'objid,probe,group,device,sensor,status,message,lastvalue,priority,favorite,deviceid,device_type,device_manufacturer,device_uptime',
-        username: 'prtgadmin',
-        password: 'prtgadmin',
-        filter_objid: [1001] // Filtrar por los IDs de los sensores
-      },
-      paramsSerializer: params => {
-        // Serializa los parámetros para incluir múltiples filter_objid
-        return Object.entries(params)
-          .map(([key, value]) => {
-            if (Array.isArray(value)) {
-              return value.map(val => `${key}=${val}`).join('&');
-            }
-            return `${key}=${value}`;
-          })
-          .join('&');
-      },
-      httpsAgent
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error('Error fetching data from PRTG API:', error.message);
-    res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
-  }
-});*/
-
-/*app.get('/prtg-api/CAMARACC/maquina', async (req, res) => {
-  try {
-    const response = await axios.get('http://192.168.200.158/api/table.json', {
+    const response = await axios.get(`http://192.168.200.158/api/table.json`, {
       params: {
         content: 'channels',
-        columns: 'objid,channel,name,lastvalue,lastvalue_raw,lastvalue_diff,min,max,avg',
-        count: 50,
-        id: 1001,
-        username: 'prtgadmin',
-        password: 'prtgadmin'
+        columns: 'objid,channel,name,lastvalue',
+        id: sensorId,
+        username: process.env.PRTG_USERNAME,
+        password: process.env.PRTG_PASSWORD,
       },
       paramsSerializer: params => {
         return Object.entries(params)
           .map(([key, value]) => `${key}=${value}`)
           .join('&');
-      },
-      httpsAgent // Agregar el agente HTTPS
+      }
     });
-    res.json(response.data);
+
+    const channelData = response.data.channels.reduce((acc, channel) => {
+      acc[channel.objid] = channel;
+      return acc;
+    }, {});
+
+    const cpuUsage = parseFloat(channelData[2099]?.lastvalue) || 0; // Ajusta el objid según tu sensor
+    const diskUsage = parseFloat(channelData[2098]?.lastvalue) || 0; // Ajusta el objid según tu sensor
+    const memoryUsage = parseFloat(channelData[2126]?.lastvalue) || 0; // Ajusta el objid según tu sensor
+
+    dbs.run(
+      `INSERT INTO history_data (sensor_id, cpu_usage, disk_usage, memory_usage)
+       VALUES (?, ?, ?, ?)`,
+      [sensorId, cpuUsage, diskUsage, memoryUsage],
+      function(err) {
+        if (err) {
+          console.error('Error al guardar los datos:', err.message);
+        } else {
+          console.log(`Datos guardados para sensor ${sensorId}:`, { cpuUsage, diskUsage, memoryUsage });
+        }
+      }
+    );
+
   } catch (error) {
-    console.error('Error fetching data from PRTG API:', error.message);
-    res.status(500).json({ error: 'Failed to fetch data from PRTG API' });
+    console.error(`Error fetching data for sensor ${sensorId}:`, error.message);
   }
-});*/
+};
 
-app.get('/prtg-api/ESECENTRO/COCLOESECAP02/:sensorId', async (req, res) => {
+// Tarea programada para guardar datos de sensores cada 5 minutos
+cron.schedule('*/5 * * * *', () => {
+  const sensors = [2099, 2098, 2126]; // Lista de IDs de sensores a monitorear
+  sensors.forEach(sensorId => fetchAndSaveSensorData(sensorId));
+});
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Bienvenido esta es la aplicación CONSULNETWORKS." });
+});
+
+app.post('/saveData', (req, res) => {
+  const { sensorId, cpuUsage, diskUsage, memoryUsage } = req.body;
+  dbs.run(
+    `INSERT INTO history_data (sensor_id, cpu_usage, disk_usage, memory_usage)
+     VALUES (?, ?, ?, ?)`,
+    [sensorId, cpuUsage, diskUsage, memoryUsage],
+    function(err) {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      res.status(200).send({ id: this.lastID });
+    }
+  );
+});
+
+app.get('/getData', (req, res) => {
+  const { sensorId, startTime, endTime } = req.query;
+  dbs.all(
+    `SELECT * FROM history_data WHERE sensor_id = ? AND timestamp BETWEEN ? AND ? ORDER BY timestamp ASC`,
+    [sensorId, startTime, endTime],
+    (err, rows) => {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      res.status(200).send(rows);
+    }
+  );
+});
+
+app.get('/prtg-api/:sensorId', async (req, res) => {
   const sensorId = req.params.sensorId;
-
   try {
     const response = await axios.get('http://192.168.200.158/api/table.json', {
       params: {
@@ -160,6 +152,7 @@ app.get('/prtg-api/ESECENTRO/COCLOESECAP02/:sensorId', async (req, res) => {
       },
       httpsAgent
     });
+
     const channelData = response.data.channels || [];
     res.json({ channels: channelData });
   } catch (error) {

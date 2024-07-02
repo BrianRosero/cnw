@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, Grid, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import EventBus from "../../../../../common/EventBus";
-import UserService from '../../../../../services/user.service.jsx';
+import EventBus from "../../../../../../common/EventBus";
+import UserService from '../../../../../../services/user.service.jsx';
 
 const channelIDs = {
   cpuReadyPercent: 6,
@@ -38,14 +38,14 @@ const MachineCard = ({ sensorId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [isAdminESECENTRO, setIsAdminESECENTRO] = useState(false);
+  const [isAdmiCOSMITET, setIsAdminCOSMITET] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    UserService.getAdminESECENTRO().then(
+    UserService.getAdminCOSMITET().then(
       (response) => {
         setContent(response.data);
-        setIsAdminESECENTRO(true);
+        setIsAdminCOSMITET(true);
       },
       (error) => {
         const errorMessage =
@@ -90,7 +90,7 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/prtg-api/ESECENTRO/COCLOESECAP02/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
         const data = response.data.channels.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;
@@ -139,7 +139,7 @@ const MachineCard = ({ sensorId }) => {
     { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryConsumedPercent]?.lastvalue || 'N/A' },
     ];
 
-  if (isAdminESECENTRO) {
+  if (isAdmiCOSMITET) {
     return (
       <StyledCard>
         <CardContent>
