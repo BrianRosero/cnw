@@ -28,7 +28,7 @@ const dashboard = {
       icon: icons.IconDashboard,
       breadcrumbs: false,
     },
-    {
+    /*{
       id: 'rendimiento',
       title: 'Rendimiento',
       type: 'item',
@@ -67,7 +67,7 @@ const dashboard = {
       url: '/dashboard/BoardESECENTRO',
       icon: icons.IconAlignBoxBottomCenter,
       breadcrumbs: false,
-    },
+    },*/
   ],
 };
 

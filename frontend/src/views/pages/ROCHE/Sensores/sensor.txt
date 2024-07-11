@@ -1,0 +1,345 @@
+import React, { useState, useEffect } from 'react';
+import { Tabs, Tab, Box, CardContent, CardActionArea, Typography } from '@mui/material';
+import SwipeableViews from 'react-swipeable-views-react-18-fix';
+import { styled } from '@mui/system';
+import { Responsive, WidthProvider } from 'react-grid-layout';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
+
+import Info1 from './Sensores/COCLOCOSMIBD01/info.jsx';
+import RadialBar1 from './Sensores/COCLOCOSMIBD01/bar.jsx';
+import Area1 from './Sensores/COCLOCOSMIBD01/area.jsx';
+import Info2 from './Sensores/COCLOCOSMIBD02/info.jsx';
+import RadialBar2 from './Sensores/COCLOCOSMIBD02/bar.jsx';
+import Area2 from './Sensores/COCLOCOSMIBD02/area.jsx';
+import Info3 from './Sensores/COCLOCOSMIBD03/info.jsx';
+import RadialBar3 from './Sensores/COCLOCOSMIBD03/bar.jsx';
+import Area3 from './Sensores/COCLOCOSMIBD03/area.jsx';
+/*import Info4 from './Sensores/COCLOCOSMIBD04/info.jsx';
+import RadialBar4 from './Sensores/COCLOCOSMIBD04/bar.jsx';
+import Area4 from './Sensores/COCLOCOSMIBD04/area.jsx';
+
+import Info5 from './Sensores/COCLOCOSMIAP02/info.jsx';
+import RadialBar5 from './Sensores/COCLOCOSMIAP02/bar.jsx';
+import Area5 from './Sensores/COCLOCOSMIAP02/area.jsx';
+import Info6 from './Sensores/COCLOCOSMIAP05/info.jsx';
+import RadialBar6 from './Sensores/COCLOCOSMIAP05/bar.jsx';
+import Area6 from './Sensores/COCLOCOSMIAP05/area.jsx';
+import Info7 from './Sensores/COCLOCOSMIAP06/info.jsx';
+import RadialBar7 from './Sensores/COCLOCOSMIAP06/bar.jsx';
+import Area7 from './Sensores/COCLOCOSMIAP06/area.jsx';
+import Info8 from './Sensores/COCLOCOSMIAP07/info.jsx';
+import RadialBar8 from './Sensores/COCLOCOSMIAP07/bar.jsx';
+import Area8 from './Sensores/COCLOCOSMIAP07/area.jsx';
+
+import Info9 from './Sensores/COCLOCOSMISTG01/info.jsx';
+import RadialBar9 from './Sensores/COCLOCOSMISTG01/bar.jsx';
+import Area9 from './Sensores/COCLOCOSMISTG01/area.jsx';
+
+import Info10 from './Sensores/COCLOCOSMIFI01/info.jsx';
+import RadialBar10 from './Sensores/COCLOCOSMIFI01/bar.jsx';
+import Area10 from './Sensores/COCLOCOSMIFI01/area.jsx';
+
+import Info11 from './Sensores/COCLOCOSMIBK01/info.jsx';
+import RadialBar11 from './Sensores/COCLOCOSMIBK01/bar.jsx';
+import Area11 from './Sensores/COCLOCOSMIBK01/area.jsx';
+
+import Info12 from './Sensores/COCLOCOSMIREP02/info.jsx';
+import RadialBar12 from './Sensores/COCLOCOSMIREP02/bar.jsx';
+import Area12 from './Sensores/COCLOCOSMIREP02/area.jsx';
+import Info13 from './Sensores/COCLOCOSMIREP03/info.jsx';
+import RadialBar13 from './Sensores/COCLOCOSMIREP03/bar.jsx';
+import Area13 from './Sensores/COCLOCOSMIREP03/area.jsx';
+
+import Info14 from './Sensores/COCLOCOSMIDES01/info.jsx';
+import RadialBar14 from './Sensores/COCLOCOSMIDES01/bar.jsx';
+import Area14 from './Sensores/COCLOCOSMIDES01/area.jsx';
+import Info15 from './Sensores/COCLOCOSMIAST03/info.jsx';
+import RadialBar15 from './Sensores/COCLOCOSMIAST03/bar.jsx';
+import Area15 from './Sensores/COCLOCOSMIAST03/area.jsx';
+import Info16 from './Sensores/COCLOCOSMIAST04/info.jsx';
+import RadialBar16 from './Sensores/COCLOCOSMIAST04/bar.jsx';
+import Area16 from './Sensores/COCLOCOSMIAST04/area.jsx';*/
+
+
+const styles = {
+  tabs: {
+    background: '#fff',
+    borderRadius: '8px',
+  },
+  indicator: {
+    backgroundColor: '#009100',
+  },
+  slide: {
+    padding: 15,
+    minHeight: 100,
+    color: '#fff',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '10px',
+    justifyContent: 'center',
+  },
+  card: {
+    margin: '10px',
+    width: '100%',
+    backgroundColor: '#5e7775',
+    borderRadius: '8px',
+    color: '#fff',
+  },
+  selectedCard: {
+    backgroundColor: '#009100',
+    color: 'white',
+  },
+  graficoContainer: {
+    marginTop: '20px',
+    backgroundColor: '#EEF2F6',
+    borderRadius: '8px',
+    padding: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '300px',
+  },
+};
+
+const activeTabStyle = {
+  color: '#009100',
+  fontWeight: 'bold',
+};
+
+const DragHandle = styled('div')({
+  width: '100%',
+  height: '5%',
+  position: 'absolute',
+  cursor: 'move',
+  backgroundColor: 'rgb(255,255,255)',
+});
+
+const DragHandleTopLeft = styled(DragHandle)({
+  top: 0,
+  left: 0,
+});
+
+const DragHandleTopRight = styled(DragHandle)({
+  top: 0,
+  right: 0,
+});
+
+const DragHandleBottomLeft = styled(DragHandle)({
+  bottom: 0,
+  left: 0,
+});
+
+const DragHandleBottomRight = styled(DragHandle)({
+  bottom: 0,
+  right: 0,
+});
+
+const ResponsiveGridLayout = WidthProvider(Responsive);
+
+const DemoTabs = () => {
+  const [index, setIndex] = useState(0);
+  const [graficoSeleccionado, setGraficoSeleccionado] = useState(1);
+
+  useEffect(() => {
+    setGraficoSeleccionado(1);
+  }, []);
+
+  const handleChange = (event, newValue) => {
+    setIndex(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setIndex(index);
+  };
+
+  const handleCardClick = (id) => {
+    setGraficoSeleccionado(id);
+  };
+
+  const defaultLayout = [
+    { i: 'servers', x: 0, y: 0, w: 3, h: 7 },
+    { i: 'server1', x: 4, y: 0, w: 9, h: 2 },
+    { i: 'server2', x: 6, y: 0, w: 2, h: 2 },
+    { i: 'server3', x: 8, y: 0, w: 2, h: 2 },
+    { i: 'server4', x: 10, y: 0, w: 2, h: 2 },
+    { i: 'grafico', x: 4, y: 2, w: 9, h: 5 },
+  ];
+
+  return (
+    <Box>
+      <Tabs
+        value={index}
+        onChange={handleChange}
+        style={styles.tabs}
+        variant="fullWidth"
+        TabIndicatorProps={{ style: styles.indicator }}
+      >
+        {['Bases de datos', 'Aplicativos', 'Storage', 'Financiero', 'Backup', 'Replica', 'Desarrollo'].map((label, idx) => (
+          <Tab key={label} label={label} style={index === idx ? activeTabStyle : {}} />
+        ))}
+      </Tabs>
+      <SwipeableViews index={index} onChangeIndex={handleChangeIndex}>
+        {[
+          ['COCLOCOSMIBD01', 'COCLOCOSMIBD02', 'COCLOCOSMIBD03', 'COCLOCOSMIBD04'],
+          ['COCLOCOSMIAP02', 'COCLOCOSMIAP05', 'COCLOCOSMIAP06', 'COCLOCOSMIAP07'],
+          ['COCLOCOSMISTG01'],
+          ['COCLOCOSMIFI01'],
+          ['COCLOCOSMIBK01'],
+          ['COCLOCOSMIREP02', 'COCLOCOSMIREP03'],
+          ['COCLOCOSMIDES01', 'COCLOCOSMIAST03', 'COCLOCOSMIAST04'],
+        ].map((cards, idx) => (
+          <div key={idx} style={{ ...styles.slide, ...styles[`slide${idx + 1}`] }}>
+            {cards.map((card, cardIdx) => (
+              <CardActionArea
+                key={card}
+                style={{
+                  ...styles.card,
+                  ...(graficoSeleccionado === cardIdx + 1 + idx * 4 && styles.selectedCard),
+                }}
+                onClick={() => handleCardClick(cardIdx + 1 + idx * 4)}
+              >
+                <CardContent>
+                  {card}
+                </CardContent>
+              </CardActionArea>
+            ))}
+          </div>
+        ))}
+      </SwipeableViews>
+      <ResponsiveGridLayout
+        className="layout"
+        layouts={{ lg: defaultLayout }}
+        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+        rowHeight={80}
+        isResizable
+        isDraggable
+        draggableHandle=".drag-handle"
+      >
+        <div key="servers">
+          <CardActionArea style={{
+            background: '#fff',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            color: '#8e8e8e',
+            overflow: 'hidden',
+            height: '100%',
+            position: 'relative'
+          }}>
+            <CardContent style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%'
+            }}>
+              {graficoSeleccionado === 1 && <RadialBar1 />}
+              {graficoSeleccionado === 2 && <RadialBar2 />}
+              {graficoSeleccionado === 3 && <RadialBar3 />}
+              {/*{graficoSeleccionado === 4 && <RadialBar4 />}
+              {graficoSeleccionado === 5 && <RadialBar5 />}
+              {graficoSeleccionado === 6 && <RadialBar6 />}
+              {graficoSeleccionado === 7 && <RadialBar7 />}
+              {graficoSeleccionado === 8 && <RadialBar8 />}
+              {graficoSeleccionado === 9 && <RadialBar9 />}
+              {graficoSeleccionado === 10 && <RadialBar10 />}
+              {graficoSeleccionado === 11 && <RadialBar11 />}
+              {graficoSeleccionado === 12 && <RadialBar12 />}
+              {graficoSeleccionado === 13 && <RadialBar13 />}
+              {graficoSeleccionado === 14 && <RadialBar14 />}
+              {graficoSeleccionado === 15 && <RadialBar15 />}
+              {graficoSeleccionado === 16 && <RadialBar16 />}*/}
+            </CardContent>
+            <DragHandleTopLeft className="drag-handle" />
+            <DragHandleTopRight className="drag-handle" />
+            <DragHandleBottomLeft className="drag-handle" />
+            <DragHandleBottomRight className="drag-handle" />
+          </CardActionArea>
+        </div>
+        <div key="server1">
+          <CardActionArea style={{
+            background: '#fff',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            color: '#8e8e8e',
+            overflow: 'hidden',
+            height: '100%',
+            position: 'relative',
+          }}>
+            <CardContent style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%',
+            }}>
+              {graficoSeleccionado === 1 && <Info1 />}
+              {graficoSeleccionado === 2 && <Info2 />}
+              {graficoSeleccionado === 3 && <Info3 />}
+              {/*{graficoSeleccionado === 4 && <Info4 />}
+              {graficoSeleccionado === 5 && <Info5 />}
+              {graficoSeleccionado === 6 && <Info6 />}
+              {graficoSeleccionado === 7 && <Info7 />}
+              {graficoSeleccionado === 8 && <Info8 />}
+              {graficoSeleccionado === 9 && <Info9 />}
+              {graficoSeleccionado === 10 && <Info10 />}
+              {graficoSeleccionado === 11 && <Info11 />}
+              {graficoSeleccionado === 12 && <Info12 />}
+              {graficoSeleccionado === 13 && <Info13 />}
+              {graficoSeleccionado === 14 && <Info14 />}
+              {graficoSeleccionado === 15 && <Info15 />}
+              {graficoSeleccionado === 16 && <Info16 />}*/}
+            </CardContent>
+            <DragHandleTopLeft className="drag-handle" />
+            <DragHandleTopRight className="drag-handle" />
+            <DragHandleBottomLeft className="drag-handle" />
+            <DragHandleBottomRight className="drag-handle" />
+          </CardActionArea>
+        </div>
+        <div key="grafico">
+          <CardActionArea style={{
+            background: '#fff',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            color: '#8e8e8e',
+            overflow: 'hidden',
+            height: '100%',
+            position: 'relative'
+          }}>
+            <CardContent style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%'
+            }}>
+              {graficoSeleccionado === 1 && <Area1 />}
+              {graficoSeleccionado === 2 && <Area2 />}
+              {graficoSeleccionado === 3 && <Area3 />}
+              {/*{graficoSeleccionado === 4 && <Area4 />}
+              {graficoSeleccionado === 5 && <Area5 />}
+              {graficoSeleccionado === 6 && <Area6 />}
+              {graficoSeleccionado === 7 && <Area7 />}
+              {graficoSeleccionado === 8 && <Area8 />}
+              {graficoSeleccionado === 9 && <Area9 />}
+              {graficoSeleccionado === 10 && <Area10 />}
+              {graficoSeleccionado === 11 && <Area11 />}
+              {graficoSeleccionado === 12 && <Area12 />}
+              {graficoSeleccionado === 13 && <Area13 />}
+              {graficoSeleccionado === 14 && <Area14 />}
+              {graficoSeleccionado === 15 && <Area15 />}
+              {graficoSeleccionado === 16 && <Area16 />}*/}
+            </CardContent>
+            <DragHandleTopLeft className="drag-handle" />
+            <DragHandleTopRight className="drag-handle" />
+            <DragHandleBottomLeft className="drag-handle" />
+            <DragHandleBottomRight className="drag-handle" />
+          </CardActionArea>
+        </div>
+      </ResponsiveGridLayout>
+    </Box>
+  );
+};
+
+export default DemoTabs;

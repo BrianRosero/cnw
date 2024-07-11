@@ -27,14 +27,14 @@ const profile = {
   title: 'Perfil',
   type: 'group',
   children: [
-    {
+    /*{
       id: 'home',
       title: 'Home',
       type: 'item',
       url: '/profile/home',
       icon: icons.IconHome,
       breadcrumbs: false,
-    },
+    },*/
     {
       id: 'perfil',
       title: 'Perfil',
@@ -43,7 +43,7 @@ const profile = {
       icon: icons.IconUserCircle,
       breadcrumbs: false,
     },
-    {
+    /*{
       id: 'Admin',
       title: 'Administración',
       type: 'item',
@@ -58,7 +58,7 @@ const profile = {
       url: '/profile/user',
       icon: icons.IconPalette,
       breadcrumbs: false,
-    },
+    },*/
     /*{
       id: 'Moderator',
       title: 'Moderador',

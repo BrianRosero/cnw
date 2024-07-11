@@ -14,9 +14,8 @@ import {
 import logo from '../../../assets/images/ESECENTRO/LOGO-WEB.png'
 
 // Importar componentes de páginas
-import Rendimiento from '../../../views/pages/ESECENTRO/Sensors.jsx'
-import INICIO from '../../../views/pages/CONSULNETWORKS/Inicio.jsx'
-import Maquina from '../../../views/pages/COSMITET/Sensores/sensor1.jsx'
+import Rendimiento from './Sensors.jsx'
+import INICIO from './Inicio.jsx'
 
 // Estilos con Emotion
 const styles = {
@@ -24,41 +23,48 @@ const styles = {
     paddingTop: '10px',
   },
   appBar: {
-    backgroundColor: '#ffffff', // Color de fondo del appbar
+    backgroundColor: '#fff', // Color de fondo del appbar
     borderRadius: '8px',
     position: 'auto',
   },
   toolbar: {
     display: 'flex',
+    justifyContent: 'center', // Centra el contenido en el Toolbar
     alignItems: 'center',
     padding: '0 0 0 0', // Espaciado interno del toolbar
   },
-  logoText: {
-    fontFamily: "'Barlow Condensed', Helvetica, Arial, Lucida, sans-serif", // Fuentes para el texto del logo
-    color: '#000000', // Color del texto del logo
-    fontSize: '24px', // Tamaño del texto del logo
-    fontWeight: 'bold', // Grosor del texto del logo
-    marginLeft: '10px', // Espacio entre el icono y el texto del logo
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexGrow: 1, // Permite que el logo tome el espacio necesario para estar centrado
+  },
+  logoImg: {
+    maxWidth: '50%',
+    height: 'auto',
+    padding: '0px',
   },
   menuLinks: {
     display: 'flex',
     alignItems: 'center',
+    flexGrow: 0, // Permite que el contenedor de los enlaces ocupe espacio necesario para el centrado
+    justifyContent: 'flex-end',
   },
   menuItem: {
-    fontFamily: "'Barlow Condensed', Helvetica, Arial, Lucida, sans-serif", // Fuentes para el texto del logo
+    fontFamily: "Poppins, sans-serif", // Fuentes para el texto del logo
     marginRight: '20px', // Espacio entre cada elemento del menú
-    color: '#004884', // Color del texto del menú
+    color: '#ffffff', // Color del texto del menú
     fontWeight: 'bold', // Grosor del texto del menú
   },
   card: css`
-      background-color: #ffffff;
-      color: #000;
+      background-color: #004884;
+      color: #fff;
       margin-bottom: 20px;
   `,
   cardTitle: css`
       font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif; // Fuentes para el texto del logo
       font-size: 1.5rem;
-      color: #004884;
+      color: rgba(255, 255, 255, 0.83);
       font-weight: bold;
   `,
   section: css`
@@ -80,17 +86,7 @@ const styles = {
       height: auto;
       border-radius: 5px;
   `,
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoImg: {
-    maxWidth: '100%',
-    height: 'auto',
-  },
 };
-
 
 const Inicio = () => {
   const [setAnchorEl] = useState(null);
@@ -101,20 +97,20 @@ const Inicio = () => {
 
   const Header = ({onBackButtonClick}) => {
     return (
-        <AppBar position="static" css={styles.appBar}>
-          <Toolbar style={styles.toolbar}>
-            <div className="logo" css={styles.logo}>
-              <img src={logo} alt="Logo" style={styles.logoImg} onClick={onBackButtonClick}/>
-            </div>
-            <Hidden mdDown>
+      <AppBar position="static" css={styles.appBar}>
+        <Toolbar style={styles.toolbar}>
+          <div css={styles.logo}>
+            <img src={logo} alt="Logo" style={styles.logoImg} onClick={onBackButtonClick}/>
+          </div>
+          <Hidden mdDown>
+            <div style={styles.menuLinks}>
               <div style={styles.menuLinks}>
-                <div style={styles.menuLinks}>
-                  <MenuItem onClick={handleClose} style={styles.menuItem}>
-                    <Link href="#inicio" color="inherit" onClick={onBackButtonClick}>
-                      Inicio
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleClose} style={styles.menuItem}>
+                <MenuItem onClick={handleClose} style={styles.menuItem}>
+                  <Link color="inherit" onClick={onBackButtonClick}>
+                    Inicio
+                  </Link>
+                </MenuItem>
+                {/*<MenuItem onClick={handleClose} style={styles.menuItem}>
                     <Link href="#servicios" color="inherit">
                       Servicios
                     </Link>
@@ -133,12 +129,12 @@ const Inicio = () => {
                     <Link href="#contacto" color="inherit">
                       Contacto
                     </Link>
-                  </MenuItem>
-                </div>
+                  </MenuItem>*/}
               </div>
-            </Hidden>
-          </Toolbar>
-        </AppBar>
+            </div>
+          </Hidden>
+        </Toolbar>
+      </AppBar>
     );
   }
 
@@ -158,8 +154,6 @@ const Inicio = () => {
         return <Rendimiento />;
       case 'inicio':
         return <INICIO />;
-      case 'maquina':
-        return <Maquina />;
       default:
         return null;
     }
@@ -180,28 +174,28 @@ const Inicio = () => {
             <Grid container spacing={3} css={styles.section}>
               <Grid item xs={12} >
                 <CardContent >
-                  <Typography variant="h2" align="center">¡Bienvenido al Panel de Control de Servicios de la RED DE SALUD DEL CENTRO E.S.E!</Typography>
+                  <Typography style={{color: '#004884'}} variant="h2" align="center">¡Bienvenido al Panel de Control de Servicios de RED SALUD DEL CENTRO E.S.E </Typography>
                 </CardContent>
               </Grid>
             </Grid>
             {/* Sección de Servicios */}
             <Grid container spacing={3} css={styles.section}>
               <Grid item xs={12}>
-                <Typography variant="h4" align="center" id="servicios">Servicios</Typography>
+                <Typography style={{color: '#004884'}} variant="h4" align="center" id="servicios">Servicios</Typography>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Card css={styles.card}>
                   <CardContent onClick={() => handleButtonClick('rendimiento')}>
                     <Typography variant="h5" css={styles.cardTitle}>Rendimiento</Typography>
-                    <Typography variant="body2">
-                      Presentamos un sistema de rendimiento sobre las maquinas, así como información detallada de las maquinas en funcionamiento.
+                    <Typography variant="h4" style={{color: '#fff'}}>
+                      Presentamos un sistema de rendimiento de maquinas virtuales, así como información detallada de las maquinas en funcionamiento.
                     </Typography>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={4}>
+              {/*<Grid item xs={12} md={4}>
                 <Card css={styles.card}>
-                  <CardContent onClick={() => handleButtonClick('maquina')}>
+                  <CardContent onClick={() => handleButtonClick('rendimiento')}>
                     <Typography variant="h5" css={styles.cardTitle}>Desarrollo de Software</Typography>
                     <Typography variant="body2">
                       Creamos soluciones de software personalizadas para satisfacer las necesidades específicas de su
@@ -240,10 +234,10 @@ const Inicio = () => {
                     </Typography>
                   </CardContent>
                 </Card>
-              </Grid>
+              </Grid>*/}
             </Grid>
 
-            {/* Sección de Proyectos */}
+            {/*  Sección de Proyectos
             <Grid container spacing={3} css={styles.section}>
               <Grid item xs={12}>
                 <Typography variant="h4" align="center" id="proyectos">Nuestros Proyectos Recientes</Typography>
@@ -285,7 +279,7 @@ const Inicio = () => {
               </Grid>
             </Grid>
 
-            {/* Sección de Testimonios */}
+             Sección de Testimonios
             <Grid container spacing={3} css={styles.section}>
               <Grid item xs={12}>
                 <Typography variant="h4" align="center">Lo que dicen nuestros clientes</Typography>
@@ -312,12 +306,12 @@ const Inicio = () => {
                   </Typography>
                 </div>
               </Grid>
-            </Grid>
+            </Grid>*/}
           </Grid>
         )}
       </div>
     </div>
-);
+  );
 };
 
 export default Inicio;

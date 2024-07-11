@@ -6,14 +6,61 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
-import Info1 from '../ESECENTRO/Sensores/COCLOESECAP02/info.jsx';
-import RadialBar1 from '../ESECENTRO/Sensores/COCLOESECAP02/bar.jsx';
+import Info1 from './Sensores/COCLOCOSMIBD01/info.jsx';
+import RadialBar1 from './Sensores/COCLOCOSMIBD01/bar.jsx';
+import Area1 from './Sensores/COCLOCOSMIBD01/area.jsx';
+import Info2 from './Sensores/COCLOCOSMIBD02/info.jsx';
+import RadialBar2 from './Sensores/COCLOCOSMIBD02/bar.jsx';
+import Area2 from './Sensores/COCLOCOSMIBD02/area.jsx';
+import Info3 from './Sensores/COCLOCOSMIBD03/info.jsx';
+import RadialBar3 from './Sensores/COCLOCOSMIBD03/bar.jsx';
+import Area3 from './Sensores/COCLOCOSMIBD03/area.jsx';
+import Info4 from './Sensores/COCLOCOSMIBD04/info.jsx';
+import RadialBar4 from './Sensores/COCLOCOSMIBD04/bar.jsx';
+import Area4 from './Sensores/COCLOCOSMIBD04/area.jsx';
 
-import GraficoServidor2 from '../ESECENTRO/Sensores/Graficas/RadialBar.jsx';
-import GraficoServidor3 from '../CAMARACC/Sensors/Informacion.jsx';
-import Donut from '../ESECENTRO/Sensores/COCLOSMIAP02.jsx';
-import Linea from '../ESECENTRO/Sensores/COCLOSMIAP04.jsx';
-import Linea2 from '../ESECENTRO/Sensores/COCLOSMIAP04.jsx';
+import Info5 from './Sensores/COCLOCOSMIAP02/info.jsx';
+import RadialBar5 from './Sensores/COCLOCOSMIAP02/bar.jsx';
+import Area5 from './Sensores/COCLOCOSMIAP02/area.jsx';
+import Info6 from './Sensores/COCLOCOSMIAP05/info.jsx';
+import RadialBar6 from './Sensores/COCLOCOSMIAP05/bar.jsx';
+import Area6 from './Sensores/COCLOCOSMIAP05/area.jsx';
+import Info7 from './Sensores/COCLOCOSMIAP06/info.jsx';
+import RadialBar7 from './Sensores/COCLOCOSMIAP06/bar.jsx';
+import Area7 from './Sensores/COCLOCOSMIAP06/area.jsx';
+import Info8 from './Sensores/COCLOCOSMIAP07/info.jsx';
+import RadialBar8 from './Sensores/COCLOCOSMIAP07/bar.jsx';
+import Area8 from './Sensores/COCLOCOSMIAP07/area.jsx';
+
+import Info9 from './Sensores/COCLOCOSMISTG01/info.jsx';
+import RadialBar9 from './Sensores/COCLOCOSMISTG01/bar.jsx';
+import Area9 from './Sensores/COCLOCOSMISTG01/area.jsx';
+
+import Info10 from './Sensores/COCLOCOSMIFI01/info.jsx';
+import RadialBar10 from './Sensores/COCLOCOSMIFI01/bar.jsx';
+import Area10 from './Sensores/COCLOCOSMIFI01/area.jsx';
+
+import Info11 from './Sensores/COCLOCOSMIBK01/info.jsx';
+import RadialBar11 from './Sensores/COCLOCOSMIBK01/bar.jsx';
+import Area11 from './Sensores/COCLOCOSMIBK01/area.jsx';
+
+import Info12 from './Sensores/COCLOCOSMIREP02/info.jsx';
+import RadialBar12 from './Sensores/COCLOCOSMIREP02/bar.jsx';
+import Area12 from './Sensores/COCLOCOSMIREP02/area.jsx';
+import Info13 from './Sensores/COCLOCOSMIREP03/info.jsx';
+import RadialBar13 from './Sensores/COCLOCOSMIREP03/bar.jsx';
+import Area13 from './Sensores/COCLOCOSMIREP03/area.jsx';
+
+import Info14 from './Sensores/COCLOCOSMIDES01/info.jsx';
+import RadialBar14 from './Sensores/COCLOCOSMIDES01/bar.jsx';
+import Area14 from './Sensores/COCLOCOSMIDES01/area.jsx';
+import Info15 from './Sensores/COCLOCOSMIAST03/info.jsx';
+import RadialBar15 from './Sensores/COCLOCOSMIAST03/bar.jsx';
+import Area15 from './Sensores/COCLOCOSMIAST03/area.jsx';
+import Info16 from './Sensores/COCLOCOSMIAST04/info.jsx';
+import RadialBar16 from './Sensores/COCLOCOSMIAST04/bar.jsx';
+import Area16 from './Sensores/COCLOCOSMIAST04/area.jsx';
+
 
 const styles = {
   tabs: {
@@ -21,7 +68,7 @@ const styles = {
     borderRadius: '8px',
   },
   indicator: {
-    backgroundColor: '#029E3D', // Cambia el color de la barra inferior del tab
+    backgroundColor: '#004884',
   },
   slide: {
     padding: 15,
@@ -35,12 +82,12 @@ const styles = {
   card: {
     margin: '10px',
     width: '100%',
-    backgroundColor: '#004884',
+    backgroundColor: '#abb8c3',
     borderRadius: '8px',
     color: '#fff',
   },
   selectedCard: {
-    backgroundColor: '#029E3D',
+    backgroundColor: '#004884',
     color: 'white',
   },
   graficoContainer: {
@@ -55,12 +102,17 @@ const styles = {
   },
 };
 
+const activeTabStyle = {
+  color: '#004884',
+  fontWeight: 'bold',
+};
+
 const DragHandle = styled('div')({
   width: '100%',
   height: '5%',
   position: 'absolute',
   cursor: 'move',
-  backgroundColor: 'rgb(255,255,255)', // Puedes ajustar el estilo según tus preferencias
+  backgroundColor: 'rgb(255,255,255)',
 });
 
 const DragHandleTopLeft = styled(DragHandle)({
@@ -87,12 +139,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const DemoTabs = () => {
   const [index, setIndex] = useState(0);
-  const [graficoSeleccionado, setGraficoSeleccionado] = useState(1);
-
-  useEffect(() => {
-    // Seleccionar el primer servidor del primer tab por defecto al cargar la página
-    setGraficoSeleccionado(1);
-  }, []);
+  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOCOSMIBD01');
 
   const handleChange = (event, newValue) => {
     setIndex(newValue);
@@ -103,16 +150,78 @@ const DemoTabs = () => {
   };
 
   const handleCardClick = (id) => {
+    console.log(`Card clicked: ${id}`); // Debug: Mostrar el id de la tarjeta clicada
     setGraficoSeleccionado(id);
   };
 
   const defaultLayout = [
-    { i: 'servers', x: 0, y: 0, w: 4, h: 6 },
-    { i: 'server1', x: 4, y: 0, w: 8, h: 2 },
+    { i: '1', x: 0, y: 0, w: 3, h: 7 },
+    { i: '2', x: 4, y: 0, w: 9, h: 2 },
     { i: 'server2', x: 6, y: 0, w: 2, h: 2 },
     { i: 'server3', x: 8, y: 0, w: 2, h: 2 },
     { i: 'server4', x: 10, y: 0, w: 2, h: 2 },
-    { i: 'grafico', x: 4, y: 2, w: 8, h: 4 },
+    { i: '3', x: 4, y: 2, w: 9, h: 5 },
+  ];
+
+  // Función para obtener el componente basado en la selección actual
+  const getComponent = (type) => {
+    console.log(`Fetching ${type} for selected graph: ${graficoSeleccionado}`);
+    switch (graficoSeleccionado) {
+      case 'COCLOCOSMIBD01':
+        return type === 'RadialBar' ? <RadialBar1 /> : type === 'Info' ? <Info1 /> : <Area1 />;
+      case 'COCLOCOSMIBD02':
+        return type === 'RadialBar' ? <RadialBar2 /> : type === 'Info' ? <Info2 /> : <Area2 />;
+      case 'COCLOCOSMIBD03':
+        return type === 'RadialBar' ? <RadialBar3 /> : type === 'Info' ? <Info3 /> : <Area3 />;
+      case 'COCLOCOSMIBD04':
+        return type === 'RadialBar' ? <RadialBar4 /> : type === 'Info' ? <Info4 /> : <Area4 />;
+      case 'COCLOCOSMIAP02':
+        return type === 'RadialBar' ? <RadialBar5 /> : type === 'Info' ? <Info5 /> : <Area5 />;
+      case 'COCLOCOSMIAP05':
+        return type === 'RadialBar' ? <RadialBar6 /> : type === 'Info' ? <Info6 /> : <Area6 />;
+      case 'COCLOCOSMIAP06':
+        return type === 'RadialBar' ? <RadialBar7 /> : type === 'Info' ? <Info7 /> : <Area7 />;
+      case 'COCLOCOSMIAP07':
+        return type === 'RadialBar' ? <RadialBar8 /> : type === 'Info' ? <Info8 /> : <Area8 />;
+      case 'COCLOCOSMISTG01':
+        return type === 'RadialBar' ? <RadialBar9 /> : type === 'Info' ? <Info9 /> : <Area9 />;
+      case 'COCLOCOSMIFI01':
+        return type === 'RadialBar' ? <RadialBar10 /> : type === 'Info' ? <Info10 /> : <Area10 />;
+      case 'COCLOCOSMIBK01':
+        return type === 'RadialBar' ? <RadialBar11 /> : type === 'Info' ? <Info11 /> : <Area11 />;
+      case 'COCLOCOSMIREP02':
+        return type === 'RadialBar' ? <RadialBar12 /> : type === 'Info' ? <Info12 /> : <Area12 />;
+      case 'COCLOCOSMIREP03':
+        return type === 'RadialBar' ? <RadialBar13 /> : type === 'Info' ? <Info13 /> : <Area13 />;
+      case 'COCLOCOSMIDES01':
+        return type === 'RadialBar' ? <RadialBar14 /> : type === 'Info' ? <Info14 /> : <Area14 />;
+      case 'COCLOCOSMIAST03':
+        return type === 'RadialBar' ? <RadialBar15 /> : type === 'Info' ? <Info15 /> : <Area15 />;
+      case 'COCLOCOSMIAST04':
+        return type === 'RadialBar' ? <RadialBar16 /> : type === 'Info' ? <Info16 /> : <Area16 />;
+      default:
+        return null;
+    }
+  };
+
+  const tabLabels = [
+    'Bases de datos',
+    'Aplicativos',
+    'Storage',
+    'Financiero',
+    'Backup',
+    'Replica',
+    'Desarrollo',
+  ];
+
+  const cards = [
+    ['COCLOCOSMIBD01', 'COCLOCOSMIBD02', 'COCLOCOSMIBD03', 'COCLOCOSMIBD04'],
+    ['COCLOCOSMIAP02', 'COCLOCOSMIAP05', 'COCLOCOSMIAP06', 'COCLOCOSMIAP07'],
+    ['COCLOCOSMISTG01'],
+    ['COCLOCOSMIFI01'],
+    ['COCLOCOSMIBK01'],
+    ['COCLOCOSMIREP02', 'COCLOCOSMIREP03'],
+    ['COCLOCOSMIDES01', 'COCLOCOSMIAST03', 'COCLOCOSMIAST04'],
   ];
 
   return (
@@ -124,276 +233,29 @@ const DemoTabs = () => {
         variant="fullWidth"
         TabIndicatorProps={{ style: styles.indicator }}
       >
-        <Tab label="Aplicativos 1" />
-        <Tab label="Aplicativos 2" />
-        <Tab label="Aplicativos 3" />
-        <Tab label="Aplicativos 4" />
-        <Tab label="Bases de datos" />
+        {tabLabels.map((label, i) => (
+          <Tab key={i} label={label} style={index === i ? activeTabStyle : {}} />
+        ))}
       </Tabs>
       <SwipeableViews index={index} onChangeIndex={handleChangeIndex}>
-        <div style={{ ...styles.slide, ...styles.slide1 }}>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 1 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(1)}
-          >
-            <CardContent>
-              COCLOESECAP02
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 2 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(2)}
-          >
-            <CardContent>
-              COCLOESECAP03
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 3 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(3)}
-          >
-            <CardContent>
-              COCLOESECAP04
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 4 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(4)}
-          >
-            <CardContent>
-              COCLOESECAP05
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 5 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(5)}
-          >
-            <CardContent>
-              COCLOESECAP06
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 6 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(6)}
-          >
-            <CardContent>
-              COCLOESECAP07
-            </CardContent>
-          </CardActionArea>
-        </div>
-        <div style={{ ...styles.slide, ...styles.slide2 }}>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 7 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(7)}
-          >
-            <CardContent>
-              COCLOESECAP08
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 8 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(8)}
-          >
-            <CardContent>
-              COCLOESECAP09
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 9 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(9)}
-          >
-            <CardContent>
-              COCLOESECAP10
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 10 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(10)}
-          >
-            <CardContent>
-              COCLOESECAP11
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 11 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(11)}
-          >
-            <CardContent>
-              COCLOESECAP12
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 12 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(12)}
-          >
-            <CardContent>
-              COCLOESECAP13
-            </CardContent>
-          </CardActionArea>
-        </div>
-        <div style={{ ...styles.slide, ...styles.slide3 }}>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 13 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(13)}
-          >
-            <CardContent>
-              COCLOESECAP14
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 14 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(14)}
-          >
-            <CardContent>
-              COCLOESECAP15
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 15 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(15)}
-          >
-            <CardContent>
-              COCLOESECAP16
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 16 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(16)}
-          >
-            <CardContent>
-              COCLOESECAP17
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 17 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(17)}
-          >
-            <CardContent>
-              COCLOESECAP18
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 18 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(18)}
-          >
-            <CardContent>
-              COCLOESECAP19
-            </CardContent>
-          </CardActionArea>
-        </div>
-        <div style={{ ...styles.slide, ...styles.slide4 }}>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 19 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(19)}
-          >
-            <CardContent>
-              COCLOESECAP20
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 20 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(20)}
-          >
-            <CardContent>
-              COCLOESECAP21
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 21 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(21)}
-          >
-            <CardContent>
-              COCLOESECAP22
-            </CardContent>
-          </CardActionArea>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 22 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(22)}
-          >
-            <CardContent>
-              COCLOESECAP23
-            </CardContent>
-          </CardActionArea>
-        </div>
-        <div style={{ ...styles.slide, ...styles.slide5 }}>
-          <CardActionArea
-            style={{
-              ...styles.card,
-              ...(graficoSeleccionado === 23 && styles.selectedCard),
-            }}
-            onClick={() => handleCardClick(23)}
-          >
-            <CardContent>
-              COCLOESECDA01
-            </CardContent>
-          </CardActionArea>
-        </div>
+        {cards.map((group, groupIndex) => (
+          <div key={groupIndex} style={styles.slide}>
+            {group.map((card) => (
+              <CardActionArea
+                key={card}
+                onClick={() => handleCardClick(card)}
+                style={{
+                  ...styles.card,
+                  ...(graficoSeleccionado === card ? styles.selectedCard : {}),
+                }}
+              >
+                <CardContent>
+                  {card}
+                </CardContent>
+              </CardActionArea>
+            ))}
+          </div>
+        ))}
       </SwipeableViews>
       <ResponsiveGridLayout
         className="layout"
@@ -405,34 +267,7 @@ const DemoTabs = () => {
         isDraggable
         draggableHandle=".drag-handle"
       >
-        <div key="servers">
-          <CardActionArea style={{
-            background: '#fff',
-            borderRadius: '8px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            color: '#8e8e8e',
-            overflow: 'hidden',
-            height: '100%',
-            position: 'relative'
-          }}>
-            <CardContent style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%'
-            }}>
-              {graficoSeleccionado === 1 && <RadialBar1 />}
-              {graficoSeleccionado === 2 && <GraficoServidor2 />}
-              {graficoSeleccionado === 3 && <GraficoServidor3 />}
-            </CardContent>
-            <DragHandleTopLeft className="drag-handle" />
-            <DragHandleTopRight className="drag-handle" />
-            <DragHandleBottomLeft className="drag-handle" />
-            <DragHandleBottomRight className="drag-handle" />
-          </CardActionArea>
-        </div>
-        <div key="server1">
+        <div key="1">
           <CardActionArea style={{
             background: '#fff',
             borderRadius: '8px',
@@ -449,9 +284,7 @@ const DemoTabs = () => {
               alignItems: 'center',
               height: '100%',
             }}>
-              {graficoSeleccionado === 1 && <Info1 />}
-              {graficoSeleccionado === 2 && <GraficoServidor2 />}
-              {graficoSeleccionado === 3 && <GraficoServidor3 />}
+              {getComponent('RadialBar')}
             </CardContent>
             <DragHandleTopLeft className="drag-handle" />
             <DragHandleTopRight className="drag-handle" />
@@ -459,7 +292,7 @@ const DemoTabs = () => {
             <DragHandleBottomRight className="drag-handle" />
           </CardActionArea>
         </div>
-        <div key="grafico">
+        <div key="2">
           <CardActionArea style={{
             background: '#fff',
             borderRadius: '8px',
@@ -467,16 +300,41 @@ const DemoTabs = () => {
             color: '#8e8e8e',
             overflow: 'hidden',
             height: '100%',
-            position: 'relative'
+            position: 'relative',
           }}>
             <CardContent style={{
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              height: '100%'
+              height: '100%',
             }}>
-              <Linea2 />
+              {getComponent('Info')}
+            </CardContent>
+            <DragHandleTopLeft className="drag-handle" />
+            <DragHandleTopRight className="drag-handle" />
+            <DragHandleBottomLeft className="drag-handle" />
+            <DragHandleBottomRight className="drag-handle" />
+          </CardActionArea>
+        </div>
+        <div key="3">
+          <CardActionArea style={{
+            background: '#fff',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            color: '#8e8e8e',
+            overflow: 'hidden',
+            height: '100%',
+            position: 'relative',
+          }}>
+            <CardContent style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%',
+            }}>
+              {getComponent('Area')}
             </CardContent>
             <DragHandleTopLeft className="drag-handle" />
             <DragHandleTopRight className="drag-handle" />
@@ -490,5 +348,3 @@ const DemoTabs = () => {
 };
 
 export default DemoTabs;
-
-

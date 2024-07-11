@@ -21,7 +21,7 @@ const pages = {
       icon: icons.IconKey,
 
       children: [
-        {
+        /*{
           id: 'login3',
           title: 'Login',
           type: 'item',
@@ -34,7 +34,7 @@ const pages = {
           type: 'item',
           url: '/pages/register/register3',
           target: true,
-        },
+        },*/
       ],
     },
   ],

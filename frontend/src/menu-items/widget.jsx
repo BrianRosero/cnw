@@ -24,7 +24,7 @@ export const widget = {
   type: 'group',
   children: [
 
-    {
+    /*{
       id: 'estadisticas',
       title: 'Estadisticas',
       type: 'item',
@@ -71,6 +71,6 @@ export const widget = {
       url: 'widget/tickets',
       icon: icons['IconReport'],
       breadcrumbs: false,
-    },
+    },*/
   ],
 };

@@ -83,7 +83,7 @@ const NotificationList = () => {
         },
       }}
     >
-      <ListItemWrapper>
+      {/*<ListItemWrapper>
         <ListItem alignItems="center">
           <ListItemAvatar>
             <Avatar alt="John Doe" src={User1} />
@@ -275,7 +275,7 @@ const NotificationList = () => {
             </Grid>
           </Grid>
         </Grid>
-      </ListItemWrapper>
+      </ListItemWrapper>*/}
     </List>
   );
 };

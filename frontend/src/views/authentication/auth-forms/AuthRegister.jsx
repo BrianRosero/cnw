@@ -114,7 +114,7 @@ const FirebaseRegister = ({ ...others }) => {
   return (
     <>
       <Grid container direction="column" justifyContent="center" spacing={2}>
-        <Grid item xs={12}>
+        {/*<Grid item xs={12}>
           <AnimateButton>
             <Button
               disableElevation
@@ -136,7 +136,7 @@ const FirebaseRegister = ({ ...others }) => {
             </Button>
           </AnimateButton>
           <Box sx={{ mt: 1 }}>
-            {/* Agregar este Box con margen superior */}
+             Agregar este Box con margen superior
           </Box>
           <AnimateButton>
             <Button
@@ -174,10 +174,10 @@ const FirebaseRegister = ({ ...others }) => {
             </Button>
             <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
           </Box>
-        </Grid>
+        </Grid>*/}
         <Grid item xs={12} container alignItems="center" justifyContent="center">
           <Box sx={{ mb: 2 }}>
-            <Typography variant="subtitle1">Incia sesión tu correo electronico</Typography>
+            <Typography variant="subtitle1">Formulario de registro</Typography>
           </Box>
         </Grid>
       </Grid>

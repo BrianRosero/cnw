@@ -91,7 +91,7 @@ const FirebaseLogin = ({ ...others }) => {
   return (
     <>
       <Grid container direction="column" justifyContent="center" spacing={2} borderRadius={12}>
-        <Grid item xs={12}>
+        {/*<Grid item xs={12}>
           <AnimateButton>
             <Button
               disableElevation
@@ -133,8 +133,8 @@ const FirebaseLogin = ({ ...others }) => {
               Registrate con Microsoft
             </Button>
           </AnimateButton>
-        </Grid>
-        <Grid item xs={12}>
+        </Grid>*/}
+        {/*<Grid item xs={12}>
           <Box
             sx={{
               alignItems: 'center',
@@ -163,7 +163,7 @@ const FirebaseLogin = ({ ...others }) => {
 
             <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
           </Box>
-        </Grid>
+        </Grid>*/}
         <Grid item xs={12} container alignItems="center" justifyContent="center">
           <Box sx={{ mb: 2 }}>
             <Typography variant="subtitle1">Inicia Sesión con tu Nombre de Usuario</Typography>

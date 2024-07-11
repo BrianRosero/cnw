@@ -15,10 +15,16 @@ import logoPENITAS from '../../../assets/images/PEÑITAS.png';
 import logoROCHE from '../../../assets/images/ROCHE.png';
 
 // Importar componentes de páginas
-import ESECENTRO from '../../../views/pages/ESECENTRO/Inicio.jsx';
-import CNW from '../../../views/pages/CONSULNETWORKS/Inicio.jsx';
+import CNW from '../CONSULNETWORKS/Inicio.jsx';
+import ESECENTRO from '../ESECENTRO/Inicio.jsx';
 import COSMITET from '../../../views/pages/COSMITET/COSMITET/Inicio.jsx';
-import CAMARACC from '../../../views/pages/CAMARACC/Inicio.jsx';
+import DUANA from '../../../views/pages/COSMITET/DUANA/Inicio.jsx';
+import SSOFIA from '../../../views/pages/COSMITET/SSOFIA/Inicio.jsx';
+import DUARTE from '../../../views/pages/COSMITET/DUARTE/Inicio.jsx';
+import PEÑITAS from '../../../views/pages/COSMITET/PEÑITAS/Inicio.jsx';
+import CAMARACC from '../CAMARACC/Inicio.jsx';
+import OZONO from '../OZONO/Inicio.jsx';
+import ROCHE from '../ROCHE/Inicio.jsx';
 
 import './style.css';
 import UserService from '../../../services/user.service.jsx'; // Importar el archivo de estilos CSS
@@ -288,14 +294,26 @@ function Dashboard() {
 
   const renderPageContent = () => {
     switch (currentPage) {
-      case 'esecentro':
-        return <ESECENTRO />;
       case 'cnw':
         return <CNW />;
+      case 'esecentro':
+        return <ESECENTRO />;
       case 'cosmitet':
         return <COSMITET />;
+      case 'duana':
+        return <DUANA />;
+      case 'ssofia':
+        return <SSOFIA />;
+      case 'duarte':
+        return <DUARTE />;
+      case 'peñitas':
+        return <PEÑITAS/>;
       case 'camaracc':
         return <CAMARACC />;
+      case 'ozono':
+        return <OZONO />;
+      case 'roche':
+        return <ROCHE />;
       default:
         return null;
     }
@@ -313,7 +331,6 @@ function Dashboard() {
               {renderPageContent()}
             </div>
           ) : (
-
             <CardContainer>
               <CardWrapper onClick={() => handleButtonClick('cnw')}>
                 <LogoImage src={logoCNW} alt="Logo" style={{ width: '115%' }} />
@@ -324,25 +341,25 @@ function Dashboard() {
               <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
                 <LogoImage src={logoCOSMITET} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('duana')}>
                 <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('ssofia')}>
                 <LogoImage src={logoSSOFIA} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('duarte')}>
                 <LogoImage src={logoDUARTE} alt="Logo" style={{ width: '90%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('peñitas')}>
                 <LogoImage src={logoPENITAS} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
               <CardWrapper onClick={() => handleButtonClick('camaracc')}>
                 <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('ozono')}>
                 <LogoImage src={logoOZONO} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('roche')}>
                 <LogoImage src={logoROCHE} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
             </CardContainer>
@@ -371,25 +388,25 @@ function Dashboard() {
               <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
                 <LogoImage src={logoCOSMITET} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('duana')}>
                 <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('ssofia')}>
                 <LogoImage src={logoSSOFIA} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('duarte')}>
                 <LogoImage src={logoDUARTE} alt="Logo" style={{ width: '90%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('peñitas')}>
                 <LogoImage src={logoPENITAS} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
               <CardWrapper onClick={() => handleButtonClick('camaracc')}>
                 <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('ozono')}>
                 <LogoImage src={logoOZONO} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('roche')}>
                 <LogoImage src={logoROCHE} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
             </CardContainer>
@@ -452,16 +469,16 @@ function Dashboard() {
               <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
                 <LogoImage src={logoCOSMITET} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('duana')}>
                 <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('ssofia')}>
                 <LogoImage src={logoSSOFIA} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('duarte')}>
                 <LogoImage src={logoDUARTE} alt="Logo" style={{ width: '100%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('peñitas')}>
                 <LogoImage src={logoPENITAS} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
             </CardContainer>
@@ -481,7 +498,7 @@ function Dashboard() {
             </div>
           ) : (
             <CardContainer>
-              <CardWrapper onClick={() => handleButtonClick('pagina1')}>
+              <CardWrapper onClick={() => handleButtonClick('duana')}>
                 <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
               </CardWrapper>
             </CardContainer>
@@ -501,7 +518,7 @@ function Dashboard() {
             </div>
           ) : (
             <CardContainer>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
+              <CardWrapper onClick={() => handleButtonClick('ozono')}>
                 <LogoImage src={logoOZONO} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
             </CardContainer>
@@ -521,7 +538,7 @@ function Dashboard() {
             </div>
           ) : (
             <CardContainer>
-              <CardWrapper onClick={() => handleButtonClick('CNW')}>
+              <CardWrapper onClick={() => handleButtonClick('roche')}>
                 <LogoImage src={logoROCHE} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
             </CardContainer>

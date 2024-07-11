@@ -57,7 +57,7 @@ const styles = {
   cardTitle: css`
       font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif; // Fuentes para el texto del logo
       font-size: 1.5rem;
-      color: #004884;
+      color: #009100;
       font-weight: bold;
   `,
   section: css`
