@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Card, CardContent, Typography, Grid, Box, Button, Divider } from '@mui/material';
 import { styled } from '@mui/system';
 import Chart from 'react-apexcharts';
-import sensorData from '../../../../../../sensorData.jsx'; // Importar el archivo de datos
+import sensorData from '../../../../../../sensorData.jsx'; // Asegúrate de que la ruta sea correcta
 
 const channelIDs = {
   cpuReadyPercent: 6,
@@ -25,61 +25,71 @@ const chartOptions = {
     sparkline: {
       enabled: true,
     },
+    events: {
+      mounted: function (chartContext, config) {
+        chartContext.dispatchAction({
+          type: 'highlight',
+          seriesIndex: 0,
+        });
+      },
+    },
   },
   plotOptions: {
     radialBar: {
+      startAngle: -135,
+      endAngle: 215,
       dataLabels: {
-        total: {
+        name: {
+          offsetY: -9,
+          fontSize: '13px',
+        },
+        value: {
+          fontSize: '20px',
           show: true,
-          label: 'Total'
-        }
+        },
       },
       track: {
         dropShadow: {
           enabled: true,
-          top: 2,
+          top: 0,
           left: 0,
           blur: 4,
-          opacity: 0.15
-        }
-      },
-      dataLabels1: {
-        name: {
-          offsetY: -10,
-          color: "#fcfcfc",
-          fontSize: "13px"
+          opacity: 0.15,
         },
-        value: {
-          color: "#ffffff",
-          fontSize: "20px",
-          show: true
-        }
-      }
-    }
+      },
+    },
   },
   labels: ['Uso de CPU', 'Uso de memoria', 'Uso de Disco', 'Uso de Red'],
-  colors: ['#1a73e8', '#34a853', '#fbbc05', '#b43939'],
+  colors: ['#009240', '#1a73e8', '#fbbc05', '#b43939'],
   fill: {
-    type: "gradient",
+    type: 'gradient',
     gradient: {
-      type: "vertical",
-      gradientToColors: ["#87D4F9", "#87D4F9", "#87D4F9", "#87D4F9"],
-      stops: [0, 100]
-    }
+      type: 'vertical',
+      gradientToColors: ['#87D4F9', '#87D4F9', '#87D4F9', '#87D4F9'],
+      stops: [0, 100],
+    },
   },
   stroke: {
-    lineCap: "round"
+    lineCap: 'round',
+  },
+  tooltip: {
+    enabled: true,
+    y: {
+      formatter: function (val) {
+        return val + '%';
+      },
+    },
   },
 };
 
 const StyledCard = styled(Card)(({ theme }) => ({
   background: '#ffffff',
   color: '#ffffff',
-  padding: '0px'
+  padding: '0px',
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
-  color: '#009100',
+  color: '#009240',
   fontWeight: 'bold',
   fontSize: '1.5rem',
 }));
@@ -95,7 +105,7 @@ const StatusButton = styled(Button)(({ theme, active }) => ({
   '&:hover': {
     backgroundColor: active ? '#00c853' : '#d50000',
   },
-  borderRadius: '25px',
+  borderRadius: '8px',
 }));
 
 const MachineCard = ({ sensorId }) => {
@@ -108,34 +118,31 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
-        const data = response.data.channels.reduce((acc, channel) => {
+        // Fetch sensor info
+        const sensorResponse = await axios.get(`http://192.168.200.155:8080/sensor/${sensorId}`);
+        const apiSensorData = sensorResponse.data;
+
+        // Fetch channel data
+        const response = await axios.get(`http://192.168.200.155:8080/canales/${sensorId}`);
+        const data = response.data.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;
         }, {});
         setChannelData(data);
-        setMachineActive(response.data.active);
 
-        // Obtener información del sensorData
-        const sensorInfoFromData = sensorData[sensorId];
-        if (sensorInfoFromData) {
-          // Convertir ram y disk de bits a GB
-          const convertedSensorInfo = {
-            ...sensorInfoFromData,
-            ram: (sensorInfoFromData.ram * 0.1 * 10).toFixed(2), // Convertir a GB y redondear a 2 decimales
-            disk: (sensorInfoFromData.disk / (1024 * 1024)).toFixed(2) // Convertir a GB y redondear a 2 decimales
-          };
-          setSensorInfo(convertedSensorInfo);
-        } else {
-          console.error(`No data found for sensorId: ${sensorId}`);
-          // Aquí puedes manejar el caso de datos no encontrados, por ejemplo:
-          setSensorInfo({
-            name: 'Sensor no encontrado',
-            cpu: 'N/A',
-            ram: 'N/A',
-            disk: 'N/A'
-          });
-        }
+        // Combine API data with local sensorData
+        const localSensorData = sensorData[sensorId] || {};
+        const combinedSensorData = {
+          ...apiSensorData,
+          cpu: localSensorData.cpu,
+          disk: (localSensorData.disk / (1024 * 1024)).toFixed(2),
+          ip: localSensorData.ip,
+        };
+
+        setSensorInfo(combinedSensorData);
+
+        // Set machine active status based on sensor status
+        setMachineActive(apiSensorData.status === 'OK');
 
         setLoading(false);
       } catch (error) {
@@ -159,14 +166,18 @@ const MachineCard = ({ sensorId }) => {
     return <p>{error}</p>;
   }
 
+  // Calculate memory usage percentage
+  const memoryConsumed = parseFloat(channelData[channelIDs.memoryConsumed]?.lastvalue).toFixed(0) || 0;
+  const memoryActive = parseFloat(channelData[channelIDs.memoryActive]?.lastvalue).toFixed(0) || 0;
+  const memoryUsagePercent = memoryConsumed > 0 ? ((memoryActive / memoryConsumed) * 100).toFixed(0) : 0;
+
   const chartSeries = [
-    parseFloat(channelData[channelIDs.cpuUsage]?.lastvalue) || 0,
-    parseFloat(channelData[channelIDs.memoryConsumedPercent]?.lastvalue) || 0,
-    parseFloat(channelData[channelIDs.diskUsage]?.lastvalue) || 0,
-    parseFloat(channelData[channelIDs.networkUsage]?.lastvalue) || 0,
+    parseFloat(channelData[channelIDs.cpuUsage]?.lastvalue).toFixed(0) || 0,
+    memoryUsagePercent,
+    parseFloat(channelData[channelIDs.diskUsage]?.lastvalue).toFixed(0) || 0,
+    parseFloat(channelData[channelIDs.networkUsage]?.lastvalue).toFixed(0) || 0,
   ];
 
-  // Verificar si sensorInfo está definido antes de acceder a sus propiedades
   if (!sensorInfo) {
     return <p>No se encontraron datos para el sensor ID {sensorId}</p>;
   }
@@ -177,31 +188,34 @@ const MachineCard = ({ sensorId }) => {
         <Title variant="h1" gutterBottom>
           Información de la Máquina Virtual
         </Title>
-        <Divider style={{ backgroundColor: '#009100' }} />
+        <Divider style={{ backgroundColor: '#009240' }} />
         <InfoText variant="body5">
           <strong>Nombre de la maquina virtual:</strong> {sensorInfo.name}
         </InfoText>
         <InfoText variant="body2">
-          <strong>Estado:</strong> {machineActive ? 'Encendida' : 'Apagada'}
+          <strong>Estado:</strong> {machineActive ? 'Activa' : 'Apagada'}
         </InfoText>
         <Box marginY={2}>
           <StatusButton variant="contained" active={machineActive}>
-            {machineActive ? 'Encendido' : 'Apagado'}
+            {machineActive ? 'Encendida' : 'Apagada'}
           </StatusButton>
         </Box>
         <InfoText variant="body2">
           <strong>Disco duro:</strong> {sensorInfo.disk} TB
         </InfoText>
         <InfoText variant="body2">
-          <strong>RAM:</strong> {sensorInfo.ram} GB
+          <strong>RAM:</strong> {parseFloat(channelData[channelIDs.memoryConsumed]?.lastvalue) || 0} GB
         </InfoText>
         <InfoText variant="body2">
-          <strong>Núcleos de procesamiento:</strong> {sensorInfo.cpu} Vcpu's
+          <strong>IP:</strong> {sensorInfo.ip}
         </InfoText>
-        <Divider style={{ backgroundColor: '#009100', margin: '0px 0' }} />
+        <InfoText variant="body2">
+          <strong>Procesadores virtuales:</strong> {sensorInfo.cpu} Vcpu´s
+        </InfoText>
+        <Divider style={{ backgroundColor: '#009240', margin: '0px 0' }} />
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={12}>
-            <Chart options={chartOptions} series={chartSeries} type="radialBar" height={350} />
+            <Chart options={chartOptions} series={chartSeries} type="radialBar" height={250} />
           </Grid>
         </Grid>
       </CardContent>

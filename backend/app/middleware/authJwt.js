@@ -60,13 +60,13 @@ isAdminESECENTRO = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "administrador-ESECENTRO") {
+        if (roles[i].name === "administrador-COSMITET") {
           next();
           return;
         }
       }
       res.status(403).send({
-        message: "No tienes permisos de ESECENTRO!"
+        message: "No tienes permisos de COSMITET!"
       });
     });
   });

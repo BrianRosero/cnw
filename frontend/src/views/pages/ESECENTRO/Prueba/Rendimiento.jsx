@@ -14,7 +14,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 const empresas = [
-  { nombre: "ESECENTRO", logo: empresa1 },
+  { nombre: "COSMITET", logo: empresa1 },
   // Agrega las otras empresas según sea necesario
 ];
 

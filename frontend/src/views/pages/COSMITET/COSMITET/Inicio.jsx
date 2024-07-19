@@ -15,6 +15,7 @@ import logo from '../../../../assets/images/cosmitet-logo-blanco.png'
 
 // Importar componentes de páginas
 import Rendimiento from '../../../../views/pages/COSMITET/COSMITET/Sensors.jsx'
+import Informes from '../../../../views/pages/COSMITET/COSMITET/Informes.jsx'
 import INICIO from '../../../../views/pages/COSMITET/COSMITET/Inicio.jsx'
 
 // Estilos con Emotion
@@ -155,6 +156,8 @@ const Inicio = () => {
     switch (currentPage) {
       case 'rendimiento':
         return <Rendimiento />;
+      case 'informes':
+        return <Informes />;
       case 'inicio':
         return <INICIO />;
       default:
@@ -196,18 +199,17 @@ const Inicio = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              {/*<Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card css={styles.card}>
-                  <CardContent onClick={() => handleButtonClick('rendimiento')}>
-                    <Typography variant="h5" css={styles.cardTitle}>Desarrollo de Software</Typography>
+                  <CardContent onClick={() => handleButtonClick('informes')}>
+                    <Typography variant="h5" css={styles.cardTitle}>Informes Backup</Typography>
                     <Typography variant="body2">
-                      Creamos soluciones de software personalizadas para satisfacer las necesidades específicas de su
-                      empresa.
+                      Presentamos un sistema de informes de diarios de Backup de vuestras maquinas virtuales.
                     </Typography>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={4}>
+              {/*<Grid item xs={12} md={4}>
                 <Card css={styles.card}>
                   <CardContent>
                     <Typography variant="h5" css={styles.cardTitle}>Seguridad Informática</Typography>

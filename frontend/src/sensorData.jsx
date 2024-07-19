@@ -4,7 +4,7 @@ const sensorData = {
     name: 'COCLODUANADU01',
     cpu: '8',
     ram: '32.768',
-    disk: '614.400',
+    disk: '614400',
     ip: '10.21.0.5',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -13,7 +13,7 @@ const sensorData = {
     name: 'COCLOCDUARAP01',
     cpu: '8',
     ram: '24.576',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.252.252.4',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -22,7 +22,7 @@ const sensorData = {
     name: 'COCLOCDUARAST01',
     cpu: '48',
     ram: '98.304',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.252.252.2',
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
@@ -31,7 +31,7 @@ const sensorData = {
     name: 'COCLOCDUARFI01',
     cpu: '24',
     ram: '98.304',
-    disk: '1.433.600',
+    disk: '1433600',
     ip: '10.252.252.9',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -40,7 +40,7 @@ const sensorData = {
     name: 'COCLOCDUAREP02',
     cpu: '24',
     ram: '49.152',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.252.252.7',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -49,7 +49,7 @@ const sensorData = {
     name: 'COCLOCDUARTBD02',
     cpu: '24',
     ram: '65.536',
-    disk: '1.153.433',
+    disk: '1153433',
     ip: '10.252.252.6',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -58,7 +58,7 @@ const sensorData = {
     name: 'COCLOCDUARTBD01',
     cpu: '24',
     ram: '65.536',
-    disk: '1.153.433',
+    disk: '1153433',
     ip: '10.252.252.5',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -67,7 +67,7 @@ const sensorData = {
     name: 'COCLOCDUARTBK01',
     cpu: '4',
     ram: '16.384',
-    disk: '7.340.032',
+    disk: '7340032',
     ip: '10.252.252.10',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -76,7 +76,7 @@ const sensorData = {
     name: 'COCLOCDUARTSTG01',
     cpu: '6',
     ram: '16.384',
-    disk: '7.444.889',
+    disk: '7444889',
     ip: '10.252.252.11',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -85,7 +85,7 @@ const sensorData = {
     name: 'COCLOCDUARST02',
     cpu: '12',
     ram: '49.152',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.252.252.8',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -93,8 +93,8 @@ const sensorData = {
   2139: {
     name: 'COCLOCOSMIBD01',
     cpu: '80',
-    ram: '196.608',
-    disk: '3.575.644',
+    ram: '196608',
+    disk: '3575644',
     ip: '10.248.50.5',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -103,7 +103,7 @@ const sensorData = {
     name: 'COCLOCOSMIBD02',
     cpu: '36',
     ram: '131.072',
-    disk: '1.887.436',
+    disk: '1887436',
     ip: '10.248.50.6',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -112,7 +112,7 @@ const sensorData = {
     name: 'COCLOCOSMIBD03',
     cpu: '24',
     ram: '131.072',
-    disk: '3.565.158',
+    disk: '3565158',
     ip: '10.248.50.7',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -121,7 +121,7 @@ const sensorData = {
     name: 'COCLOCOSMIBD04',
     cpu: '24',
     ram: '49.152',
-    disk: '1.677.721',
+    disk: '1677721',
     ip: '10.248.50.25',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -130,7 +130,7 @@ const sensorData = {
     name: 'COCLOCOSMIBK01',
     cpu: '12',
     ram: '16.384',
-    disk: '14.680.064',
+    disk: '14680064',
     ip: '10.248.50.8',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -139,7 +139,7 @@ const sensorData = {
     name: 'COCLOCOSMIFI01',
     cpu: '24',
     ram: '98.304',
-    disk: '1.433.600',
+    disk: '1433600',
     ip: '10.248.50.9',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -148,7 +148,7 @@ const sensorData = {
     name: 'COCLOCOSMIREP02',
     cpu: '24',
     ram: '49.152',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.248.50.10',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -157,7 +157,7 @@ const sensorData = {
     name: 'COCLOCOSMIREP03',
     cpu: '12',
     ram: '49.152',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.248.50.15',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -166,7 +166,7 @@ const sensorData = {
     name: 'COCLOCOSMISTG01',
     cpu: '12',
     ram: '24.576',
-    disk: '41.943.040',
+    disk: '41943040',
     ip: '10.248.50.11',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -175,7 +175,7 @@ const sensorData = {
     name: 'COCLOCOSMIAP02',
     cpu: '48',
     ram: '98.304',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.248.50.2',
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
@@ -184,7 +184,7 @@ const sensorData = {
     name: 'COCLOCOSMIAP05',
     cpu: '6',
     ram: '24.576',
-    disk: '307.200',
+    disk: '307200',
     ip: '10.248.50.14',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -193,7 +193,7 @@ const sensorData = {
     name: 'COCLOCOSMIAP06',
     cpu: '8',
     ram: '24.576',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.248.50.13',
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
@@ -202,7 +202,7 @@ const sensorData = {
     name: 'COCLOCOSMIAP07',
     cpu: '12',
     ram: '49.152',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.248.50.16',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -211,7 +211,7 @@ const sensorData = {
     name: 'COCLOCOSMIAST03',
     cpu: '32',
     ram: '65.536',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.248.50.3',
     serverStatus: 'poweredOn',
     os: 'CentOS 6 (64-bit)'
@@ -220,7 +220,7 @@ const sensorData = {
     name: 'COCLOCOSMIAST04',
     cpu: '8',
     ram: '24.576',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.248.50.4',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -229,7 +229,7 @@ const sensorData = {
     name: 'COCLOCOSMIDES01',
     cpu: '32',
     ram: '32.768',
-    disk: '512.000',
+    disk: '512000',
     ip: '10.248.50.26',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -238,7 +238,7 @@ const sensorData = {
     name: 'COCLODUANAAP01',
     cpu: '4',
     ram: '10.240',
-    disk: '153.600',
+    disk: '153600',
     ip: '10.21.0.10',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -247,7 +247,7 @@ const sensorData = {
     name: 'COCLODUANAP02',
     cpu: '8',
     ram: '16.384',
-    disk: '307.200',
+    disk: '307200',
     ip: '10.21.0.7',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -265,7 +265,7 @@ const sensorData = {
     name: 'COCLODUANADB05',
     cpu: '36',
     ram: '98.304',
-    disk: '1.887.436',
+    disk: '1887436',
     ip: '10.21.0.8',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 9 (64-bit)'
@@ -274,7 +274,7 @@ const sensorData = {
     name: 'COCLOESECAP02',
     cpu: '4',
     ram: '16.384',
-    disk: '5.237.964',
+    disk: '5237964',
     ip: '172.18.223.204',
     serverStatus: 'poweredOn',
     os: 'Microsoft Windows Server 2019 (64-bit)'
@@ -283,7 +283,7 @@ const sensorData = {
     name: 'COCLOESECAP03',
     cpu: '4',
     ram: '14.336',
-    disk: '153.600',
+    disk: '153600',
     ip: '172.18.223.210',
     serverStatus: 'poweredOn',
     os: 'Microsoft Windows Server 2016 (64-bit)'
@@ -292,7 +292,7 @@ const sensorData = {
     name: 'COCLOESECAP04',
     cpu: '3',
     ram: '8.192',
-    disk: '153.600',
+    disk: '153600',
     ip: '172.18.223.211',
     serverStatus: 'poweredOn',
     os: 'Microsoft Windows Server 2012 (64-bit)'
@@ -301,7 +301,7 @@ const sensorData = {
     name: 'COCLOESECAP05',
     cpu: '4',
     ram: '12.288',
-    disk: '153.600',
+    disk: '153600',
     ip: '172.18.223.196',
     serverStatus: 'poweredOn',
     os: 'Microsoft Windows Server 2016 (64-bit)'
@@ -310,7 +310,7 @@ const sensorData = {
     name: 'COCLOESECAP07',
     cpu: '2',
     ram: '12.288',
-    disk: '153.600',
+    disk: '153600',
     ip: '172.18.223.197',
     serverStatus: 'poweredOn',
     os: 'Microsoft Windows Server 2016 (64-bit)'
@@ -319,7 +319,7 @@ const sensorData = {
     name: 'COCLOESECAP08',
     cpu: '4',
     ram: '14.336',
-    disk: '153.600',
+    disk: '153600',
     ip: '172.18.223.195',
     serverStatus: 'poweredOn',
     os: 'Microsoft Windows Server 2016 (64-bit)'
@@ -451,7 +451,7 @@ const sensorData = {
     name: 'COCLOSSFIABD01',
     cpu: '24',
     ram: '65.536',
-    disk: '1.153.433',
+    disk: '1153433',
     ip: '10.249.50.4',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -460,7 +460,7 @@ const sensorData = {
     name: 'COCLOSSFIABD02',
     cpu: '24',
     ram: '49.152',
-    disk: '1.677.721',
+    disk: '1677721',
     ip: '10.249.50.5',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -469,7 +469,7 @@ const sensorData = {
     name: 'COCLOSSFIABD03',
     cpu: '24',
     ram: '49.152',
-    disk: '1.677.721',
+    disk: '1677721',
     ip: '10.249.50.6',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -478,7 +478,7 @@ const sensorData = {
     name: 'COCLOSSFIABK01',
     cpu: '4',
     ram: '16.384',
-    disk: '7.444.889',
+    disk: '7444889',
     ip: '10.249.50.7',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -487,7 +487,7 @@ const sensorData = {
     name: 'COCLOSSFIAST02',
     cpu: '48',
     ram: '98.304',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.249.50.3',
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
@@ -496,7 +496,7 @@ const sensorData = {
     name: 'COCLOSSFIASTG01',
     cpu: '6',
     ram: '16.384',
-    disk: '7.444.889',
+    disk: '7444889',
     ip: '10.249.50.11',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -505,7 +505,7 @@ const sensorData = {
     name: 'COCLOSSFIADES01',
     cpu: '32',
     ram: '32.768',
-    disk: '512.000',
+    disk: '512000',
     ip: '10.249.50.16',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -514,7 +514,7 @@ const sensorData = {
     name: 'COCLOSSOFIAAP02',
     cpu: '6',
     ram: '16.384',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.248.50.4',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -523,7 +523,7 @@ const sensorData = {
     name: 'COCLOSSFIAFI01',
     cpu: '12',
     ram: '49.152',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.248.50.10',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -532,7 +532,7 @@ const sensorData = {
     name: 'COCLOSSFIAREP01',
     cpu: '12',
     ram: '49.152',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.248.50.10',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -541,7 +541,7 @@ const sensorData = {
     name: 'COCLOPENISTG01',
     cpu: '6',
     ram: '16.384',
-    disk: '7.444.889',
+    disk: '7444889',
     ip: '10.250.50.11',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -550,7 +550,7 @@ const sensorData = {
     name: 'COCLOPENIBD02',
     cpu: '24',
     ram: '49.152',
-    disk: '1.677.721',
+    disk: '1677721',
     ip: '10.250.50.5',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -559,7 +559,7 @@ const sensorData = {
     name: 'COCLOPENIBD03',
     cpu: '36',
     ram: '65.536',
-    disk: '1.677.721',
+    disk: '1677721',
     ip: '10.250.50.6',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -568,7 +568,7 @@ const sensorData = {
     name: 'COCLOPENIBK01',
     cpu: '4',
     ram: '16.384',
-    disk: '7.444.889',
+    disk: '7444889',
     ip: '10.250.50.7',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
@@ -576,8 +576,8 @@ const sensorData = {
   2177: {
     name: 'COCLOPENIAP01',
     cpu: '10',
-    ram: '32.768',
-    disk: '204.800',
+    ram: '32768',
+    disk: '204800',
     ip: '10.250.50.3',
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
@@ -586,7 +586,7 @@ const sensorData = {
     name: 'COCLOPENIAP02',
     cpu: '10',
     ram: '32.768',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.250.50.4',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -595,7 +595,7 @@ const sensorData = {
     name: 'COCLOPENIAP03',
     cpu: '8',
     ram: '24.576',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.250.50.8',
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
@@ -604,7 +604,7 @@ const sensorData = {
     name: 'COCLOPENIAP04',
     cpu: '10',
     ram: '24.576',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.250.50.12',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -613,7 +613,7 @@ const sensorData = {
     name: 'COCLOPENIAST02',
     cpu: '24',
     ram: '32.768',
-    disk: '204.800',
+    disk: '204800',
     ip: '10.250.50.2',
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
@@ -622,7 +622,7 @@ const sensorData = {
     name: 'COCLOPENIREP01',
     cpu: '10',
     ram: '24.576',
-    disk: '409.600',
+    disk: '409600',
     ip: '10.250.50.10',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
@@ -631,7 +631,7 @@ const sensorData = {
     name: 'COCLOPENIFI01',
     cpu: '10',
     ram: '32.768',
-    disk: '1.433.600',
+    disk: '1433600',
     ip: '10.250.50.9',
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'

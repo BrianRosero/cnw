@@ -119,14 +119,13 @@ const MachineCard = ({ sensorId }) => {
   }
 
   const metricsAdmin = [
-    { label: 'CPU Lista ', value: channelData[channelIDs.cpuReadyPercent]?.lastvalue || 'N/A' },
     { label: 'Uso de CPU ', value: channelData[channelIDs.cpuUsage]?.lastvalue || 'N/A' },
+    { label: 'CPU Lista ', value: channelData[channelIDs.cpuReadyPercent]?.lastvalue || 'N/A' },
     { label: 'Lectura Disco ', value: channelData[channelIDs.diskRead]?.lastvalue || 'N/A' },
     { label: 'Uso de Disco ', value: channelData[channelIDs.diskUsage]?.lastvalue || 'N/A' },
     { label: 'Escritura Disco ', value: channelData[channelIDs.diskWrite]?.lastvalue || 'N/A' },
     { label: 'Memoria Activa ', value: channelData[channelIDs.memoryConsumed]?.lastvalue || 'N/A' },
     { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryActive]?.lastvalue || 'N/A' },
-    { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryConsumedPercent]?.lastvalue || 'N/A' },
     { label: 'Datos Recibidos en Red ', value: channelData[channelIDs.networkReceived]?.lastvalue || 'N/A' },
     { label: 'Datos Transmitidos en Red ', value: channelData[channelIDs.networkTransmitted]?.lastvalue || 'N/A' },
     { label: 'Datos Usados en Red', value: channelData[channelIDs.networkUsage]?.lastvalue || 'N/A' },

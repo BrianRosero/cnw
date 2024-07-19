@@ -149,7 +149,7 @@ const MachineCard = ({ sensorId }) => {
                 <MetricItem key={index}>
                   <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
                   <Typography> </Typography>
-                  <Typography variant="h4" style={{ color: '#15708d' }}>{metric.value}</Typography>
+                  <Typography variant="h4" style={{ color: '#0033a0' }}>{metric.value}</Typography>
                 </MetricItem>
               ))}
             </Grid>
@@ -168,7 +168,7 @@ const MachineCard = ({ sensorId }) => {
                 <MetricItem key={index}>
                   <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
                   <Typography> </Typography>
-                  <Typography variant="h4" style={{ color: '#15708d' }}>{metric.value}</Typography>
+                  <Typography variant="h4" style={{ color: '#0033a0' }}>{metric.value}</Typography>
                 </MetricItem>
               ))}
             </Grid>

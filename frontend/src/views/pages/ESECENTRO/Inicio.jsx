@@ -57,7 +57,7 @@ const styles = {
     fontWeight: 'bold', // Grosor del texto del menú
   },
   card: css`
-      background-color: #004884;
+      background-color: #282c60;
       color: #fff;
       margin-bottom: 20px;
   `,
@@ -174,14 +174,14 @@ const Inicio = () => {
             <Grid container spacing={3} css={styles.section}>
               <Grid item xs={12} >
                 <CardContent >
-                  <Typography style={{color: '#004884'}} variant="h2" align="center">¡Bienvenido al Panel de Control de Servicios de RED SALUD DEL CENTRO E.S.E </Typography>
+                  <Typography style={{color: '#282c60'}} variant="h2" align="center">¡Bienvenido al Panel de Control de Servicios de RED SALUD DEL CENTRO E.S.E </Typography>
                 </CardContent>
               </Grid>
             </Grid>
             {/* Sección de Servicios */}
             <Grid container spacing={3} css={styles.section}>
               <Grid item xs={12}>
-                <Typography style={{color: '#004884'}} variant="h4" align="center" id="servicios">Servicios</Typography>
+                <Typography style={{color: '#282c60'}} variant="h4" align="center" id="servicios">Servicios</Typography>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Card css={styles.card}>

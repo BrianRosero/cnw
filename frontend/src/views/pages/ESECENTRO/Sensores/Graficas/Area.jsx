@@ -21,20 +21,20 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 const StyledButton1 = styled(Button)(({ selected }) => ({
-  backgroundColor: selected ? '#004884' : 'white',
+  backgroundColor: selected ? '#34a434' : 'white',
   color: selected ? 'white' : '#5e7775',
   margin: '1px',
   '&:hover': {
-    backgroundColor: selected ? 'rgb(0,72,132)' : '#f0f0f0',
+    backgroundColor: selected ? 'rgb(52,164,52)' : '#f0f0f0',
   },
 }));
 
 const StyledButton = styled(Button)(({ selected }) => ({
-  backgroundColor: selected ? '#004884' : 'white',
+  backgroundColor: selected ? '#34a434' : 'white',
   color: selected ? 'white' : '#5e7775',
   margin: '1px',
   '&:hover': {
-    backgroundColor: selected ? 'rgb(0,72,132)' : '#fff',
+    backgroundColor: selected ? 'rgb(52,164,52)' : '#fff',
   },
 }));
 
@@ -207,7 +207,7 @@ const MachineCard = ({ sensorId }) => {
         format: 'HH:mm',
       },
     },
-    colors: ['#004884'],
+    colors: ['#282c60'],
     fill: {
       type: 'gradient',
       gradient: {
