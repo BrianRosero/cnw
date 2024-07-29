@@ -1,3 +1,4 @@
+// Importar módulos y configuraciones
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,13 +9,37 @@ const mongoose = require('mongoose');
 const cron = require('node-cron');
 const path = require('path');
 const multer = require('multer');
+const http = require('http');
+const { Server } = require('socket.io');
+const winston = require('winston');
 
+// Importar modelos
 const SensorData = require('./app/models/SensorData');
+const User = require('./app/models/user.model');
 
+// Configurar y crear instancias de servidor y Socket.IO
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
-// Directorio donde se almacenan los archivos PDF
+// Configuración de directorio para archivos PDF
 const pdfDirectory = path.join(__dirname, 'pdfs/COSMITET');
+
+// Configuración de Winston para los logs
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: 'logs/app.log' })
+  ],
+});
+
+// Emitir eventos de logs en tiempo real
+const logEvent = (message) => {
+  const logEntry = { message, timestamp: new Date() };
+  logger.info(logEntry);
+  io.emit('log', logEntry);
+};
 
 // Conectar a MongoDB
 mongoose.connect('mongodb://localhost:27017/sensorData', {
@@ -23,6 +48,7 @@ mongoose.connect('mongodb://localhost:27017/sensorData', {
 });
 mongoose.connection.once('open', () => {
   console.log('Conectado a MongoDB');
+  logEvent('Conectado a MongoDB');
 });
 
 // Esquema y modelo de Mongoose
@@ -33,17 +59,73 @@ const sensorSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-// Configurar CORS para permitir cualquier origen
+// Configuración de CORS y body parser
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware para registrar logs
+app.use((req, res, next) => {
+  // Excluir rutas específicas de ser registradas en los logs
+  const excludedPaths = ['/logs', '/prtg-api', '/sensor-data', '/sensor', '/canales', '/socket.io', '/api/test', '/api/pdfs' ]; // Puedes añadir más rutas si es necesario
+  if (!excludedPaths.some(path => req.url.startsWith(path))) {
+    logEvent(`Request: ${req.method} ${req.url}`);
+  }
+  next();
+});
+
+// Configuración de autenticación vCenter
+const vcenterUrl = 'https://10.80.0.31';
+const username = 'monprtg@vsphere.local';
+const password = 'Est3rnocl1d0.2024*.*';
 
 // Configurar agente HTTPS para aceptar certificados autofirmados
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false, // Ignorar el certificado autofirmado
 });
 
+// Middleware para registrar la solicitud y la autenticación
+app.use(async (req, res, next) => {
+  if (req.path.startsWith('/auth')) {
+    // Log de autenticación
+    logEvent(`Intento de autenticación para el usuario ${req.body.username}`);
+  } else {
+    // Log de solicitud
+    const user = req.user; // assuming user is attached to request by your authentication middleware
+    if (user) {
+      logEvent(`Usuario ${user.username} (${user.role}) realizó la solicitud ${req.method} ${req.path}`);
+    }
+  }
+  next();
+});
+
+// Función para autenticarse y obtener el session ID
+async function getSessionId() {
+  const authResponse = await axios.post(`${vcenterUrl}/rest/com/vmware/cis/session`, {}, {
+    auth: {
+      username,
+      password
+    },
+    httpsAgent: httpsAgent
+  });
+  return authResponse.data.value;
+}
+
+// Función para obtener detalles de una VM
+async function getVmDetails(vmId, sessionId) {
+  const detailsResponse = await axios.get(`${vcenterUrl}/rest/vcenter/vm/${vmId}`, {
+    headers: {
+      'vmware-api-session-id': sessionId
+    },
+    httpsAgent: httpsAgent
+  });
+  return detailsResponse.data.value;
+}
+
+// Rutas de la aplicación
+
+// Ruta de bienvenida
 app.get('/', (req, res) => {
   res.json({ message: 'Bienvenido esta es la aplicación CONSULNETWORKS.' });
 });
@@ -59,6 +141,167 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+app.get('/vms', async (req, res) => {
+  try {
+    const sessionId = await getSessionId();
+    const vmsResponse = await axios.get(`${vcenterUrl}/rest/vcenter/vm`, {
+      headers: {
+        'vmware-api-session-id': sessionId
+      },
+      httpsAgent: httpsAgent
+    });
+
+    // Obtener detalles de cada VM
+    const vmDetailsPromises = vmsResponse.data.value.map(vm => getVmDetails(vm.vm, sessionId));
+    const vmDetails = await Promise.all(vmDetailsPromises);
+
+    // Combinar la información básica con los detalles
+    const combinedData = vmsResponse.data.value.map((vm, index) => ({
+      ...vm,
+      ...vmDetails[index]
+    }));
+
+    res.json(combinedData);
+    logEvent('Lista de VMs obtenida');
+  } catch (error) {
+    console.error('Error fetching VMs:', error.message);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
+    } else if (error.request) {
+      console.error('Request data:', error.request);
+    } else {
+      console.error('Error message:', error.message);
+    }
+    logEvent(`Error al obtener la lista de VMs: ${error.message}`);
+    res.status(500).send('Error fetching VMs');
+  }
+});
+
+// Ruta para encender una VM
+app.post('/vms/:vmId/power-on', async (req, res) => {
+  let vmId;  // Definir vmId fuera del bloque try
+  try {
+    const sessionId = await getSessionId();
+    vmId = req.params.vmId;  // Asignar vmId dentro del bloque try
+    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/start`, {}, {
+      headers: {
+        'vmware-api-session-id': sessionId
+      },
+      httpsAgent: httpsAgent
+    });
+    res.send('VM powered on successfully');
+    logEvent(`VM ${vmId} encendida`);
+  } catch (error) {
+    console.error('Error powering on VM:', error.message);
+    logEvent(`Error al encender la VM ${vmId}: ${error.message}`);
+    res.status(500).send('Error powering on VM');
+  }
+});
+
+// Ruta para apagar una VM
+app.post('/vms/:vmId/power-off', async (req, res) => {
+  let vmId;  // Definir vmId fuera del bloque try
+  try {
+    const sessionId = await getSessionId();
+    vmId = req.params.vmId;  // Asignar vmId dentro del bloque try
+    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/stop`, {}, {
+      headers: {
+        'vmware-api-session-id': sessionId
+      },
+      httpsAgent: httpsAgent
+    });
+    res.send('VM powered off successfully');
+    logEvent(`VM ${vmId} apagada`);
+  } catch (error) {
+    console.error('Error powering off VM:', error.message);
+    logEvent(`Error al apagar la VM ${vmId}: ${error.message}`);
+    res.status(500).send('Error powering off VM');
+  }
+});
+
+// Ruta para suspender una VM
+app.post('/vms/:vmId/suspend', async (req, res) => {
+  let vmId;  // Definir vmId fuera del bloque try
+  try {
+    const sessionId = await getSessionId();
+    vmId = req.params.vmId;  // Asignar vmId dentro del bloque try
+    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/suspend`, {}, {
+      headers: {
+        'vmware-api-session-id': sessionId
+      },
+      httpsAgent: httpsAgent
+    });
+    res.send('VM suspended successfully');
+    logEvent(`VM ${vmId} suspendida`);
+  } catch (error) {
+    console.error('Error suspending VM:', error.message);
+    logEvent(`Error al suspender la VM ${vmId}: ${error.message}`);
+    res.status(500).send('Error suspending VM');
+  }
+});
+
+
+/*// Ruta para resetear una VM
+app.post('/vms/:vmId/reset', async (req, res) => {
+  try {
+    const sessionId = await getSessionId();
+    const { vmId } = req.params;
+    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/reset`, {}, {
+      headers: {
+        'vmware-api-session-id': sessionId
+      },
+      httpsAgent: httpsAgent
+    });
+    res.send('VM reset successfully');
+    logEvent(`VM ${vmId} reiniciada`);
+  } catch (error) {
+    console.error('Error resetting VM:', error.message);
+    logEvent(`Error al reiniciar la VM ${vmId}: ${error.message}`);
+    res.status(500).send('Error resetting VM');
+  }
+});
+
+// Ruta para apagar el sistema operativo invitado de una VM
+app.post('/vms/:vmId/shutdown-guest', async (req, res) => {
+  try {
+    const sessionId = await getSessionId();
+    const { vmId } = req.params;
+    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/guest/power/stop`, {}, {
+      headers: {
+        'vmware-api-session-id': sessionId
+      },
+      httpsAgent: httpsAgent
+    });
+    res.send('VM guest OS shut down successfully');
+  } catch (error) {
+    console.error('Error shutting down guest OS:', error.message);
+    res.status(500).send('Error shutting down guest OS');
+  }
+});
+
+// Ruta para reiniciar el sistema operativo invitado de una VM
+app.post('/vms/:vmId/restart-guest', async (req, res) => {
+try {
+  const sessionId = await getSessionId();
+  const { vmId } = req.params;
+  await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/guest/power/reboot`, {}, {
+    headers: {
+      'vmware-api-session-id': sessionId
+    },
+    httpsAgent: httpsAgent
+  });
+  res.send('VM guest OS restarted successfully');
+} catch (error) {
+  console.error('Error restarting guest OS:', error.message);
+  res.status(500).send('Error restarting guest OS');
+}
+});*/
+
+// Similarmente, puedes agregar endpoints para suspender, hibernar y reiniciar
+
+// Rutas para manejar archivos PDF
 app.use('/pdfs/COSMITET', express.static(pdfDirectory));
 
 // Endpoint para obtener la lista de archivos PDF
@@ -70,13 +313,15 @@ app.get('/api/pdfs/COSMITET', (req, res) => {
     } else {
       const pdfFiles = files.filter(file => path.extname(file).toLowerCase() === '.pdf');
       res.json(pdfFiles);
+      logEvent('Lista de archivos PDF obtenida');
     }
   });
 });
 
 // Endpoint para subir archivos PDF
 app.post('/api/upload/COSMITET', upload.single('file'), (req, res) => {
-  res.status(200).send('File uploaded successfully');
+  res.status(200).send('El archivo ha subido correctamente');
+  logEvent(`Archivo PDF subido: ${req.file.originalname}`);
 });
 
 // Función para obtener el ID del sensor a partir del nombre del sensor
@@ -101,43 +346,25 @@ const getSensorIdByName = async (sensorName) => {
     const sensor = sensors.find(s => s.name === sensorName);
     return sensor ? sensor.objid : null;
   } catch (error) {
-    console.error('Error fetching sensors from PRTG API:', error.message);
+    console.error('Error al recuperar sensores de la API de PRTG:', error.message);
     return null;
   }
 };
-
-/*
-// Función para obtener datos del sensor y guardarlos en MongoDB
-const fetchDataFromSensor = async (sensorId) => {
-  try {
-    const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
-    const data = response.data;
-    const sensorData = new SensorData({ sensorId, data });
-    await sensorData.save();
-    console.log(`Data saved for sensor ${sensorId}`);
-  } catch (error) {
-    console.error(`Error fetching data for sensor ${sensorId}:`, error.message);
-  }
-};
-
-// Lista de IDs de sensores
-const sensorIds = [2200, 2195, 2197, 2196, 2198, 2136, 2199, 2201, 2137, 2211, 2167, 2168, 2189, 2169, 2170, 2139, 2144, 2142, 2190, 2156, 2166, 2165, 2134, 2192, 2155, 2143, 2174, 2141, 2140, 2175, 2145, 2207, 2212, 2204, 2203, 2162, 2161, 2160, 2205, 2159, 2158, 2184, 2157, 2179, 2177, 2183, 2208, 2206, 2187, 2186, 2185, 2188, 2164, 2209, 2163, 2146, 2193, 2191, 2147, 2180, 2176, 2153, 2151, 2149, 2182, 2181, 2194, 2171, 2148, 2173, 2129, 2154, 2152, 2150, 2128]; // Añade más IDs según sea necesario
-*/
 
 // Función para obtener datos del sensor y guardarlos en MongoDB
 const fetchDataFromSensor = async (sensorName) => {
   try {
     const sensorId = await getSensorIdByName(sensorName);
     if (!sensorId) {
-      throw new Error(`Sensor with name ${sensorName} not found`);
+      throw new Error(`Sensor con nombre ${sensorName} no disponible`);
     }
     const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
     const data = response.data;
     const sensorData = new SensorData({ sensorId, data });
     await sensorData.save();
-    console.log(`Data saved for sensor ${sensorName}`);
+    console.log(`Datos almacenados para sensor ${sensorName}`);
   } catch (error) {
-    console.error(`Error fetching data for sensor ${sensorName}:`, error.message);
+    console.error(`Error al obtener datos para el sensor ${sensorName}:`, error.message);
   }
 };
 
@@ -331,6 +558,19 @@ app.get('/canales/:sensorId', async (req, res) => {
   }
 });
 
+// Endpoint para obtener logs (sin real-time)
+app.get('/logs', (req, res) => {
+  const fs = require('fs');
+  fs.readFile('logs/app.log', 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).send('Error al leer los logs');
+    } else {
+      const logs = data.split('\n').filter(line => line).map(line => JSON.parse(line));
+      res.json(logs);
+    }
+  });
+});
+
 // Sincronizar la base de datos de roles y usuarios
 const db = require('./app/models');
 const Role = db.role;
@@ -371,4 +611,12 @@ require('./app/routes/user.routes')(app);
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`El servidor se está ejecutando en el puerto ${PORT}.`);
+});
+
+// Configurar Socket.IO para manejar conexiones
+io.on('connection', (socket) => {
+  console.log('Un usuario se ha conectado');
+  socket.on('disconnect', () => {
+    console.log('Un usuario se ha desconectado');
+  });
 });

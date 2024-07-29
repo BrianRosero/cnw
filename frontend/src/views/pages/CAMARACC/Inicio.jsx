@@ -15,6 +15,8 @@ import logo from '../../../assets/images/Logo-ccc.png'
 
 // Importar componentes de páginas
 import Rendimiento from './Sensors.jsx'
+import Vcenter from './Vcenter.jsx'
+import Logs from './logs.jsx'
 import INICIO from './Inicio.jsx'
 
 // Estilos con Emotion
@@ -57,7 +59,7 @@ const styles = {
     fontWeight: 'bold', // Grosor del texto del menú
   },
   card: css`
-      background-color: #ef0074;
+      background-color: #d3256b;
       color: #fff;
       margin-bottom: 20px;
   `,
@@ -154,6 +156,10 @@ const Inicio = () => {
         return <Rendimiento />;
       case 'inicio':
         return <INICIO />;
+      case 'vcenter':
+        return <Vcenter />;
+      case 'logs':
+        return <Logs />;
       default:
         return null;
     }
@@ -193,11 +199,11 @@ const Inicio = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              {/*<Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card css={styles.card}>
-                  <CardContent onClick={() => handleButtonClick('rendimiento')}>
-                    <Typography variant="h5" css={styles.cardTitle}>Desarrollo de Software</Typography>
-                    <Typography variant="body2">
+                  <CardContent onClick={() => handleButtonClick('vcenter')}>
+                    <Typography variant="h5" css={styles.cardTitle}>Vcenter</Typography>
+                    <Typography variant="h4" style={{color: '#fff'}}>
                       Creamos soluciones de software personalizadas para satisfacer las necesidades específicas de su
                       empresa.
                     </Typography>
@@ -206,15 +212,15 @@ const Inicio = () => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <Card css={styles.card}>
-                  <CardContent>
-                    <Typography variant="h5" css={styles.cardTitle}>Seguridad Informática</Typography>
+                  <CardContent onClick={() => handleButtonClick('logs')}>
+                    <Typography variant="h5" css={styles.cardTitle}>Logs</Typography>
                     <Typography variant="body2">
                       Protegemos su infraestructura y datos con las últimas tecnologías de seguridad informática.
                     </Typography>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={4}>
+              {/*<Grid item xs={12} md={4}>
                 <Card css={styles.card}>
                   <CardContent>
                     <Typography variant="h5" css={styles.cardTitle}>Inteligencia Artificial</Typography>

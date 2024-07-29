@@ -68,7 +68,7 @@ const styles = {
     borderRadius: '8px',
   },
   indicator: {
-    backgroundColor: '#ef0074',
+    backgroundColor: '#d3256b',
   },
   slide: {
     padding: 15,
@@ -82,12 +82,12 @@ const styles = {
   card: {
     margin: '10px',
     width: '100%',
-    backgroundColor: '#253D90F2',
+    backgroundColor: '#214092',
     borderRadius: '8px',
     color: '#fff',
   },
   selectedCard: {
-    backgroundColor: '#ef0074',
+    backgroundColor: '#d3256b',
     color: 'white',
   },
   graficoContainer: {
@@ -103,7 +103,7 @@ const styles = {
 };
 
 const activeTabStyle = {
-  color: '#ef0074',
+  color: '#d3256b',
   fontWeight: 'bold',
 };
 

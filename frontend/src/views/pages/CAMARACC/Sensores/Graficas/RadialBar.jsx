@@ -79,7 +79,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
-  color: '#253D90F2',
+  color: '#214092',
   fontWeight: 'bold',
   fontSize: '1.5rem',
 }));
@@ -177,7 +177,7 @@ const MachineCard = ({ sensorId }) => {
         <Title variant="h1" gutterBottom>
           Información de la Máquina Virtual
         </Title>
-        <Divider style={{ backgroundColor: '#253D90F2' }} />
+        <Divider style={{ backgroundColor: '#214092' }} />
         <InfoText variant="body5">
           <strong>Nombre de la maquina virtual:</strong> {sensorInfo.name}
         </InfoText>
@@ -198,7 +198,7 @@ const MachineCard = ({ sensorId }) => {
         <InfoText variant="body2">
           <strong>Núcleos de procesamiento:</strong> {sensorInfo.cpu} Vcpu's
         </InfoText>
-        <Divider style={{ backgroundColor: '#253D90F2', margin: '0px 0' }} />
+        <Divider style={{ backgroundColor: '#214092', margin: '0px 0' }} />
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={12}>
             <Chart options={chartOptions} series={chartSeries} type="radialBar" height={350} />
