@@ -23067,3 +23067,4 @@
 {"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-05T21:31:06.102Z"}
 {"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-05T21:38:37.187Z"}
 {"level":"info","message":"Conectado a MongoDB","timestamp":"2024-08-05T21:41:01.082Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2024-08-06T14:37:50.033Z"}
