@@ -18,6 +18,7 @@ import Rendimiento from './Sensors.jsx'
 import Vcenter from './Vcenter.jsx'
 import Logs from './logs.jsx'
 import INICIO from './Inicio.jsx'
+import Token from './token.jsx'
 
 // Estilos con Emotion
 const styles = {
@@ -160,6 +161,8 @@ const Inicio = () => {
         return <Vcenter />;
       case 'logs':
         return <Logs />;
+      case 'token':
+        return <Token />;
       default:
         return null;
     }
@@ -220,9 +223,9 @@ const Inicio = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              {/*<Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card css={styles.card}>
-                  <CardContent>
+                  <CardContent onClick={() => handleButtonClick('token')}>
                     <Typography variant="h5" css={styles.cardTitle}>Inteligencia Artificial</Typography>
                     <Typography variant="body2">
                       Implementamos soluciones de inteligencia artificial para mejorar la eficiencia y la toma de decisiones
@@ -231,7 +234,7 @@ const Inicio = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={4}>
+              {/*<Grid item xs={12} md={4}>
                 <Card css={styles.card}>
                   <CardContent>
                     <Typography variant="h5" css={styles.cardTitle}>Análisis de Datos</Typography>

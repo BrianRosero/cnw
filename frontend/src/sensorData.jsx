@@ -726,6 +726,393 @@ const sensorData = {
     ram: '',
     disk: ''
   },
+
+  2233: {
+    name: 'COCLOCCCDES48',
+    cpu: '4',
+    ram: '8.192',
+    disk: '245760',
+    ip: '192.168.201.148'
+  },
+  2234: {
+    name: 'COCLOCCCDEV00',
+    cpu: '32',
+    ram: '131.072',
+    disk: '4762418',
+    ip: '192.168.201.111'
+  },
+  2235: {
+    name: 'COCLOCCCDEVL02',
+    cpu: '8',
+    ram: '24.576',
+    disk: '552960',
+    ip: '192.168.201.192'
+  },
+  2236: {
+    name: 'COCLOCCCDEVL35',
+    cpu: '8',
+    ram: '24.576',
+    disk: '450560',
+    ip: '192.168.201.199'
+  },
+  2237: {
+    name: 'COCLOCCCDEVL98',
+    cpu: '4',
+    ram: '24.576',
+    disk: '174080',
+    ip: '192.168.201.198'
+  },
+  2238: {
+    name: 'COCLOCCCDEVW36',
+    cpu: '4',
+    ram: '12.288',
+    disk: '634880',
+    ip: '192.168.201.96'
+  },
+  2239: {
+    name: 'COCLOCCCPRDB01',
+    cpu: '2',
+    ram: '49.152',
+    disk: '5469184',
+    ip: '192.168.202.4'
+  },
+  2240: {
+    name: 'COCLOCCCPRDB02',
+    cpu: '4',
+    ram: '57.344',
+    disk: '1155072',
+    ip: '192.168.202.2'
+  },
+  2241: {
+    name: 'COCLOCCCPRDB03',
+    cpu: '3',
+    ram: '131.072',
+    disk: '847872',
+    ip: '192.168.202.3'
+  },
+  2242: {
+    name: 'COCLOCCCPRDB06',
+    cpu: '16',
+    ram: '49.152',
+    disk: '245760',
+    ip: '192.168.202.6'
+  },
+  2243: {
+    name: 'COCLOCCCPRDL01',
+    cpu: '8',
+    ram: '32.768',
+    disk: '237568',
+    ip: '192.168.202.101'
+  },
+  2244: {
+    name: 'COCLOCCCPRDL02',
+    cpu: '4',
+    ram: '16.384',
+    disk: '204800',
+    ip: '192.168.202.102'
+  },
+  2245: {
+    name: 'COCLOCCCPRDL03',
+    cpu: '8',
+    ram: '32.768',
+    disk: '339968',
+    ip: '192.168.202.103'
+  },
+  2246: {
+    name: 'COCLOCCCPRDL06',
+    cpu: '4',
+    ram: '8.192',
+    disk: '102400',
+    ip: '192.168.202.106'
+  },
+  2247: {
+    name: 'COCLOCCCPRDL07',
+    cpu: '4',
+    ram: '8.192',
+    disk: '102400',
+    ip: '192.168.202.107'
+  },
+  2248: {
+    name: 'COCLOCCCPRDL08',
+    cpu: '4',
+    ram: '32.768',
+    disk: '237568',
+    ip: '192.168.202.108'
+  },
+  2249: {
+    name: 'COCLOCCCPRDL09',
+    cpu: '4',
+    ram: '32.768',
+    disk: '237568',
+    ip: '192.168.202.109'
+  },
+  2250: {
+    name: 'COCLOCCCPRDL10',
+    cpu: '4',
+    ram: '24.576',
+    disk: '237568',
+    ip: '192.168.202.110'
+  },
+  2251: {
+    name: 'COCLOCCCPRDL15',
+    cpu: '4',
+    ram: '16.384',
+    disk: '204800',
+    ip: '192.168.202.115'
+  },
+  2252: {
+    name: 'COCLOCCCPRDL16',
+    cpu: '4',
+    ram: '16.384',
+    disk: '204800',
+    ip: '192.168.202.116'
+  },
+  2253: {
+    name: 'COCLOCCCPRDL17',
+    cpu: '4',
+    ram: '8.192',
+    disk: '143360',
+    ip: '192.168.202.17'
+  },
+  2254: {
+    name: 'COCLOCCCPRDL18',
+    cpu: '4',
+    ram: '24.576',
+    disk: '237568',
+    ip: '192.168.202.118'
+  },
+  2255: {
+    name: 'COCLOCCCPRDL37',
+    cpu: '4',
+    ram: '8.192',
+    disk: '512000',
+    ip: '192.168.202.95'
+  },
+  2256: {
+    name: 'COCLOCCCPRDL41',
+    cpu: '4',
+    ram: '16.384',
+    disk: '339968',
+    ip: '192.168.202.141'
+  },
+  2257: {
+    name: 'COCLOCCCPRDL48',
+    cpu: '8',
+    ram: '32.768',
+    disk: '339968',
+    ip: '192.168.202.149'
+  },
+  2258: {
+    name: 'COCLOCCCPRDL49',
+    cpu: '8',
+    ram: '32.768',
+    disk: '339968',
+    ip: '192.168.202.148'
+  },
+  2259: {
+    name: 'COCLOCCCPRDW10',
+    cpu: '6',
+    ram: '16.384',
+    disk: '1447936',
+    ip: '192.168.202.10'
+  },
+  2260: {
+    name: 'COCLOCCCPRDW22',
+    cpu: '16',
+    ram: '32.768',
+    disk: '655360',
+    ip: '192.168.202.22'
+  },
+  2261: {
+    name: 'COCLOCCCPRDW23',
+    cpu: '4',
+    ram: '12.288',
+    disk: '143360',
+    ip: '192.168.202.23'
+  },
+  2262: {
+    name: 'COCLOCCCPRDW24',
+    cpu: '4',
+    ram: '12.288',
+    disk: '706560',
+    ip: '192.168.202.24'
+  },
+  2263: {
+    name: 'COCLOCCCPRDW25',
+    cpu: '8',
+    ram: '24.576',
+    disk: '552960',
+    ip: '192.168.202.25'
+  },
+  2264: {
+    name: 'COCLOCCCPRDW30',
+    cpu: '8',
+    ram: '65.536',
+    disk: '276480',
+    ip: '192.168.202.30'
+  },
+  2265: {
+    name: 'COCLOCCCPRDW35',
+    cpu: '12',
+    ram: '32.768',
+    disk: '450560',
+    ip: '192.168.202.35'
+  },
+  2266: {
+    name: 'COCLOCCCPRDW48',
+    cpu: '4',
+    ram: '16.384',
+    disk: '245760',
+    ip: '192.168.202.48'
+  },
+  2267: {
+    name: 'COCLOCCCPRDW97',
+    cpu: '4',
+    ram: '32.768',
+    disk: '143360',
+    ip: '192.168.202.97'
+  },
+  2268: {
+    name: 'COCLOCCCPRDW98',
+    cpu: '4',
+    ram: '32.768',
+    disk: '143360',
+    ip: '192.168.202.98'
+  },
+  2269: {
+    name: 'COCLOCCCTST00',
+    cpu: '32',
+    ram: '131.072',
+    disk: '4762418',
+    ip: '192.168.201.211'
+  },
+  2270: {
+    name: 'COCLOCCCTST01',
+    cpu: '4',
+    ram: '8.192',
+    disk: '143360',
+    ip: '192.168.201.131'
+  },
+  2271: {
+    name: 'COCLOCCCTST02',
+    cpu: '4',
+    ram: '8.192',
+    disk: '450560',
+    ip: '192.168.201.132'
+  },
+  2272: {
+    name: 'COCLOCCCTST03',
+    cpu: '4',
+    ram: '8.192',
+    disk: '102400',
+    ip: '192.168.201.133'
+  },
+  2273: {
+    name: 'COCLOCCCTST06',
+    cpu: '4',
+    ram: '8.192',
+    disk: '102400',
+    ip: '192.168.201.136'
+  },
+  2274: {
+    name: 'COCLOCCCTST07',
+    cpu: '4',
+    ram: '8.192',
+    disk: '102400',
+    ip: '192.168.201.137'
+  },
+  2275: {
+    name: 'COCLOCCCTST09',
+    cpu: '4',
+    ram: '24.576',
+    disk: '237568',
+    ip: '192.168.201.139'
+  },
+  2276: {
+    name: 'COCLOCCCTST10',
+    cpu: '4',
+    ram: '24.576',
+    disk: '237568',
+    ip: '192.168.201.140'
+  },
+  2277: {
+    name: 'COCLOCCCTST11',
+    cpu: '4',
+    ram: '16.384',
+    disk: '204800',
+    ip: '192.168.201.141'
+  },
+  2278: {
+    name: 'COCLOCCCTST15',
+    cpu: '4',
+    ram: '16.384',
+    disk: '204800',
+    ip: '192.168.201.151'
+  },
+  2279: {
+    name: 'COCLOCCCTSTL01',
+    cpu: '8',
+    ram: '32.768',
+    disk: '339968',
+    ip: ''
+  },
+  2280: {
+    name: 'COCLOCCCTSTL02',
+    cpu: '4',
+    ram: '16.384',
+    disk: '204800',
+    ip: ''
+  },
+  2281: {
+    name: 'COCLOCCCTSTL03',
+    cpu: '8',
+    ram: '32.768',
+    disk: '339968',
+    ip: ''
+  },
+  2282: {
+    name: 'COCLOCCCTSTL06',
+    cpu: '4',
+    ram: '8.192',
+    disk: '102400',
+    ip: ''
+  },
+  2283: {
+    name: 'COCLOCCCTSTL07',
+    cpu: '4',
+    ram: '8.192',
+    disk: '102400',
+    ip: ''
+  },
+  2284: {
+    name: 'COCLOCCCTSTL09',
+    cpu: '4',
+    ram: '24.576',
+    disk: '237568',
+    ip: ''
+  },
+  2285: {
+    name: 'COCLOCCCTSTL10',
+    cpu: '4',
+    ram: '24.576',
+    disk: '237568',
+    ip: ''
+  },
+  2286: {
+    name: 'COCLOCCCTSTL15',
+    cpu: '4',
+    ram: '16.384',
+    disk: '204800',
+    ip: ''
+  },
+  2287: {
+    name: 'COCLOCCCTSTL41',
+    cpu: '4',
+    ram: '16.384',
+    disk: '339968',
+    ip: ''
+  }
+
 };
 
 export default sensorData;

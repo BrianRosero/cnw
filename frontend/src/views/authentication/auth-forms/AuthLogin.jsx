@@ -37,7 +37,7 @@ import Microsoft from '../../../assets/images/icons/Microsoft_logo.svg';
 import Google from '../../../assets/images/icons/social-google.svg';
 
 
-const FirebaseLogin = ({ ...others }) => {
+const Login = ({ ...others }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -268,4 +268,4 @@ const FirebaseLogin = ({ ...others }) => {
   );
 };
 
-export default FirebaseLogin;
+export default Login;

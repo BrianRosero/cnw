@@ -12,15 +12,53 @@ const multer = require('multer');
 const http = require('http');
 const { Server } = require('socket.io');
 const winston = require('winston');
+const pdfRoute = require('./pdfRoutes');
+const env = require('dotenv')
+const speakeasy = require('speakeasy');
+const QRCode = require('qrcode');
 
 // Importar modelos
 const SensorData = require('./app/models/SensorData');
 const User = require('./app/models/user.model');
+const VmData = require('./app/models/VmData');
+
 
 // Configurar y crear instancias de servidor y Socket.IO
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+
+// Configuración de CORS y body parser
+app.use(cors());
+app.use(bodyParser.json({ limit: '500mb' }));
+app.use(express.json());
+app.use(express.urlencoded({ limit: '500mb', extended: true }));
+app.use(pdfRoute)
+
+let secret = null;
+
+// Genera el secreto y envía el QR code al frontend
+app.get('/generate', (req, res) => {
+  secret = speakeasy.generateSecret({ name: "MyApp" });
+  QRCode.toDataURL(secret.otpauth_url, (err, data_url) => {
+    res.json({ secret: secret.base32, qr_code: data_url });
+  });
+});
+
+// Verifica el token ingresado por el usuario
+app.post('/verify', (req, res) => {
+  const { token } = req.body;
+  const verified = speakeasy.totp.verify({
+    secret: secret.base32,
+    encoding: 'base32',
+    token
+  });
+  if (verified) {
+    res.json({ verified: true });
+  } else {
+    res.json({ verified: false });
+  }
+});
 
 // Configuración de directorio para archivos PDF
 const pdfDirectory = path.join(__dirname, 'pdfs/COSMITET');
@@ -41,6 +79,8 @@ const logEvent = (message) => {
   io.emit('log', logEntry);
 };
 
+env.config()
+
 // Conectar a MongoDB
 mongoose.connect('mongodb://localhost:27017/sensorData', {
   useNewUrlParser: true,
@@ -58,12 +98,6 @@ const sensorSchema = new mongoose.Schema({
   data: Object,
   timestamp: { type: Date, default: Date.now },
 });
-
-// Configuración de CORS y body parser
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Middleware para registrar logs
 app.use((req, res, next) => {
@@ -128,6 +162,42 @@ async function getVmDetails(vmId, sessionId) {
 // Ruta de bienvenida
 app.get('/', (req, res) => {
   res.json({ message: 'Bienvenido esta es la aplicación CONSULNETWORKS.' });
+});
+
+// Ruta para almacenar los datos de las VMs
+app.post('/store-vm-data', async (req, res) => {
+  try {
+    const { running, stopped, suspended, timestamp } = req.body;
+
+    // Verificar si todos los valores son 0
+    if (running === 0 && stopped === 0 && suspended === 0) {
+      return res.status(400).send('No se almacenan datos porque todos los valores son 0');
+    }
+
+    // Obtener el último documento almacenado
+    const lastEntry = await VmData.findOne().sort({ timestamp: -1 });
+
+    // Verificar si los datos entrantes son diferentes a los últimos almacenados
+    if (lastEntry && lastEntry.running === running && lastEntry.stopped === stopped && lastEntry.suspended === suspended) {
+      return res.status(400).send('No se almacenan datos porque son iguales a los últimos datos almacenados');
+    }
+
+    const vmData = new VmData({ running, stopped, suspended, timestamp: new Date(timestamp) });
+    await vmData.save();
+    res.status(200).send('Datos de las VMs almacenados correctamente');
+  } catch (error) {
+    res.status(500).send('Error al almacenar los datos de las VMs');
+  }
+});
+
+// Ruta para obtener los datos de las VMs
+app.get('/get-vm-data', async (req, res) => {
+  try {
+    const vmData = await VmData.find().sort({ timestamp: -1 });
+    res.status(200).json(vmData);
+  } catch (error) {
+    res.status(500).send('Error al obtener los datos de las VMs');
+  }
 });
 
 // Configuración de multer para la subida de archivos
@@ -401,6 +471,7 @@ const sensorNames = [
 
   //CAMARACC
 
+
   // Añade más nombres según sea necesario
 ];
 
@@ -557,6 +628,198 @@ app.get('/canales/:sensorId', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch channels from PRTG API' });
   }
 });
+
+
+
+// Función para obtener el ID del sensor a partir del nombre del sensor (PRTG 192.168.200.160)
+const getSensorIdByNameAlt = async (sensorName) => {
+  try {
+    const response = await axios.get('https://192.168.200.160/api/table.json', {
+      params: {
+        content: 'sensors',
+        columns: 'objid,name',
+        username: 'prtgadmin',
+        password: 'prtgadmin',
+      },
+      paramsSerializer: params => {
+        return Object.entries(params)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&');
+      },
+      httpsAgent,
+    });
+
+    const sensors = response.data.sensors || [];
+    const sensor = sensors.find(s => s.name === sensorName);
+    return sensor ? sensor.objid : null;
+  } catch (error) {
+    console.error('Error al recuperar sensores de la API de PRTG (Alt):', error.message);
+    return null;
+  }
+};
+
+// Función para obtener datos del sensor y guardarlos en MongoDB (PRTG 192.168.200.160)
+const fetchDataFromSensorAlt = async (sensorName) => {
+  try {
+    const sensorId = await getSensorIdByNameAlt(sensorName);
+    if (!sensorId) {
+      throw new Error(`Sensor con nombre ${sensorName} no disponible`);
+    }
+    const response = await axios.get(`http://192.168.200.155:8080/prtg-api-alt/${sensorId}`);
+    const data = response.data;
+    const sensorData = new SensorData({ sensorId, data });
+    await sensorData.save();
+    console.log(`Datos almacenados para sensor ${sensorName} (Alt)`);
+  } catch (error) {
+    console.error(`Error al obtener datos para el sensor ${sensorName} (Alt):`, error.message);
+  }
+};
+
+// Lista de Nombres de sensores específicos para 192.168.200.160
+const sensorNamesAlt = [
+  'COCLOCCCDEV00', 'COCLOCCCDEVL02', 'COCLOCCCDEVL35', 'COCLOCCCDEVL98', 'COCLOCCCDEVW36', 'COCLOCCCPRDB01', 'COCLOCCCPRDB02',
+  'COCLOCCCPRDB03', 'COCLOCCCPRDB06', 'COCLOCCCPRDL01', 'COCLOCCCPRDL02', 'COCLOCCCPRDL03', 'COCLOCCCPRDL06', 'COCLOCCCPRDL07',
+  'COCLOCCCPRDL08', 'COCLOCCCPRDL09', 'COCLOCCCPRDL10', 'COCLOCCCPRDL15', 'COCLOCCCPRDL16', 'COCLOCCCPRDL17', 'COCLOCCCPRDL18',
+  'COCLOCCCPRDL37', 'COCLOCCCPRDL41', 'COCLOCCCPRDL48', 'COCLOCCCPRDL49', 'COCLOCCCPRDW10', 'COCLOCCCPRDW22', 'COCLOCCCPRDW23',
+  'COCLOCCCPRDW24', 'COCLOCCCPRDW25', 'COCLOCCCPRDW30', 'COCLOCCCPRDW35', 'COCLOCCCPRDW48', 'COCLOCCCPRDW97', 'COCLOCCCPRDW98',
+  'COCLOCCCTST00', 'COCLOCCCTST01', 'COCLOCCCTST02', 'COCLOCCCTST03', 'COCLOCCCTST06', 'COCLOCCCTST07', 'COCLOCCCTST09', 'COCLOCCCTST10',
+  'COCLOCCCTST11', 'COCLOCCCTST15', 'COCLOCCCTSTL01', 'COCLOCCCTSTL02', 'COCLOCCCTSTL03', 'COCLOCCCTSTL06', 'COCLOCCCTSTL07', 'COCLOCCCTSTL09',
+  'COCLOCCCTSTL10', 'COCLOCCCTSTL15', 'COCLOCCCTSTL41',
+];
+
+// Tarea cron para obtener datos de los sensores cada minuto (PRTG 192.168.200.160)
+cron.schedule('* * * * *', () => {
+  console.log('Fetching data for sensors (Alt)...');
+  sensorNamesAlt.forEach((sensorName) => fetchDataFromSensorAlt(sensorName));
+});
+
+// Ruta para obtener datos directamente desde la API de PRTG por el nombre (PRTG 192.168.200.160)
+app.get('/prtg-api-alt/name/:sensorName', async (req, res) => {
+  const sensorName = req.params.sensorName;
+  try {
+    const sensorId = await getSensorIdByNameAlt(sensorName);
+    if (!sensorId) {
+      return res.status(404).json({ error: 'Sensor not found (Alt)' });
+    }
+
+    const response = await axios.get('https://192.168.200.160/api/table.json', {
+      params: {
+        content: 'channels',
+        columns: 'objid,channel,name,lastvalue',
+        id: sensorId,
+        username: 'prtgadmin',
+        password: 'prtgadmin',
+      },
+      paramsSerializer: params => {
+        return Object.entries(params)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&');
+      },
+      httpsAgent,
+    });
+
+    const channelData = response.data.channels || [];
+    res.json({ channels: channelData });
+  } catch (error) {
+    console.error('Error fetching data from PRTG API (Alt):', error.message);
+    res.status(500).json({ error: 'Failed to fetch data from PRTG API (Alt)' });
+  }
+});
+
+// Ruta para obtener datos directamente desde la API de PRTG (PRTG 192.168.200.160)
+app.get('/prtg-api-alt/:sensorId', async (req, res) => {
+  const sensorId = req.params.sensorId;
+  try {
+    const response = await axios.get('https://192.168.200.160/api/table.json', {
+      params: {
+        content: 'channels',
+        columns: 'objid,channel,name,lastvalue',
+        id: sensorId,
+        username: 'prtgadmin',
+        password: 'prtgadmin',
+      },
+      paramsSerializer: params => {
+        return Object.entries(params)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&');
+      },
+      httpsAgent,
+    });
+
+    const channelData = response.data.channels || [];
+    res.json({ channels: channelData });
+  } catch (error) {
+    console.error('Error fetching data from PRTG API (Alt):', error.message);
+    res.status(500).json({ error: 'Failed to fetch data from PRTG API (Alt)' });
+  }
+});
+
+// Ruta para obtener información de un sensor específico por su ID (PRTG 192.168.200.160)
+app.get('/sensor-alt/:sensorId', async (req, res) => {
+  const sensorId = req.params.sensorId;
+  try {
+    const response = await axios.get('https://192.168.200.160/api/table.json', {
+      params: {
+        content: 'sensors',
+        columns: 'objid,channel,name,lastvalue,probe,group,device,status,message,priority,favorite',
+        username: 'prtgadmin',
+        password: 'prtgadmin',
+      },
+      paramsSerializer: params => {
+        return Object.entries(params)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&');
+      },
+      httpsAgent,
+    });
+
+    const sensors = response.data.sensors || [];
+    const sensor = sensors.find(s => s.objid == sensorId);
+
+    if (sensor) {
+      res.json(sensor);
+    } else {
+      res.status(404).json({ error: 'Sensor not found (Alt)' });
+    }
+  } catch (error) {
+    console.error('Error fetching sensor from PRTG API (Alt):', error.message);
+    res.status(500).json({ error: 'Failed to fetch sensor from PRTG API (Alt)' });
+  }
+});
+
+// Ruta para obtener información de los canales de un sensor específico por su ID (PRTG 192.168.200.160)
+app.get('/canales-alt/:sensorId', async (req, res) => {
+  const sensorId = req.params.sensorId;
+  try {
+    const response = await axios.get('https://192.168.200.160/api/table.json', {
+      params: {
+        content: 'channels',
+        columns: 'objid,channel,name,lastvalue',
+        id: sensorId, // Especificar el ID del sensor para obtener sus canales
+        username: 'prtgadmin',
+        password: 'prtgadmin',
+      },
+      paramsSerializer: params => {
+        return Object.entries(params)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&');
+      },
+      httpsAgent,
+    });
+
+    const channels = response.data.channels || [];
+    if (channels.length > 0) {
+      res.json(channels);
+    } else {
+      res.status(404).json({ error: 'No channels found for the given sensor ID (Alt)' });
+    }
+  } catch (error) {
+    console.error('Error fetching channels from PRTG API (Alt):', error.message);
+    res.status(500).json({ error: 'Failed to fetch channels from PRTG API (Alt)' });
+  }
+});
+
+
 
 // Endpoint para obtener logs (sin real-time)
 app.get('/logs', (req, res) => {

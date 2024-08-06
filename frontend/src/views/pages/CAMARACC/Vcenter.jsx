@@ -1,25 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Grid,
-  CircularProgress,
-  Avatar,
-  Alert,
-  Divider,
-  Box,
-  Card,
-  CardContent,
-  CardActions,
-  Snackbar,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle, Icon, IconButton,
+import { AppBar, Toolbar, Typography, Button, Grid, CircularProgress, Avatar, Alert, Divider, Box, Card, CardContent,
+  CardActions, Snackbar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton,
 } from '@mui/material';
 import {
   PowerSettingsNew as PowerIcon,
@@ -34,7 +16,6 @@ const buttonStyle = {
   borderRadius: '10px',
   fontFamily: 'Arial, sans-serif',
   fontWeight: 'bold',
-  fontSize: '10px',
   textTransform: 'uppercase',
   transition: 'transform 0.2s, box-shadow 0.2s, background 0.3s, color 0.3s',
   position: 'relative',
@@ -43,10 +24,23 @@ const buttonStyle = {
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
-  minWidth: '100px',
-  margin: '2px',
+  width: '100%', // Botones ocupan todo el ancho del contenedor
+  padding: '0px 0px', // Mantener el padding para compactar
+  margin: '3px',
+  // Responsive styles
+  fontSize: '12px', // Tamaño de fuente por defecto
+  '@media (min-width: 600px)': {
+    fontSize: '5px', // Tamaño de fuente en pantallas medianas
+  },
+  '@media (min-width: 960px)': {
+    fontSize: '6px', // Tamaño de fuente en pantallas grandes
+  },
+  '@media (min-width: 1280px)': {
+    fontSize: '8px', // Tamaño de fuente en pantallas muy grandes
+  },
 };
 
+// Estilo para el botón habilitado
 const buttonEnabledStyle = {
   ...buttonStyle,
   color: '#ffffff',
@@ -58,6 +52,7 @@ const buttonEnabledStyle = {
   },
 };
 
+// Estilo para el botón deshabilitado
 const buttonDisabledStyle = {
   ...buttonStyle,
   color: '#ffffff80',
@@ -66,20 +61,25 @@ const buttonDisabledStyle = {
   cursor: 'not-allowed',
 };
 
+// Estilo para el icono del botón
 const buttonIconStyle = {
   marginRight: '1px',
+  fontSize: 'inherit', // Asegura que el icono se ajuste al tamaño del botón
 };
 
+// Estilo para el botón de encendido
 const buttonPowerOnStyle = {
   ...buttonEnabledStyle,
   backgroundColor: '#6daa25',
 };
 
+// Estilo para el botón de apagado
 const buttonPowerOffStyle = {
   ...buttonEnabledStyle,
   backgroundColor: '#ff1000',
 };
 
+// Estilo para el botón de suspender
 const buttonSuspendStyle = {
   ...buttonEnabledStyle,
   backgroundColor: '#dcd801',
@@ -101,36 +101,99 @@ function App() {
 
   const excludedVmIds = ['vm-1015', 'vm-2001', 'vm-2019', 'vm-2032', 'vm-2166', 'vm-2201'];
 
+  const fetchVMs = async () => {
+    try {
+      const response = await axios.get('http://192.168.200.155:8080/vms');
+      const filteredVms = response.data.filter(vm => !excludedVmIds.includes(vm.vm));
+      setVms(filteredVms);
+
+      const running = filteredVms.filter(vm => vm.power_state === 'POWERED_ON').length;
+      const stopped = filteredVms.filter(vm => vm.power_state === 'POWERED_OFF').length;
+      const suspended = filteredVms.filter(vm => vm.power_state === 'SUSPENDED').length;
+
+      setVmStats({ running, stopped, suspended });
+
+      const now = new Date().toLocaleString();
+      setVmStateHistory((prevHistory) => ({
+        dates: [...prevHistory.dates, now],
+        running: [...prevHistory.running, running],
+        stopped: [...prevHistory.stopped, stopped],
+        suspended: [...prevHistory.suspended, suspended],
+      }));
+    } catch (error) {
+      setError('Error al obtener las VMs');
+      console.error('Error al obtener las VMs:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchVMs = async () => {
+    fetchVMs();
+  }, []);
+
+  useEffect(() => {
+    const now = new Date().toLocaleString();
+    setVmStateHistory((prevHistory) => ({
+      dates: [...prevHistory.dates, now],
+      running: [...prevHistory.running, vmStats.running],
+      stopped: [...prevHistory.stopped, vmStats.stopped],
+      suspended: [...prevHistory.suspended, vmStats.suspended],
+    }));
+
+    // Llamada a la API para almacenar los datos en MongoDB
+    const storeVmData = async () => {
       try {
-        const response = await axios.get('http://192.168.200.155:8080/vms');
-        const filteredVms = response.data.filter(vm => !excludedVmIds.includes(vm.vm));
-        setVms(filteredVms);
+        const response = await fetch('http://192.168.200.155:8080/store-vm-data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            running: vmStats.running,
+            stopped: vmStats.stopped,
+            suspended: vmStats.suspended,
+            timestamp: new Date().toISOString(), // Enviar la fecha y hora exacta
+          }),
+        });
 
-        const running = filteredVms.filter(vm => vm.power_state === 'POWERED_ON').length;
-        const stopped = filteredVms.filter(vm => vm.power_state === 'POWERED_OFF').length;
-        const suspended = filteredVms.filter(vm => vm.power_state === 'SUSPENDED').length;
-
-        setVmStats({ running, stopped, suspended });
-
-        const now = new Date().toLocaleString();
-        setVmStateHistory((prevHistory) => ({
-          dates: [...prevHistory.dates, now],
-          running: [...prevHistory.running, running],
-          stopped: [...prevHistory.stopped, stopped],
-          suspended: [...prevHistory.suspended, suspended],
-        }));
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(errorMessage);
+        }
       } catch (error) {
-        setError('Error al obtener las VMs');
-        console.error('Error al obtener las VMs:', error);
-      } finally {
-        setLoading(false);
+        console.error(error);
       }
     };
-    fetchVMs();
-    const intervalId = setInterval(fetchVMs, 60000);
-    return () => clearInterval(intervalId);
+
+    storeVmData();
+  }, [vmStats]);
+
+  useEffect(() => {
+    const fetchVmData = async () => {
+      try {
+        const response = await fetch('http://192.168.200.155:8080/get-vm-data');
+        const data = await response.json();
+
+        // Ordenar los datos por fecha/timestamp
+        const sortedData = data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+        const dates = sortedData.map((entry) => new Date(entry.timestamp).toLocaleString());
+        const running = sortedData.map((entry) => entry.running);
+        const stopped = sortedData.map((entry) => entry.stopped);
+        const suspended = sortedData.map((entry) => entry.suspended);
+
+        setVmStateHistory({
+          dates,
+          running,
+          stopped,
+          suspended,
+        });
+      } catch (error) {
+        console.error('Error al obtener los datos de las VMs:', error);
+      }
+    };
+    fetchVmData();
   }, []);
 
   const handlePowerOn = async (vmId) => {
@@ -200,14 +263,6 @@ function App() {
         newStats.running -= 1;
       }
 
-      const now = new Date().toLocaleString();
-      setVmStateHistory((prevHistory) => ({
-        dates: [...prevHistory.dates, now],
-        running: [...prevHistory.running, newStats.running],
-        stopped: [...prevHistory.stopped, newStats.stopped],
-        suspended: [...prevHistory.suspended, newStats.suspended],
-      }));
-
       return newStats;
     });
   };
@@ -228,14 +283,17 @@ function App() {
     if (action === 'suspend') handleSuspend(vmId);
   };
 
+  // Renderizando las acciones
   const renderActions = (vm) => (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Button
         size="small"
         startIcon={<PlayIcon style={buttonIconStyle} />}
         onClick={() => handleDialogOpen('power-on', vm.vm)}
         disabled={vm.power_state === 'POWERED_ON'}
-        style={vm.power_state === 'POWERED_ON' ? buttonDisabledStyle : buttonPowerOnStyle}
+        style={{
+          ...(vm.power_state === 'POWERED_ON' ? buttonDisabledStyle : buttonPowerOnStyle),
+        }}
       >
         Encender
       </Button>
@@ -244,7 +302,9 @@ function App() {
         startIcon={<PowerIcon style={buttonIconStyle} />}
         onClick={() => handleDialogOpen('power-off', vm.vm)}
         disabled={vm.power_state === 'POWERED_OFF'}
-        style={vm.power_state === 'POWERED_OFF' ? buttonDisabledStyle : buttonPowerOffStyle}
+        style={{
+          ...(vm.power_state === 'POWERED_OFF' ? buttonDisabledStyle : buttonPowerOffStyle),
+        }}
       >
         Apagar
       </Button>
@@ -253,11 +313,13 @@ function App() {
         startIcon={<PauseIcon style={buttonIconStyle} />}
         onClick={() => handleDialogOpen('suspend', vm.vm)}
         disabled={vm.power_state === 'SUSPENDED'}
-        style={vm.power_state === 'SUSPENDED' ? buttonDisabledStyle : buttonSuspendStyle}
+        style={{
+          ...(vm.power_state === 'SUSPENDED' ? buttonDisabledStyle : buttonSuspendStyle),
+        }}
       >
         Suspender
       </Button>
-    </>
+    </div>
   );
 
   const chartData = {
@@ -332,6 +394,17 @@ function App() {
       },
       labels: ['Encendida', 'Apagada', 'Suspendida'],
       colors: ['#6daa25', '#ff1000', '#dcd801'],
+      dataLabels: {
+        style: {
+          colors: ['#ffffff'] // Cambiar el color del texto a blanco
+        }
+      },
+      legend: {
+        labels: {
+          colors: ['#ffffff', '#ffffff', '#ffffff',],
+          useSeriesColors: false
+        }
+      },
       responsive: [
         {
           breakpoint: 480,
@@ -349,121 +422,101 @@ function App() {
     },
   };
 
-  return (
-    <div style={{
+  const styles = {
+    container: {
       backgroundColor: '#ffffff',
       color: '#000000',
       minHeight: '100vh',
       padding: '20px',
       boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
       borderRadius: '8px',
-    }}>
-      <AppBar position="static" style={{ backgroundColor: '#233b85', borderRadius: '8px' , alignItems:'center' }}>
-        <Toolbar style={{alignItems: 'center'}}>
-          <Typography edge="start" color="inherit" aria-label="menu" variant="h2" style={{ flexGrow: 3}}>
+    },
+    appBar: {
+      backgroundColor: '#233b85',
+      borderRadius: '8px',
+      alignItems: 'center',
+    },
+    toolbar: {
+      alignItems: 'center',
+    },
+    title: {
+      flexGrow: 3,
+    },
+    gridContainer: {
+      padding: 24,
+    },
+    card: {
+      background: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
+      color: '#ffffff',
+      borderRadius: '15px',
+      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+      overflow: 'hidden',
+      position: 'relative',
+      padding: '20px',
+      border: '1px solid rgba(0, 0, 0, 0.1)',
+      // Responsive styles
+      '@media (max-width: 960px)': {
+        padding: '10px',
+      },
+      '@media (min-width: 960px)': {
+        padding: '20px',
+      },
+    },
+    chartCard: {
+      background: 'linear-gradient(135deg, #d3256b 0%, #233b85 100%)',
+      color: '#ffffff',
+      borderRadius: '15px',
+      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+      overflow: 'hidden',
+      position: 'relative',
+      padding: '20px',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      // Responsive styles
+      '@media (max-width: 960px)': {
+        padding: '10px',
+      },
+      '@media (min-width: 960px)': {
+        padding: '20px',
+      },
+    },
+  };
+
+  return (
+    <div style={styles.container}>
+      <AppBar position="static" style={styles.appBar}>
+        <Toolbar style={styles.toolbar}>
+          <Typography edge="start" color="inherit" aria-label="menu" variant="h2" style={styles.title}>
             Administrador de Maquinas Virtuales
           </Typography>
         </Toolbar>
       </AppBar>
-      <Grid container spacing={2} style={{ padding: 24 }}>
+      <Grid container spacing={2} style={styles.gridContainer}>
         <Grid item xs={12} md={8}>
-          <Card style={{
-            background: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
-            color: '#000000',
-            borderRadius: '15px',
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-            overflow: 'hidden',
-            position: 'relative',
-            padding: '20px',
-            border: '1px solid rgba(0, 0, 0, 0.1)',
-          }}>
+          <Card style={styles.card}>
             <CardContent style={{ position: 'relative', zIndex: 1 }}>
               <Typography variant="h3" style={{ color: '#233b85', fontWeight: 'bold', letterSpacing: '1px' }}>
                 Uso de Recursos
               </Typography>
-              <div style={{ marginTop: '20px' }}>
-                <Chart options={{
-                  ...chartData.options,
-                  chart: {
-                    ...chartData.options.chart,
-                    background: 'transparent',
-                  },
-                  grid: {
-                    borderColor: '#e0e0e0',
-                    strokeDashArray: 5,
-                  },
-                  xaxis: {
-                    ...chartData.options.xaxis,
-                    labels: {
-                      style: {
-                        colors: '#233b85',
-                        fontSize: '12px',
-                        fontFamily: 'Arial, sans-serif',
-                      },
-                    },
-                  },
-                  yaxis: {
-                    ...chartData.options.yaxis,
-                    labels: {
-                      style: {
-                        colors: '#214092',
-                        fontSize: '12px',
-                        fontFamily: 'Arial, sans-serif',
-                      },
-                    },
-                  },
-                  tooltip: {
-                    theme: 'light',
-                    marker: {
-                      show: true,
-                    },
-                  },
-                  stroke: {
-                    ...chartData.options.stroke,
-                    width: 3,
-                  },
-                  dataLabels: {
-                    enabled: false,
-                  },
-                  legend: {
-                    labels: {
-                      colors: '#233b85',
-                    },
-                  },
-                  title: {
-                    ...chartData.options.title,
-                    style: {
-                      color: '#233b85',
-                      fontSize: '14px',
-                      fontFamily: 'Arial, sans-serif',
-                    },
-                  },
-                }} series={chartData.series} type="line" height={350} />
+              <div style={{ marginTop: '1px' }}>
+                <Chart options={chartData.options} series={chartData.series} type="line" height={320} />
               </div>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card style={{
-            background: 'linear-gradient(135deg, #d3256b 0%, #233b85 100%)',
-            color: '#ffffff',
-            borderRadius: '15px',
-            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-            transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-            overflow: 'hidden',
-            position: 'relative',
-            padding: '20px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-          }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.05)';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
-                }}>
-            <CardContent style={{ position: 'relative', zIndex: 1 }}>
+          <Card
+            style={styles.chartCard}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+            }}
+          >
+            <CardContent style={{ position: 'relative', zIndex: 1, color: '#fff' }}>
               <Typography variant="h3" style={{ color: '#ffffff', fontWeight: 'bold', letterSpacing: '1px' }}>
                 Distribución del Estado de las VMs
               </Typography>
@@ -479,25 +532,8 @@ function App() {
               <Typography variant="h5" style={{ color: '#d0d0d0' }}>
                 Suspendidas: {vmStats.suspended}
               </Typography>
-              <div style={{ marginTop: '20px', position: 'relative', zIndex: 1 }}>
-                <Chart options={{
-                  ...pieData.options,
-                  chart: {
-                    ...pieData.options.chart,
-                    background: 'transparent',
-                  },
-                  colors: ['#8bc34a', '#f44336', '#dcd801'],
-                  plotOptions: {
-                    pie: {
-                      expandOnClick: true,
-                    },
-                  },
-                  legend: {
-                    labels: {
-                      colors: '#ffffff',
-                    },
-                  },
-                }} series={pieData.series} type="pie" width={380} />
+              <div style={{ marginTop: '20px' }}>
+                <Chart options={pieData.options} series={pieData.series} type="pie" width={380} />
               </div>
             </CardContent>
           </Card>
@@ -515,16 +551,7 @@ function App() {
           vms
             .map((vm) => (
               <Grid item xs={12} md={3} key={vm.vm}>
-                <Card
-                  style={{
-                    background: '#ffffff',
-                    color: '#000000',
-                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-                    borderRadius: '15px',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out',
-                  }}
+                <Card style={styles.card}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'scale(1.05)';
                     e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
@@ -534,11 +561,11 @@ function App() {
                     e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
                   }}
                 >
-                  <CardContent style={{ position: 'relative' }}>
+                  <CardContent style={{ padding: '1px' }}>
                     <Grid container spacing={2} alignItems="center">
                       <Grid item xs>
                         <Typography
-                          variant="h6"
+                          variant="h3"
                           style={{
                             color: '#233b85',
                             fontWeight: 'bold',
