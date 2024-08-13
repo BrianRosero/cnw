@@ -16,7 +16,7 @@ import { SET_MENU } from '../../actions/types.jsx';
 
 // assets
 import { IconChevronRight } from '@tabler/icons-react';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { logout } from '../../actions/auth.jsx';
 import EventBus from '../../common/EventBus.jsx';
 
@@ -63,21 +63,11 @@ const MainLayout = () => {
   const leftDrawerOpened = useSelector((state) => state.customization.opened);
   const dispatch = useDispatch();
   const { user: currentUser } = useSelector((state) => state.auth);
-  const [, setShowModeratorBoard] = useState(false);
-  const [, setShowAdminBoard] = useState(false);
   const logOut = useCallback(() => {
     dispatch(logout());
   }, [dispatch]);
 
   useEffect(() => {
-    if (currentUser) {
-      setShowModeratorBoard(currentUser.roles.includes('ROLE_MODERATOR'));
-      setShowAdminBoard(currentUser.roles.includes('ROLE_ADMIN'));
-    } else {
-      setShowModeratorBoard(false);
-      setShowAdminBoard(false);
-    }
-
     EventBus.on('logout', () => {
       logOut();
     });

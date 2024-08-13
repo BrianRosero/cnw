@@ -18,9 +18,9 @@ const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
 
 // Importar modelos
-const SensorData = require('./app/models/SensorData');
-const User = require('./app/models/user.model');
-const VmData = require('./app/models/VmData');
+const SensorData = require('./models/SensorData');
+const User = require('./models/user.model');
+const VmData = require('./models/VmData');
 
 
 // Configurar y crear instancias de servidor y Socket.IO
@@ -835,7 +835,7 @@ app.get('/logs', (req, res) => {
 });
 
 // Sincronizar la base de datos de roles y usuarios
-const db = require('./app/models');
+const db = require('./models');
 const Role = db.role;
 
 db.sequelize.sync().then(() => {
