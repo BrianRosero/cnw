@@ -23272,3 +23272,26 @@
 {"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-12T13:14:02.812Z"}
 {"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T13:14:19.228Z"}
 {"level":"info","message":"Conectado a MongoDB","timestamp":"2024-08-12T13:15:44.397Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-12T13:17:22.153Z"}
+{"level":"info","message":"Request: POST /api/auth/enable-2fa","timestamp":"2024-08-12T13:20:33.568Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-12T13:22:27.832Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T13:22:51.011Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-12T13:24:02.919Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T13:24:12.512Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T13:24:40.595Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-12T13:59:24.927Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T13:59:46.151Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T13:59:59.457Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T14:00:02.249Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T14:00:05.046Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T14:00:38.416Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T14:01:12.889Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-12T14:02:10.947Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T14:02:21.887Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-12T14:02:54.344Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-12T14:03:05.657Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-12T20:16:13.289Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-08-12T20:16:13.297Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-12T20:16:13.305Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-12T20:16:13.991Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-12T20:16:15.288Z"}
