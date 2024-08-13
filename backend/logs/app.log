@@ -23295,3 +23295,10 @@
 {"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-12T20:16:13.305Z"}
 {"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-12T20:16:13.991Z"}
 {"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-12T20:16:15.288Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-13T19:37:21.564Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-13T19:37:43.634Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-13T19:38:13.918Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-08-13T19:38:13.936Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-13T19:38:13.942Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-13T19:38:14.636Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-13T19:38:16.177Z"}
