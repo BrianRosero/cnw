@@ -12,7 +12,7 @@ const other = {
   caption: 'integrations',
   type: 'group',
   children: [
-    {
+    /*{
       id: 'integrations',
       title: 'CONSULNETWORKS',
       type: 'item',
@@ -28,7 +28,7 @@ const other = {
       icon: icons.IconDeviceDesktopQuestion,
       external: true,
       target: true,
-    },
+    },*/
   ],
 };
 
