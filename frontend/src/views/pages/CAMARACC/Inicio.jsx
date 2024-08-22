@@ -9,26 +9,29 @@ import {
   Link,
   Card,
   CardContent,
-  Grid, Hidden,
+  Grid,
 } from '@mui/material';
-import logo from '../../../assets/images/Logo-ccc.png'
+import logo from '../../../assets/images/Logo-ccc.png';
 
 // Importar componentes de páginas
-import Rendimiento from './Sensors.jsx'
-import Vcenter from './Vcenter.jsx'
-import Logs from './logs.jsx'
-import INICIO from './Inicio.jsx'
-import Token from './token.jsx'
+import Rendimiento from './Sensors.jsx';
+import Vcenter from './Vcenter.jsx';
+import Logs from './logs.jsx';
+import INICIO from './Inicio.jsx';
+import Token from './token.jsx';
 
 // Estilos con Emotion
 const styles = {
-  mainContent:{
+  mainContent: {
     paddingTop: '10px',
+    paddingBottom: '20px',
+    backgroundColor: '#f4f4f4',
   },
   appBar: {
-    backgroundColor: '#fff', // Color de fondo del appbar
-    borderRadius: '8px',
+    backgroundColor: '#ffffff',
     position: 'auto',
+    padding: '12px 20px',
+    borderRadius: '8px',
   },
   toolbar: {
     display: 'flex',
@@ -43,9 +46,8 @@ const styles = {
     flexGrow: 1, // Permite que el logo tome el espacio necesario para estar centrado
   },
   logoImg: {
-    maxWidth: '30%',
+    maxWidth: '350px',
     height: 'auto',
-    padding: '8px',
   },
   menuLinks: {
     display: 'flex',
@@ -54,93 +56,42 @@ const styles = {
     justifyContent: 'flex-end',
   },
   menuItem: {
-    fontFamily: "Poppins, sans-serif", // Fuentes para el texto del logo
-    marginRight: '20px', // Espacio entre cada elemento del menú
-    color: '#ffffff', // Color del texto del menú
-    fontWeight: 'bold', // Grosor del texto del menú
+    fontFamily: "Poppins, sans-serif",
+    marginLeft: '20px',
+    color: '#ffffff',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
   },
   card: css`
       background-color: #d3256b;
-      color: #fff;
+      color: rgba(255, 255, 255, 0.92);
       margin-bottom: 20px;
+      &:hover {
+          background-color: #d53575;
+      }
   `,
   cardTitle: css`
-      font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif; // Fuentes para el texto del logo
+      font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
       font-size: 1.5rem;
-      color: rgba(255, 255, 255, 0.83);
+      color: #ffffff;
       font-weight: bold;
   `,
+  sectionTitle: {
+    color: '#214092',
+    fontFamily: 'Poppins, sans-serif',
+    marginBottom: '20px',
+  },
   section: css`
       margin-bottom: 40px;
-  `,
-  testimonial: css`
-      background-color: #c3c1c1;
-      padding: 20px;
-      border-radius: 5px;
-  `,
-  testimonialText: css`
-      margin-bottom: 10px;
-  `,
-  testimonialAuthor: css`
+      padding: 0 20px;
       font-weight: bold;
-  `,
-  image: css`
-      max-width: 100%;
-      height: auto;
-      border-radius: 5px;
   `,
 };
 
 const Inicio = () => {
-  const [setAnchorEl] = useState(null);
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const Header = ({onBackButtonClick}) => {
-    return (
-      <AppBar position="static" css={styles.appBar}>
-        <Toolbar style={styles.toolbar}>
-          <div css={styles.logo}>
-            <img src={logo} alt="Logo" style={styles.logoImg} onClick={onBackButtonClick}/>
-          </div>
-          <Hidden mdDown>
-            <div style={styles.menuLinks}>
-              <div style={styles.menuLinks}>
-                <MenuItem onClick={handleClose} style={styles.menuItem}>
-                  <Link color="inherit" onClick={onBackButtonClick}>
-                    Inicio
-                  </Link>
-                </MenuItem>
-                {/*<MenuItem onClick={handleClose} style={styles.menuItem}>
-                    <Link href="#servicios" color="inherit">
-                      Servicios
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleClose} style={styles.menuItem}>
-                    <Link href="#proyectos" color="inherit">
-                      Proyectos
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleClose} style={styles.menuItem}>
-                    <Link href="#noticias" color="inherit">
-                      Noticias
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleClose} style={styles.menuItem}>
-                    <Link href="#contacto" color="inherit">
-                      Contacto
-                    </Link>
-                  </MenuItem>*/}
-              </div>
-            </div>
-          </Hidden>
-        </Toolbar>
-      </AppBar>
-    );
-  }
-
   const [currentPage, setCurrentPage] = useState(null);
 
   const handleButtonClick = (page) => {
@@ -171,7 +122,13 @@ const Inicio = () => {
   return (
     <div>
       {/* Barra de navegación */}
-      <Header onBackButtonClick={handleBackButtonClick} />
+      <AppBar position="static" css={styles.appBar}>
+        <Toolbar css={styles.toolbar}>
+          <div css={styles.logo} onClick={handleBackButtonClick}>
+            <img src={logo} alt="Logo" css={styles.logoImg} />
+          </div>
+        </Toolbar>
+      </AppBar>
       <div css={styles.mainContent}>
         {currentPage ? (
           <div className="page-content">
@@ -180,142 +137,36 @@ const Inicio = () => {
         ) : (
           <Grid container spacing={3} css={styles.section}>
             {/* Sección de Bienvenida */}
-            <Grid container spacing={3} css={styles.section}>
-              <Grid item xs={12} >
-                <CardContent >
-                  <Typography style={{color: '#214092'}} variant="h2" align="center">¡Bienvenido al Panel de Control de Servicios de CAMARA DE COMERCIO DE CALI </Typography>
-                </CardContent>
-              </Grid>
+            <Grid item xs={12}>
+              <CardContent>
+                <Typography variant="h2" align="center" css={styles.sectionTitle}>¡Bienvenido al Panel de Control de Servicios!</Typography>
+              </CardContent>
             </Grid>
+
             {/* Sección de Servicios */}
-            <Grid container spacing={3} css={styles.section}>
-              <Grid item xs={12}>
-                <Typography style={{color: '#214092'}} variant="h4" align="center" id="servicios">Servicios</Typography>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent onClick={() => handleButtonClick('rendimiento')}>
-                    <Typography variant="h5" css={styles.cardTitle}>Rendimiento</Typography>
-                    <Typography variant="h4" style={{color: '#fff'}}>
-                      Presentamos un sistema de rendimiento de maquinas virtuales, así como información detallada de las maquinas en funcionamiento.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent onClick={() => handleButtonClick('vcenter')}>
-                    <Typography variant="h5" css={styles.cardTitle}>Vcenter</Typography>
-                    <Typography variant="h4" style={{color: '#fff'}}>
-                      Creamos soluciones de software personalizadas para satisfacer las necesidades específicas de su
-                      empresa.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent onClick={() => handleButtonClick('logs')}>
-                    <Typography variant="h5" css={styles.cardTitle}>Logs</Typography>
-                    <Typography variant="body2">
-                      Protegemos su infraestructura y datos con las últimas tecnologías de seguridad informática.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent onClick={() => handleButtonClick('token')}>
-                    <Typography variant="h5" css={styles.cardTitle}>Inteligencia Artificial</Typography>
-                    <Typography variant="body2">
-                      Implementamos soluciones de inteligencia artificial para mejorar la eficiencia y la toma de decisiones
-                      en su empresa.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              {/*<Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent>
-                    <Typography variant="h5" css={styles.cardTitle}>Análisis de Datos</Typography>
-                    <Typography variant="body2">
-                      Ayudamos a extraer información valiosa de sus datos para mejorar su estrategia empresarial.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>*/}
+            <Grid item xs={12}>
+              <Typography variant="h3" align="center" css={styles.sectionTitle}>Servicios</Typography>
             </Grid>
-
-            {/*  Sección de Proyectos
-            <Grid container spacing={3} css={styles.section}>
-              <Grid item xs={12}>
-                <Typography variant="h4" align="center" id="proyectos">Nuestros Proyectos Recientes</Typography>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent>
-                    <Typography variant="h5" css={styles.cardTitle}>Implementación de Sistema de Gestión
-                      Empresarial</Typography>
-                    <Typography variant="body2">
-                      Desarrollamos un sistema de gestión empresarial personalizado para mejorar la eficiencia operativa de
-                      nuestro cliente.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent>
-                    <Typography variant="h5" css={styles.cardTitle}>Integración de Chatbot en Plataforma de Servicio al
-                      Cliente</Typography>
-                    <Typography variant="body2">
-                      Implementamos un chatbot inteligente para brindar soporte automatizado a los clientes de nuestro
-                      cliente, reduciendo los tiempos de respuesta y mejorando la satisfacción del cliente.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent>
-                    <Typography variant="h5" css={styles.cardTitle}>Despliegue de Sistema de Seguridad Avanzado</Typography>
-                    <Typography variant="body2">
-                      Instalamos un sistema de seguridad avanzado que utiliza tecnología de reconocimiento facial y análisis
-                      de comportamiento para proteger las instalaciones de nuestro cliente contra intrusiones.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+            <Grid item xs={12} md={4}>
+              <Card css={styles.card}>
+                <CardContent onClick={() => handleButtonClick('rendimiento')}>
+                  <Typography variant="h5" css={styles.cardTitle}>Rendimiento</Typography>
+                  <Typography variant="h4" style={{color: 'rgba(255,255,255,0.94)'}}>
+                    Sistema de rendimiento de máquinas virtuales con información detallada.
+                  </Typography>
+                </CardContent>
+              </Card>
             </Grid>
-
-             Sección de Testimonios
-            <Grid container spacing={3} css={styles.section}>
-              <Grid item xs={12}>
-                <Typography variant="h4" align="center">Lo que dicen nuestros clientes</Typography>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <div css={styles.testimonial}>
-                  <Typography variant="body1" css={styles.testimonialText}>
-                    "CONSULNETWORKS ha transformado por completo nuestra empresa. Su equipo nos brindó soluciones
-                    innovadoras y un soporte excepcional."
+            <Grid item xs={12} md={4}>
+              <Card css={styles.card}>
+                <CardContent onClick={() => handleButtonClick('vcenter')}>
+                  <Typography variant="h5" css={styles.cardTitle}>Gestión</Typography>
+                  <Typography variant="h4" style={{color: 'rgba(255,255,255,0.94)'}}>
+                    Sistema de encargado de la gestión de energía para entornos virtualizados.
                   </Typography>
-                  <Typography variant="body2" css={styles.testimonialAuthor}>
-                    - Juan Pérez, CEO de Empresa Ejemplo
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <div css={styles.testimonial}>
-                  <Typography variant="body1" css={styles.testimonialText}>
-                    "Estamos muy satisfechos con el trabajo realizado por CONSULNETWORKS. Su profesionalismo y dedicación
-                    nos han permitido alcanzar nuevos niveles de eficiencia."
-                  </Typography>
-                  <Typography variant="body2" css={styles.testimonialAuthor}>
-                    - María González, Directora de Tecnología de Otra Empresa
-                  </Typography>
-                </div>
-              </Grid>
-            </Grid>*/}
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
         )}
       </div>

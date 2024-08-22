@@ -38,14 +38,14 @@ const MachineCard = ({ sensorId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [isAdminCOSMITET, setIsAdminCOSMITET] = useState(false);
+  const [isAdminCAMARACC, setIsAdminCAMARACC] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    UserService.getAdminCOSMITET().then(
+    UserService.getAdminCAMARACC().then(
       (response) => {
         setContent(response.data);
-        setIsAdminCOSMITET(true);
+        setIsAdminCAMARACC(true);
       },
       (error) => {
         const errorMessage =
@@ -58,9 +58,9 @@ const MachineCard = ({ sensorId }) => {
         setContent(errorMessage);
 
         if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
+          EventBus.dispatch('logout');
         }
-      }
+      },
     );
   }, []);
 
@@ -136,9 +136,10 @@ const MachineCard = ({ sensorId }) => {
     { label: 'Uso de Disco ', value: channelData[channelIDs.diskUsage]?.lastvalue || 'N/A' },
     { label: 'Memoria Activa ', value: channelData[channelIDs.memoryConsumed]?.lastvalue || 'N/A' },
     { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryActive]?.lastvalue || 'N/A' },
+    { label: 'Datos Usados en Red', value: channelData[channelIDs.networkUsage]?.lastvalue || 'N/A' },
     ];
 
-  if (isAdminCOSMITET) {
+  if (isAdminCAMARACC) {
     return (
       <StyledCard>
         <CardContent>

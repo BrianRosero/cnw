@@ -37,6 +37,33 @@ const CardContainer = styled.div`
     padding: 20px;
 `;
 
+const CardContainerCCC = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  width: 130%;
+  height: 500px;
+  margin-left: -200px;
+
+  /* Estilos para tablets (pantallas medianas) */
+  @media (max-width: 1023px) and (min-width: 768px) {
+    width: 100%;
+    margin-left: -50px;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  /* Estilos para teléfonos (pantallas pequeñas) */
+  @media (max-width: 767px) {
+    width: 100%;
+    margin-left: 0;
+    padding: 10px;
+    gap: 10px;
+  }
+`;
+
 const CardWrapper = styled.div`
     background-color: #ffffff;
     border-radius: 10px;
@@ -307,7 +334,7 @@ function Dashboard() {
       case 'duarte':
         return <DUARTE />;
       case 'peñitas':
-        return <PEÑITAS/>;
+        return <PEÑITAS />;
       case 'camaracc':
         return <CAMARACC />;
       case 'ozono':
@@ -318,7 +345,6 @@ function Dashboard() {
         return null;
     }
   };
-
 
 
   if (isModerator) {
@@ -445,11 +471,12 @@ function Dashboard() {
               {renderPageContent()}
             </div>
           ) : (
-            <CardContainer>
+            <CardContainerCCC>
               <CardWrapper onClick={() => handleButtonClick('camaracc')}>
-                <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '110%' }} />
+                <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '105%' }} />
               </CardWrapper>
-            </CardContainer>
+            </CardContainerCCC>
+
           )}
         </div>
       </div>

@@ -64,15 +64,15 @@ const MachineCard = ({ sensorId }) => {
   const [error, setError] = useState(null);
   const [selectedMetric, setSelectedMetric] = useState('Uso de CPU');
   const [timeRange, setTimeRange] = useState(30);
-  const [isAdminCOSMITET, setIsAdminCOSMITET] = useState(false);
+  const [isAdminCAMARACC, setIsAdminCAMARACC] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // Hook para obtener el rol de administrador de COSMITET
+  // Hook para obtener el rol de administrador de CamaraCC
   useEffect(() => {
-    UserService.getAdminCOSMITET().then(
+    UserService.getAdminCAMARACC().then(
       (response) => {
         setContent(response.data);
-        setIsAdminCOSMITET(true);
+        setIsAdminCAMARACC(true);
       },
       (error) => {
         const errorMessage =
@@ -81,7 +81,9 @@ const MachineCard = ({ sensorId }) => {
             error.response.data.message) ||
           error.message ||
           error.toString();
+
         setContent(errorMessage);
+
         if (error.response && error.response.status === 401) {
           EventBus.dispatch('logout');
         }
@@ -290,7 +292,7 @@ const MachineCard = ({ sensorId }) => {
   const selectedData = filteredData.find(dataset => dataset.name === selectedMetric);
 
   // Componente de renderizado para administradores de COSMITET
-  if (isAdminCOSMITET) {
+  if (isAdminCAMARACC) {
     return (
       <StyledCard>
         <div className="button-container">

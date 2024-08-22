@@ -23302,3 +23302,45 @@
 {"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-13T19:38:13.942Z"}
 {"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-13T19:38:14.636Z"}
 {"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-13T19:38:16.177Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2024-08-14T14:30:28.728Z"}
+{"level":"info","message":"Request: GET /","timestamp":"2024-08-14T14:44:50.425Z"}
+{"level":"info","message":"Request: GET /favicon.ico","timestamp":"2024-08-14T14:44:50.559Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-14T19:47:14.161Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-14T19:49:16.471Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-08-14T20:07:12.598Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-14T20:07:12.610Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-14T20:07:12.616Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-14T20:07:13.057Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-14T20:07:14.136Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-15T15:48:12.904Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-08-15T15:48:12.911Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-15T15:48:12.916Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-15T15:48:13.332Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-15T15:48:14.332Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-15T16:05:27.778Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-08-15T16:05:27.784Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-15T16:05:27.789Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-15T16:05:28.230Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-15T16:05:29.234Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-15T20:01:57.474Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-15T20:02:24.143Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-20T13:34:24.767Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-20T13:34:37.540Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-22T15:30:26.900Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-22T15:38:13.913Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-22T15:38:25.363Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-22T15:38:48.924Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-22T15:39:06.425Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-22T15:39:21.016Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-22T15:39:38.147Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-22T15:40:12.829Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-08-22T15:40:12.830Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-22T15:40:12.836Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-22T15:40:13.579Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-08-22T15:49:48.719Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-08-22T15:49:58.368Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-22T16:21:24.606Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-08-22T16:21:24.612Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-08-22T16:21:24.619Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-08-22T16:21:25.099Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-08-22T16:21:26.022Z"}
