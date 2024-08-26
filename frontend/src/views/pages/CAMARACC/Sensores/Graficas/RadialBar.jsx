@@ -25,14 +25,6 @@ const chartOptions = {
     sparkline: {
       enabled: true,
     },
-    events: {
-      mounted: function(chartContext, config) {
-        chartContext.dispatchAction({
-          type: 'highlight',
-          seriesIndex: 0,
-        });
-      },
-    },
   },
   plotOptions: {
     radialBar: {

@@ -16,9 +16,7 @@ import logo from '../../../assets/images/Logo-ccc.png';
 // Importar componentes de páginas
 import Rendimiento from './Sensors.jsx';
 import Vcenter from './Vcenter.jsx';
-import Logs from './logs.jsx';
 import INICIO from './Inicio.jsx';
-import Token from './token.jsx';
 
 // Estilos con Emotion
 const styles = {
@@ -46,7 +44,7 @@ const styles = {
     flexGrow: 1, // Permite que el logo tome el espacio necesario para estar centrado
   },
   logoImg: {
-    maxWidth: '350px',
+    maxWidth: '320px',
     height: 'auto',
   },
   menuLinks: {
@@ -110,10 +108,6 @@ const Inicio = () => {
         return <INICIO />;
       case 'vcenter':
         return <Vcenter />;
-      case 'logs':
-        return <Logs />;
-      case 'token':
-        return <Token />;
       default:
         return null;
     }
