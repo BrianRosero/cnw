@@ -38,14 +38,14 @@ const MachineCard = ({ sensorId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [isAdminCOSMITET, setIsAdminCOSMITET] = useState(false);
+  const [isAdminESECENTRO, setIsAdminESECENTRO] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    UserService.getAdminCOSMITET().then(
+    UserService.getAdminESECENTRO().then(
       (response) => {
         setContent(response.data);
-        setIsAdminCOSMITET(true);
+        setIsAdminESECENTRO(true);
       },
       (error) => {
         const errorMessage =
@@ -58,9 +58,9 @@ const MachineCard = ({ sensorId }) => {
         setContent(errorMessage);
 
         if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
+          EventBus.dispatch('logout');
         }
-      }
+      },
     );
   }, []);
 
@@ -90,7 +90,7 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/prtg-api/${sensorId}`);
         const data = response.data.channels.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;
@@ -119,14 +119,13 @@ const MachineCard = ({ sensorId }) => {
   }
 
   const metricsAdmin = [
-    { label: 'CPU Lista ', value: channelData[channelIDs.cpuReadyPercent]?.lastvalue || 'N/A' },
     { label: 'Uso de CPU ', value: channelData[channelIDs.cpuUsage]?.lastvalue || 'N/A' },
+    { label: 'CPU Lista ', value: channelData[channelIDs.cpuReadyPercent]?.lastvalue || 'N/A' },
     { label: 'Lectura Disco ', value: channelData[channelIDs.diskRead]?.lastvalue || 'N/A' },
     { label: 'Uso de Disco ', value: channelData[channelIDs.diskUsage]?.lastvalue || 'N/A' },
     { label: 'Escritura Disco ', value: channelData[channelIDs.diskWrite]?.lastvalue || 'N/A' },
     { label: 'Memoria Activa ', value: channelData[channelIDs.memoryConsumed]?.lastvalue || 'N/A' },
     { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryActive]?.lastvalue || 'N/A' },
-    { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryConsumedPercent]?.lastvalue || 'N/A' },
     { label: 'Datos Recibidos en Red ', value: channelData[channelIDs.networkReceived]?.lastvalue || 'N/A' },
     { label: 'Datos Transmitidos en Red ', value: channelData[channelIDs.networkTransmitted]?.lastvalue || 'N/A' },
     { label: 'Datos Usados en Red', value: channelData[channelIDs.networkUsage]?.lastvalue || 'N/A' },
@@ -134,12 +133,17 @@ const MachineCard = ({ sensorId }) => {
 
   const metrics = [
     { label: 'Uso de CPU ', value: channelData[channelIDs.cpuUsage]?.lastvalue || 'N/A' },
+    { label: 'Lectura Disco ', value: channelData[channelIDs.diskRead]?.lastvalue || 'N/A' },
     { label: 'Uso de Disco ', value: channelData[channelIDs.diskUsage]?.lastvalue || 'N/A' },
+    { label: 'Escritura Disco ', value: channelData[channelIDs.diskWrite]?.lastvalue || 'N/A' },
     { label: 'Memoria Activa ', value: channelData[channelIDs.memoryConsumed]?.lastvalue || 'N/A' },
     { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryActive]?.lastvalue || 'N/A' },
-    ];
+    { label: 'Datos Recibidos en Red ', value: channelData[channelIDs.networkReceived]?.lastvalue || 'N/A' },
+    { label: 'Datos Transmitidos en Red ', value: channelData[channelIDs.networkTransmitted]?.lastvalue || 'N/A' },
+    { label: 'Datos Usados en Red', value: channelData[channelIDs.networkUsage]?.lastvalue || 'N/A' },
+  ];
 
-  if (isAdminCOSMITET) {
+  if (isAdminESECENTRO) {
     return (
       <StyledCard>
         <CardContent>
@@ -149,7 +153,7 @@ const MachineCard = ({ sensorId }) => {
                 <MetricItem key={index}>
                   <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
                   <Typography> </Typography>
-                  <Typography variant="h4" style={{ color: '#15708d' }}>{metric.value}</Typography>
+                  <Typography variant="h4" style={{ color: '#282c60' }}>{metric.value}</Typography>
                 </MetricItem>
               ))}
             </Grid>
@@ -168,7 +172,7 @@ const MachineCard = ({ sensorId }) => {
                 <MetricItem key={index}>
                   <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
                   <Typography> </Typography>
-                  <Typography variant="h4" style={{ color: '#15708d' }}>{metric.value}</Typography>
+                  <Typography variant="h4" style={{ color: '#282c60' }}>{metric.value}</Typography>
                 </MetricItem>
               ))}
             </Grid>

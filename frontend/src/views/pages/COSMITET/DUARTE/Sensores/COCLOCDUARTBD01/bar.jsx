@@ -2,7 +2,7 @@ import React from 'react';
 import MachineCard from '../Graficas/RadialBar.jsx';
 
 const Sensor = () => {
-  return <MachineCard sensorId={2136} />;
+  return <MachineCard sensorId={2751} />;
 };
 
 export default Sensor;

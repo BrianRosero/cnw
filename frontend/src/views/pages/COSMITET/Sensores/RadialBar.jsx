@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Card, CardContent, Typography, Grid, Box, Button, Divider } from '@mui/material';
 import { styled } from '@mui/system';
 import Chart from 'react-apexcharts';
-import sensorData from '../../../../../sensorData.jsx'; // Importar el archivo de datos
+import sensorData from '../../../../sensorData.jsx'; // Importar el archivo de datos
 
 const channelIDs = {
   cpuReadyPercent: 6,
@@ -108,7 +108,7 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/prtg-api/${sensorId}`);
         const data = response.data.channels.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;

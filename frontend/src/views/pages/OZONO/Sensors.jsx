@@ -144,7 +144,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const DemoTabs = () => {
   const [index, setIndex] = useState(0);
-  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOCOSMIBD01');
+  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOESECAP02');
 
   const handleChange = (event, newValue) => {
     setIndex(newValue);
@@ -172,37 +172,37 @@ const DemoTabs = () => {
   const getComponent = (type) => {
     console.log(`Fetching ${type} for selected graph: ${graficoSeleccionado}`);
     switch (graficoSeleccionado) {
-      case 'COCLOCOSMIBD01':
+      case 'COCLOESECAP02':
         return type === 'RadialBar' ? <RadialBar1 /> : type === 'Info' ? <Info1 /> : <Area1 />;
-      case 'COCLOCOSMIBD02':
+      case 'COCLOESECAP03':
         return type === 'RadialBar' ? <RadialBar2 /> : type === 'Info' ? <Info2 /> : <Area2 />;
-      case 'COCLOCOSMIBD03':
+      case 'COCLOESECAP04':
         return type === 'RadialBar' ? <RadialBar3 /> : type === 'Info' ? <Info3 /> : <Area3 />;
-      case 'COCLOCOSMIBD04':
+      case 'COCLOESECAP05':
         return type === 'RadialBar' ? <RadialBar4 /> : type === 'Info' ? <Info4 /> : <Area4 />;
-      case 'COCLOCOSMIAP02':
+      case 'COCLOESECAP06':
         return type === 'RadialBar' ? <RadialBar5 /> : type === 'Info' ? <Info5 /> : <Area5 />;
-      case 'COCLOCOSMIAP05':
+      case 'COCLOESECAP07':
         return type === 'RadialBar' ? <RadialBar6 /> : type === 'Info' ? <Info6 /> : <Area6 />;
-      case 'COCLOCOSMIAP06':
+      case 'COCLOESECAP08':
         return type === 'RadialBar' ? <RadialBar7 /> : type === 'Info' ? <Info7 /> : <Area7 />;
-      case 'COCLOCOSMIAP07':
+      case 'COCLOESECAP09':
         return type === 'RadialBar' ? <RadialBar8 /> : type === 'Info' ? <Info8 /> : <Area8 />;
-      case 'COCLOCOSMISTG01':
+      case 'COCLOESECAP10':
         return type === 'RadialBar' ? <RadialBar9 /> : type === 'Info' ? <Info9 /> : <Area9 />;
-      case 'COCLOCOSMIFI01':
+      case 'COCLOESECAP11':
         return type === 'RadialBar' ? <RadialBar10 /> : type === 'Info' ? <Info10 /> : <Area10 />;
-      case 'COCLOCOSMIBK01':
+      case 'COCLOESECAP12':
         return type === 'RadialBar' ? <RadialBar11 /> : type === 'Info' ? <Info11 /> : <Area11 />;
-      case 'COCLOCOSMIREP02':
+      case 'COCLOESECAP13':
         return type === 'RadialBar' ? <RadialBar12 /> : type === 'Info' ? <Info12 /> : <Area12 />;
-      case 'COCLOCOSMIREP03':
+      case 'COCLOESECAP14':
         return type === 'RadialBar' ? <RadialBar13 /> : type === 'Info' ? <Info13 /> : <Area13 />;
-      case 'COCLOCOSMIDES01':
+      case 'COCLOESECAP15':
         return type === 'RadialBar' ? <RadialBar14 /> : type === 'Info' ? <Info14 /> : <Area14 />;
-      case 'COCLOCOSMIAST03':
+      case 'COCLOESECAP16':
         return type === 'RadialBar' ? <RadialBar15 /> : type === 'Info' ? <Info15 /> : <Area15 />;
-      case 'COCLOCOSMIAST04':
+      case 'COCLOESECAP17':
         return type === 'RadialBar' ? <RadialBar16 /> : type === 'Info' ? <Info16 /> : <Area16 />;
       default:
         return null;
@@ -220,13 +220,13 @@ const DemoTabs = () => {
   ];
 
   const cards = [
-    ['COCLOCOSMIBD01', 'COCLOCOSMIBD02', 'COCLOCOSMIBD03', 'COCLOCOSMIBD04'],
-    ['COCLOCOSMIAP02', 'COCLOCOSMIAP05', 'COCLOCOSMIAP06', 'COCLOCOSMIAP07'],
-    ['COCLOCOSMISTG01'],
-    ['COCLOCOSMIFI01'],
-    ['COCLOCOSMIBK01'],
-    ['COCLOCOSMIREP02', 'COCLOCOSMIREP03'],
-    ['COCLOCOSMIDES01', 'COCLOCOSMIAST03', 'COCLOCOSMIAST04'],
+    ['COCLOESECAP02', 'COCLOESECAP03', 'COCLOESECAP04', 'COCLOESECAP05'],
+    ['COCLOESECAP06', 'COCLOESECAP07', 'COCLOESECAP08', 'COCLOESECAP09'],
+    ['COCLOESECAP10'],
+    ['COCLOESECAP11'],
+    ['COCLOESECAP12'],
+    ['COCLOESECAP13', 'COCLOESECAP14'],
+    ['COCLOESECAP15', 'COCLOESECAP16', 'COCLOESECAP17'],
   ];
 
   return (

@@ -119,11 +119,11 @@ const MachineCard = ({ sensorId }) => {
     const fetchData = async () => {
       try {
         // Fetch sensor info
-        const sensorResponse = await axios.get(`http://192.168.200.155:8080/sensor/${sensorId}`);
+        const sensorResponse = await axios.get(`http://192.168.200.155:8081/sensor/${sensorId}`);
         const apiSensorData = sensorResponse.data;
 
         // Fetch channel data
-        const response = await axios.get(`http://192.168.200.155:8080/canales/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/canales/${sensorId}`);
         const data = response.data.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;

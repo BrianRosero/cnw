@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { Container, Grid, Typography, Button, Card, CardContent, CardMedia, Paper, Divider } from '@mui/material';
 import { styled } from '@mui/system';
@@ -436,3 +437,26 @@ const HomePage = () => {
 };
 
 export default HomePage;
+*/
+
+
+import { styled } from '@mui/material/styles';
+import { Card } from '@mui/material';
+
+// styles
+const IFrameWrapper = styled('iframe')(({ theme }) => ({
+  height: 'calc(79vh + 69px)',
+  border: '1px solid',
+  borderColor: theme.palette.primary.light,
+  borderRadius: '5px',
+}));
+
+// ============================|| MATERIAL ICONS ||============================ //
+
+const MaterialIcons = () => (
+  <Card sx={{ overflow: 'hidden' }}>
+    <IFrameWrapper title="Pagina Consulnetworks" width="100%" src="https://cnw.co" />
+  </Card>
+);
+
+export default MaterialIcons;

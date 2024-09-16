@@ -78,7 +78,7 @@ const Login = ({ ...others }) => {
 
   const verify2FA = () => {
     setLoading(true);
-    axios.post('http://192.168.200.155:8080/api/auth/verify-2fa', { userId, token: twoFactorToken })
+    axios.post('http://192.168.200.155:8081/api/auth/verify-2fa', { userId, token: twoFactorToken })
       .then((response) => {
         const userData = response.data;
         if (userData.accessToken) {

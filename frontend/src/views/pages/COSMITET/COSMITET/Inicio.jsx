@@ -199,7 +199,7 @@ const Inicio = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={4}>
+              {/*<Grid item xs={12} md={4}>
                 <Card css={styles.card}>
                   <CardContent onClick={() => handleButtonClick('informes')}>
                     <Typography variant="h5" css={styles.cardTitle}>Informes Backup</Typography>
@@ -219,7 +219,7 @@ const Inicio = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              {/*<Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card css={styles.card}>
                   <CardContent>
                     <Typography variant="h5" css={styles.cardTitle}>Inteligencia Artificial</Typography>

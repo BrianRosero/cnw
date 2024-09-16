@@ -26,7 +26,7 @@ const CombinedSensors = () => {
   const fetchData = useCallback(async (dbInstance) => {
     if (!dbInstance) return;
     try {
-      const response = await axios.get('http://localhost:8080/prtg-api/ESECENTRO');
+      const response = await axios.get('http://localhost:8081/prtg-api/ESECENTRO');
       const values = response.data.sensors.map(sensor => ({
         name: sensor.objid,
         value: parseFloat(sensor.lastvalue.replace(/[^0-9.-]+/g, "")),

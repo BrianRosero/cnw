@@ -149,7 +149,7 @@ const ProfilePage = () => {
   const enable2FA = async () => {
     try {
       const response = await axios.post(
-        'http://192.168.200.155:8080/api/auth/enable-2fa',
+        'http://192.168.200.155:8081/api/auth/enable-2fa',
         { userId: currentUser.id },
       );
       setQrCodeUrl(response.data.qrCodeUrl);

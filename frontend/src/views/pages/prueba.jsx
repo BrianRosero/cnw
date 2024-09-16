@@ -15,7 +15,7 @@ const BoardESECENTRO = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://192.168.200.155:8080/prtg-api');
+        const response = await fetch('http://192.168.200.155:8081/prtg-api');
         const jsonData = await response.json();
         setRealTimeData(jsonData);
         // Inicialmente, mostramos todos los sensores

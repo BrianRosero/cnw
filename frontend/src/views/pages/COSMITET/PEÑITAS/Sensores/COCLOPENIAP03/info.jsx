@@ -2,7 +2,7 @@ import React from 'react';
 import MachineCard from '../Graficas/Información.jsx';
 
 const Sensor = () => {
-  return <MachineCard sensorId={2194} />;
+  return <MachineCard sensorId={2802} />;
 };
 
 export default Sensor;

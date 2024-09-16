@@ -6,61 +6,78 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
-import Info1 from './Sensores/COCLOCOSMIBD01/info.jsx';
-import RadialBar1 from './Sensores/COCLOCOSMIBD01/bar.jsx';
-import Area1 from './Sensores/COCLOCOSMIBD01/area.jsx';
-import Info2 from './Sensores/COCLOCOSMIBD02/info.jsx';
-import RadialBar2 from './Sensores/COCLOCOSMIBD02/bar.jsx';
-import Area2 from './Sensores/COCLOCOSMIBD02/area.jsx';
-import Info3 from './Sensores/COCLOCOSMIBD03/info.jsx';
-import RadialBar3 from './Sensores/COCLOCOSMIBD03/bar.jsx';
-import Area3 from './Sensores/COCLOCOSMIBD03/area.jsx';
-import Info4 from './Sensores/COCLOCOSMIBD04/info.jsx';
-import RadialBar4 from './Sensores/COCLOCOSMIBD04/bar.jsx';
-import Area4 from './Sensores/COCLOCOSMIBD04/area.jsx';
-
-import Info5 from './Sensores/COCLOCOSMIAP02/info.jsx';
-import RadialBar5 from './Sensores/COCLOCOSMIAP02/bar.jsx';
-import Area5 from './Sensores/COCLOCOSMIAP02/area.jsx';
-import Info6 from './Sensores/COCLOCOSMIAP05/info.jsx';
-import RadialBar6 from './Sensores/COCLOCOSMIAP05/bar.jsx';
-import Area6 from './Sensores/COCLOCOSMIAP05/area.jsx';
-import Info7 from './Sensores/COCLOCOSMIAP06/info.jsx';
-import RadialBar7 from './Sensores/COCLOCOSMIAP06/bar.jsx';
-import Area7 from './Sensores/COCLOCOSMIAP06/area.jsx';
-import Info8 from './Sensores/COCLOCOSMIAP07/info.jsx';
-import RadialBar8 from './Sensores/COCLOCOSMIAP07/bar.jsx';
-import Area8 from './Sensores/COCLOCOSMIAP07/area.jsx';
-
-import Info9 from './Sensores/COCLOCOSMISTG01/info.jsx';
-import RadialBar9 from './Sensores/COCLOCOSMISTG01/bar.jsx';
-import Area9 from './Sensores/COCLOCOSMISTG01/area.jsx';
-
-import Info10 from './Sensores/COCLOCOSMIFI01/info.jsx';
-import RadialBar10 from './Sensores/COCLOCOSMIFI01/bar.jsx';
-import Area10 from './Sensores/COCLOCOSMIFI01/area.jsx';
-
-import Info11 from './Sensores/COCLOCOSMIBK01/info.jsx';
-import RadialBar11 from './Sensores/COCLOCOSMIBK01/bar.jsx';
-import Area11 from './Sensores/COCLOCOSMIBK01/area.jsx';
-
-import Info12 from './Sensores/COCLOCOSMIREP02/info.jsx';
-import RadialBar12 from './Sensores/COCLOCOSMIREP02/bar.jsx';
-import Area12 from './Sensores/COCLOCOSMIREP02/area.jsx';
-import Info13 from './Sensores/COCLOCOSMIREP03/info.jsx';
-import RadialBar13 from './Sensores/COCLOCOSMIREP03/bar.jsx';
-import Area13 from './Sensores/COCLOCOSMIREP03/area.jsx';
-
-import Info14 from './Sensores/COCLOCOSMIDES01/info.jsx';
-import RadialBar14 from './Sensores/COCLOCOSMIDES01/bar.jsx';
-import Area14 from './Sensores/COCLOCOSMIDES01/area.jsx';
-import Info15 from './Sensores/COCLOCOSMIAST03/info.jsx';
-import RadialBar15 from './Sensores/COCLOCOSMIAST03/bar.jsx';
-import Area15 from './Sensores/COCLOCOSMIAST03/area.jsx';
-import Info16 from './Sensores/COCLOCOSMIAST04/info.jsx';
-import RadialBar16 from './Sensores/COCLOCOSMIAST04/bar.jsx';
-import Area16 from './Sensores/COCLOCOSMIAST04/area.jsx';
-
+import Info1 from './Sensores/COCLOESECAP02/info.jsx';
+import RadialBar1 from './Sensores/COCLOESECAP02/bar.jsx';
+import Area1 from './Sensores/COCLOESECAP02/area.jsx';
+import Info2 from './Sensores/COCLOESECAP03/info.jsx';
+import RadialBar2 from './Sensores/COCLOESECAP03/bar.jsx';
+import Area2 from './Sensores/COCLOESECAP03/area.jsx';
+import Info3 from './Sensores/COCLOESECAP04/info.jsx';
+import RadialBar3 from './Sensores/COCLOESECAP04/bar.jsx';
+import Area3 from './Sensores/COCLOESECAP04/area.jsx';
+import Info4 from './Sensores/COCLOESECAP05/info.jsx';
+import RadialBar4 from './Sensores/COCLOESECAP05/bar.jsx';
+import Area4 from './Sensores/COCLOESECAP05/area.jsx';
+import Info5 from './Sensores/COCLOESECAP06/info.jsx';
+import RadialBar5 from './Sensores/COCLOESECAP06/bar.jsx';
+import Area5 from './Sensores/COCLOESECAP06/area.jsx';
+import Info6 from './Sensores/COCLOESECAP07/info.jsx';
+import RadialBar6 from './Sensores/COCLOESECAP07/bar.jsx';
+import Area6 from './Sensores/COCLOESECAP07/area.jsx';
+import Info7 from './Sensores/COCLOESECAP08/info.jsx';
+import RadialBar7 from './Sensores/COCLOESECAP08/bar.jsx';
+import Area7 from './Sensores/COCLOESECAP08/area.jsx';
+import Info8 from './Sensores/COCLOESECAP09/info.jsx';
+import RadialBar8 from './Sensores/COCLOESECAP09/bar.jsx';
+import Area8 from './Sensores/COCLOESECAP09/area.jsx';
+import Info9 from './Sensores/COCLOESECAP10/info.jsx';
+import RadialBar9 from './Sensores/COCLOESECAP10/bar.jsx';
+import Area9 from './Sensores/COCLOESECAP10/area.jsx';
+import Info10 from './Sensores/COCLOESECAP11/info.jsx';
+import RadialBar10 from './Sensores/COCLOESECAP11/bar.jsx';
+import Area10 from './Sensores/COCLOESECAP11/area.jsx';
+import Info11 from './Sensores/COCLOESECAP12/info.jsx';
+import RadialBar11 from './Sensores/COCLOESECAP12/bar.jsx';
+import Area11 from './Sensores/COCLOESECAP12/area.jsx';
+import Info12 from './Sensores/COCLOESECAP13/info.jsx';
+import RadialBar12 from './Sensores/COCLOESECAP13/bar.jsx';
+import Area12 from './Sensores/COCLOESECAP13/area.jsx';
+import Info13 from './Sensores/COCLOESECAP14/info.jsx';
+import RadialBar13 from './Sensores/COCLOESECAP14/bar.jsx';
+import Area13 from './Sensores/COCLOESECAP14/area.jsx';
+import Info14 from './Sensores/COCLOESECAP15/info.jsx';
+import RadialBar14 from './Sensores/COCLOESECAP15/bar.jsx';
+import Area14 from './Sensores/COCLOESECAP15/area.jsx';
+import Info15 from './Sensores/COCLOESECAP16/info.jsx';
+import RadialBar15 from './Sensores/COCLOESECAP16/bar.jsx';
+import Area15 from './Sensores/COCLOESECAP16/area.jsx';
+import Info16 from './Sensores/COCLOESECAP17/info.jsx';
+import RadialBar16 from './Sensores/COCLOESECAP17/bar.jsx';
+import Area16 from './Sensores/COCLOESECAP17/area.jsx';
+import Info17 from './Sensores/COCLOESECAP18/info.jsx';
+import RadialBar17 from './Sensores/COCLOESECAP18/bar.jsx';
+import Area17 from './Sensores/COCLOESECAP18/area.jsx';
+import Info18 from './Sensores/COCLOESECAP19/info.jsx';
+import RadialBar18 from './Sensores/COCLOESECAP19/bar.jsx';
+import Area18 from './Sensores/COCLOESECAP19/area.jsx';
+import Info19 from './Sensores/COCLOESECAP20/info.jsx';
+import RadialBar19 from './Sensores/COCLOESECAP20/bar.jsx';
+import Area19 from './Sensores/COCLOESECAP20/area.jsx';
+import Info20 from './Sensores/COCLOESECAP21/info.jsx';
+import RadialBar20 from './Sensores/COCLOESECAP21/bar.jsx';
+import Area20 from './Sensores/COCLOESECAP21/area.jsx';
+import Info21 from './Sensores/COCLOESECAP22/info.jsx';
+import RadialBar21 from './Sensores/COCLOESECAP22/bar.jsx';
+import Area21 from './Sensores/COCLOESECAP22/area.jsx';
+import Info22 from './Sensores/COCLOESECAP23/info.jsx';
+import RadialBar22 from './Sensores/COCLOESECAP23/bar.jsx';
+import Area22 from './Sensores/COCLOESECAP23/area.jsx';
+import Info23 from './Sensores/COCLOESECAP24/info.jsx';
+import RadialBar23 from './Sensores/COCLOESECAP24/bar.jsx';
+import Area23 from './Sensores/COCLOESECAP24/area.jsx';
+import Info24 from './Sensores/COCLOESECDA01/info.jsx';
+import RadialBar24 from './Sensores/COCLOESECDA01/bar.jsx';
+import Area24 from './Sensores/COCLOESECDA01/area.jsx';
 
 const styles = {
   tabs: {
@@ -139,7 +156,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const DemoTabs = () => {
   const [index, setIndex] = useState(0);
-  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOCOSMIBD01');
+  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOESECAP02');
 
   const handleChange = (event, newValue) => {
     setIndex(newValue);
@@ -167,61 +184,69 @@ const DemoTabs = () => {
   const getComponent = (type) => {
     console.log(`Fetching ${type} for selected graph: ${graficoSeleccionado}`);
     switch (graficoSeleccionado) {
-      case 'COCLOCOSMIBD01':
+      case 'COCLOESECAP02':
         return type === 'RadialBar' ? <RadialBar1 /> : type === 'Info' ? <Info1 /> : <Area1 />;
-      case 'COCLOCOSMIBD02':
+      case 'COCLOESECAP03':
         return type === 'RadialBar' ? <RadialBar2 /> : type === 'Info' ? <Info2 /> : <Area2 />;
-      case 'COCLOCOSMIBD03':
+      case 'COCLOESECAP04':
         return type === 'RadialBar' ? <RadialBar3 /> : type === 'Info' ? <Info3 /> : <Area3 />;
-      case 'COCLOCOSMIBD04':
+      case 'COCLOESECAP05':
         return type === 'RadialBar' ? <RadialBar4 /> : type === 'Info' ? <Info4 /> : <Area4 />;
-      case 'COCLOCOSMIAP02':
+      case 'COCLOESECAP06':
         return type === 'RadialBar' ? <RadialBar5 /> : type === 'Info' ? <Info5 /> : <Area5 />;
-      case 'COCLOCOSMIAP05':
+      case 'COCLOESECAP07':
         return type === 'RadialBar' ? <RadialBar6 /> : type === 'Info' ? <Info6 /> : <Area6 />;
-      case 'COCLOCOSMIAP06':
+      case 'COCLOESECAP08':
         return type === 'RadialBar' ? <RadialBar7 /> : type === 'Info' ? <Info7 /> : <Area7 />;
-      case 'COCLOCOSMIAP07':
+      case 'COCLOESECAP09':
         return type === 'RadialBar' ? <RadialBar8 /> : type === 'Info' ? <Info8 /> : <Area8 />;
-      case 'COCLOCOSMISTG01':
+      case 'COCLOESECAP10':
         return type === 'RadialBar' ? <RadialBar9 /> : type === 'Info' ? <Info9 /> : <Area9 />;
-      case 'COCLOCOSMIFI01':
+      case 'COCLOESECAP11':
         return type === 'RadialBar' ? <RadialBar10 /> : type === 'Info' ? <Info10 /> : <Area10 />;
-      case 'COCLOCOSMIBK01':
+      case 'COCLOESECAP12':
         return type === 'RadialBar' ? <RadialBar11 /> : type === 'Info' ? <Info11 /> : <Area11 />;
-      case 'COCLOCOSMIREP02':
+      case 'COCLOESECAP13':
         return type === 'RadialBar' ? <RadialBar12 /> : type === 'Info' ? <Info12 /> : <Area12 />;
-      case 'COCLOCOSMIREP03':
+      case 'COCLOESECAP14':
         return type === 'RadialBar' ? <RadialBar13 /> : type === 'Info' ? <Info13 /> : <Area13 />;
-      case 'COCLOCOSMIDES01':
+      case 'COCLOESECAP15':
         return type === 'RadialBar' ? <RadialBar14 /> : type === 'Info' ? <Info14 /> : <Area14 />;
-      case 'COCLOCOSMIAST03':
+      case 'COCLOESECAP16':
         return type === 'RadialBar' ? <RadialBar15 /> : type === 'Info' ? <Info15 /> : <Area15 />;
-      case 'COCLOCOSMIAST04':
+      case 'COCLOESECAP17':
         return type === 'RadialBar' ? <RadialBar16 /> : type === 'Info' ? <Info16 /> : <Area16 />;
+      case 'COCLOESECAP18':
+        return type === 'RadialBar' ? <RadialBar17 /> : type === 'Info' ? <Info17 /> : <Area17 />;
+      case 'COCLOESECAP19':
+        return type === 'RadialBar' ? <RadialBar18 /> : type === 'Info' ? <Info18 /> : <Area18 />;
+      case 'COCLOESECAP20':
+        return type === 'RadialBar' ? <RadialBar19 /> : type === 'Info' ? <Info19 /> : <Area19 />;
+      case 'COCLOESECAP21':
+        return type === 'RadialBar' ? <RadialBar20 /> : type === 'Info' ? <Info20 /> : <Area20 />;
+      case 'COCLOESECAP22':
+        return type === 'RadialBar' ? <RadialBar21 /> : type === 'Info' ? <Info21 /> : <Area21 />;
+      case 'COCLOESECAP23':
+        return type === 'RadialBar' ? <RadialBar22 /> : type === 'Info' ? <Info22 /> : <Area22 />;
+      case 'COCLOESECAP24':
+        return type === 'RadialBar' ? <RadialBar23 /> : type === 'Info' ? <Info23 /> : <Area23 />;
+      case 'COCLOESECDA01':
+        return type === 'RadialBar' ? <RadialBar24 /> : type === 'Info' ? <Info24 /> : <Area24 />;
       default:
         return null;
     }
   };
 
   const tabLabels = [
-    'Bases de datos',
-    'Aplicativos',
-    'Storage',
-    'Financiero',
-    'Backup',
-    'Replica',
-    'Desarrollo',
+    'GRUPO 1',
+    'GRUPO 2',
+    'GRUPO 3',
   ];
 
   const cards = [
-    ['COCLOCOSMIBD01', 'COCLOCOSMIBD02', 'COCLOCOSMIBD03', 'COCLOCOSMIBD04'],
-    ['COCLOCOSMIAP02', 'COCLOCOSMIAP05', 'COCLOCOSMIAP06', 'COCLOCOSMIAP07'],
-    ['COCLOCOSMISTG01'],
-    ['COCLOCOSMIFI01'],
-    ['COCLOCOSMIBK01'],
-    ['COCLOCOSMIREP02', 'COCLOCOSMIREP03'],
-    ['COCLOCOSMIDES01', 'COCLOCOSMIAST03', 'COCLOCOSMIAST04'],
+    ['COCLOESECAP02', 'COCLOESECAP03', 'COCLOESECAP04', 'COCLOESECAP05', 'COCLOESECAP06', 'COCLOESECAP07', 'COCLOESECAP08', 'COCLOESECAP09'],
+    ['COCLOESECAP10', 'COCLOESECAP11', 'COCLOESECAP12', 'COCLOESECAP13', 'COCLOESECAP14', 'COCLOESECAP15', 'COCLOESECAP16', 'COCLOESECAP17'],
+    ['COCLOESECAP18', 'COCLOESECAP19', 'COCLOESECAP20', 'COCLOESECAP21', 'COCLOESECAP22', 'COCLOESECAP23', 'COCLOESECAP24', 'COCLOESECDA01'],
   ];
 
   return (

@@ -91,14 +91,6 @@ mongoose.connection.once('open', () => {
   logEvent('Conectado a MongoDB');
 });
 
-// Esquema y modelo de Mongoose
-const sensorSchema = new mongoose.Schema({
-  sensorId: Number,
-  sensorName: String,
-  data: Object,
-  timestamp: { type: Date, default: Date.now },
-});
-
 // Middleware para registrar logs
 app.use((req, res, next) => {
   // Excluir rutas específicas de ser registradas en los logs
@@ -119,6 +111,8 @@ const httpsAgent = new https.Agent({
   rejectUnauthorized: false, // Ignorar el certificado autofirmado
 });
 
+let passhash = null; // Variable global para almacenar el passhash
+
 // Middleware para registrar la solicitud y la autenticación
 app.use(async (req, res, next) => {
   if (req.path.startsWith('/auth')) {
@@ -134,7 +128,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Función para autenticarse y obtener el session ID
+// Función vcenter para autenticarse y obtener el session ID
 async function getSessionId() {
   const authResponse = await axios.post(`${vcenterUrl}/rest/com/vmware/cis/session`, {}, {
     auth: {
@@ -155,6 +149,50 @@ async function getVmDetails(vmId, sessionId) {
     httpsAgent: httpsAgent
   });
   return detailsResponse.data.value;
+}
+
+// Función para obtener detalles completos de hardware de una VM
+async function getVmHardwareDetails(vmId, sessionId) {
+  const response = await axios.get(`${vcenterUrl}/rest/vcenter/vm/${vmId}/hardware`, {
+    headers: {
+      'vmware-api-session-id': sessionId,
+    },
+    httpsAgent: httpsAgent
+  });
+  return response.data.value;
+}
+
+// Función para obtener detalles de red de una VM
+async function getVmNetworkDetails(vmId, sessionId) {
+  const response = await axios.get(`${vcenterUrl}/rest/vcenter/vm/${vmId}/hardware/ethernet`, {
+    headers: {
+      'vmware-api-session-id': sessionId,
+    },
+    httpsAgent: httpsAgent
+  });
+  return response.data.value;
+}
+
+// Función para obtener detalles de almacenamiento de una VM
+async function getVmStorageDetails(vmId, sessionId) {
+  const response = await axios.get(`${vcenterUrl}/rest/vcenter/vm/${vmId}/hardware/disk`, {
+    headers: {
+      'vmware-api-session-id': sessionId,
+    },
+    httpsAgent: httpsAgent
+  });
+  return response.data.value;
+}
+
+// Función para obtener snapshots de una VM
+async function getVmSnapshots(vmId, sessionId) {
+  const response = await axios.get(`${vcenterUrl}/rest/vcenter/vm/${vmId}/snapshot`, {
+    headers: {
+      'vmware-api-session-id': sessionId,
+    },
+    httpsAgent: httpsAgent
+  });
+  return response.data.value;
 }
 
 // Rutas de la aplicación
@@ -214,6 +252,7 @@ const upload = multer({ storage: storage });
 app.get('/vms', async (req, res) => {
   try {
     const sessionId = await getSessionId();
+
     const vmsResponse = await axios.get(`${vcenterUrl}/rest/vcenter/vm`, {
       headers: {
         'vmware-api-session-id': sessionId
@@ -221,7 +260,7 @@ app.get('/vms', async (req, res) => {
       httpsAgent: httpsAgent
     });
 
-    // Obtener detalles de cada VM
+    // Obtener detalles adicionales de cada VM
     const vmDetailsPromises = vmsResponse.data.value.map(vm => getVmDetails(vm.vm, sessionId));
     const vmDetails = await Promise.all(vmDetailsPromises);
 
@@ -248,6 +287,47 @@ app.get('/vms', async (req, res) => {
     res.status(500).send('Error fetching VMs');
   }
 });
+
+// Ruta para obtener los detalles completos de las VMs
+/*app.get('/vms', async (req, res) => {
+  try {
+    const sessionId = await getSessionId();
+
+    // Obtener información básica de todas las VMs
+    const vmsResponse = await axios.get(`${vcenterUrl}/rest/vcenter/vm`, {
+      headers: {
+        'vmware-api-session-id': sessionId,
+      },
+      httpsAgent,
+    });
+
+    // Obtener detalles adicionales de cada VM
+    const vmDetailsPromises = vmsResponse.data.value.map(async (vm) => {
+      const hardwareDetails = await getVmHardwareDetails(vm.vm, sessionId);
+      const networkDetails = await getVmNetworkDetails(vm.vm, sessionId);
+      const storageDetails = await getVmStorageDetails(vm.vm, sessionId);
+      const snapshots = await getVmSnapshots(vm.vm, sessionId);
+      const vmDetails = await getVmDetails(vm.vm, sessionId);
+
+      return {
+        ...vm,
+        hardware: hardwareDetails,
+        network: networkDetails,
+        storage: storageDetails,
+        snapshots: snapshots,
+        vmDetails: vmDetails,
+      };
+    });
+
+    const detailedVms = await Promise.all(vmDetailsPromises);
+
+    res.json(detailedVms);
+    console.log('Lista de VMs obtenida con detalles completos');
+  } catch (error) {
+    console.error('Error fetching VMs:', error.message);
+    res.status(500).send('Error fetching VMs');
+  }
+});*/
 
 // Ruta para encender una VM
 app.post('/vms/:vmId/power-on', async (req, res) => {
@@ -401,8 +481,8 @@ const getSensorIdByName = async (sensorName) => {
       params: {
         content: 'sensors',
         columns: 'objid,name',
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: 'HORUS',
+        password: 'Bkirhen1',
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -428,7 +508,7 @@ const fetchDataFromSensor = async (sensorName) => {
     if (!sensorId) {
       throw new Error(`Sensor con nombre ${sensorName} no disponible`);
     }
-    const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
+    const response = await axios.get(`http://192.168.200.155:8081/prtg-api/${sensorId}`);
     const data = response.data;
     const sensorData = new SensorData({ sensorId, data });
     await sensorData.save();
@@ -456,7 +536,7 @@ const sensorNames = [
   //COSMITET
   'COCLOESECAP02', 'COCLOESECAP03', 'COCLOESECAP04', 'COCLOESECAP05', 'COCLOESECAP06', 'COCLOESECAP07', 'COCLOESECAP08', 'COCLOESECAP09',
   'COCLOESECAP10', 'COCLOESECAP11', 'COCLOESECAP12', 'COCLOESECAP13', 'COCLOESECAP14', 'COCLOESECAP15', 'COCLOESECAP16', 'COCLOESECAP17',
-  'COCLOESECAP18', 'COCLOESECAP19', 'COCLOESECAP20', 'COCLOESECAP21', 'COCLOESECAP22', 'COCLOESECAP23', 'COCLOESECDA01',
+  'COCLOESECAP18', 'COCLOESECAP19', 'COCLOESECAP20', 'COCLOESECAP21', 'COCLOESECAP22', 'COCLOESECAP23', 'COCLOESECAP24', 'COCLOESECDA01',
 
   //PEÑITAS
   'COCLOPENIAP01', 'COCLOPENIAP02', 'COCLOPENIAP03', 'COCLOPENIAP04', 'COCLOPENIAST02', 'COCLOPENIBD02', 'COCLOPENIBD03', 'COCLOPENIBK01',
@@ -495,8 +575,8 @@ app.get('/prtg-api/name/:sensorName', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId,
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: 'HORUS',
+        password: 'Bkirhen1',
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -523,8 +603,8 @@ app.get('/prtg-api/:sensorId', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId,
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: 'HORUS',
+        password: 'Bkirhen1',
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -572,8 +652,8 @@ app.get('/sensor/:sensorId', async (req, res) => {
       params: {
         content: 'sensors',
         columns: 'objid,channel,name,lastvalue,probe,group,device,status,message,priority,favorite',
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: 'HORUS',
+        password: 'Bkirhen1',
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -606,8 +686,8 @@ app.get('/canales/:sensorId', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId, // Especificar el ID del sensor para obtener sus canales
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: 'HORUS',
+        password: 'Bkirhen1',
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -665,7 +745,7 @@ const fetchDataFromSensorAlt = async (sensorName) => {
     if (!sensorId) {
       throw new Error(`Sensor con nombre ${sensorName} no disponible`);
     }
-    const response = await axios.get(`http://192.168.200.155:8080/prtg-api-alt/${sensorId}`);
+    const response = await axios.get(`http://192.168.200.155:8081/prtg-api-alt/${sensorId}`);
     const data = response.data;
     const sensorData = new SensorData({ sensorId, data });
     await sensorData.save();
@@ -871,7 +951,7 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
 // Configuración del puerto y escucha de solicitudes
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log(`El servidor se está ejecutando en el puerto ${PORT}.`);
 });

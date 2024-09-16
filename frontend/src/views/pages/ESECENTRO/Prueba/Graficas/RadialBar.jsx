@@ -86,7 +86,7 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/prtg-api/ESECENTRO/COCLOESECAP02/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/prtg-api/ESECENTRO/COCLOESECAP02/${sensorId}`);
         const data = response.data.channels.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;

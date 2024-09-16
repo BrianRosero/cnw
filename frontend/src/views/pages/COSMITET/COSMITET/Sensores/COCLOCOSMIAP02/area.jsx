@@ -2,7 +2,7 @@ import React from 'react';
 import MachineCard from '../Graficas/Area.jsx';
 
 const Sensor2156 = () => {
-  return <MachineCard sensorId={2211} />;
+  return <MachineCard sensorId={2755} />;
 };
 
 export default Sensor2156;
@@ -43,7 +43,7 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/prtg-api/${sensorId}`);
         const data = response.data.channels.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;
@@ -71,7 +71,7 @@ const MachineCard = ({ sensorId }) => {
     const diskUsageValue = parseFloat(data[channelIDs.diskUsage]?.lastvalue);
     const memoryUsageValue = parseFloat(data[channelIDs.memoryConsumedPercent]?.lastvalue);
 
-    axios.post('http://192.168.200.155:8080/saveData', {
+    axios.post('http://192.168.200.155:8081/saveData', {
       sensorId,
       cpuUsage: cpuUsageValue || 0,
       diskUsage: diskUsageValue || 0,
@@ -106,7 +106,7 @@ const MachineCard = ({ sensorId }) => {
       startTime = new Date(now - 24 * 60 * 60 * 1000);
     }
 
-    axios.get('http://192.168.200.155:8080/getData', {
+    axios.get('http://192.168.200.155:8081/getData', {
       params: {
         sensorId,
         startTime: startTime.toISOString(),

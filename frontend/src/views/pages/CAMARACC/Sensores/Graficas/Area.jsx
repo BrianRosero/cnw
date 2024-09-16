@@ -81,9 +81,7 @@ const MachineCard = ({ sensorId }) => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-
         setContent(errorMessage);
-
         if (error.response && error.response.status === 401) {
           EventBus.dispatch('logout');
         }
@@ -117,7 +115,7 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/sensor-data/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/sensor-data/${sensorId}`);
         const data = response.data;
         if (data && Array.isArray(data)) {
           const cpuData = data.map(item => item.data.channels.find(channel => channel.name === 'CPU usage')?.lastvalue);
@@ -391,7 +389,7 @@ const MachineCard = ({ sensorId }) => {
         ) : filteredData.length === 0 || filteredTimestamps.length === 0 ? (
           <p>Datos no disponibles</p>
         ) : (
-          <Chart options={chartOptions} series={selectedData ? [selectedData] : []} type="area" height={360} />
+          <Chart options={chartOptions} series={selectedData ? [selectedData] : []} type="area" height={340} />
         )}
       </StyledCard>
     );

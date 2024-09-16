@@ -22,8 +22,8 @@ import INICIO from './Inicio.jsx';
 const styles = {
   mainContent: {
     paddingTop: '10px',
-    paddingBottom: '20px',
-    backgroundColor: '#f4f4f4',
+    paddingBottom: '10px',
+    backgroundColor: '#EEF2F6',
   },
   appBar: {
     backgroundColor: '#ffffff',

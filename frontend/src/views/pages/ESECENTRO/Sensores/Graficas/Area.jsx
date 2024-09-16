@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, styled, Button, ButtonGroup } from '@mui/material';
+import { Card, styled, Button, ButtonGroup, CircularProgress } from '@mui/material';
 import Chart from 'react-apexcharts';
 import EventBus from "../../../../../common/EventBus";
 import UserService from '../../../../../services/user.service.jsx';
 
+// Estilos personalizados para el Card
 const StyledCard = styled(Card)(({ theme }) => ({
   background: theme.palette.background.default,
   color: theme.palette.text.primary,
@@ -20,41 +21,58 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
+// Estilos personalizados para los botones seleccionados y no seleccionados
 const StyledButton1 = styled(Button)(({ selected }) => ({
   backgroundColor: selected ? '#34a434' : 'white',
+  borderColor: '#fff',
   color: selected ? 'white' : '#5e7775',
   margin: '1px',
   '&:hover': {
     backgroundColor: selected ? 'rgb(52,164,52)' : '#f0f0f0',
+    borderColor: '#fff',
   },
 }));
 
+// Estilos personalizados para los botones seleccionados y no seleccionados
 const StyledButton = styled(Button)(({ selected }) => ({
   backgroundColor: selected ? '#34a434' : 'white',
   color: selected ? 'white' : '#5e7775',
   margin: '1px',
   '&:hover': {
     backgroundColor: selected ? 'rgb(52,164,52)' : '#fff',
+    borderColor: '#214092',
   },
 }));
 
+// Mapeo de intervalos de tiempo a valores de intervalos en minutos
+const intervals = {
+  30: 1,
+  60: 1,
+  360: 6,
+  720: 12,
+  1440: 24,
+  4320: 72,
+  10080: 168,
+};
+
+// Componente principal
 const MachineCard = ({ sensorId }) => {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
   const [chartData, setChartData] = useState([]);
   const [timestamps, setTimestamps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedMetric, setSelectedMetric] = useState('Uso de CPU');
   const [timeRange, setTimeRange] = useState(30); // Por defecto, 30 minutos
-
-  const [isAdminCOSMITET, setIsAdminCOSMITET] = useState(false);
+  const [isAdminESECENTRO, setIsAdminESECENTRO] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // Hook para obtener el rol de administrador de ESECENTRO
   useEffect(() => {
-    UserService.getAdminCOSMITET().then(
+    UserService.getAdminESECENTRO().then(
       (response) => {
         setContent(response.data);
-        setIsAdminCOSMITET(true);
+        setIsAdminESECENTRO(true);
       },
       (error) => {
         const errorMessage =
@@ -63,16 +81,15 @@ const MachineCard = ({ sensorId }) => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-
         setContent(errorMessage);
-
         if (error.response && error.response.status === 401) {
           EventBus.dispatch("logout");
         }
-      }
+      },
     );
   }, []);
 
+  // Hook para obtener el rol de administrador general
   useEffect(() => {
     UserService.getAdminBoard().then(
       (response) => {
@@ -86,25 +103,23 @@ const MachineCard = ({ sensorId }) => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-
         setContent(errorMessage);
-
         if (error.response && error.response.status === 401) {
           EventBus.dispatch("logout");
         }
-      }
+      },
     );
   }, []);
 
+  // Hook para obtener los datos del sensor periódicamente
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/sensor-data/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/sensor-data/${sensorId}`);
         const data = response.data;
-
         if (data && Array.isArray(data)) {
           const cpuData = data.map(item => item.data.channels.find(channel => channel.name === 'CPU usage')?.lastvalue);
-          const memoryData = data.map(item => item.data.channels.find(channel => channel.name === 'Memory active' )?.lastvalue_raw);
+          const memoryData = data.map(item => item.data.channels.find(channel => channel.name === 'Memory active')?.lastvalue_raw);
           const diskData = data.map(item => item.data.channels.find(channel => channel.name === 'Disk usage')?.lastvalue);
           const diskwData = data.map(item => item.data.channels.find(channel => channel.name === 'Disk write')?.lastvalue);
           const diskrData = data.map(item => item.data.channels.find(channel => channel.name === 'Disk read')?.lastvalue);
@@ -113,56 +128,68 @@ const MachineCard = ({ sensorId }) => {
           const networktData = data.map(item => item.data.channels.find(channel => channel.name === 'Network transmitted')?.lastvalue);
 
           setChartData([
-            { name: 'Uso de CPU', data: cpuData.reverse() }, // Invertir los datos
-            { name: 'Memoria Consumida', data: memoryData.reverse() }, // Invertir los datos
-            { name: 'Uso de Disco', data: diskData.reverse() }, // Invertir los datos
-            { name: 'Lectura de Disco', data: diskrData.reverse() }, // Invertir los datos
-            { name: 'Escritura de Disco', data: diskwData.reverse() }, // Invertir los datos
-            { name: 'Consumo de red', data: networkData.reverse() }, // Invertir los datos
-            { name: 'Datos recibidos en Red', data: networkrData.reverse() }, // Invertir los datos
-            { name: 'Datos transmitidos en Red', data: networktData.reverse() } // Invertir los datos
+            { name: 'Uso de CPU', data: cpuData.reverse() },
+            { name: 'Memoria Consumida', data: memoryData.reverse() },
+            { name: 'Uso de Disco', data: diskData.reverse() },
+            { name: 'Lectura de Disco', data: diskrData.reverse() },
+            { name: 'Escritura de Disco', data: diskwData.reverse() },
+            { name: 'Consumo de red', data: networkData.reverse() },
+            { name: 'Datos recibidos en Red', data: networkrData.reverse() },
+            { name: 'Datos transmitidos en Red', data: networktData.reverse() },
           ]);
 
-          setTimestamps(data.map(item => new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })).reverse()); // Invertir los timestamps
+          setTimestamps(data.map(item => new Date(item.timestamp).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          })).reverse());
         } else {
-          setError('Data format is incorrect');
+          setError('Formato de datos incorrecto');
         }
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error.message);
-        setError('Failed to fetch data');
+        console.error('Error al obtener datos:', error.message);
+        setError('¡No se pudieron recuperar los datos!');
         setLoading(false);
       }
     };
 
     fetchData();
-    const intervalId = setInterval(fetchData, 60000); // Actualizar cada minuto
+    const intervalId = setInterval(fetchData, 60000);
 
     return () => clearInterval(intervalId);
   }, [sensorId]);
 
+// Función para filtrar los datos basado en el rango de tiempo seleccionado
+  const getFilteredData = (data, range) => {
+    const interval = intervals[range] || 1;
+    const length = data.length;
+    return data.filter((_, index) => index % interval === 0).slice(-Math.ceil(range / interval));
+  };
+
+  // Filtrar los datos y timestamps basado en el rango de tiempo seleccionado
   const filteredData = chartData.map(dataset => ({
     ...dataset,
-    data: dataset.data.slice(-timeRange) // Filtrar datos según el rango de tiempo
+    data: getFilteredData(dataset.data, timeRange),
   }));
 
-  const filteredTimestamps = timestamps.slice(-timeRange);
+  const filteredTimestamps = getFilteredData(timestamps, timeRange);
 
+  // Manejar el cambio de rango de tiempo
   const handleTimeRangeChange = (range) => {
     setTimeRange(range);
   };
 
+  // Manejar el cambio de métrica seleccionada
   const handleMetricChange = (metric) => {
     setSelectedMetric(metric);
   };
 
+  // Opciones de configuración del gráfico
   const chartOptions = {
     chart: {
       type: 'area',
       height: '100%',
-      zoom: {
-        enabled: true,
-      },
+      zoom: { enabled: true },
       toolbar: {
         show: true,
         tools: {
@@ -176,19 +203,15 @@ const MachineCard = ({ sensorId }) => {
         },
       },
     },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: 'smooth',
-    },
+    dataLabels: { enabled: false },
+    stroke: { curve: 'smooth' },
     xaxis: {
       type: 'category',
       categories: filteredTimestamps,
     },
     yaxis: {
       labels: {
-        formatter: function (value) {
+        formatter: function(value) {
           if (selectedMetric === 'Uso de CPU') return `${value.toFixed(0)} %`;
           if (selectedMetric === 'Memoria Consumida') return `${(value / (1024 ** 3)).toFixed(1)} GB`;
           if (selectedMetric === 'Uso de Disco') return `${value.toFixed(1)} Mb/s`;
@@ -203,8 +226,21 @@ const MachineCard = ({ sensorId }) => {
     },
     tooltip: {
       x: {
-        show: true,
-        format: 'HH:mm',
+        show: true, format: 'dd MMM - HH:mm', type: 'category',
+        categories: filteredTimestamps,
+      },
+      y: {
+        formatter: function(value) {
+          if (selectedMetric === 'Uso de CPU') return `${value.toFixed(0)} %`;
+          if (selectedMetric === 'Memoria Consumida') return `${(value / (1024 ** 3)).toFixed(1)} GB`;
+          if (selectedMetric === 'Uso de Disco') return `${value.toFixed(0)} Mb/s`;
+          if (selectedMetric === 'Lectura de Disco') return `${value.toFixed(0)} Mb/s`;
+          if (selectedMetric === 'Escritura de Disco') return `${value.toFixed(0)} Mb/s`;
+          if (selectedMetric === 'Consumo de red') return `${value.toFixed(0)} Mb/s`;
+          if (selectedMetric === 'Datos recibidos en Red') return `${value.toFixed(1)} Mb/s`;
+          if (selectedMetric === 'Datos transmitidos en Red') return `${value.toFixed(0)} Mb/s`;
+          return value.toFixed(0);
+        },
       },
     },
     colors: ['#282c60'],
@@ -250,73 +286,110 @@ const MachineCard = ({ sensorId }) => {
     ],
   };
 
-  if (isAdminCOSMITET) {
-  return (
-    <StyledCard>
-      <div className="button-container">
-        <StyledButton1 selected={selectedMetric === 'Uso de CPU'} onClick={() => handleMetricChange('Uso de CPU')}>CPU</StyledButton1>
-        <StyledButton1 selected={selectedMetric === 'Memoria Consumida'} onClick={() => handleMetricChange('Memoria Consumida')}>Memoria</StyledButton1>
-        <StyledButton1 selected={selectedMetric === 'Uso de Disco'} onClick={() => handleMetricChange('Uso de Disco')}>Disco</StyledButton1>
-        <StyledButton1 selected={selectedMetric === 'Consumo de red'} onClick={() => handleMetricChange('Consumo de red')}>Red</StyledButton1>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '-20px' }}>
-        <ButtonGroup>
-          <StyledButton selected={timeRange === 30} onClick={() => handleTimeRangeChange(30)}>30 minutos</StyledButton>
-          <StyledButton selected={timeRange === 60} onClick={() => handleTimeRangeChange(60)}>1 hora</StyledButton>
-          <StyledButton selected={timeRange === 1440} onClick={() => handleTimeRangeChange(1440)}>1.5 horas</StyledButton>
-        </ButtonGroup>
-      </div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : filteredData.length === 0 || filteredTimestamps.length === 0 ? (
-        <p>No data available</p>
-      ) : (
-        <Chart
-          options={chartOptions}
-          series={filteredData.filter(data => data.name === selectedMetric)}
-          type="area"
-          height={340}
-        />
-      )}
-    </StyledCard>
-  );
+  // Obtener los datos seleccionados para la métrica actual
+  const selectedData = filteredData.find(dataset => dataset.name === selectedMetric);
+
+  // Componente de renderizado para administradores de ESECENTRO
+  if (isAdminESECENTRO) {
+    return (
+      <StyledCard>
+        <div className="button-container">
+          <ButtonGroup size="small">
+            {['Uso de CPU', 'Memoria Consumida', 'Uso de Disco', 'Lectura de Disco', 'Escritura de Disco', 'Consumo de red', 'Datos recibidos en Red', 'Datos transmitidos en Red'].map(metric => (
+              <StyledButton1
+                key={metric}
+                onClick={() => handleMetricChange(metric)}
+                selected={selectedMetric === metric}
+              >
+                {metric}
+              </StyledButton1>
+            ))}
+          </ButtonGroup>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '-20px' }}>
+          <ButtonGroup size="small">
+            {[
+              { label: '30 min', value: 30 },
+              { label: '1 hora', value: 60 },
+              { label: '6 horas', value: 360 },
+              { label: '12 horas', value: 720 },
+              { label: '1 día', value: 1440 },
+              { label: '3 días', value: 4320 },
+              { label: '1 semana', value: 10080 },
+            ].map(range => (
+              <StyledButton
+                key={range.value}
+                onClick={() => handleTimeRangeChange(range.value)}
+                selected={timeRange === range.value}
+              >
+                {range.label}
+              </StyledButton>
+            ))}
+          </ButtonGroup>
+        </div>
+        {loading ? (
+          <div style={{ color:'#d3256b', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width:'100%' }}>
+            <CircularProgress />
+          </div>
+        ) : error ? (
+          <p>{error}</p>
+        ) : filteredData.length === 0 || filteredTimestamps.length === 0 ? (
+          <p>Datos no disponibles</p>
+        ) : (
+          <Chart options={chartOptions} series={selectedData ? [selectedData] : []} type="area" height={340} />
+        )}
+      </StyledCard>
+    );
   }
 
+  // Componente de renderizado para administradores generales
   if (isAdmin) {
     return (
       <StyledCard>
         <div className="button-container">
-          <StyledButton1 selected={selectedMetric === 'Uso de CPU'} onClick={() => handleMetricChange('Uso de CPU')}>CPU</StyledButton1>
-          <StyledButton1 selected={selectedMetric === 'Memoria Consumida'} onClick={() => handleMetricChange('Memoria Consumida')}>Memoria</StyledButton1>
-          <StyledButton1 selected={selectedMetric === 'Uso de Disco'} onClick={() => handleMetricChange('Uso de Disco')}>Disco</StyledButton1>
-          <StyledButton1 selected={selectedMetric === 'Lectura de Disco'} onClick={() => handleMetricChange('Lectura de Disco')}>L Disco</StyledButton1>
-          <StyledButton1 selected={selectedMetric === 'Escritura de Disco'} onClick={() => handleMetricChange('Escritura de Disco')}>E Disco</StyledButton1>
-          <StyledButton1 selected={selectedMetric === 'Consumo de red'} onClick={() => handleMetricChange('Consumo de red')}>Red</StyledButton1>
-          <StyledButton1 selected={selectedMetric === 'Datos recibidos en Red'} onClick={() => handleMetricChange('Datos recibidos en Red')}>R Red</StyledButton1>
-          <StyledButton1 selected={selectedMetric === 'Datos transmitidos en Red'} onClick={() => handleMetricChange('Datos transmitidos en Red')}>T Red</StyledButton1>
+          <ButtonGroup size="small">
+            {['Uso de CPU', 'Memoria Consumida', 'Uso de Disco', 'Lectura de Disco', 'Escritura de Disco', 'Consumo de red', 'Datos recibidos en Red', 'Datos transmitidos en Red'].map(metric => (
+              <StyledButton1
+                key={metric}
+                onClick={() => handleMetricChange(metric)}
+                selected={selectedMetric === metric}
+              >
+                {metric}
+              </StyledButton1>
+            ))}
+          </ButtonGroup>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '-20px' }}>
-          <ButtonGroup>
-            <StyledButton selected={timeRange === 30} onClick={() => handleTimeRangeChange(30)}>30 minutos</StyledButton>
-            <StyledButton selected={timeRange === 60} onClick={() => handleTimeRangeChange(60)}>1 hora</StyledButton>
-            <StyledButton selected={timeRange === 1440} onClick={() => handleTimeRangeChange(1440)}>1.5 horas</StyledButton>
+          <ButtonGroup size="small">
+            {[
+              { label: '30 min', value: 30 },
+              { label: '1 hora', value: 60 },
+              { label: '6 horas', value: 360 },
+              { label: '12 horas', value: 720 },
+              { label: '1 día', value: 1440 },
+              { label: '3 días', value: 4320 },
+              { label: '1 semana', value: 10080 },
+            ].map(range => (
+              <StyledButton
+                key={range.value}
+                onClick={() => handleTimeRangeChange(range.value)}
+                selected={timeRange === range.value}
+              >
+                {range.label}
+              </StyledButton>
+            ))}
           </ButtonGroup>
         </div>
         {loading ? (
-          <p>Loading...</p>
+          <div style={{ color:'#d3256b', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width:'100%' }}>
+            <CircularProgress />
+          </div>
         ) : error ? (
           <p>{error}</p>
         ) : filteredData.length === 0 || filteredTimestamps.length === 0 ? (
-          <p>No data available</p>
+          <p>Datos no disponibles</p>
         ) : (
-          <Chart
-            options={chartOptions}
-            series={filteredData.filter(data => data.name === selectedMetric)}
-            type="area"
-            height={340}
-          />
+          <Chart options={chartOptions} series={selectedData ? [selectedData] : []} type="area" height={340} />
         )}
       </StyledCard>
     );
@@ -417,7 +490,7 @@ const MachineCard = ({ sensorId }) => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/prtg-api/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/prtg-api/${sensorId}`);
         const data = response.data.channels.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;

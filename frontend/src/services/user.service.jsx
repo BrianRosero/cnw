@@ -1,15 +1,15 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://192.168.200.155:8080/api/test/';
+const API_URL = 'http://192.168.200.155:8081/api/test/';
 
-const getPublicContent = () => {
+/*const getPublicContent = () => {
   return axios.get(API_URL + 'all');
 };
 
 const getUserBoard = () => {
   return axios.get(API_URL + 'user', { headers: authHeader() });
-};
+};*/
 
 const getModeratorBoard = () => {
   return axios.get(API_URL + 'mod', { headers: authHeader() });
@@ -19,20 +19,16 @@ const getAdminBoard = () => {
   return axios.get(API_URL + 'admin', { headers: authHeader() });
 };
 
-const getAdminESECENTRO = () => {
-  return axios.get(API_URL + 'adminESECENTRO', { headers: authHeader() });
-};
-
 const getAdminCAMARACC = () => {
   return axios.get(API_URL + 'adminCAMARACC', { headers: authHeader() });
 };
 
-const getAdminCOSMITET = () => {
-  return axios.get(API_URL + 'adminCOSMITET', { headers: authHeader() });
+const getAdminESECENTRO = () => {
+  return axios.get(API_URL + 'adminESECENTRO', { headers: authHeader() });
 };
 
-const getAdminDUANA = () => {
-  return axios.get(API_URL + 'adminDUANA', { headers: authHeader() });
+const getAdminCOSMITET = () => {
+  return axios.get(API_URL + 'adminCOSMITET', { headers: authHeader() });
 };
 
 const getAdminOZONO = () => {
@@ -44,14 +40,11 @@ const getAdminROCHE = () => {
 };
 
 export default {
-  getPublicContent,
-  getUserBoard,
   getModeratorBoard,
   getAdminBoard,
-  getAdminESECENTRO,
   getAdminCAMARACC,
+  getAdminESECENTRO,
   getAdminCOSMITET,
-  getAdminDUANA,
   getAdminOZONO,
   getAdminROCHE,
 };

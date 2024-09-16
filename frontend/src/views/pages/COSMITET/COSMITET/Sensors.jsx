@@ -139,7 +139,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const DemoTabs = () => {
   const [index, setIndex] = useState(0);
-  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOCOSMIBD01');
+  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOESECAP02');
 
   const handleChange = (event, newValue) => {
     setIndex(newValue);

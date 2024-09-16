@@ -98,12 +98,43 @@ function App() {
   });
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const [dialog, setDialog] = useState({ open: false, action: null, vmId: null });
+  const [selectedEnvironment, setSelectedEnvironment] = useState(null); // Estado para controlar el entorno seleccionado
 
   const excludedVmIds = ['vm-1015', 'vm-2001', 'vm-2019', 'vm-2032', 'vm-2166', 'vm-2201'];
 
+  // Función para agrupar las VMs por entorno según sus IDs
+  const agruparPorEntorno = (vms) => {
+    const entornos = {
+      desarrollo: ['vm-2038', 'vm-2031', 'vm-2041', 'vm-4358', 'vm-2045', 'vm-2044', 'vm-2025', 'vm-2013', 'vm-2020', 'vm-2012', 'vm-2024', 'vm-2023', 'vm-2037', 'vm-2021', 'vm-2004' ],
+      produccion: ['vm-2068', 'vm-2077', 'vm-2078', 'vm-2079', 'vm-2080', 'vm-2081', 'vm-2083', 'vm-2084', 'vm-2085', 'vm-2086', 'vm-2094', 'vm-2096', 'vm-2098', 'vm-2100', 'vm-2102',
+        'vm-2104', 'vm-2106', 'vm-2108', 'vm-2110', 'vm-2112', 'vm-2114', 'vm-2119', 'vm-2121', 'vm-2136', 'vm-2143', 'vm-2144', 'vm-2146', 'vm-2148', 'vm-2150', 'vm-2210', 'vm-2217',
+        'vm-2218', 'vm-2219', 'vm-2220', 'vm-2221' ],
+      calidad: ['vm-2065', 'vm-2181', 'vm-2183', 'vm-2178', 'vm-2176', 'vm-2174', 'vm-2172', 'vm-2063', 'vm-2061', 'vm-2051',
+        /*'vm-2069', 'vm-2070', 'vm-2072', 'vm-2074'*/],
+    };
+
+    const agrupadas = {
+      desarrollo: [],
+      produccion: [],
+      calidad: [],
+    };
+
+    vms.forEach((vm) => {
+      if (entornos.desarrollo.includes(vm.vm)) {
+        agrupadas.desarrollo.push(vm);
+      } else if (entornos.produccion.includes(vm.vm)) {
+        agrupadas.produccion.push(vm);
+      } else if (entornos.calidad.includes(vm.vm)) {
+        agrupadas.calidad.push(vm);
+      }
+    });
+
+    return agrupadas;
+  };
+
   const fetchVMs = async () => {
     try {
-      const response = await axios.get('http://192.168.200.155:8080/vms');
+      const response = await axios.get('http://192.168.200.155:8081/vms');
       const filteredVms = response.data.filter(vm => !excludedVmIds.includes(vm.vm));
       setVms(filteredVms);
 
@@ -144,7 +175,7 @@ function App() {
     // Llamada a la API para almacenar los datos en MongoDB
     const storeVmData = async () => {
       try {
-        const response = await fetch('http://192.168.200.155:8080/store-vm-data', {
+        const response = await fetch('http://192.168.200.155:8081/store-vm-data', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -172,7 +203,7 @@ function App() {
   useEffect(() => {
     const fetchVmData = async () => {
       try {
-        const response = await fetch('http://192.168.200.155:8080/get-vm-data');
+        const response = await fetch('http://192.168.200.155:8081/get-vm-data');
         const data = await response.json();
 
         // Ordenar los datos por fecha/timestamp
@@ -196,9 +227,15 @@ function App() {
     fetchVmData();
   }, []);
 
+  const vmsAgrupadas = agruparPorEntorno(vms); // Agrupar las VMs
+
+  const handleEnvironmentClick = (environment) => {
+    setSelectedEnvironment(selectedEnvironment === environment ? null : environment);
+  };
+
   const handlePowerOn = async (vmId) => {
     try {
-      await axios.post(`http://192.168.200.155:8080/vms/${vmId}/power-on`);
+      await axios.post(`http://192.168.200.155:8081/vms/${vmId}/power-on`);
       setSnackbar({ open: true, message: 'La VM se encendió exitosamente', severity: 'success' });
       updateVmStatus(vmId, 'POWERED_ON');
     } catch (error) {
@@ -213,7 +250,7 @@ function App() {
 
   const handlePowerOff = async (vmId) => {
     try {
-      await axios.post(`http://192.168.200.155:8080/vms/${vmId}/power-off`);
+      await axios.post(`http://192.168.200.155:8081/vms/${vmId}/power-off`);
       setSnackbar({ open: true, message: 'La VM se apagó exitosamente', severity: 'success' });
       updateVmStatus(vmId, 'POWERED_OFF');
     } catch (error) {
@@ -228,7 +265,7 @@ function App() {
 
   const handleSuspend = async (vmId) => {
     try {
-      await axios.post(`http://192.168.200.155:8080/vms/${vmId}/suspend`);
+      await axios.post(`http://192.168.200.155:8081/vms/${vmId}/suspend`);
       setSnackbar({ open: true, message: 'La VM se suspendió exitosamente', severity: 'success' });
       updateVmStatus(vmId, 'SUSPENDED');
     } catch (error) {
@@ -396,7 +433,7 @@ function App() {
       colors: ['#6daa25', '#ff1000', '#dcd801'],
       dataLabels: {
         style: {
-          colors: ['#ffffff'] // Cambiar el color del texto a blanco
+          colors: ['#000000'] // Cambiar el color del texto a blanco
         }
       },
       legend: {
@@ -424,12 +461,12 @@ function App() {
 
   const styles = {
     container: {
-      backgroundColor: '#ffffff',
+      backgroundColor: '#EEF2F6',
       color: '#000000',
       minHeight: '100vh',
-      padding: '20px',
-      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+      //padding: '0 40px',
       borderRadius: '8px',
+      //minWidth: 'calc(100% + 40px)',
     },
     appBar: {
       backgroundColor: '#233b85',
@@ -538,7 +575,171 @@ function App() {
             </CardContent>
           </Card>
         </Grid>
+        {loading ? (
+          <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
+            <CircularProgress style={{ color: '#233b85' }} />
+          </Grid>
+        ) : error ? (
+          <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
+            <Alert severity="error">{error}</Alert>
+          </Grid>
+        ) : (
+          <>
+             {/*Tarjetas de Entornos*/}
+            <Grid container spacing={3} style={{ marginBottom: '20px', paddingTop: 15 }}>
+              {['desarrollo', 'produccion', 'calidad'].map((entorno) => (
+                <Grid item xs={12} sm={4} key={entorno}>
+                  <Card
+                    style={{
+                      cursor: 'pointer',
+                      textAlign: 'center',
+                      padding: '20px',
+                      backgroundColor: selectedEnvironment === entorno ? '#28a745' : '#233b85', // Cambia a verde si está seleccionada, azul si no
+                      color: '#fff', // Asegura que el texto siempre sea blanco
+                      transition: 'transform 0.3s, background-color 0.3s',
+                      boxShadow:
+                        selectedEnvironment === entorno
+                          ? '0 4px 20px rgba(40, 167, 69, 0.5)' // Sombra más intensa cuando está seleccionada
+                          : '0 4px 10px rgba(0, 0, 0, 0.2)', // Sombra normal cuando no está seleccionada
+                    }}
+                    onClick={() => handleEnvironmentClick(entorno)}
+                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                  >
+                    <Typography
+                      variant="h5"
+                      style={{
+                        fontWeight: 'bold',
+                        textShadow: '0px 1px 2px rgba(0, 0, 0, 0.3)',
+                        color: '#fff', // Forzar color blanco en el texto
+                      }}
+                    >
+                      {entorno.charAt(0).toUpperCase() + entorno.slice(1)}
+                    </Typography>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+              {/*Mostrar las VMs del entorno seleccionado*/}
+            {selectedEnvironment && (
+              <Grid container spacing={3}>
+                {vmsAgrupadas[selectedEnvironment].map((vm) => (
+                  <Grid item xs={12} sm={3} md={3}  key={vm.vm}>
+                    <Card style={styles.card}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+                      }}
+                    >
+                      <CardContent style={{ padding: '1px' }}>
+                        <Grid container spacing={2} alignItems="center">
+                          <Grid item xs>
+                            <Typography
+                              variant="h3"
+                              style={{
+                                color: '#233b85',
+                                fontWeight: 'bold',
+                                textShadow: '0px 1px 2px rgba(0, 0, 0, 0.1)',
+                              }}
+                            >
+                              {vm.name}
+                            </Typography>
+                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                              ID: {vm.vm}
+                            </Typography>
+                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                              Estado: {vm.power_state}
+                            </Typography>
+                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                              CPU: {vm.cpu_count} vCPU
+                            </Typography>
+                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                              Memoria: {vm.memory_size_MiB} MB
+                            </Typography>
+                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                              SO: {vm.guest_OS}
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                              <ComputerIcon
+                                style={{
+                                  position: 'absolute',
+                                  fontSize: 60,
+                                  color:
+                                    vm.power_state === 'POWERED_ON'
+                                      ? '#1eff03'
+                                      : vm.power_state === 'POWERED_OFF'
+                                        ? '#ff0000'
+                                        : '#dcd801',
+                                  transition: 'color 0.3s ease-in-out',
+                                  zIndex: 1,
+                                }}
+                              />
+                              {vm.power_state === 'POWERED_ON' ? (
+                                <IconButton
+                                  style={{
+                                    fontSize: 50,
+                                    color: '#1eff03',
+                                    position: 'relative',
+                                    zIndex: 0,
+                                  }}
+                                  onClick={() => handleAction('stop', vm)}
+                                >
+                                  <PowerIcon />
+                                </IconButton>
+                              ) : vm.power_state === 'POWERED_OFF' ? (
+                                <IconButton
+                                  style={{
+                                    fontSize: 50,
+                                    color: '#ff0000',
+                                    position: 'relative',
+                                    zIndex: 0,
+                                  }}
+                                  onClick={() => handleAction('start', vm)}
+                                >
+                                  <PowerOffIcon />
+                                </IconButton>
+                              ) : (
+                                <IconButton
+                                  style={{
+                                    fontSize: 50,
+                                    color: '#dcd801',
+                                    position: 'relative',
+                                    zIndex: 0,
+                                  }}
+                                  onClick={() => handleAction('pause', vm)}
+                                >
+                                  <PauseIcon />
+                                </IconButton>
+                              )}
+                            </div>
+                          </Grid>
+                        </Grid>
+                        <Divider
+                          style={{
+                            margin: '10px 0',
+                            backgroundColor: '#d3256b',
+                            height: '5px',
+                          }}
+                        />
+                        <CardActions style={{ paddingTop: '1px', paddingLeft: '0px' }}>
+                          {renderActions(vm)}
+                        </CardActions>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            )}
+          </>
+        )}
 
+        {/*
         {loading ? (
           <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
             <CircularProgress style={{ color: '#233b85' }} />
@@ -552,14 +753,14 @@ function App() {
             .map((vm) => (
               <Grid item xs={12} md={3} key={vm.vm}>
                 <Card style={styles.card}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
-                  }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+                      }}
                 >
                   <CardContent style={{ padding: '1px' }}>
                     <Grid container spacing={2} alignItems="center">
@@ -574,11 +775,11 @@ function App() {
                         >
                           {vm.name}
                         </Typography>
-                        {/*<Typography variant="body2" style={{ color: '#6e6e6e' }}>ID: {vm.vm}</Typography>*/}
+                        <Typography variant="body2" style={{ color: '#6e6e6e' }}>ID: {vm.vm}</Typography>
                         <Typography variant="body2" style={{ color: '#6e6e6e' }}>
                           Estado: {vm.power_state}
                         </Typography>
-                        {/*<Typography variant="body2" style={{ color: '#6e6e6e' }}>Descripción: {vm.description || 'No disponible'}</Typography>*/}
+                        <Typography variant="body2" style={{ color: '#6e6e6e' }}>Descripción: {vm.description || 'No disponible'}</Typography>
                         <Typography variant="body2" style={{ color: '#6e6e6e' }}>
                           CPU: {vm.cpu_count} vCPU
                         </Typography>
@@ -645,13 +846,11 @@ function App() {
                         </div>
                       </Grid>
                     </Grid>
-                    <Divider
-                      style={{
-                        margin: '10px 0',
-                        backgroundColor: '#d3256b',
-                        height: '5px',
-                      }}
-                    />
+                    <Divider style={{
+                      margin: '10px 0',
+                      backgroundColor: '#d3256b',
+                      height: '5px',
+                    }} />
                     <CardActions style={{paddingTop: '1px', paddingLeft: '0px'}}>
                       {renderActions(vm)}
                     </CardActions>
@@ -659,7 +858,8 @@ function App() {
                 </Card>
               </Grid>
             ))
-        )}
+        )}*/}
+
       </Grid>
       <Snackbar
         open={snackbar.open}

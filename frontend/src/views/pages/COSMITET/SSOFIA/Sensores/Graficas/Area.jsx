@@ -115,7 +115,7 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8080/sensor-data/${sensorId}`);
+        const response = await axios.get(`http://192.168.200.155:8081/sensor-data/${sensorId}`);
         const data = response.data;
         if (data && Array.isArray(data)) {
           const cpuData = data.map(item => item.data.channels.find(channel => channel.name === 'CPU usage')?.lastvalue);

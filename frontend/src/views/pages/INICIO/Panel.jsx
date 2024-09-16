@@ -29,6 +29,13 @@ import ROCHE from '../ROCHE/Inicio.jsx';
 import './style.css';
 import UserService from '../../../services/user.service.jsx'; // Importar el archivo de estilos CSS
 
+const Root = styled('div')({
+  backgroundColor: '#eef2f6',
+  color: '#fff',
+  minHeight: '100vh',
+  padding: '20px 0',
+});
+
 const CardContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -123,52 +130,50 @@ function Dashboard() {
   const [isAdminESECENTRO, setIsAdminESECENTRO] = useState(false);
   const [isAdminCAMARACC, setIsAdminCAMARACC] = useState(false);
   const [isAdminCOSMITET, setIsAdminCOSMITET] = useState(false);
-  const [isAdminDUANA, setIsAdminDUANA] = useState(false);
+  //const [isAdminDUANA, setIsAdminDUANA] = useState(false);
   const [isAdminOZONO, setIsAdminOZONO] = useState(false);
   const [isAdminROCHE, setIsAdminROCHE] = useState(false);
 
-  useEffect(() => {
-    UserService.getModeratorBoard().then(
+    useEffect(() => {
+      UserService.getModeratorBoard().then(
+        (response) => {
+          setIsModerator(true);
+        },
+        (error) => {
+          handleErrorResponse(error);
+        }
+      );
+    }, []);
+
+    useEffect(() => {
+      UserService.getAdminBoard().then(
+        (response) => {
+          setIsAdmin(true);
+        },
+        (error) => {
+          handleErrorResponse(error);
+        }
+      );
+    }, []);
+
+    useEffect(() => {
+      UserService.getAdminCAMARACC().then(
+        (response) => {
+          setIsAdminCAMARACC(true);
+        },
+        (error) => {
+          handleErrorResponse(error);
+        }
+      );
+    }, []);
+
+   useEffect(() => {
+    UserService.getAdminCOSMITET().then(
       (response) => {
-        setContent(response.data);
-        setIsModerator(true);
+        setIsAdminCOSMITET(true);
       },
       (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch('logout');
-        }
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    UserService.getAdminBoard().then(
-      (response) => {
-        setContent(response.data);
-        setIsAdmin(true);
-      },
-      (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch('logout');
-        }
+        handleErrorResponse(error);
       },
     );
   }, []);
@@ -176,114 +181,32 @@ function Dashboard() {
   useEffect(() => {
     UserService.getAdminESECENTRO().then(
       (response) => {
-        setContent(response.data);
         setIsAdminESECENTRO(true);
       },
       (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch('logout');
-        }
-      },
+        handleErrorResponse(error);
+      }
     );
   }, []);
 
-  useEffect(() => {
-    UserService.getAdminCAMARACC().then(
-      (response) => {
-        setContent(response.data);
-        setIsAdminCAMARACC(true);
-      },
-      (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch('logout');
-        }
-      },
-    );
-  }, []);
-
-  useEffect(() => {
-    UserService.getAdminCOSMITET().then(
-      (response) => {
-        setContent(response.data);
-        setIsAdminCOSMITET(true);
-      },
-      (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch('logout');
-        }
-      },
-    );
-  }, []);
-
-  useEffect(() => {
+  /*useEffect(() => {
     UserService.getAdminDUANA().then(
       (response) => {
-        setContent(response.data);
         setIsAdminDUANA(true);
       },
       (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch('logout');
-        }
-      },
+        handleErrorResponse(error);
+      }
     );
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     UserService.getAdminOZONO().then(
       (response) => {
-        setContent(response.data);
         setIsAdminOZONO(true);
       },
       (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch('logout');
-        }
+        handleErrorResponse(error);
       },
     );
   }, []);
@@ -291,25 +214,27 @@ function Dashboard() {
   useEffect(() => {
     UserService.getAdminROCHE().then(
       (response) => {
-        setContent(response.data);
         setIsAdminROCHE(true);
       },
       (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch('logout');
-        }
+        handleErrorResponse(error);
       },
     );
   }, []);
+
+  // Función para manejar errores de respuesta de las API
+  const handleErrorResponse = (error) => {
+    const errorMessage =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+
+    setContent(errorMessage);
+
+    if (error.response && error.response.status === 401) {
+      EventBus.dispatch('logout');
+    }
+  };
 
   const handleButtonClick = (page) => {
     setCurrentPage(page);
@@ -345,7 +270,6 @@ function Dashboard() {
         return null;
     }
   };
-
 
   if (isModerator) {
     return (
@@ -393,55 +317,55 @@ function Dashboard() {
         </div>
       </div>
     );
-  }
-  if (isAdmin) {
+  } else if (isAdmin) {
     return (
-      <div className="app-container">
-        <Header onBackButtonClick={handleBackButtonClick} />
-        <div className="main-content">
-          {currentPage ? (
-            <div className="page-content">
-              {renderPageContent()}
-            </div>
-          ) : (
-            <CardContainer>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
-                <LogoImage src={logoCNW} alt="Logo" style={{ width: '115%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('esecentro')}>
-                <LogoImage src={logoESECENTRO} alt="Logo" style={{ width: '80%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
-                <LogoImage src={logoCOSMITET} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('duana')}>
-                <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('ssofia')}>
-                <LogoImage src={logoSSOFIA} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('duarte')}>
-                <LogoImage src={logoDUARTE} alt="Logo" style={{ width: '90%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('peñitas')}>
-                <LogoImage src={logoPENITAS} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('camaracc')}>
-                <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('ozono')}>
-                <LogoImage src={logoOZONO} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('roche')}>
-                <LogoImage src={logoROCHE} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-            </CardContainer>
-          )}
+      <Root>
+        <div className="app-container">
+          <Header onBackButtonClick={handleBackButtonClick} />
+          <div className="main-content">
+            {currentPage ? (
+              <div className="page-content">
+                {renderPageContent()}
+              </div>
+            ) : (
+              <CardContainer>
+                <CardWrapper onClick={() => handleButtonClick('cnw')}>
+                  <LogoImage src={logoCNW} alt="Logo" style={{ width: '115%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('esecentro')}>
+                  <LogoImage src={logoESECENTRO} alt="Logo" style={{ width: '80%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
+                  <LogoImage src={logoCOSMITET} alt="Logo" style={{ width: '110%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('duana')}>
+                  <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('ssofia')}>
+                  <LogoImage src={logoSSOFIA} alt="Logo" style={{ width: '110%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('duarte')}>
+                  <LogoImage src={logoDUARTE} alt="Logo" style={{ width: '90%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('peñitas')}>
+                  <LogoImage src={logoPENITAS} alt="Logo" style={{ width: '110%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('camaracc')}>
+                  <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '110%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('ozono')}>
+                  <LogoImage src={logoOZONO} alt="Logo" style={{ width: '110%' }} />
+                </CardWrapper>
+                <CardWrapper onClick={() => handleButtonClick('roche')}>
+                  <LogoImage src={logoROCHE} alt="Logo" style={{ width: '110%' }} />
+                </CardWrapper>
+              </CardContainer>
+            )}
+          </div>
         </div>
-      </div>
+      </Root>
     );
-  }
-  if (isAdminESECENTRO) {
+  } else if (isAdminESECENTRO) {
     return (
       <div className="app-container">
         <Header onBackButtonClick={handleBackButtonClick} />
@@ -460,8 +384,7 @@ function Dashboard() {
         </div>
       </div>
     );
-  }
-  if (isAdminCAMARACC) {
+  } else if (isAdminCAMARACC) {
     return (
       <div className="app-container">
         <Header onBackButtonClick={handleBackButtonClick} />
@@ -481,8 +404,7 @@ function Dashboard() {
         </div>
       </div>
     );
-  }
-  if (isAdminCOSMITET) {
+  } else if (isAdminCOSMITET) {
     return (
       <div className="app-container">
         <Header onBackButtonClick={handleBackButtonClick} />
@@ -499,42 +421,21 @@ function Dashboard() {
               <CardWrapper onClick={() => handleButtonClick('duana')}>
                 <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('ssofia')}>
-                <LogoImage src={logoSSOFIA} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
               <CardWrapper onClick={() => handleButtonClick('duarte')}>
-                <LogoImage src={logoDUARTE} alt="Logo" style={{ width: '100%' }} />
+                <LogoImage src={logoDUARTE} alt="Logo" style={{ width: '80%' }} />
               </CardWrapper>
               <CardWrapper onClick={() => handleButtonClick('peñitas')}>
                 <LogoImage src={logoPENITAS} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
-            </CardContainer>
-          )}
-        </div>
-      </div>
-    );
-  }
-  if (isAdminDUANA) {
-    return (
-      <div className="app-container">
-        <Header onBackButtonClick={handleBackButtonClick} />
-        <div className="main-content">
-          {currentPage ? (
-            <div className="page-content">
-              {renderPageContent()}
-            </div>
-          ) : (
-            <CardContainer>
-              <CardWrapper onClick={() => handleButtonClick('duana')}>
-                <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
+              <CardWrapper onClick={() => handleButtonClick('ssofia')}>
+                <LogoImage src={logoSSOFIA} alt="Logo" style={{ width: '110%' }} />
               </CardWrapper>
             </CardContainer>
           )}
         </div>
       </div>
     );
-  }
-  if (isAdminOZONO) {
+  } else if (isAdminOZONO) {
     return (
       <div className="app-container">
         <Header onBackButtonClick={handleBackButtonClick} />
@@ -553,8 +454,7 @@ function Dashboard() {
         </div>
       </div>
     );
-  }
-  if (isAdminROCHE) {
+  } else if (isAdminROCHE) {
     return (
       <div className="app-container">
         <Header onBackButtonClick={handleBackButtonClick} />

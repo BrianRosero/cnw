@@ -16,8 +16,16 @@ import logo from '../../../assets/images/cnwlogo.png'
 // Importar componentes de páginas
 import Rendimiento from './Sensors.jsx'
 import INICIO from './Inicio.jsx'
+import { styled } from '@mui/system';
 
 // Estilos con Emotion
+const Root = styled('div')({
+  backgroundColor: '#ffffff',
+  color: '#fff',
+  minHeight: '100vh',
+  padding: '10px 0',
+});
+
 const styles = {
   mainContent:{
     paddingTop: '10px',
@@ -160,40 +168,44 @@ const Inicio = () => {
   };
 
   return (
-    <div>
-      {/* Barra de navegación */}
-      <Header onBackButtonClick={handleBackButtonClick} />
-      <div css={styles.mainContent}>
-        {currentPage ? (
-          <div className="page-content">
-            {renderPageContent()}
-          </div>
-        ) : (
-          <Grid container spacing={3} css={styles.section}>
-            {/* Sección de Bienvenida */}
+    <Root>
+      <div>
+        {/* Barra de navegación */}
+        <Header onBackButtonClick={handleBackButtonClick} />
+        <div css={styles.mainContent}>
+          {currentPage ? (
+            <div className="page-content">
+              {renderPageContent()}
+            </div>
+          ) : (
             <Grid container spacing={3} css={styles.section}>
-              <Grid item xs={12} >
-                <CardContent >
-                  <Typography style={{color: '#004a8f'}} variant="h2" align="center">¡Bienvenido al Panel de Control de Servicios de CAMARA DE COMERCIO DE CALI </Typography>
-                </CardContent>
-              </Grid>
-            </Grid>
-            {/* Sección de Servicios */}
-            <Grid container spacing={3} css={styles.section}>
-              <Grid item xs={12}>
-                <Typography style={{color: '#004a8f'}} variant="h4" align="center" id="servicios">Servicios</Typography>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card css={styles.card}>
-                  <CardContent onClick={() => handleButtonClick('rendimiento')}>
-                    <Typography variant="h5" css={styles.cardTitle}>Rendimiento</Typography>
-                    <Typography variant="h4" style={{color: '#fff'}}>
-                      Presentamos un sistema de rendimiento de maquinas virtuales, así como información detallada de las maquinas en funcionamiento.
-                    </Typography>
+              {/* Sección de Bienvenida */}
+              <Grid container spacing={3} css={styles.section}>
+                <Grid item xs={12}>
+                  <CardContent>
+                    <Typography style={{ color: '#004a8f' }} variant="h2" align="center">¡Bienvenido al Panel de Control
+                      de Servicios de CAMARA DE COMERCIO DE CALI </Typography>
                   </CardContent>
-                </Card>
+                </Grid>
               </Grid>
-              {/*<Grid item xs={12} md={4}>
+              {/* Sección de Servicios */}
+              <Grid container spacing={3} css={styles.section}>
+                <Grid item xs={12}>
+                  <Typography style={{ color: '#004a8f' }} variant="h4" align="center"
+                              id="servicios">Servicios</Typography>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Card css={styles.card}>
+                    <CardContent onClick={() => handleButtonClick('rendimiento')}>
+                      <Typography variant="h5" css={styles.cardTitle}>Rendimiento</Typography>
+                      <Typography variant="h4" style={{ color: '#fff' }}>
+                        Presentamos un sistema de rendimiento de maquinas virtuales, así como información detallada de
+                        las maquinas en funcionamiento.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                {/*<Grid item xs={12} md={4}>
                 <Card css={styles.card}>
                   <CardContent onClick={() => handleButtonClick('rendimiento')}>
                     <Typography variant="h5" css={styles.cardTitle}>Desarrollo de Software</Typography>
@@ -235,9 +247,9 @@ const Inicio = () => {
                   </CardContent>
                 </Card>
               </Grid>*/}
-            </Grid>
+              </Grid>
 
-            {/*  Sección de Proyectos
+              {/*  Sección de Proyectos
             <Grid container spacing={3} css={styles.section}>
               <Grid item xs={12}>
                 <Typography variant="h4" align="center" id="proyectos">Nuestros Proyectos Recientes</Typography>
@@ -307,10 +319,11 @@ const Inicio = () => {
                 </div>
               </Grid>
             </Grid>*/}
-          </Grid>
-        )}
+            </Grid>
+          )}
+        </div>
       </div>
-    </div>
+    </Root>
   );
 };
 

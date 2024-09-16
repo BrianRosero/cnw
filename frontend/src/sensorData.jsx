@@ -1,15 +1,6 @@
 // sensorData.jsx
 const sensorData = {
-  2134: {
-    name: 'COCLODUANADU01',
-    cpu: '8',
-    ram: '32.768',
-    disk: '614400',
-    ip: '10.21.0.5',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2200: {
+  2746: {
     name: 'COCLOCDUARAP01',
     cpu: '8',
     ram: '24.576',
@@ -18,7 +9,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2195: {
+  2747: {
     name: 'COCLOCDUARAST01',
     cpu: '48',
     ram: '98.304',
@@ -27,7 +18,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
   },
-  2196: {
+  2749: {
     name: 'COCLOCDUARFI01',
     cpu: '24',
     ram: '98.304',
@@ -36,7 +27,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2197: {
+  2748: {
     name: 'COCLOCDUAREP02',
     cpu: '24',
     ram: '49.152',
@@ -45,7 +36,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2199: {
+  2752: {
     name: 'COCLOCDUARTBD02',
     cpu: '24',
     ram: '65.536',
@@ -54,7 +45,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2136: {
+  2751: {
     name: 'COCLOCDUARTBD01',
     cpu: '24',
     ram: '65.536',
@@ -63,7 +54,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2201: {
+  2753: {
     name: 'COCLOCDUARTBK01',
     cpu: '4',
     ram: '16.384',
@@ -90,8 +81,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2139: {
-    name: 'COCLOCOSMIBD01',
+  2761: {
+    name: 'COCLOESECAP02',
     cpu: '80',
     ram: '196608',
     disk: '3575644',
@@ -99,8 +90,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2144: {
-    name: 'COCLOCOSMIBD02',
+  2762: {
+    name: 'COCLOESECAP03',
     cpu: '36',
     ram: '131.072',
     disk: '1887436',
@@ -108,8 +99,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2142: {
-    name: 'COCLOCOSMIBD03',
+  2763: {
+    name: 'COCLOESECAP04',
     cpu: '24',
     ram: '131.072',
     disk: '3565158',
@@ -117,8 +108,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2190: {
-    name: 'COCLOCOSMIBD04',
+  2764: {
+    name: 'COCLOESECAP05',
     cpu: '24',
     ram: '49.152',
     disk: '1677721',
@@ -126,8 +117,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2145: {
-    name: 'COCLOCOSMIBK01',
+  2765: {
+    name: 'COCLOESECAP12',
     cpu: '12',
     ram: '16.384',
     disk: '14680064',
@@ -135,8 +126,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2140: {
-    name: 'COCLOCOSMIFI01',
+  2767: {
+    name: 'COCLOESECAP11',
     cpu: '24',
     ram: '98.304',
     disk: '1433600',
@@ -144,8 +135,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2141: {
-    name: 'COCLOCOSMIREP02',
+  2768: {
+    name: 'COCLOESECAP13',
     cpu: '24',
     ram: '49.152',
     disk: '409600',
@@ -153,8 +144,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2174: {
-    name: 'COCLOCOSMIREP03',
+  2769: {
+    name: 'COCLOESECAP14',
     cpu: '12',
     ram: '49.152',
     disk: '409600',
@@ -162,8 +153,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2143: {
-    name: 'COCLOCOSMISTG01',
+  2770: {
+    name: 'COCLOESECAP10',
     cpu: '12',
     ram: '24.576',
     disk: '41943040',
@@ -171,8 +162,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2211: {
-    name: 'COCLOCOSMIAP02',
+  2755: {
+    name: 'COCLOESECAP06',
     cpu: '48',
     ram: '98.304',
     disk: '204800',
@@ -180,8 +171,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
   },
-  2167: {
-    name: 'COCLOCOSMIAP05',
+  2756: {
+    name: 'COCLOESECAP07',
     cpu: '6',
     ram: '24.576',
     disk: '307200',
@@ -189,8 +180,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2168: {
-    name: 'COCLOCOSMIAP06',
+  2757: {
+    name: 'COCLOESECAP08',
     cpu: '8',
     ram: '24.576',
     disk: '204800',
@@ -198,8 +189,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
   },
-  2189: {
-    name: 'COCLOCOSMIAP07',
+  2758: {
+    name: 'COCLOESECAP09',
     cpu: '12',
     ram: '49.152',
     disk: '409600',
@@ -207,8 +198,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2169: {
-    name: 'COCLOCOSMIAST03',
+  2759: {
+    name: 'COCLOESECAP16',
     cpu: '32',
     ram: '65.536',
     disk: '204800',
@@ -216,8 +207,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 6 (64-bit)'
   },
-  2170: {
-    name: 'COCLOCOSMIAST04',
+  2760: {
+    name: 'COCLOESECAP17',
     cpu: '8',
     ram: '24.576',
     disk: '204800',
@@ -225,8 +216,8 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2175: {
-    name: 'COCLOCOSMIDES01',
+  2766: {
+    name: 'COCLOESECAP15',
     cpu: '32',
     ram: '32.768',
     disk: '512000',
@@ -234,7 +225,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2155: {
+  2771: {
     name: 'COCLODUANAAP01',
     cpu: '4',
     ram: '10.240',
@@ -243,7 +234,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2165: {
+  2774: {
     name: 'COCLODUANAP02',
     cpu: '8',
     ram: '16.384',
@@ -252,16 +243,16 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2166: {
+  2775: {
     name: 'COCLODUANAP03',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
+    cpu: '10',
+    ram: '20.480',
+    disk: '512000',
+    ip: '10.21.0.9',
+    serverStatus: 'poweredOn',
+    os: 'CentOS 7 (64-bit)'
   },
-  2192: {
+  2772: {
     name: 'COCLODUANADB05',
     cpu: '36',
     ram: '98.304',
@@ -269,6 +260,15 @@ const sensorData = {
     ip: '10.21.0.8',
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 9 (64-bit)'
+  },
+  2773: {
+    name: 'COCLODUANADU01',
+    cpu: '8',
+    ram: '32.768',
+    disk: '614400',
+    ip: '10.21.0.5',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
   },
   2156: {
     name: 'COCLOESECAP02',
@@ -447,133 +447,9 @@ const sensorData = {
     ram: '',
     disk: ''
   },
-  2146: {
-    name: 'COCLOSSFIABD01',
-    cpu: '24',
-    ram: '65.536',
-    disk: '1153433',
-    ip: '10.249.50.4',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2150: {
-    name: 'COCLOSSFIABD02',
-    cpu: '24',
-    ram: '49.152',
-    disk: '1677721',
-    ip: '10.249.50.5',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2152: {
-    name: 'COCLOSSFIABD03',
-    cpu: '24',
-    ram: '49.152',
-    disk: '1677721',
-    ip: '10.249.50.6',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2154: {
-    name: 'COCLOSSFIABK01',
-    cpu: '4',
-    ram: '16.384',
-    disk: '7444889',
-    ip: '10.249.50.7',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2128: {
-    name: 'COCLOSSFIAST02',
-    cpu: '48',
-    ram: '98.304',
-    disk: '204800',
-    ip: '10.249.50.3',
-    serverStatus: 'poweredOn',
-    os: 'Red Hat Enterprise Linux 8 (64-bit)'
-  },
-  2148: {
-    name: 'COCLOSSFIASTG01',
-    cpu: '6',
-    ram: '16.384',
-    disk: '7444889',
-    ip: '10.249.50.11',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2129: {
-    name: 'COCLOSSFIADES01',
-    cpu: '32',
-    ram: '32.768',
-    disk: '512000',
-    ip: '10.249.50.16',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2171: {
-    name: 'COCLOSSOFIAAP02',
-    cpu: '6',
-    ram: '16.384',
-    disk: '204800',
-    ip: '10.248.50.4',
-    serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
-  },
-  2172: {
-    name: 'COCLOSSFIAFI01',
-    cpu: '12',
-    ram: '49.152',
-    disk: '409600',
-    ip: '10.248.50.10',
-    serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
-  },
-  2173: {
-    name: 'COCLOSSFIAREP01',
-    cpu: '12',
-    ram: '49.152',
-    disk: '409600',
-    ip: '10.248.50.10',
-    serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
-  },
-  2147: {
-    name: 'COCLOPENISTG01',
-    cpu: '6',
-    ram: '16.384',
-    disk: '7444889',
-    ip: '10.250.50.11',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2149: {
-    name: 'COCLOPENIBD02',
-    cpu: '24',
-    ram: '49.152',
-    disk: '1677721',
-    ip: '10.250.50.5',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2151: {
-    name: 'COCLOPENIBD03',
-    cpu: '36',
-    ram: '65.536',
-    disk: '1677721',
-    ip: '10.250.50.6',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2153: {
-    name: 'COCLOPENIBK01',
-    cpu: '4',
-    ram: '16.384',
-    disk: '7444889',
-    ip: '10.250.50.7',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2177: {
+
+
+  2800: {
     name: 'COCLOPENIAP01',
     cpu: '10',
     ram: '32768',
@@ -582,7 +458,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
   },
-  2179: {
+  2801: {
     name: 'COCLOPENIAP02',
     cpu: '10',
     ram: '32.768',
@@ -591,7 +467,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2194: {
+  2802: {
     name: 'COCLOPENIAP03',
     cpu: '8',
     ram: '24.576',
@@ -600,7 +476,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
   },
-  2181: {
+  2803: {
     name: 'COCLOPENIAP04',
     cpu: '10',
     ram: '24.576',
@@ -609,7 +485,7 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2182: {
+  2804: {
     name: 'COCLOPENIAST02',
     cpu: '24',
     ram: '32.768',
@@ -618,16 +494,34 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Red Hat Enterprise Linux 8 (64-bit)'
   },
-  2180: {
-    name: 'COCLOPENIREP01',
-    cpu: '10',
-    ram: '24.576',
-    disk: '409600',
-    ip: '10.250.50.10',
+  2805: {
+    name: 'COCLOPENIBD02',
+    cpu: '24',
+    ram: '49.152',
+    disk: '1677721',
+    ip: '10.250.50.5',
     serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
+    os: 'Oracle Linux 8 (64-bit)'
   },
-  2176: {
+  2806: {
+    name: 'COCLOPENIBD03',
+    cpu: '36',
+    ram: '65.536',
+    disk: '1677721',
+    ip: '10.250.50.6',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+  2807: {
+    name: 'COCLOPENIBK01',
+    cpu: '4',
+    ram: '16.384',
+    disk: '7444889',
+    ip: '10.250.50.7',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+  2808: {
     name: 'COCLOPENIFI01',
     cpu: '10',
     ram: '32.768',
@@ -636,6 +530,120 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
+  2809: {
+    name: 'COCLOPENIREP01',
+    cpu: '10',
+    ram: '24.576',
+    disk: '409600',
+    ip: '10.250.50.10',
+    serverStatus: 'poweredOn',
+    os: 'CentOS 7 (64-bit)'
+  },
+  2810: {
+    name: 'COCLOPENISTG01',
+    cpu: '6',
+    ram: '16.384',
+    disk: '7444889',
+    ip: '10.250.50.11',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+
+
+
+  2812: {
+    name: 'COCLOSSFIAAP01',
+    cpu: '48',
+    ram: '98.304',
+    disk: '204800',
+    ip: '10.249.50.2',
+    serverStatus: 'poweredOn',
+    os: 'Red Hat Enterprise Linux 8 (64-bit)'
+  },
+  2813: {
+    name: 'COCLOSSFIABD01',
+    cpu: '24',
+    ram: '65.536',
+    disk: '1153433',
+    ip: '10.249.50.4',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+  2814: {
+    name: 'COCLOSSFIABD02',
+    cpu: '24',
+    ram: '49.152',
+    disk: '1677721',
+    ip: '10.249.50.5',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+  2815: {
+    name: 'COCLOSSFIABD03',
+    cpu: '24',
+    ram: '49.152',
+    disk: '1677721',
+    ip: '10.249.50.6',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+  2816: {
+    name: 'COCLOSSFIABK01',
+    cpu: '4',
+    ram: '16.384',
+    disk: '7444889',
+    ip: '10.249.50.7',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+  2817: {
+    name: 'COCLOSSFIADES01',
+    cpu: '32',
+    ram: '32.768',
+    disk: '512000',
+    ip: '10.249.50.16',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+  2818: {
+    name: 'COCLOSSFIAREP01',
+    cpu: '12',
+    ram: '49.152',
+    disk: '409600',
+    ip: '10.248.50.10',
+    serverStatus: 'poweredOn',
+    os: 'CentOS 7 (64-bit)'
+  },
+  2819: {
+    name: 'COCLOSSFIAST02',
+    cpu: '48',
+    ram: '98.304',
+    disk: '204800',
+    ip: '10.249.50.3',
+    serverStatus: 'poweredOn',
+    os: 'Red Hat Enterprise Linux 8 (64-bit)'
+  },
+  2820: {
+    name: 'COCLOSSFIASTG01',
+    cpu: '6',
+    ram: '16.384',
+    disk: '7444889',
+    ip: '10.249.50.11',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8 (64-bit)'
+  },
+  2821: {
+    name: 'COCLOSSOFIAAP02',
+    cpu: '6',
+    ram: '16.384',
+    disk: '204800',
+    ip: '10.248.50.4',
+    serverStatus: 'poweredOn',
+    os: 'CentOS 7 (64-bit)'
+  },
+
+
+
   2191: {
     name: 'COCLOROCHEAP01',
     cpu: '',

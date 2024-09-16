@@ -287,7 +287,7 @@ const Informes = () => {
 
   const fetchPdfs = async () => {
     try {
-      const response = await axios.get('http://192.168.200.155:8080/api/pdfs/COSMITET');
+      const response = await axios.get('http://192.168.200.155:8081/api/pdfs/COSMITET');
       let sortedFiles = response.data;
 
       sortedFiles = sortedFiles.sort((a, b) => {
@@ -314,7 +314,7 @@ const Informes = () => {
     const formData = new FormData();
     formData.append('file', selectedFile);
     try {
-      await axios.post('http://192.168.200.155:8080/api/upload/COSMITET', formData, {
+      await axios.post('http://192.168.200.155:8081/api/upload/COSMITET', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -333,7 +333,7 @@ const Informes = () => {
   };
 
   const handleViewPdf = (file) => {
-    setCurrentPdf(`http://192.168.200.155:8080/pdfs/COSMITET/${file}`);
+    setCurrentPdf(`http://192.168.200.155:8081/pdfs/COSMITET/${file}`);
     setOpenDialog(true);
   };
 
@@ -349,7 +349,7 @@ const Informes = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`http://192.168.200.155:8080/api/pdfs/COSMITET/${fileToDelete}`);
+      await axios.delete(`http://192.168.200.155:8081/api/pdfs/COSMITET/${fileToDelete}`);
       fetchPdfs();
       setOpenDeleteDialog(false);
       setFileToDelete(null);
@@ -400,9 +400,9 @@ const Informes = () => {
   const createPdfAndDownload = async () => {
     const data = { name, receipt, email, image1, image2, image3 };
 
-    await axios.post(`http://192.168.200.155:8080/createPdf`, data)
+    await axios.post(`http://192.168.200.155:8081/createPdf`, data)
       .then(() =>
-        axios.get(`http://192.168.200.155:8080/fetchPdf`, { responseType: 'blob' })
+        axios.get(`http://192.168.200.155:8081/fetchPdf`, { responseType: 'blob' })
           .then((res) => {
             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
             saveAs(pdfBlob, 'InvoiceDocument.pdf');
@@ -423,9 +423,9 @@ const Informes = () => {
     const data = { name, receipt, email, image1, image2, image3 };
     const emails = Array.from(selectedEmails).join(',');
 
-    await axios.post(`http://192.168.200.155:8080/createPdf`, data)
+    await axios.post(`http://192.168.200.155:8081/createPdf`, data)
       .then(() =>
-        axios.get(`http://192.168.200.155:8080/fetchPdf`, { responseType: 'blob' })
+        axios.get(`http://192.168.200.155:8081/fetchPdf`, { responseType: 'blob' })
           .then((res) => {
             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
             saveAs(pdfBlob, 'InvoiceDocument.pdf');
@@ -439,7 +439,7 @@ const Informes = () => {
             setImage3(null);
           })
           .then(() =>
-            axios.post("http://192.168.200.155:8080/sendPdf", { email: emails })
+            axios.post("http://192.168.200.155:8081/sendPdf", { email: emails })
               .then(response => {
                 console.log(response);
                 alert(response.data);
