@@ -40,6 +40,7 @@ const MachineCard = ({ sensorId }) => {
 
   const [isAdminCAMARACC, setIsAdminCAMARACC] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
 
   useEffect(() => {
     UserService.getAdminCAMARACC().then(
@@ -69,6 +70,29 @@ const MachineCard = ({ sensorId }) => {
       (response) => {
         setContent(response.data);
         setIsAdmin(true);
+      },
+      (error) => {
+        const errorMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setContent(errorMessage);
+
+        if (error.response && error.response.status === 401) {
+          EventBus.dispatch("logout");
+        }
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    UserService.getModeratorBoard().then(
+      (response) => {
+        setContent(response.data);
+        setIsModerator(true);
       },
       (error) => {
         const errorMessage =
@@ -169,6 +193,25 @@ const MachineCard = ({ sensorId }) => {
           <Grid container>
             <Grid container spacing={1}>
               {metricsAdmin.map((metric, index) => (
+                <MetricItem key={index}>
+                  <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
+                  <Typography> </Typography>
+                  <Typography variant="h4" style={{ color: '#214092' }}>{metric.value}</Typography>
+                </MetricItem>
+              ))}
+            </Grid>
+          </Grid>
+        </CardContent>
+      </StyledCard>
+    );
+  }
+  if (isModerator) {
+    return (
+      <StyledCard>
+        <CardContent>
+          <Grid container>
+            <Grid container spacing={1}>
+              {metrics.map((metric, index) => (
                 <MetricItem key={index}>
                   <Typography variant="h5" style={{ color: '#555555' }}>{metric.label}</Typography>
                   <Typography> </Typography>

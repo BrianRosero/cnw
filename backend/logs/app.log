@@ -23946,3 +23946,228 @@
 {"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T14:14:57.138Z"}
 {"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T14:14:58.196Z"}
 {"level":"info","message":"Conectado a MongoDB","timestamp":"2024-09-13T14:15:48.185Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T14:37:47.305Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T14:37:47.342Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T14:37:47.349Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T14:37:47.829Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T14:37:48.606Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T14:55:54.832Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T14:55:54.959Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T14:55:54.965Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T14:55:55.425Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T14:55:56.031Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T14:58:15.976Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T14:58:16.001Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T14:58:16.010Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T14:58:16.489Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T14:58:16.820Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:03:07.811Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:03:07.827Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:03:07.832Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:03:09.039Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:03:09.473Z"}
+{"level":"info","message":"Request: POST /vms/vm-2031/power-off","timestamp":"2024-09-13T15:03:19.790Z"}
+{"level":"info","message":"Error al apagar la VM vm-2031: Request failed with status code 403","timestamp":"2024-09-13T15:03:19.987Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:10:17.892Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:10:17.906Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:10:17.920Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:10:18.688Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:10:18.910Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:20:04.291Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:20:04.305Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:20:04.410Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:20:05.470Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:20:05.677Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:20:14.651Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:20:14.653Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:20:14.657Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:20:15.202Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:20:15.377Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:20:15.381Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:20:15.383Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:20:15.854Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:20:15.886Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:20:16.330Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:21:48.496Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:21:48.559Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:21:48.566Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:21:49.085Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:21:49.328Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:23:24.534Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:23:24.541Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:23:24.545Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:23:25.674Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:23:25.894Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:23:44.210Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:23:44.215Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:23:44.219Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:23:45.000Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:23:45.228Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:25:59.153Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T15:25:59.260Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T15:25:59.265Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T15:26:01.439Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T15:26:01.817Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T19:14:38.068Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T19:14:38.080Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T19:14:38.091Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T19:14:39.175Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T19:14:40.154Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:11:04.143Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:11:04.153Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:11:04.163Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:11:04.935Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:11:05.249Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:11:35.784Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:11:35.788Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:11:35.799Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:11:36.318Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:11:36.850Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:12:16.606Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:12:16.613Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:12:16.616Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:12:17.020Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:12:17.727Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:17:13.089Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:17:13.098Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:17:13.107Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:17:13.567Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:17:14.100Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:19:25.546Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:19:25.549Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:19:25.554Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:19:26.012Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:19:27.076Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:19:44.613Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:19:44.617Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:19:44.619Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:19:45.496Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:19:46.212Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:19:55.480Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:19:55.482Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:19:55.486Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:19:56.292Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:19:57.080Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:20:04.234Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:20:04.239Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:20:04.486Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:20:05.562Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:20:06.008Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:20:15.894Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:20:15.896Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:20:15.900Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:20:18.546Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:20:19.008Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:20:25.003Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:20:25.007Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:20:25.009Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:20:25.714Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:20:26.586Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:20:45.484Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:20:45.487Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:20:45.507Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:20:47.292Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:20:47.772Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:21:17.499Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:21:17.508Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:21:17.513Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:21:18.112Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:21:18.973Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:21:33.266Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:21:33.271Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:21:33.273Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:21:34.181Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:21:34.840Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:21:52.033Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:21:52.039Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:21:52.052Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:21:52.767Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:21:53.639Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:22:05.058Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:22:05.061Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:22:05.066Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:22:05.509Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:22:06.181Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:22:12.928Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:22:12.934Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:22:12.936Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:22:13.891Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:22:14.458Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:22:27.084Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:22:27.087Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:22:27.090Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:22:27.899Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:22:28.738Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:22:35.222Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:22:35.224Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:22:35.228Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:22:36.024Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:22:36.732Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:25:34.771Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:25:34.780Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:25:34.787Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:25:35.525Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:25:36.644Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:26:34.203Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:26:34.227Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:26:34.231Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:26:34.873Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:26:35.808Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:27:41.948Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:27:41.955Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:27:41.958Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:27:42.504Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:27:43.332Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:27:55.133Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:27:55.136Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:27:55.182Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:27:55.732Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:27:56.426Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:30:47.365Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:30:47.371Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:30:47.378Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:30:47.763Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:30:48.359Z"}
+{"level":"info","message":"Request: POST /vms/vm-2072/power-on","timestamp":"2024-09-13T20:30:56.527Z"}
+{"level":"info","message":"VM vm-2072 encendida","timestamp":"2024-09-13T20:30:59.810Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:31:00.257Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:31:30.817Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:31:30.822Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:31:30.826Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:31:31.830Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:31:32.494Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:35:15.700Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:35:15.706Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:35:15.713Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:35:16.368Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:35:17.177Z"}
+{"level":"info","message":"Request: POST /vms/vm-2072/suspend","timestamp":"2024-09-13T20:35:20.404Z"}
+{"level":"info","message":"VM vm-2072 suspendida","timestamp":"2024-09-13T20:35:20.992Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:35:21.611Z"}
+{"level":"info","message":"Request: POST /vms/vm-2072/power-on","timestamp":"2024-09-13T20:35:49.219Z"}
+{"level":"info","message":"VM vm-2072 encendida","timestamp":"2024-09-13T20:35:51.219Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:35:51.725Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:36:09.452Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:36:09.462Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:36:09.465Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:36:10.591Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:36:11.142Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:36:30.010Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-13T20:36:30.014Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-13T20:36:30.050Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-13T20:36:30.426Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-13T20:36:30.899Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-09-16T22:27:07.782Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-16T22:27:27.168Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-16T22:27:27.171Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-16T22:27:27.176Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-16T22:27:27.605Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-16T22:27:28.296Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-09-17T13:08:23.232Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-09-17T13:21:27.185Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2024-09-17T13:36:13.535Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2024-09-17T13:36:13.541Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-17T13:36:13.548Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2024-09-17T13:36:13.967Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2024-09-17T13:36:14.415Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2024-09-17T13:43:03.062Z"}

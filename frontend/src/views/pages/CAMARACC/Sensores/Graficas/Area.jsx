@@ -66,6 +66,7 @@ const MachineCard = ({ sensorId }) => {
   const [timeRange, setTimeRange] = useState(30);
   const [isAdminCAMARACC, setIsAdminCAMARACC] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
 
   // Hook para obtener el rol de administrador de CamaraCC
   useEffect(() => {
@@ -95,6 +96,28 @@ const MachineCard = ({ sensorId }) => {
       (response) => {
         setContent(response.data);
         setIsAdmin(true);
+      },
+      (error) => {
+        const errorMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setContent(errorMessage);
+        if (error.response && error.response.status === 401) {
+          EventBus.dispatch('logout');
+        }
+      },
+    );
+  }, []);
+
+  // Hook para obtener el rol de administrador general
+  useEffect(() => {
+    UserService.getModeratorBoard().then(
+      (response) => {
+        setContent(response.data);
+        setIsModerator(true);
       },
       (error) => {
         const errorMessage =
@@ -344,6 +367,58 @@ const MachineCard = ({ sensorId }) => {
 
   // Componente de renderizado para administradores generales
   if (isAdmin) {
+    return (
+      <StyledCard>
+        <div className="button-container">
+          <ButtonGroup size="small">
+            {['Uso de CPU', 'Memoria Consumida', 'Uso de Disco', 'Lectura de Disco', 'Escritura de Disco', 'Consumo de red', 'Datos recibidos en Red', 'Datos transmitidos en Red'].map(metric => (
+              <StyledButton1
+                key={metric}
+                onClick={() => handleMetricChange(metric)}
+                selected={selectedMetric === metric}
+              >
+                {metric}
+              </StyledButton1>
+            ))}
+          </ButtonGroup>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '-20px' }}>
+          <ButtonGroup size="small">
+            {[
+              { label: '30 min', value: 30 },
+              { label: '1 hora', value: 60 },
+              { label: '6 horas', value: 360 },
+              { label: '12 horas', value: 720 },
+              { label: '1 día', value: 1440 },
+              { label: '3 días', value: 4320 },
+              { label: '1 semana', value: 10080 },
+            ].map(range => (
+              <StyledButton
+                key={range.value}
+                onClick={() => handleTimeRangeChange(range.value)}
+                selected={timeRange === range.value}
+              >
+                {range.label}
+              </StyledButton>
+            ))}
+          </ButtonGroup>
+        </div>
+        {loading ? (
+          <div style={{ color:'#d3256b', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width:'100%' }}>
+            <CircularProgress />
+          </div>
+        ) : error ? (
+          <p>{error}</p>
+        ) : filteredData.length === 0 || filteredTimestamps.length === 0 ? (
+          <p>Datos no disponibles</p>
+        ) : (
+          <Chart options={chartOptions} series={selectedData ? [selectedData] : []} type="area" height={340} />
+        )}
+      </StyledCard>
+    );
+  }
+  // Componente de renderizado para moderador de CAMARA DE COMERCIO
+  if (isModerator) {
     return (
       <StyledCard>
         <div className="button-container">

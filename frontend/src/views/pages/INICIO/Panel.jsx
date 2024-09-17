@@ -281,38 +281,11 @@ function Dashboard() {
               {renderPageContent()}
             </div>
           ) : (
-            <CardContainer>
-              <CardWrapper onClick={() => handleButtonClick('cnw')}>
-                <LogoImage src={logoCNW} alt="Logo" style={{ width: '115%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('esecentro')}>
-                <LogoImage src={logoESECENTRO} alt="Logo" style={{ width: '80%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('cosmitet')}>
-                <LogoImage src={logoCOSMITET} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('duana')}>
-                <LogoImage src={logoDUANA} alt="Logo" style={{ width: '100%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('ssofia')}>
-                <LogoImage src={logoSSOFIA} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('duarte')}>
-                <LogoImage src={logoDUARTE} alt="Logo" style={{ width: '90%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('peñitas')}>
-                <LogoImage src={logoPENITAS} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
+            <CardContainerCCC>
               <CardWrapper onClick={() => handleButtonClick('camaracc')}>
-                <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '110%' }} />
+                <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '105%' }} />
               </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('ozono')}>
-                <LogoImage src={logoOZONO} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-              <CardWrapper onClick={() => handleButtonClick('roche')}>
-                <LogoImage src={logoROCHE} alt="Logo" style={{ width: '110%' }} />
-              </CardWrapper>
-            </CardContainer>
+            </CardContainerCCC>
           )}
         </div>
       </div>
@@ -399,7 +372,6 @@ function Dashboard() {
                 <LogoImage src={logoCAMARACC} alt="Logo" style={{ width: '105%' }} />
               </CardWrapper>
             </CardContainerCCC>
-
           )}
         </div>
       </div>

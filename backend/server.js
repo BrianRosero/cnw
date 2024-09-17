@@ -933,6 +933,7 @@ function initial() {
         Role.create({ id: 3, name: 'administrador' });
         Role.create({ id: 4, name: 'administrador-ESECENTRO' });
         Role.create({ id: 5, name: 'administrador-CAMARA-Y-COMERCIO' });
+        Role.create({ id: 10, name: 'moderador-CAMARA-Y-COMERCIO' });
         Role.create({ id: 6, name: 'administrador-COSMITET' });
         Role.create({ id: 7, name: 'administrador-DUANA' });
         Role.create({ id: 8, name: 'administrador-OZONO' });

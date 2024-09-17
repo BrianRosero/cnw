@@ -242,7 +242,7 @@ const ProfilePage = () => {
 
               <Box style={{ marginTop: '10px' }}>
                 <Typography variant="body1" gutterBottom><LocationOn /> Cali, Valle del Cauca.</Typography>
-                <Typography variant="body1" gutterBottom><Work /> CONSULNETWORKS</Typography>
+               {/* <Typography variant="body1" gutterBottom><Work /> CONSULNETWORKS</Typography>*/}
               </Box>
               <Divider style={{ margin: '20px auto', width: '80%' }} />
               <Box sx={{ marginBottom: '10px' }}>
@@ -258,7 +258,7 @@ const ProfilePage = () => {
                   ))}
               </Box>
 
-              <Box sx={{ marginTop: '20px' }}>
+              {/*<Box sx={{ marginTop: '20px' }}>
                 <Typography variant="h6" gutterBottom>
                   Redes Sociales
                 </Typography>
@@ -289,7 +289,7 @@ const ProfilePage = () => {
                     </IconButton>
                   ))}
                 </Box>
-              </Box>
+              </Box>*/}
 
               <Box sx={{ marginTop: '20px' }}>
                 <Typography variant="h6" gutterBottom>
@@ -307,7 +307,7 @@ const ProfilePage = () => {
                     '&:hover': { backgroundColor: '#004d40' },
                   }}
                 >
-                  Habilitar 2FA
+                  Generar nuevo QR para autenticacion 2FA
                 </Button>
                 {qrCodeUrl && (
                   <img
@@ -322,8 +322,7 @@ const ProfilePage = () => {
               </Box>
             </Paper>
           </Grid>
-
-          <Grid item xs={12} md={8}>
+          {/*<Grid item xs={12} md={8}>
             <TabContext value={tabValue}>
               <Paper
                 elevation={3}
@@ -507,7 +506,7 @@ const ProfilePage = () => {
                 </Box>
               </Paper>
             </TabContext>
-          </Grid>
+          </Grid>*/}
         </Grid>
       </Container>
     </Box>

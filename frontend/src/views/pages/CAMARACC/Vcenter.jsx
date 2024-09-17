@@ -11,6 +11,8 @@ import {
 } from '@mui/icons-material';
 import PowerOffIcon from '@mui/icons-material/PowerOff';
 import Chart from 'react-apexcharts';
+import UserService from '@/services/user.service.jsx';
+import EventBus from '../../../common/EventBus.jsx';
 
 const buttonStyle = {
   borderRadius: '10px',
@@ -86,6 +88,9 @@ const buttonSuspendStyle = {
 };
 
 function App() {
+  const [content, setContent] = useState('');
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdminCAMARACC, setIsAdminCAMARACC] = useState(false);
   const [vms, setVms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -156,6 +161,42 @@ function App() {
       console.error('Error al obtener las VMs:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    UserService.getModeratorBoard().then(
+      (response) => {
+        setIsModerator(true);
+      },
+      (error) => {
+        handleErrorResponse(error);
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    UserService.getAdminCAMARACC().then(
+      (response) => {
+        setIsAdminCAMARACC(true);
+      },
+      (error) => {
+        handleErrorResponse(error);
+      }
+    );
+  }, []);
+
+  // Función para manejar errores de respuesta de las API
+  const handleErrorResponse = (error) => {
+    const errorMessage =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+
+    setContent(errorMessage);
+
+    if (error.response && error.response.status === 401) {
+      EventBus.dispatch('logout');
     }
   };
 
@@ -519,227 +560,229 @@ function App() {
     },
   };
 
-  return (
-    <div style={styles.container}>
-      <AppBar position="static" style={styles.appBar}>
-        <Toolbar style={styles.toolbar}>
-          <Typography edge="start" color="inherit" aria-label="menu" variant="h2" style={styles.title}>
-            Administrador de Maquinas Virtuales
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Grid container spacing={2} style={styles.gridContainer}>
-        <Grid item xs={12} md={8}>
-          <Card style={styles.card}>
-            <CardContent style={{ position: 'relative', zIndex: 1 }}>
-              <Typography variant="h3" style={{ color: '#233b85', fontWeight: 'bold', letterSpacing: '1px' }}>
-                Uso de Recursos
-              </Typography>
-              <div style={{ marginTop: '1px' }}>
-                <Chart options={chartData.options} series={chartData.series} type="line" height={320} />
-              </div>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Card
-            style={styles.chartCard}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
-            }}
-          >
-            <CardContent style={{ position: 'relative', zIndex: 1, color: '#fff' }}>
-              <Typography variant="h3" style={{ color: '#ffffff', fontWeight: 'bold', letterSpacing: '1px' }}>
-                Distribución del Estado de las VMs
-              </Typography>
-              <Typography variant="h5" style={{ color: '#ffffff', marginBottom: '16px', fontWeight: '300' }}>
-                Total de VMs: {vms.length}
-              </Typography>
-              <Typography variant="h5" style={{ color: '#d0d0d0' }}>
-                Encendidas: {vmStats.running}
-              </Typography>
-              <Typography variant="h5" style={{ color: '#d0d0d0' }}>
-                Apagadas: {vmStats.stopped}
-              </Typography>
-              <Typography variant="h5" style={{ color: '#d0d0d0' }}>
-                Suspendidas: {vmStats.suspended}
-              </Typography>
-              <div style={{ marginTop: '20px' }}>
-                <Chart options={pieData.options} series={pieData.series} type="pie" width={380} />
-              </div>
-            </CardContent>
-          </Card>
-        </Grid>
-        {loading ? (
-          <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
-            <CircularProgress style={{ color: '#233b85' }} />
+
+  if (isAdminCAMARACC) {
+    return (
+      <div style={styles.container}>
+        <AppBar position="static" style={styles.appBar}>
+          <Toolbar style={styles.toolbar}>
+            <Typography edge="start" color="inherit" aria-label="menu" variant="h2" style={styles.title}>
+              Administrador de Maquinas Virtuales
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Grid container spacing={2} style={styles.gridContainer}>
+          <Grid item xs={12} md={8}>
+            <Card style={styles.card}>
+              <CardContent style={{ position: 'relative', zIndex: 1 }}>
+                <Typography variant="h3" style={{ color: '#233b85', fontWeight: 'bold', letterSpacing: '1px' }}>
+                  Uso de Recursos
+                </Typography>
+                <div style={{ marginTop: '1px' }}>
+                  <Chart options={chartData.options} series={chartData.series} type="line" height={320} />
+                </div>
+              </CardContent>
+            </Card>
           </Grid>
-        ) : error ? (
-          <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
-            <Alert severity="error">{error}</Alert>
+          <Grid item xs={12} md={4}>
+            <Card
+              style={styles.chartCard}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+              }}
+            >
+              <CardContent style={{ position: 'relative', zIndex: 1, color: '#fff' }}>
+                <Typography variant="h3" style={{ color: '#ffffff', fontWeight: 'bold', letterSpacing: '1px' }}>
+                  Distribución del Estado de las VMs
+                </Typography>
+                <Typography variant="h5" style={{ color: '#ffffff', marginBottom: '16px', fontWeight: '300' }}>
+                  Total de VMs: {vms.length}
+                </Typography>
+                <Typography variant="h5" style={{ color: '#d0d0d0' }}>
+                  Encendidas: {vmStats.running}
+                </Typography>
+                <Typography variant="h5" style={{ color: '#d0d0d0' }}>
+                  Apagadas: {vmStats.stopped}
+                </Typography>
+                <Typography variant="h5" style={{ color: '#d0d0d0' }}>
+                  Suspendidas: {vmStats.suspended}
+                </Typography>
+                <div style={{ marginTop: '20px' }}>
+                  <Chart options={pieData.options} series={pieData.series} type="pie" width={380} />
+                </div>
+              </CardContent>
+            </Card>
           </Grid>
-        ) : (
-          <>
-             {/*Tarjetas de Entornos*/}
-            <Grid container spacing={3} style={{ marginBottom: '20px', paddingTop: 15 }}>
-              {['desarrollo', 'produccion', 'calidad'].map((entorno) => (
-                <Grid item xs={12} sm={4} key={entorno}>
-                  <Card
-                    style={{
-                      cursor: 'pointer',
-                      textAlign: 'center',
-                      padding: '20px',
-                      backgroundColor: selectedEnvironment === entorno ? '#28a745' : '#233b85', // Cambia a verde si está seleccionada, azul si no
-                      color: '#fff', // Asegura que el texto siempre sea blanco
-                      transition: 'transform 0.3s, background-color 0.3s',
-                      boxShadow:
-                        selectedEnvironment === entorno
-                          ? '0 4px 20px rgba(40, 167, 69, 0.5)' // Sombra más intensa cuando está seleccionada
-                          : '0 4px 10px rgba(0, 0, 0, 0.2)', // Sombra normal cuando no está seleccionada
-                    }}
-                    onClick={() => handleEnvironmentClick(entorno)}
-                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-                  >
-                    <Typography
-                      variant="h5"
-                      style={{
-                        fontWeight: 'bold',
-                        textShadow: '0px 1px 2px rgba(0, 0, 0, 0.3)',
-                        color: '#fff', // Forzar color blanco en el texto
-                      }}
-                    >
-                      {entorno.charAt(0).toUpperCase() + entorno.slice(1)}
-                    </Typography>
-                  </Card>
-                </Grid>
-              ))}
+          {loading ? (
+            <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
+              <CircularProgress style={{ color: '#233b85' }} />
             </Grid>
-              {/*Mostrar las VMs del entorno seleccionado*/}
-            {selectedEnvironment && (
-              <Grid container spacing={3}>
-                {vmsAgrupadas[selectedEnvironment].map((vm) => (
-                  <Grid item xs={12} sm={3} md={3}  key={vm.vm}>
-                    <Card style={styles.card}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.05)';
-                        e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+          ) : error ? (
+            <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
+              <Alert severity="error">{error}</Alert>
+            </Grid>
+          ) : (
+            <>
+              {/*Tarjetas de Entornos*/}
+              <Grid container spacing={3} style={{ marginBottom: '20px', paddingTop: 15 }}>
+                {['desarrollo', 'produccion', 'calidad'].map((entorno) => (
+                  <Grid item xs={12} sm={4} key={entorno}>
+                    <Card
+                      style={{
+                        cursor: 'pointer',
+                        textAlign: 'center',
+                        padding: '20px',
+                        backgroundColor: selectedEnvironment === entorno ? '#28a745' : '#233b85', // Cambia a verde si está seleccionada, azul si no
+                        color: '#fff', // Asegura que el texto siempre sea blanco
+                        transition: 'transform 0.3s, background-color 0.3s',
+                        boxShadow:
+                          selectedEnvironment === entorno
+                            ? '0 4px 20px rgba(40, 167, 69, 0.5)' // Sombra más intensa cuando está seleccionada
+                            : '0 4px 10px rgba(0, 0, 0, 0.2)', // Sombra normal cuando no está seleccionada
                       }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'scale(1)';
-                        e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
-                      }}
+                      onClick={() => handleEnvironmentClick(entorno)}
+                      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
                     >
-                      <CardContent style={{ padding: '1px' }}>
-                        <Grid container spacing={2} alignItems="center">
-                          <Grid item xs>
-                            <Typography
-                              variant="h3"
-                              style={{
-                                color: '#233b85',
-                                fontWeight: 'bold',
-                                textShadow: '0px 1px 2px rgba(0, 0, 0, 0.1)',
-                              }}
-                            >
-                              {vm.name}
-                            </Typography>
-                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
-                              ID: {vm.vm}
-                            </Typography>
-                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
-                              Estado: {vm.power_state}
-                            </Typography>
-                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
-                              CPU: {vm.cpu_count} vCPU
-                            </Typography>
-                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
-                              Memoria: {vm.memory_size_MiB} MB
-                            </Typography>
-                            <Typography variant="body2" style={{ color: '#6e6e6e' }}>
-                              SO: {vm.guest_OS}
-                            </Typography>
-                          </Grid>
-                          <Grid item>
-                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                              <ComputerIcon
-                                style={{
-                                  position: 'absolute',
-                                  fontSize: 60,
-                                  color:
-                                    vm.power_state === 'POWERED_ON'
-                                      ? '#1eff03'
-                                      : vm.power_state === 'POWERED_OFF'
-                                        ? '#ff0000'
-                                        : '#dcd801',
-                                  transition: 'color 0.3s ease-in-out',
-                                  zIndex: 1,
-                                }}
-                              />
-                              {vm.power_state === 'POWERED_ON' ? (
-                                <IconButton
-                                  style={{
-                                    fontSize: 50,
-                                    color: '#1eff03',
-                                    position: 'relative',
-                                    zIndex: 0,
-                                  }}
-                                  onClick={() => handleAction('stop', vm)}
-                                >
-                                  <PowerIcon />
-                                </IconButton>
-                              ) : vm.power_state === 'POWERED_OFF' ? (
-                                <IconButton
-                                  style={{
-                                    fontSize: 50,
-                                    color: '#ff0000',
-                                    position: 'relative',
-                                    zIndex: 0,
-                                  }}
-                                  onClick={() => handleAction('start', vm)}
-                                >
-                                  <PowerOffIcon />
-                                </IconButton>
-                              ) : (
-                                <IconButton
-                                  style={{
-                                    fontSize: 50,
-                                    color: '#dcd801',
-                                    position: 'relative',
-                                    zIndex: 0,
-                                  }}
-                                  onClick={() => handleAction('pause', vm)}
-                                >
-                                  <PauseIcon />
-                                </IconButton>
-                              )}
-                            </div>
-                          </Grid>
-                        </Grid>
-                        <Divider
-                          style={{
-                            margin: '10px 0',
-                            backgroundColor: '#d3256b',
-                            height: '5px',
-                          }}
-                        />
-                        <CardActions style={{ paddingTop: '1px', paddingLeft: '0px' }}>
-                          {renderActions(vm)}
-                        </CardActions>
-                      </CardContent>
+                      <Typography
+                        variant="h5"
+                        style={{
+                          fontWeight: 'bold',
+                          textShadow: '0px 1px 2px rgba(0, 0, 0, 0.3)',
+                          color: '#fff', // Forzar color blanco en el texto
+                        }}
+                      >
+                        {entorno.charAt(0).toUpperCase() + entorno.slice(1)}
+                      </Typography>
                     </Card>
                   </Grid>
                 ))}
               </Grid>
-            )}
-          </>
-        )}
+              {/*Mostrar las VMs del entorno seleccionado*/}
+              {selectedEnvironment && (
+                <Grid container spacing={3}>
+                  {vmsAgrupadas[selectedEnvironment].map((vm) => (
+                    <Grid item xs={12} sm={3} md={3} key={vm.vm}>
+                      <Card style={styles.card}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = 'scale(1.05)';
+                              e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = 'scale(1)';
+                              e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+                            }}
+                      >
+                        <CardContent style={{ padding: '1px' }}>
+                          <Grid container spacing={2} alignItems="center">
+                            <Grid item xs>
+                              <Typography
+                                variant="h3"
+                                style={{
+                                  color: '#233b85',
+                                  fontWeight: 'bold',
+                                  textShadow: '0px 1px 2px rgba(0, 0, 0, 0.1)',
+                                }}
+                              >
+                                {vm.name}
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                ID: {vm.vm}
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                Estado: {vm.power_state}
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                CPU: {vm.cpu_count} vCPU
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                Memoria: {vm.memory_size_MiB} MB
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                SO: {vm.guest_OS}
+                              </Typography>
+                            </Grid>
+                            <Grid item>
+                              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                                <ComputerIcon
+                                  style={{
+                                    position: 'absolute',
+                                    fontSize: 60,
+                                    color:
+                                      vm.power_state === 'POWERED_ON'
+                                        ? '#1eff03'
+                                        : vm.power_state === 'POWERED_OFF'
+                                          ? '#ff0000'
+                                          : '#dcd801',
+                                    transition: 'color 0.3s ease-in-out',
+                                    zIndex: 1,
+                                  }}
+                                />
+                                {vm.power_state === 'POWERED_ON' ? (
+                                  <IconButton
+                                    style={{
+                                      fontSize: 50,
+                                      color: '#1eff03',
+                                      position: 'relative',
+                                      zIndex: 0,
+                                    }}
+                                    onClick={() => handleAction('stop', vm)}
+                                  >
+                                    <PowerIcon />
+                                  </IconButton>
+                                ) : vm.power_state === 'POWERED_OFF' ? (
+                                  <IconButton
+                                    style={{
+                                      fontSize: 50,
+                                      color: '#ff0000',
+                                      position: 'relative',
+                                      zIndex: 0,
+                                    }}
+                                    onClick={() => handleAction('start', vm)}
+                                  >
+                                    <PowerOffIcon />
+                                  </IconButton>
+                                ) : (
+                                  <IconButton
+                                    style={{
+                                      fontSize: 50,
+                                      color: '#dcd801',
+                                      position: 'relative',
+                                      zIndex: 0,
+                                    }}
+                                    onClick={() => handleAction('pause', vm)}
+                                  >
+                                    <PauseIcon />
+                                  </IconButton>
+                                )}
+                              </div>
+                            </Grid>
+                          </Grid>
+                          <Divider
+                            style={{
+                              margin: '10px 0',
+                              backgroundColor: '#d3256b',
+                              height: '5px',
+                            }}
+                          />
+                          <CardActions style={{ paddingTop: '1px', paddingLeft: '0px' }}>
+                            {renderActions(vm)}
+                          </CardActions>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+            </>
+          )}
 
-        {/*
+          {/*
         {loading ? (
           <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
             <CircularProgress style={{ color: '#233b85' }} />
@@ -860,77 +903,490 @@ function App() {
             ))
         )}*/}
 
-      </Grid>
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={6000}
-        onClose={() => setSnackbar({ ...snackbar, open: false })}
-        message={snackbar.message}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        severity={snackbar.severity}
-        ContentProps={{
-          style: {
-            background: '#214092',
-            color: '#fff',
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-            borderRadius: '8px',
-            padding: '10px 20px',
-            fontSize: '16px',
-            fontFamily: 'Arial, sans-serif',
-          },
-        }}
-        action={
-          <Button
-            style={{ backgroundColor: '#d3256b' }}
-            color="inherit"
-            size="small"
-            onClick={() => setSnackbar({ ...snackbar, open: false })}
-          >
-            CERRAR
-          </Button>
-        }
-      />
-      <Dialog
-        open={dialog.open}
-        onClose={handleDialogClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        PaperProps={{
-          style: {
-            background: 'linear-gradient(135deg, #d3256b 0%, #214092 100%)',
-            color: '#ffffff',
-            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
-            borderRadius: '15px',
-            padding: '20px',
-          },
-        }}
-      >
-        <DialogTitle id="alert-dialog-title"
-                     style={{ color: '#ffffff', fontWeight: 'bold', fontFamily: 'Arial, sans-serif' }}>
-          Confirmar Acción
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description"
-                             style={{ color: '#d0d0d0', fontFamily: 'Arial, sans-serif' }}>
-            ¿Está seguro de que
-            desea {dialog.action === 'power-on' ? 'encender' : dialog.action === 'power-off' ? 'apagar' : 'suspender'} la
-            VM?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}
-                  style={{ color: '#ffffff', fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }}>
-            Cancelar
-          </Button>
-          <Button onClick={handleDialogConfirm}
-                  style={{ color: '#ffffff', fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }} autoFocus>
-            Confirmar
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+        </Grid>
+        <Snackbar
+          open={snackbar.open}
+          autoHideDuration={6000}
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          message={snackbar.message}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          severity={snackbar.severity}
+          ContentProps={{
+            style: {
+              background: '#214092',
+              color: '#fff',
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+              borderRadius: '8px',
+              padding: '10px 20px',
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+            },
+          }}
+          action={
+            <Button
+              style={{ backgroundColor: '#d3256b' }}
+              color="inherit"
+              size="small"
+              onClick={() => setSnackbar({ ...snackbar, open: false })}
+            >
+              CERRAR
+            </Button>
+          }
+        />
+        <Dialog
+          open={dialog.open}
+          onClose={handleDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          PaperProps={{
+            style: {
+              background: 'linear-gradient(135deg, #d3256b 0%, #214092 100%)',
+              color: '#ffffff',
+              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
+              borderRadius: '15px',
+              padding: '20px',
+            },
+          }}
+        >
+          <DialogTitle id="alert-dialog-title"
+                       style={{ color: '#ffffff', fontWeight: 'bold', fontFamily: 'Arial, sans-serif' }}>
+            Confirmar Acción
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description"
+                               style={{ color: '#d0d0d0', fontFamily: 'Arial, sans-serif' }}>
+              ¿Está seguro de que
+              desea {dialog.action === 'power-on' ? 'encender' : dialog.action === 'power-off' ? 'apagar' : 'suspender'} la
+              VM?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogClose}
+                    style={{ color: '#ffffff', fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }}>
+              Cancelar
+            </Button>
+            <Button onClick={handleDialogConfirm}
+                    style={{ color: '#ffffff', fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }} autoFocus>
+              Confirmar
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+  else if (isModerator) {
+    return (
+      <div style={styles.container}>
+        <AppBar position="static" style={styles.appBar}>
+          <Toolbar style={styles.toolbar}>
+            <Typography edge="start" color="inherit" aria-label="menu" variant="h2" style={styles.title}>
+              Administrador de Maquinas Virtuales
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Grid container spacing={2} style={styles.gridContainer}>
+          <Grid item xs={12} md={8}>
+            <Card style={styles.card}>
+              <CardContent style={{ position: 'relative', zIndex: 1 }}>
+                <Typography variant="h3" style={{ color: '#233b85', fontWeight: 'bold', letterSpacing: '1px' }}>
+                  Uso de Recursos
+                </Typography>
+                <div style={{ marginTop: '1px' }}>
+                  <Chart options={chartData.options} series={chartData.series} type="line" height={320} />
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card
+              style={styles.chartCard}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+              }}
+            >
+              <CardContent style={{ position: 'relative', zIndex: 1, color: '#fff' }}>
+                <Typography variant="h3" style={{ color: '#ffffff', fontWeight: 'bold', letterSpacing: '1px' }}>
+                  Distribución del Estado de las VMs
+                </Typography>
+                <Typography variant="h5" style={{ color: '#ffffff', marginBottom: '16px', fontWeight: '300' }}>
+                  Total de VMs: {vms.length}
+                </Typography>
+                <Typography variant="h5" style={{ color: '#d0d0d0' }}>
+                  Encendidas: {vmStats.running}
+                </Typography>
+                <Typography variant="h5" style={{ color: '#d0d0d0' }}>
+                  Apagadas: {vmStats.stopped}
+                </Typography>
+                <Typography variant="h5" style={{ color: '#d0d0d0' }}>
+                  Suspendidas: {vmStats.suspended}
+                </Typography>
+                <div style={{ marginTop: '20px' }}>
+                  <Chart options={pieData.options} series={pieData.series} type="pie" width={380} />
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+          {loading ? (
+            <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
+              <CircularProgress style={{ color: '#233b85' }} />
+            </Grid>
+          ) : error ? (
+            <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
+              <Alert severity="error">{error}</Alert>
+            </Grid>
+          ) : (
+            <>
+              {/*Tarjetas de Entornos*/}
+              <Grid container spacing={3} style={{ marginBottom: '20px', paddingTop: 15 }}>
+                {['desarrollo', 'produccion', 'calidad'].map((entorno) => (
+                  <Grid item xs={12} sm={4} key={entorno}>
+                    <Card
+                      style={{
+                        cursor: 'pointer',
+                        textAlign: 'center',
+                        padding: '20px',
+                        backgroundColor: selectedEnvironment === entorno ? '#28a745' : '#233b85', // Cambia a verde si está seleccionada, azul si no
+                        color: '#fff', // Asegura que el texto siempre sea blanco
+                        transition: 'transform 0.3s, background-color 0.3s',
+                        boxShadow:
+                          selectedEnvironment === entorno
+                            ? '0 4px 20px rgba(40, 167, 69, 0.5)' // Sombra más intensa cuando está seleccionada
+                            : '0 4px 10px rgba(0, 0, 0, 0.2)', // Sombra normal cuando no está seleccionada
+                      }}
+                      onClick={() => handleEnvironmentClick(entorno)}
+                      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                    >
+                      <Typography
+                        variant="h5"
+                        style={{
+                          fontWeight: 'bold',
+                          textShadow: '0px 1px 2px rgba(0, 0, 0, 0.3)',
+                          color: '#fff', // Forzar color blanco en el texto
+                        }}
+                      >
+                        {entorno.charAt(0).toUpperCase() + entorno.slice(1)}
+                      </Typography>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+              {/*Mostrar las VMs del entorno seleccionado*/}
+              {selectedEnvironment && (
+                <Grid container spacing={3}>
+                  {vmsAgrupadas[selectedEnvironment].map((vm) => (
+                    <Grid item xs={12} sm={3} md={3} key={vm.vm}>
+                      <Card style={styles.card}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = 'scale(1.05)';
+                              e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = 'scale(1)';
+                              e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+                            }}
+                      >
+                        <CardContent style={{ padding: '1px' }}>
+                          <Grid container spacing={2} alignItems="center">
+                            <Grid item xs>
+                              <Typography
+                                variant="h3"
+                                style={{
+                                  color: '#233b85',
+                                  fontWeight: 'bold',
+                                  textShadow: '0px 1px 2px rgba(0, 0, 0, 0.1)',
+                                }}
+                              >
+                                {vm.name}
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                ID: {vm.vm}
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                Estado: {vm.power_state}
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                CPU: {vm.cpu_count} vCPU
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                Memoria: {vm.memory_size_MiB} MB
+                              </Typography>
+                              <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                                SO: {vm.guest_OS}
+                              </Typography>
+                            </Grid>
+                            <Grid item>
+                              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                                <ComputerIcon
+                                  style={{
+                                    position: 'absolute',
+                                    fontSize: 60,
+                                    color:
+                                      vm.power_state === 'POWERED_ON'
+                                        ? '#1eff03'
+                                        : vm.power_state === 'POWERED_OFF'
+                                          ? '#ff0000'
+                                          : '#dcd801',
+                                    transition: 'color 0.3s ease-in-out',
+                                    zIndex: 1,
+                                  }}
+                                />
+                                {vm.power_state === 'POWERED_ON' ? (
+                                  <IconButton
+                                    style={{
+                                      fontSize: 50,
+                                      color: '#1eff03',
+                                      position: 'relative',
+                                      zIndex: 0,
+                                    }}
+                                    onClick={() => handleAction('stop', vm)}
+                                  >
+                                    <PowerIcon />
+                                  </IconButton>
+                                ) : vm.power_state === 'POWERED_OFF' ? (
+                                  <IconButton
+                                    style={{
+                                      fontSize: 50,
+                                      color: '#ff0000',
+                                      position: 'relative',
+                                      zIndex: 0,
+                                    }}
+                                    onClick={() => handleAction('start', vm)}
+                                  >
+                                    <PowerOffIcon />
+                                  </IconButton>
+                                ) : (
+                                  <IconButton
+                                    style={{
+                                      fontSize: 50,
+                                      color: '#dcd801',
+                                      position: 'relative',
+                                      zIndex: 0,
+                                    }}
+                                    onClick={() => handleAction('pause', vm)}
+                                  >
+                                    <PauseIcon />
+                                  </IconButton>
+                                )}
+                              </div>
+                            </Grid>
+                          </Grid>
+                          <Divider
+                            style={{
+                              margin: '10px 0',
+                              backgroundColor: '#d3256b',
+                              height: '5px',
+                            }}
+                          />
+                          {/*<CardActions style={{ paddingTop: '1px', paddingLeft: '0px' }}>
+                            {renderActions(vm)}
+                          </CardActions>*/}
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+            </>
+          )}
 
+          {/*
+        {loading ? (
+          <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
+            <CircularProgress style={{ color: '#233b85' }} />
+          </Grid>
+        ) : error ? (
+          <Grid container alignItems="center" justifyContent="center" style={{ height: '80vh' }}>
+            <Alert severity="error">{error}</Alert>
+          </Grid>
+        ) : (
+          vms
+            .map((vm) => (
+              <Grid item xs={12} md={3} key={vm.vm}>
+                <Card style={styles.card}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+                      }}
+                >
+                  <CardContent style={{ padding: '1px' }}>
+                    <Grid container spacing={2} alignItems="center">
+                      <Grid item xs>
+                        <Typography
+                          variant="h3"
+                          style={{
+                            color: '#233b85',
+                            fontWeight: 'bold',
+                            textShadow: '0px 1px 2px rgba(0, 0, 0, 0.1)',
+                          }}
+                        >
+                          {vm.name}
+                        </Typography>
+                        <Typography variant="body2" style={{ color: '#6e6e6e' }}>ID: {vm.vm}</Typography>
+                        <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                          Estado: {vm.power_state}
+                        </Typography>
+                        <Typography variant="body2" style={{ color: '#6e6e6e' }}>Descripción: {vm.description || 'No disponible'}</Typography>
+                        <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                          CPU: {vm.cpu_count} vCPU
+                        </Typography>
+                        <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                          Memoria: {vm.memory_size_MiB} MB
+                        </Typography>
+                        <Typography variant="body2" style={{ color: '#6e6e6e' }}>
+                          SO: {vm.guest_OS}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                          <ComputerIcon
+                            style={{
+                              position: 'absolute',
+                              fontSize: 60,
+                              color:
+                                vm.power_state === 'POWERED_ON'
+                                  ? '#1eff03'
+                                  : vm.power_state === 'POWERED_OFF'
+                                    ? '#ff0000'
+                                    : '#dcd801',
+                              transition: 'color 0.3s ease-in-out',
+                              zIndex: 1,
+                            }}
+                          />
+                          {vm.power_state === 'POWERED_ON' ? (
+                            <IconButton
+                              style={{
+                                fontSize: 50,
+                                color: '#1eff03',
+                                position: 'relative',
+                                zIndex: 0,
+                              }}
+                              onClick={() => handleAction('stop', vm)}
+                            >
+                              <PowerIcon />
+                            </IconButton>
+                          ) : vm.power_state === 'POWERED_OFF' ? (
+                            <IconButton
+                              style={{
+                                fontSize: 50,
+                                color: '#ff0000',
+                                position: 'relative',
+                                zIndex: 0,
+                              }}
+                              onClick={() => handleAction('start', vm)}
+                            >
+                              <PowerOffIcon />
+                            </IconButton>
+                          ) : (
+                            <IconButton
+                              style={{
+                                fontSize: 50,
+                                color: '#dcd801',
+                                position: 'relative',
+                                zIndex: 0,
+                              }}
+                              onClick={() => handleAction('pause', vm)}
+                            >
+                              <PauseIcon />
+                            </IconButton>
+                          )}
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <Divider style={{
+                      margin: '10px 0',
+                      backgroundColor: '#d3256b',
+                      height: '5px',
+                    }} />
+                    <CardActions style={{paddingTop: '1px', paddingLeft: '0px'}}>
+                      {renderActions(vm)}
+                    </CardActions>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))
+        )}*/}
+
+        </Grid>
+        <Snackbar
+          open={snackbar.open}
+          autoHideDuration={6000}
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          message={snackbar.message}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          severity={snackbar.severity}
+          ContentProps={{
+            style: {
+              background: '#214092',
+              color: '#fff',
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+              borderRadius: '8px',
+              padding: '10px 20px',
+              fontSize: '16px',
+              fontFamily: 'Arial, sans-serif',
+            },
+          }}
+          action={
+            <Button
+              style={{ backgroundColor: '#d3256b' }}
+              color="inherit"
+              size="small"
+              onClick={() => setSnackbar({ ...snackbar, open: false })}
+            >
+              CERRAR
+            </Button>
+          }
+        />
+        <Dialog
+          open={dialog.open}
+          onClose={handleDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          PaperProps={{
+            style: {
+              background: 'linear-gradient(135deg, #d3256b 0%, #214092 100%)',
+              color: '#ffffff',
+              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
+              borderRadius: '15px',
+              padding: '20px',
+            },
+          }}
+        >
+          <DialogTitle id="alert-dialog-title"
+                       style={{ color: '#ffffff', fontWeight: 'bold', fontFamily: 'Arial, sans-serif' }}>
+            Confirmar Acción
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description"
+                               style={{ color: '#d0d0d0', fontFamily: 'Arial, sans-serif' }}>
+              ¿Está seguro de que
+              desea {dialog.action === 'power-on' ? 'encender' : dialog.action === 'power-off' ? 'apagar' : 'suspender'} la
+              VM?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogClose}
+                    style={{ color: '#ffffff', fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }}>
+              Cancelar
+            </Button>
+            <Button onClick={handleDialogConfirm}
+                    style={{ color: '#ffffff', fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }} autoFocus>
+              Confirmar
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
 }
 
 export default App;

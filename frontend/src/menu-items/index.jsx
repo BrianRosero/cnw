@@ -9,6 +9,6 @@ import integrations from '../menu-items/integrations.jsx';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [dashboard, profile, integrations, widget, pages, utilities, other],
+  items: [dashboard, profile, /*integrations, widget, pages, utilities, other*/],
 };
 export default menuItems;

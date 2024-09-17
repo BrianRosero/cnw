@@ -18,6 +18,9 @@ import {
 
 // assets
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import PhoneIcon from '@mui/icons-material/Phone';
+import MailIcon from '@mui/icons-material/Mail';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 // styles
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -87,6 +90,7 @@ const MenuCard = () => {
   return (
     <CardStyle>
       <CardContent sx={{ p: 2 }}>
+        {/* Sección original de "Get Extra Space"
         <List sx={{ p: 0, m: 0 }}>
           <ListItem alignItems="flex-start" disableGutters sx={{ p: 0 }}>
             <ListItemAvatar sx={{ mt: 0 }}>
@@ -116,7 +120,52 @@ const MenuCard = () => {
             />
           </ListItem>
         </List>
-        <LinearProgressWithLabel value={80} />
+        <LinearProgressWithLabel value={80} />*/}
+
+        {/* Nueva sección de contacto */}
+        <Typography variant="h6" sx={{ mt: 3, mb: 1, color: theme.palette.primary[800] }}>
+          Información de Contacto
+        </Typography>
+        <List>
+          {/* Ubicación */}
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar sx={{ backgroundColor: theme.palette.primary.main, color: '#fff' }}>
+                <LocationOnIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="Centro Comercial Holguines Trade Center"
+              secondary="Carrera 100 No. 11-60, Oficina 319 Torre Farallones, Santiago de Cali – Colombia"
+            />
+          </ListItem>
+
+          {/* Teléfonos */}
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar sx={{ backgroundColor: theme.palette.primary.main, color: '#fff' }}>
+                <PhoneIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="PBX: +57 602 524 20 01"
+              secondary="WhatsApp: +57 315 3027080"
+            />
+          </ListItem>
+
+          {/* Correos */}
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar sx={{ backgroundColor: theme.palette.primary.main, color: '#fff' }}>
+                <MailIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="Email: comercial@cnw.co"
+              secondary="servicioalcliente@cnw.co"
+            />
+          </ListItem>
+        </List>
       </CardContent>
     </CardStyle>
   );
