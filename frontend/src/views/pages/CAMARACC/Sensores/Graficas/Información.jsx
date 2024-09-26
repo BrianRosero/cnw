@@ -114,7 +114,9 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8081/prtg-api-alt/${sensorId}`);
+        // Usa la variable de entorno para la URL base
+        const API_URL = `${import.meta.env.VITE_API_URL}/prtg-api-alt/${sensorId}`;
+        const response = await axios.get(API_URL);
         const data = response.data.channels.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;

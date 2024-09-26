@@ -78,7 +78,11 @@ const Login = ({ ...others }) => {
 
   const verify2FA = () => {
     setLoading(true);
-    axios.post('http://192.168.200.155:8081/api/auth/verify-2fa', { userId, token: twoFactorToken })
+
+    // Usa la variable de entorno en lugar de la URL estática
+    const API_URL = import.meta.env.VITE_API_URL + '/api/auth/verify-2fa';
+
+    axios.post(API_URL, { userId, token: twoFactorToken })
       .then((response) => {
         const userData = response.data;
         if (userData.accessToken) {
@@ -98,7 +102,6 @@ const Login = ({ ...others }) => {
         setLoading(false);
       });
   };
-
 
   if (isLoggedIn) {
     return <Navigate to="/" />;

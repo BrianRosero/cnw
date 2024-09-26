@@ -115,7 +115,9 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8081/sensor-data/${sensorId}`);
+        // Usa la variable de entorno para la URL base
+        const API_URL = `${import.meta.env.VITE_API_URL}/sensor-data/${sensorId}`;
+        const response = await axios.get(API_URL);
         const data = response.data;
         if (data && Array.isArray(data)) {
           const cpuData = data.map(item => item.data.channels.find(channel => channel.name === 'CPU usage')?.lastvalue);
@@ -389,7 +391,7 @@ const MachineCard = ({ sensorId }) => {
         ) : filteredData.length === 0 || filteredTimestamps.length === 0 ? (
           <p>Datos no disponibles</p>
         ) : (
-          <Chart options={chartOptions} series={selectedData ? [selectedData] : []} type="area" height={360} />
+          <Chart options={chartOptions} series={selectedData ? [selectedData] : []} type="area" height={340} />
         )}
       </StyledCard>
     );

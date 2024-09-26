@@ -148,14 +148,14 @@ const ProfilePage = () => {
 
   const enable2FA = async () => {
     try {
-      const response = await axios.post(
-        'http://192.168.200.155:8081/api/auth/enable-2fa',
-        { userId: currentUser.id },
-      );
+      // Usa la variable de entorno para la URL base
+      const API_URL = import.meta.env.VITE_API_URL + '/api/auth/enable-2fa';
+
+      const response = await axios.post(API_URL, { userId: currentUser.id });
       setQrCodeUrl(response.data.qrCodeUrl);
       setErrorMessage('');
     } catch (error) {
-      console.error('Error enabling 2FA', error);
+      console.error('Error al habilitar el factor 2FA', error);
       setErrorMessage(
         'Error enabling 2FA: ' +
         (error.response ? error.response.data.message : error.message),

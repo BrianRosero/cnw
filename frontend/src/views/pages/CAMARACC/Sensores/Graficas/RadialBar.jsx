@@ -110,12 +110,15 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Usa la variable de entorno para la URL base
+        const API_URL = import.meta.env.VITE_API_URL;
+
         // Fetch sensor info
-        const sensorResponse = await axios.get(`http://192.168.200.155:8081/sensor-alt/${sensorId}`);
+        const sensorResponse = await axios.get(`${API_URL}/sensor-alt/${sensorId}`);
         const apiSensorData = sensorResponse.data;
 
         // Fetch channel data
-        const response = await axios.get(`http://192.168.200.155:8081/canales-alt/${sensorId}`);
+        const response = await axios.get(`${API_URL}/canales-alt/${sensorId}`);
         const data = response.data.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;
