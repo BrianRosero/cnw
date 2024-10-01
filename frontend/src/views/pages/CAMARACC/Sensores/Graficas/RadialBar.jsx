@@ -174,6 +174,7 @@ const MachineCard = ({ sensorId }) => {
     parseFloat(channelData[channelIDs.networkUsage]?.lastvalue).toFixed(0) || 0,
   ];
 
+  // Verificar si sensorInfo está definido antes de acceder a sus propiedades
   if (!sensorInfo) {
     return <p>No se encontraron datos para el sensor ID {sensorId}</p>;
   }

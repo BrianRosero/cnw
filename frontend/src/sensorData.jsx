@@ -81,149 +81,221 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'CentOS 7 (64-bit)'
   },
-  2761: {
+  2776: {
     name: 'COCLOESECAP02',
-    cpu: '80',
-    ram: '196608',
-    disk: '3575644',
-    ip: '10.248.50.5',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2762: {
-    name: 'COCLOESECAP03',
-    cpu: '36',
-    ram: '131.072',
-    disk: '1887436',
-    ip: '10.248.50.6',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2763: {
-    name: 'COCLOESECAP04',
-    cpu: '24',
-    ram: '131.072',
-    disk: '3565158',
-    ip: '10.248.50.7',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2764: {
-    name: 'COCLOESECAP05',
-    cpu: '24',
-    ram: '49.152',
-    disk: '1677721',
-    ip: '10.248.50.25',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2765: {
-    name: 'COCLOESECAP12',
-    cpu: '12',
+    cpu: '4',
     ram: '16.384',
-    disk: '14680064',
-    ip: '10.248.50.8',
+    disk: '5237964',
+    ip: '172.18.223.204',
     serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
+    os: 'Microsoft Windows Server 2019 (64-bit)'
   },
-  2767: {
+  2777: {
+    name: 'COCLOESECAP03',
+    cpu: '4',
+    ram: '14.336',
+    disk: '153600',
+    ip: '172.18.223.210',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2778: {
+    name: 'COCLOESECAP04',
+    cpu: '3',
+    ram: '8.192',
+    disk: '153600',
+    ip: '172.18.223.211',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2012 (64-bit)'
+  },
+  2779: {
+    name: 'COCLOESECAP05',
+    cpu: '4',
+    ram: '12.288',
+    disk: '153600',
+    ip: '172.18.223.196',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2780: {
+    name: 'COCLOESECAP06',
+    cpu: '4',
+    ram: '12.288',
+    disk: '153600',
+    ip: '172.18.223.198',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2781: {
+    name: 'COCLOESECAP07',
+    cpu: '2',
+    ram: '12.288',
+    disk: '153600',
+    ip: '172.18.223.197',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2782: {
+    name: 'COCLOESECAP08',
+    cpu: '4',
+    ram: '14.336',
+    disk: '153600',
+    ip: '172.18.223.195',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2783: {
+    name: 'COCLOESECAP09',
+    cpu: '4',
+    ram: '8.192',
+    disk: '204800',
+    ip: '172.18.223.206',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2784: {
+    name: 'COCLOESECAP10',
+    cpu: '4',
+    ram: '16.384',
+    disk: '204800',
+    ip: '172.27.182.44',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2785: {
     name: 'COCLOESECAP11',
     cpu: '24',
-    ram: '98.304',
-    disk: '1433600',
-    ip: '10.248.50.9',
-    serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
-  },
-  2768: {
-    name: 'COCLOESECAP13',
-    cpu: '24',
-    ram: '49.152',
-    disk: '409600',
-    ip: '10.248.50.10',
-    serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
-  },
-  2769: {
-    name: 'COCLOESECAP14',
-    cpu: '12',
-    ram: '49.152',
-    disk: '409600',
-    ip: '10.248.50.15',
-    serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
-  },
-  2770: {
-    name: 'COCLOESECAP10',
-    cpu: '12',
-    ram: '24.576',
-    disk: '41943040',
-    ip: '10.248.50.11',
-    serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
-  },
-  2755: {
-    name: 'COCLOESECAP06',
-    cpu: '48',
-    ram: '98.304',
-    disk: '204800',
-    ip: '10.248.50.2',
-    serverStatus: 'poweredOn',
-    os: 'Red Hat Enterprise Linux 8 (64-bit)'
-  },
-  2756: {
-    name: 'COCLOESECAP07',
-    cpu: '6',
-    ram: '24.576',
-    disk: '307200',
-    ip: '10.248.50.14',
-    serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
-  },
-  2757: {
-    name: 'COCLOESECAP08',
-    cpu: '8',
-    ram: '24.576',
-    disk: '204800',
-    ip: '10.248.50.13',
-    serverStatus: 'poweredOn',
-    os: 'Red Hat Enterprise Linux 8 (64-bit)'
-  },
-  2758: {
-    name: 'COCLOESECAP09',
-    cpu: '12',
-    ram: '49.152',
-    disk: '409600',
-    ip: '10.248.50.16',
-    serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
-  },
-  2759: {
-    name: 'COCLOESECAP16',
-    cpu: '32',
     ram: '65.536',
     disk: '204800',
-    ip: '10.248.50.3',
+    ip: '172.27.182.34',
     serverStatus: 'poweredOn',
-    os: 'CentOS 6 (64-bit)'
+    os: 'Microsoft Windows Server 2016 (64-bit)'
   },
-  2760: {
-    name: 'COCLOESECAP17',
-    cpu: '8',
-    ram: '24.576',
+  2786: {
+    name: 'COCLOESECAP12',
+    cpu: '24',
+    ram: '65.536',
     disk: '204800',
-    ip: '10.248.50.4',
+    ip: '172.27.182.35',
     serverStatus: 'poweredOn',
-    os: 'CentOS 7 (64-bit)'
+    os: 'Microsoft Windows Server 2016 (64-bit)'
   },
-  2766: {
-    name: 'COCLOESECAP15',
-    cpu: '32',
-    ram: '32.768',
-    disk: '512000',
-    ip: '10.248.50.26',
+  2787: {
+    name: 'COCLOESECAP13',
+    cpu: '24',
+    ram: '65.536',
+    disk: '204800',
+    ip: '172.27.182.36',
     serverStatus: 'poweredOn',
-    os: 'Oracle Linux 8 (64-bit)'
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2788: {
+    name: 'COCLOESECAP14',
+    cpu: '24',
+    ram: '65.536',
+    disk: '204800',
+    ip: '172.27.182.37',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2789: {
+    name: 'COCLOESECAP15',
+    cpu: '24',
+    ram: '65.536',
+    disk: '204800',
+    ip: '172.27.182.38',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2790: {
+    name: 'COCLOESECAP16',
+    cpu: '24',
+    ram: '65.536',
+    disk: '204800',
+    ip: '172.27.182.39',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2791: {
+    name: 'COCLOESECAP17',
+    cpu: '24',
+    ram: '65.536',
+    disk: '204800',
+    ip: '172.27.182.40',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2792: {
+    name: 'COCLOESECAP18',
+    cpu: '4',
+    ram: '16.384',
+    disk: '307200',
+    ip: '172.27.182.41',
+    serverStatus: 'poweredOn',
+    os: 'Ubuntu Linux (64-bit)'
+  },
+  2793: {
+    name: 'COCLOESECAP19',
+    cpu: '4',
+    ram: '16.384',
+    disk: '307200',
+    ip: '172.27.182.42',
+    serverStatus: 'poweredOn',
+    os: 'Ubuntu Linux (64-bit)'
+  },
+  2794: {
+    name: 'COCLOESECAP20',
+    cpu: '4',
+    ram: '16.384',
+    disk: '307200',
+    ip: '10.110.42.81',
+    serverStatus: 'poweredOn',
+    os: 'Ubuntu Linux (64-bit)'
+  },
+  2795: {
+    name: 'COCLOESECAP21',
+    cpu: '12',
+    ram: '32.768',
+    disk: '317440',
+    ip: '172.27.182.45',
+    serverStatus: 'poweredOn',
+    os: 'Oracle Linux 8'
+  },
+  2796: {
+    name: 'COCLOESECAP22',
+    cpu: '4',
+    ram: '16.384',
+    disk: '1253376',
+    ip: '172.18.223.212',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
+  },
+  2797: {
+    name: 'COCLOESECAP23',
+    cpu: '12',
+    ram: '49.152',
+    disk: '2097152',
+    ip: '192.168.252.250',
+    serverStatus: 'poweredOn',
+    os: 'Red Hat Enterprise Linux 7 (64-bit)'
+  },
+  2798: {
+    name: 'COCLOESECAP24',
+    cpu: '4',
+    ram: '16.384',
+    disk: '102400',
+    ip: '172.18.223.213',
+    serverStatus: 'poweredOn',
+    os: 'Ubuntu Linux (64-bit)'
+  },
+  2799: {
+    name: 'COCLOESECDA01',
+    cpu: '4',
+    ram: '16.384',
+    disk: '153600',
+    ip: '172.18.223.203',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2016 (64-bit)'
   },
   2771: {
     name: 'COCLODUANAAP01',
@@ -270,185 +342,6 @@ const sensorData = {
     serverStatus: 'poweredOn',
     os: 'Oracle Linux 8 (64-bit)'
   },
-  2156: {
-    name: 'COCLOESECAP02',
-    cpu: '4',
-    ram: '16.384',
-    disk: '5237964',
-    ip: '172.18.223.204',
-    serverStatus: 'poweredOn',
-    os: 'Microsoft Windows Server 2019 (64-bit)'
-  },
-  2157: {
-    name: 'COCLOESECAP03',
-    cpu: '4',
-    ram: '14.336',
-    disk: '153600',
-    ip: '172.18.223.210',
-    serverStatus: 'poweredOn',
-    os: 'Microsoft Windows Server 2016 (64-bit)'
-  },
-  2184: {
-    name: 'COCLOESECAP04',
-    cpu: '3',
-    ram: '8.192',
-    disk: '153600',
-    ip: '172.18.223.211',
-    serverStatus: 'poweredOn',
-    os: 'Microsoft Windows Server 2012 (64-bit)'
-  },
-  2158: {
-    name: 'COCLOESECAP05',
-    cpu: '4',
-    ram: '12.288',
-    disk: '153600',
-    ip: '172.18.223.196',
-    serverStatus: 'poweredOn',
-    os: 'Microsoft Windows Server 2016 (64-bit)'
-  },
-  2205: {
-    name: 'COCLOESECAP07',
-    cpu: '2',
-    ram: '12.288',
-    disk: '153600',
-    ip: '172.18.223.197',
-    serverStatus: 'poweredOn',
-    os: 'Microsoft Windows Server 2016 (64-bit)'
-  },
-  2160: {
-    name: 'COCLOESECAP08',
-    cpu: '4',
-    ram: '14.336',
-    disk: '153600',
-    ip: '172.18.223.195',
-    serverStatus: 'poweredOn',
-    os: 'Microsoft Windows Server 2016 (64-bit)'
-  },
-  2161: {
-    name: 'COCLOESECAP09',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2162: {
-    name: 'COCLOESECAP10',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2203: {
-    name: 'COCLOESECAP11',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2204: {
-    name: 'COCLOESECAP12',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2212: {
-    name: 'COCLOESECAP13',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2207: {
-    name: 'COCLOESECAP14',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2163: {
-    name: 'COCLOESECAP15',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2209: {
-    name: 'COCLOESECAP16',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2164: {
-    name: 'COCLOESECAP17',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2188: {
-    name: 'COCLOESECAP18',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2185: {
-    name: 'COCLOESECAP19',
-    cpu: '',
-    ram: '',
-    disk: '',
-    ip: '',
-    serverStatus: '',
-    os: ''
-  },
-  2186: {
-    name: 'COCLOESECAP20',
-    cpu: '',
-    ram: '',
-    disk: ''
-  },
-  2187: {
-    name: 'COCLOESECAP21',
-    cpu: '',
-    ram: '',
-    disk: ''
-  },
-  2206: {
-    name: 'COCLOESECAP22',
-    cpu: '',
-    ram: '',
-    disk: ''
-  },
-  2208: {
-    name: 'COCLOESECAP23',
-    cpu: '',
-    ram: '',
-    disk: ''
-  },
-
-
   2800: {
     name: 'COCLOPENIAP01',
     cpu: '10',
@@ -1119,7 +1012,26 @@ const sensorData = {
     ram: '16.384',
     disk: '339968',
     ip: ''
-  }
+  },
+
+  2314: {
+    name: 'COCLOCERTORI02',
+    cpu: '8',
+    ram: '32.768',
+    disk: '430080',
+    ip: '10.70.2.3',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2019 (64-bit)'
+  },
+  2325: {
+    name: 'COCLOSERTORIBD01',
+    cpu: '4',
+    ram: '24.576',
+    disk: '532480',
+    ip: '10.70.2.4',
+    serverStatus: 'poweredOn',
+    os: 'Microsoft Windows Server 2019 (64-bit)'
+  },
 
 };
 

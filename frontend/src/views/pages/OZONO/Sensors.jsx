@@ -6,61 +6,15 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
-import Info1 from './Sensores/COCLOCOSMIBD01/info.jsx';
-import RadialBar1 from './Sensores/COCLOCOSMIBD01/bar.jsx';
-import Area1 from './Sensores/COCLOCOSMIBD01/area.jsx';
-import Info2 from './Sensores/COCLOCOSMIBD02/info.jsx';
-import RadialBar2 from './Sensores/COCLOCOSMIBD02/bar.jsx';
-import Area2 from './Sensores/COCLOCOSMIBD02/area.jsx';
-import Info3 from './Sensores/COCLOCOSMIBD03/info.jsx';
-import RadialBar3 from './Sensores/COCLOCOSMIBD03/bar.jsx';
-import Area3 from './Sensores/COCLOCOSMIBD03/area.jsx';
-import Info4 from './Sensores/COCLOCOSMIBD04/info.jsx';
-import RadialBar4 from './Sensores/COCLOCOSMIBD04/bar.jsx';
-import Area4 from './Sensores/COCLOCOSMIBD04/area.jsx';
-
-import Info5 from './Sensores/COCLOCOSMIAP02/info.jsx';
-import RadialBar5 from './Sensores/COCLOCOSMIAP02/bar.jsx';
-import Area5 from './Sensores/COCLOCOSMIAP02/area.jsx';
-import Info6 from './Sensores/COCLOCOSMIAP05/info.jsx';
-import RadialBar6 from './Sensores/COCLOCOSMIAP05/bar.jsx';
-import Area6 from './Sensores/COCLOCOSMIAP05/area.jsx';
-import Info7 from './Sensores/COCLOCOSMIAP06/info.jsx';
-import RadialBar7 from './Sensores/COCLOCOSMIAP06/bar.jsx';
-import Area7 from './Sensores/COCLOCOSMIAP06/area.jsx';
-import Info8 from './Sensores/COCLOCOSMIAP07/info.jsx';
-import RadialBar8 from './Sensores/COCLOCOSMIAP07/bar.jsx';
-import Area8 from './Sensores/COCLOCOSMIAP07/area.jsx';
-
-import Info9 from './Sensores/COCLOCOSMISTG01/info.jsx';
-import RadialBar9 from './Sensores/COCLOCOSMISTG01/bar.jsx';
-import Area9 from './Sensores/COCLOCOSMISTG01/area.jsx';
-
-import Info10 from './Sensores/COCLOCOSMIFI01/info.jsx';
-import RadialBar10 from './Sensores/COCLOCOSMIFI01/bar.jsx';
-import Area10 from './Sensores/COCLOCOSMIFI01/area.jsx';
-
-import Info11 from './Sensores/COCLOCOSMIBK01/info.jsx';
-import RadialBar11 from './Sensores/COCLOCOSMIBK01/bar.jsx';
-import Area11 from './Sensores/COCLOCOSMIBK01/area.jsx';
-
-import Info12 from './Sensores/COCLOCOSMIREP02/info.jsx';
-import RadialBar12 from './Sensores/COCLOCOSMIREP02/bar.jsx';
-import Area12 from './Sensores/COCLOCOSMIREP02/area.jsx';
-import Info13 from './Sensores/COCLOCOSMIREP03/info.jsx';
-import RadialBar13 from './Sensores/COCLOCOSMIREP03/bar.jsx';
-import Area13 from './Sensores/COCLOCOSMIREP03/area.jsx';
-
-import Info14 from './Sensores/COCLOCOSMIDES01/info.jsx';
-import RadialBar14 from './Sensores/COCLOCOSMIDES01/bar.jsx';
-import Area14 from './Sensores/COCLOCOSMIDES01/area.jsx';
-import Info15 from './Sensores/COCLOCOSMIAST03/info.jsx';
-import RadialBar15 from './Sensores/COCLOCOSMIAST03/bar.jsx';
-import Area15 from './Sensores/COCLOCOSMIAST03/area.jsx';
-import Info16 from './Sensores/COCLOCOSMIAST04/info.jsx';
-import RadialBar16 from './Sensores/COCLOCOSMIAST04/bar.jsx';
-import Area16 from './Sensores/COCLOCOSMIAST04/area.jsx';
-
+import Info1 from './Sensores/COCLOCERTORI01/info.jsx';
+import RadialBar1 from './Sensores/COCLOCERTORI01/bar.jsx';
+import Area1 from './Sensores/COCLOCERTORI01/area.jsx';
+import Info2 from './Sensores/COCLOCERTORI02/info.jsx';
+import RadialBar2 from './Sensores/COCLOCERTORI02/bar.jsx';
+import Area2 from './Sensores/COCLOCERTORI02/area.jsx';
+import Info3 from './Sensores/COCLOSERTORIBD01/info.jsx';
+import RadialBar3 from './Sensores/COCLOSERTORIBD01/bar.jsx';
+import Area3 from './Sensores/COCLOSERTORIBD01/area.jsx';
 
 const styles = {
   tabs: {
@@ -144,7 +98,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const DemoTabs = () => {
   const [index, setIndex] = useState(0);
-  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOESECAP02');
+  const [graficoSeleccionado, setGraficoSeleccionado] = useState('COCLOCERTORI02');
 
   const handleChange = (event, newValue) => {
     setIndex(newValue);
@@ -172,61 +126,25 @@ const DemoTabs = () => {
   const getComponent = (type) => {
     console.log(`Fetching ${type} for selected graph: ${graficoSeleccionado}`);
     switch (graficoSeleccionado) {
-      case 'COCLOESECAP02':
+      case 'COCLOCERTORI01':
         return type === 'RadialBar' ? <RadialBar1 /> : type === 'Info' ? <Info1 /> : <Area1 />;
-      case 'COCLOESECAP03':
+      case 'COCLOCERTORI02':
         return type === 'RadialBar' ? <RadialBar2 /> : type === 'Info' ? <Info2 /> : <Area2 />;
-      case 'COCLOESECAP04':
+      case 'COCLOSERTORIBD01':
         return type === 'RadialBar' ? <RadialBar3 /> : type === 'Info' ? <Info3 /> : <Area3 />;
-      case 'COCLOESECAP05':
-        return type === 'RadialBar' ? <RadialBar4 /> : type === 'Info' ? <Info4 /> : <Area4 />;
-      case 'COCLOESECAP06':
-        return type === 'RadialBar' ? <RadialBar5 /> : type === 'Info' ? <Info5 /> : <Area5 />;
-      case 'COCLOESECAP07':
-        return type === 'RadialBar' ? <RadialBar6 /> : type === 'Info' ? <Info6 /> : <Area6 />;
-      case 'COCLOESECAP08':
-        return type === 'RadialBar' ? <RadialBar7 /> : type === 'Info' ? <Info7 /> : <Area7 />;
-      case 'COCLOESECAP09':
-        return type === 'RadialBar' ? <RadialBar8 /> : type === 'Info' ? <Info8 /> : <Area8 />;
-      case 'COCLOESECAP10':
-        return type === 'RadialBar' ? <RadialBar9 /> : type === 'Info' ? <Info9 /> : <Area9 />;
-      case 'COCLOESECAP11':
-        return type === 'RadialBar' ? <RadialBar10 /> : type === 'Info' ? <Info10 /> : <Area10 />;
-      case 'COCLOESECAP12':
-        return type === 'RadialBar' ? <RadialBar11 /> : type === 'Info' ? <Info11 /> : <Area11 />;
-      case 'COCLOESECAP13':
-        return type === 'RadialBar' ? <RadialBar12 /> : type === 'Info' ? <Info12 /> : <Area12 />;
-      case 'COCLOESECAP14':
-        return type === 'RadialBar' ? <RadialBar13 /> : type === 'Info' ? <Info13 /> : <Area13 />;
-      case 'COCLOESECAP15':
-        return type === 'RadialBar' ? <RadialBar14 /> : type === 'Info' ? <Info14 /> : <Area14 />;
-      case 'COCLOESECAP16':
-        return type === 'RadialBar' ? <RadialBar15 /> : type === 'Info' ? <Info15 /> : <Area15 />;
-      case 'COCLOESECAP17':
-        return type === 'RadialBar' ? <RadialBar16 /> : type === 'Info' ? <Info16 /> : <Area16 />;
       default:
         return null;
     }
   };
 
   const tabLabels = [
-    'Bases de datos',
     'Aplicativos',
-    'Storage',
-    'Financiero',
-    'Backup',
-    'Replica',
-    'Desarrollo',
+    'Bases de Datos',
   ];
 
   const cards = [
-    ['COCLOESECAP02', 'COCLOESECAP03', 'COCLOESECAP04', 'COCLOESECAP05'],
-    ['COCLOESECAP06', 'COCLOESECAP07', 'COCLOESECAP08', 'COCLOESECAP09'],
-    ['COCLOESECAP10'],
-    ['COCLOESECAP11'],
-    ['COCLOESECAP12'],
-    ['COCLOESECAP13', 'COCLOESECAP14'],
-    ['COCLOESECAP15', 'COCLOESECAP16', 'COCLOESECAP17'],
+    ['COCLOCERTORI02'],
+    ['COCLOSERTORIBD01']
   ];
 
   return (

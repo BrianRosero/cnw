@@ -38,14 +38,14 @@ const MachineCard = ({ sensorId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [isAdminCOSMITET, setIsAdminCOSMITET] = useState(false);
+  const [isAdminOZONO, setIsAdminOZONO] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    UserService.getAdminCOSMITET().then(
+    UserService.getAdminOZONO().then(
       (response) => {
         setContent(response.data);
-        setIsAdminCOSMITET(true);
+        setIsAdminOZONO(true);
       },
       (error) => {
         const errorMessage =
@@ -90,7 +90,9 @@ const MachineCard = ({ sensorId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.200.155:8081/prtg-api/${sensorId}`);
+        // Usa la variable de entorno para la URL base
+        const API_URL = `${import.meta.env.VITE_API_URL}/prtg-api-alt/${sensorId}`;
+        const response = await axios.get(API_URL);
         const data = response.data.channels.reduce((acc, channel) => {
           acc[channel.objid] = channel;
           return acc;
@@ -139,7 +141,7 @@ const MachineCard = ({ sensorId }) => {
     { label: 'Memoria Consumida ', value: channelData[channelIDs.memoryActive]?.lastvalue || 'N/A' },
     ];
 
-  if (isAdminCOSMITET) {
+  if (isAdminOZONO) {
     return (
       <StyledCard>
         <CardContent>
