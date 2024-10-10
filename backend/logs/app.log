@@ -24290,3 +24290,11 @@
 {"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-09-26T14:08:29.926Z"}
 {"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-09-26T14:08:41.712Z"}
 {"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-09-26T14:08:52.424Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2024-09-30T22:00:57.939Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-10-01T13:05:07.436Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-10-01T13:05:29.437Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-10-01T13:19:10.828Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-10-01T13:19:35.274Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-10-01T13:19:48.839Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2024-10-03T19:22:13.832Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2024-10-03T19:22:39.575Z"}

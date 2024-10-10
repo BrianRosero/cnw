@@ -200,7 +200,7 @@ const Inicio = () => {
             <Grid container spacing={3} css={styles.section}>
               <Grid item xs={12} >
                 <CardContent >
-                  <Typography css={styles.section1} variant="h2" align="center">¡Bienvenido al Panel de Control de Servicios de CAMARA DE COMERCIO DE CALI </Typography>
+                  <Typography css={styles.section1} variant="h2" align="center">¡Bienvenido al Panel de Control de Servicios de OZONO STORE </Typography>
                 </CardContent>
               </Grid>
             </Grid>

@@ -1013,7 +1013,6 @@ const sensorData = {
     disk: '339968',
     ip: ''
   },
-
   2314: {
     name: 'COCLOCERTORI02',
     cpu: '8',
