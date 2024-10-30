@@ -31,7 +31,7 @@ const App = () => {
   useEffect(() => {
     const fetchSensors = async () => {
       try {
-        const response = await axios.get('http://192.168.200.155:8081/sensors');
+        const response = await axios.get('http://192.168.200.155:8083/sensors');
         setSensors(response.data.sensors);
       } catch (error) {
         console.error('Error fetching sensors:', error.message);

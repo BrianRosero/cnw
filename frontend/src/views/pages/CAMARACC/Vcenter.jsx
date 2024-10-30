@@ -139,16 +139,20 @@ function App() {
 
   const fetchVMs = async () => {
     try {
-      const response = await axios.get('http://192.168.200.155:8081/vms');
+      // Usa la URL base dependiendo del entorno (producción o desarrollo)
+      const API_URL = `${import.meta.env.VITE_API_URL}/vms`;
+      const response = await axios.get(API_URL);
       const filteredVms = response.data.filter(vm => !excludedVmIds.includes(vm.vm));
       setVms(filteredVms);
 
+      // Calcular estadísticas de VM
       const running = filteredVms.filter(vm => vm.power_state === 'POWERED_ON').length;
       const stopped = filteredVms.filter(vm => vm.power_state === 'POWERED_OFF').length;
       const suspended = filteredVms.filter(vm => vm.power_state === 'SUSPENDED').length;
 
       setVmStats({ running, stopped, suspended });
 
+      // Actualizar historial de estados de VM
       const now = new Date().toLocaleString();
       setVmStateHistory((prevHistory) => ({
         dates: [...prevHistory.dates, now],
@@ -216,7 +220,10 @@ function App() {
     // Llamada a la API para almacenar los datos en MongoDB
     const storeVmData = async () => {
       try {
-        const response = await fetch('http://192.168.200.155:8081/store-vm-data', {
+        // Usa la URL base desde la variable de entorno dependiendo del entorno
+        const API_URL = `${import.meta.env.VITE_API_URL}/store-vm-data`;
+
+        const response = await fetch(API_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -244,7 +251,9 @@ function App() {
   useEffect(() => {
     const fetchVmData = async () => {
       try {
-        const response = await fetch('http://192.168.200.155:8081/get-vm-data');
+        // Usa la URL base desde la variable de entorno
+        const API_URL = `${import.meta.env.VITE_API_URL}/get-vm-data`;
+        const response = await fetch(API_URL);
         const data = await response.json();
 
         // Ordenar los datos por fecha/timestamp
@@ -268,6 +277,7 @@ function App() {
     fetchVmData();
   }, []);
 
+  // Agrupar las VMs
   const vmsAgrupadas = agruparPorEntorno(vms); // Agrupar las VMs
 
   const handleEnvironmentClick = (environment) => {
@@ -276,7 +286,9 @@ function App() {
 
   const handlePowerOn = async (vmId) => {
     try {
-      await axios.post(`http://192.168.200.155:8081/vms/${vmId}/power-on`);
+      // Usa la URL base desde la variable de entorno
+      const API_URL = `${import.meta.env.VITE_API_URL}/vms/${vmId}/power-on`;
+      await axios.post(API_URL);
       setSnackbar({ open: true, message: 'La VM se encendió exitosamente', severity: 'success' });
       updateVmStatus(vmId, 'POWERED_ON');
     } catch (error) {
@@ -291,7 +303,9 @@ function App() {
 
   const handlePowerOff = async (vmId) => {
     try {
-      await axios.post(`http://192.168.200.155:8081/vms/${vmId}/power-off`);
+      // Usa la URL base desde la variable de entorno
+      const API_URL = `${import.meta.env.VITE_API_URL}/vms/${vmId}/power-off`;
+      await axios.post(API_URL);
       setSnackbar({ open: true, message: 'La VM se apagó exitosamente', severity: 'success' });
       updateVmStatus(vmId, 'POWERED_OFF');
     } catch (error) {
@@ -306,7 +320,9 @@ function App() {
 
   const handleSuspend = async (vmId) => {
     try {
-      await axios.post(`http://192.168.200.155:8081/vms/${vmId}/suspend`);
+      // Usa la URL base desde la variable de entorno
+      const API_URL = `${import.meta.env.VITE_API_URL}/vms/${vmId}/suspend`;
+      await axios.post(API_URL);
       setSnackbar({ open: true, message: 'La VM se suspendió exitosamente', severity: 'success' });
       updateVmStatus(vmId, 'SUSPENDED');
     } catch (error) {

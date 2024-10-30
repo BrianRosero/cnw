@@ -31,7 +31,7 @@ const SENSOR1 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://10.99.0.228:8081/prtg-api');
+        const response = await axios.get('http://10.99.0.228:8083/prtg-api');
         setSensorData(response.data.sensors);
       } catch (error) {
         console.error('Error fetching sensor data:', error);

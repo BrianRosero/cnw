@@ -4,7 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
-const https = require('https');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 const path = require('path');
@@ -15,13 +14,11 @@ const winston = require('winston');
 const pdfRoute = require('./pdfRoutes');
 const env = require('dotenv')
 const speakeasy = require('speakeasy');
-const QRCode = require('qrcode');
+const httpsAgent = require('./config/httpsAgent');
 
 // Importar modelos
 const SensorData = require('./models/SensorData');
-const User = require('./models/user.model');
 const VmData = require('./models/VmData');
-
 
 // Configurar y crear instancias de servidor y Socket.IO
 const app = express();
@@ -36,14 +33,6 @@ app.use(express.urlencoded({ limit: '500mb', extended: true }));
 app.use(pdfRoute)
 
 let secret = null;
-
-// Genera el secreto y envía el QR code al frontend
-app.get('/generate', (req, res) => {
-  secret = speakeasy.generateSecret({ name: "MyApp" });
-  QRCode.toDataURL(secret.otpauth_url, (err, data_url) => {
-    res.json({ secret: secret.base32, qr_code: data_url });
-  });
-});
 
 // Verifica el token ingresado por el usuario
 app.post('/verify', (req, res) => {
@@ -105,13 +94,6 @@ app.use((req, res, next) => {
 const vcenterUrl = 'https://10.80.0.31';
 const username = 'monprtg@vsphere.local';
 const password = 'Est3rnocl1d0.2024*.*';
-
-// Configurar agente HTTPS para aceptar certificados autofirmados
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false, // Ignorar el certificado autofirmado
-});
-
-let passhash = null; // Variable global para almacenar el passhash
 
 // Middleware para registrar la solicitud y la autenticación
 app.use(async (req, res, next) => {
@@ -288,47 +270,6 @@ app.get('/vms', async (req, res) => {
   }
 });
 
-// Ruta para obtener los detalles completos de las VMs
-/*app.get('/vms', async (req, res) => {
-  try {
-    const sessionId = await getSessionId();
-
-    // Obtener información básica de todas las VMs
-    const vmsResponse = await axios.get(`${vcenterUrl}/rest/vcenter/vm`, {
-      headers: {
-        'vmware-api-session-id': sessionId,
-      },
-      httpsAgent,
-    });
-
-    // Obtener detalles adicionales de cada VM
-    const vmDetailsPromises = vmsResponse.data.value.map(async (vm) => {
-      const hardwareDetails = await getVmHardwareDetails(vm.vm, sessionId);
-      const networkDetails = await getVmNetworkDetails(vm.vm, sessionId);
-      const storageDetails = await getVmStorageDetails(vm.vm, sessionId);
-      const snapshots = await getVmSnapshots(vm.vm, sessionId);
-      const vmDetails = await getVmDetails(vm.vm, sessionId);
-
-      return {
-        ...vm,
-        hardware: hardwareDetails,
-        network: networkDetails,
-        storage: storageDetails,
-        snapshots: snapshots,
-        vmDetails: vmDetails,
-      };
-    });
-
-    const detailedVms = await Promise.all(vmDetailsPromises);
-
-    res.json(detailedVms);
-    console.log('Lista de VMs obtenida con detalles completos');
-  } catch (error) {
-    console.error('Error fetching VMs:', error.message);
-    res.status(500).send('Error fetching VMs');
-  }
-});*/
-
 // Ruta para encender una VM
 app.post('/vms/:vmId/power-on', async (req, res) => {
   let vmId;  // Definir vmId fuera del bloque try
@@ -392,65 +333,6 @@ app.post('/vms/:vmId/suspend', async (req, res) => {
   }
 });
 
-
-/*// Ruta para resetear una VM
-app.post('/vms/:vmId/reset', async (req, res) => {
-  try {
-    const sessionId = await getSessionId();
-    const { vmId } = req.params;
-    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/reset`, {}, {
-      headers: {
-        'vmware-api-session-id': sessionId
-      },
-      httpsAgent: httpsAgent
-    });
-    res.send('VM reset successfully');
-    logEvent(`VM ${vmId} reiniciada`);
-  } catch (error) {
-    console.error('Error resetting VM:', error.message);
-    logEvent(`Error al reiniciar la VM ${vmId}: ${error.message}`);
-    res.status(500).send('Error resetting VM');
-  }
-});
-
-// Ruta para apagar el sistema operativo invitado de una VM
-app.post('/vms/:vmId/shutdown-guest', async (req, res) => {
-  try {
-    const sessionId = await getSessionId();
-    const { vmId } = req.params;
-    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/guest/power/stop`, {}, {
-      headers: {
-        'vmware-api-session-id': sessionId
-      },
-      httpsAgent: httpsAgent
-    });
-    res.send('VM guest OS shut down successfully');
-  } catch (error) {
-    console.error('Error shutting down guest OS:', error.message);
-    res.status(500).send('Error shutting down guest OS');
-  }
-});
-
-// Ruta para reiniciar el sistema operativo invitado de una VM
-app.post('/vms/:vmId/restart-guest', async (req, res) => {
-try {
-  const sessionId = await getSessionId();
-  const { vmId } = req.params;
-  await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/guest/power/reboot`, {}, {
-    headers: {
-      'vmware-api-session-id': sessionId
-    },
-    httpsAgent: httpsAgent
-  });
-  res.send('VM guest OS restarted successfully');
-} catch (error) {
-  console.error('Error restarting guest OS:', error.message);
-  res.status(500).send('Error restarting guest OS');
-}
-});*/
-
-// Similarmente, puedes agregar endpoints para suspender, hibernar y reiniciar
-
 // Rutas para manejar archivos PDF
 app.use('/pdfs/COSMITET', express.static(pdfDirectory));
 
@@ -474,32 +356,8 @@ app.post('/api/upload/COSMITET', upload.single('file'), (req, res) => {
   logEvent(`Archivo PDF subido: ${req.file.originalname}`);
 });
 
-// Función para obtener el ID del sensor a partir del nombre del sensor
-const getSensorIdByName = async (sensorName) => {
-  try {
-    const response = await axios.get('https://192.168.200.158/api/table.json', {
-      params: {
-        content: 'sensors',
-        columns: 'objid,name',
-        username: 'HORUS',
-        password: 'Bkirhen1',
-      },
-      paramsSerializer: params => {
-        return Object.entries(params)
-          .map(([key, value]) => `${key}=${value}`)
-          .join('&');
-      },
-      httpsAgent,
-    });
-
-    const sensors = response.data.sensors || [];
-    const sensor = sensors.find(s => s.name === sensorName);
-    return sensor ? sensor.objid : null;
-  } catch (error) {
-    console.error('Error al recuperar sensores de la API de PRTG:', error.message);
-    return null;
-  }
-};
+const { sensorNames, sensorNamesAlt } = require('./sensorList');
+const getSensorIdByName  = require ("./controllers/getSensorIdByName")
 
 // Función para obtener datos del sensor y guardarlos en MongoDB
 const fetchDataFromSensor = async (sensorName) => {
@@ -508,7 +366,7 @@ const fetchDataFromSensor = async (sensorName) => {
     if (!sensorId) {
       throw new Error(`Sensor con nombre ${sensorName} no disponible`);
     }
-    const response = await axios.get(`http://192.168.200.155:8081/prtg-api/${sensorId}`);
+    const response = await axios.get(`http://192.168.200.155:8083/prtg-api/${sensorId}`);
     const data = response.data;
     const sensorData = new SensorData({ sensorId, data });
     await sensorData.save();
@@ -517,43 +375,6 @@ const fetchDataFromSensor = async (sensorName) => {
     console.error(`Error al obtener datos para el sensor ${sensorName}:`, error.message);
   }
 };
-
-// Lista de Nombres de sensores
-const sensorNames = [
-  //COSMITET
-  'COCLOCOSMIAP02', 'COCLOCOSMIAP05', 'COCLOCOSMIAP06', 'COCLOCOSMIAP07',
-  'COCLOCOSMIAST03', 'COCLOCOSMIAST04',
-  'COCLOCOSMIBD01', 'COCLOCOSMIBD02', 'COCLOCOSMIBD03', 'COCLOCOSMIBD04',
-  'COCLOCOSMIBK01', 'COCLOCOSMIDES01', 'COCLOCOSMIFI01', 'COCLOCOSMIREP02', 'COCLOCOSMIREP03', 'COCLOCOSMISTG01',
-
-  //DUARTE
-  'COCLOCDUARAP01', 'COCLOCDUARAST01', 'COCLOCDUAREP02', 'COCLOCDUARFI01', 'COCLOCDUARST02',
-  'COCLOCDUARTBD01', 'COCLOCDUARTBD02', 'COCLOCDUARTBK01', 'COCLOCDUARTSTG01',
-
-  //DUANA
-  'COCLODUANAAP01', 'COCLODUANADB05', 'COCLODUANADU01', 'COCLODUANAP02', 'COCLODUANAP03',
-
-  //COSMITET
-  'COCLOESECAP02', 'COCLOESECAP03', 'COCLOESECAP04', 'COCLOESECAP05', 'COCLOESECAP06', 'COCLOESECAP07', 'COCLOESECAP08', 'COCLOESECAP09',
-  'COCLOESECAP10', 'COCLOESECAP11', 'COCLOESECAP12', 'COCLOESECAP13', 'COCLOESECAP14', 'COCLOESECAP15', 'COCLOESECAP16', 'COCLOESECAP17',
-  'COCLOESECAP18', 'COCLOESECAP19', 'COCLOESECAP20', 'COCLOESECAP21', 'COCLOESECAP22', 'COCLOESECAP23', 'COCLOESECAP24', 'COCLOESECDA01',
-
-  //PEÑITAS
-  'COCLOPENIAP01', 'COCLOPENIAP02', 'COCLOPENIAP03', 'COCLOPENIAP04', 'COCLOPENIAST02', 'COCLOPENIBD02', 'COCLOPENIBD03', 'COCLOPENIBK01',
-  'COCLOPENIFI01', 'COCLOPENIREP01', 'COCLOPENISTG01',
-
-  //ROCHE
-  'COCLOROCHEAP01',
-
-  //SSOFIA
-  'COCLOSSFIAAP01', 'COCLOSSFIABD01', 'COCLOSSFIABD02', 'COCLOSSFIABD03', 'COCLOSSFIABK01', 'COCLOSSFIADES01', 'COCLOSSFIAREP01',
-  'COCLOSSFIAST02', 'COCLOSSFIASTG01', 'COCLOSSOFIAAP02',
-
-  //CAMARACC
-
-
-  // Añade más nombres según sea necesario
-];
 
 // Tarea cron para obtener datos de los sensores cada minuto
 cron.schedule('* * * * *', () => {
@@ -709,34 +530,7 @@ app.get('/canales/:sensorId', async (req, res) => {
   }
 });
 
-
-
-// Función para obtener el ID del sensor a partir del nombre del sensor (PRTG 192.168.200.160)
-const getSensorIdByNameAlt = async (sensorName) => {
-  try {
-    const response = await axios.get('https://192.168.200.160/api/table.json', {
-      params: {
-        content: 'sensors',
-        columns: 'objid,name',
-        username: 'prtgadmin',
-        password: 'prtgadmin',
-      },
-      paramsSerializer: params => {
-        return Object.entries(params)
-          .map(([key, value]) => `${key}=${value}`)
-          .join('&');
-      },
-      httpsAgent,
-    });
-
-    const sensors = response.data.sensors || [];
-    const sensor = sensors.find(s => s.name === sensorName);
-    return sensor ? sensor.objid : null;
-  } catch (error) {
-    console.error('Error al recuperar sensores de la API de PRTG (Alt):', error.message);
-    return null;
-  }
-};
+const getSensorIdByNameAlt = require ('./controllers/getSensorIdByNameAlt')
 
 // Función para obtener datos del sensor y guardarlos en MongoDB (PRTG 192.168.200.160)
 const fetchDataFromSensorAlt = async (sensorName) => {
@@ -745,7 +539,7 @@ const fetchDataFromSensorAlt = async (sensorName) => {
     if (!sensorId) {
       throw new Error(`Sensor con nombre ${sensorName} no disponible`);
     }
-    const response = await axios.get(`http://192.168.200.155:8081/prtg-api-alt/${sensorId}`);
+    const response = await axios.get(`http://192.168.200.155:8083/prtg-api-alt/${sensorId}`);
     const data = response.data;
     const sensorData = new SensorData({ sensorId, data });
     await sensorData.save();
@@ -754,18 +548,6 @@ const fetchDataFromSensorAlt = async (sensorName) => {
     console.error(`Error al obtener datos para el sensor ${sensorName} (Alt):`, error.message);
   }
 };
-
-// Lista de Nombres de sensores específicos para 192.168.200.160
-const sensorNamesAlt = [
-  'COCLOCCCDEV00', 'COCLOCCCDEVL02', 'COCLOCCCDEVL35', 'COCLOCCCDEVL98', 'COCLOCCCDEVW36', 'COCLOCCCPRDB01', 'COCLOCCCPRDB02',
-  'COCLOCCCPRDB03', 'COCLOCCCPRDB06', 'COCLOCCCPRDL01', 'COCLOCCCPRDL02', 'COCLOCCCPRDL03', 'COCLOCCCPRDL06', 'COCLOCCCPRDL07',
-  'COCLOCCCPRDL08', 'COCLOCCCPRDL09', 'COCLOCCCPRDL10', 'COCLOCCCPRDL15', 'COCLOCCCPRDL16', 'COCLOCCCPRDL17', 'COCLOCCCPRDL18',
-  'COCLOCCCPRDL37', 'COCLOCCCPRDL41', 'COCLOCCCPRDL48', 'COCLOCCCPRDL49', 'COCLOCCCPRDW10', 'COCLOCCCPRDW22', 'COCLOCCCPRDW23',
-  'COCLOCCCPRDW24', 'COCLOCCCPRDW25', 'COCLOCCCPRDW30', 'COCLOCCCPRDW35', 'COCLOCCCPRDW48', 'COCLOCCCPRDW97', 'COCLOCCCPRDW98',
-  'COCLOCCCTST00', 'COCLOCCCTST01', 'COCLOCCCTST02', 'COCLOCCCTST03', 'COCLOCCCTST06', 'COCLOCCCTST07', 'COCLOCCCTST09', 'COCLOCCCTST10',
-  'COCLOCCCTST11', 'COCLOCCCTST15', 'COCLOCCCTSTL01', 'COCLOCCCTSTL02', 'COCLOCCCTSTL03', 'COCLOCCCTSTL06', 'COCLOCCCTSTL07', 'COCLOCCCTSTL09',
-  'COCLOCCCTSTL10', 'COCLOCCCTSTL15', 'COCLOCCCTSTL41', 'COCLOCCCDES48', 'COCLOCERTORI01', 'COCLOCERTORI02', 'COCLOSERTORIBD01'
-];
 
 // Tarea cron para obtener datos de los sensores cada minuto (PRTG 192.168.200.160)
 cron.schedule('* * * * *', () => {
@@ -899,8 +681,6 @@ app.get('/canales-alt/:sensorId', async (req, res) => {
   }
 });
 
-
-
 // Endpoint para obtener logs (sin real-time)
 app.get('/logs', (req, res) => {
   const fs = require('fs');
@@ -952,7 +732,7 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
 // Configuración del puerto y escucha de solicitudes
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8083;
 app.listen(PORT, () => {
   console.log(`El servidor se está ejecutando en el puerto ${PORT}.`);
 });

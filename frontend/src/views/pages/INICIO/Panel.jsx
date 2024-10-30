@@ -302,7 +302,8 @@ function Dashboard() {
               </div>
             ) : (
               <CardContainer>
-                <CardWrapper onClick={() => handleButtonClick('cnw')}>
+                {/*<CardWrapper onClick={() => handleButtonClick('cnw')}>*/}
+                <CardWrapper>
                   <LogoImage src={logoCNW} alt="Logo" style={{ width: '115%' }} />
                 </CardWrapper>
                 <CardWrapper onClick={() => handleButtonClick('esecentro')}>
@@ -329,7 +330,8 @@ function Dashboard() {
                 <CardWrapper onClick={() => handleButtonClick('ozono')}>
                   <LogoImage src={logoOZONO} alt="Logo" style={{ width: '110%' }} />
                 </CardWrapper>
-                <CardWrapper onClick={() => handleButtonClick('roche')}>
+                {/*<CardWrapper onClick={() => handleButtonClick('roche')}>*/}
+                <CardWrapper>
                   <LogoImage src={logoROCHE} alt="Logo" style={{ width: '110%' }} />
                 </CardWrapper>
               </CardContainer>

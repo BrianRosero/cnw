@@ -323,7 +323,7 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8083;
 app.listen(PORT, () => {
   console.log(`El Servidor se está ejecutando en el puerto ${PORT}.`);
 });
@@ -380,3 +380,103 @@ function initial() {
       console.error('Error al revisar los roles:', err);
     });
 }*/
+
+
+// Ruta para obtener los detalles completos de las VMs
+/*app.get('/vms', async (req, res) => {
+  try {
+    const sessionId = await getSessionId();
+
+    // Obtener información básica de todas las VMs
+    const vmsResponse = await axios.get(`${vcenterUrl}/rest/vcenter/vm`, {
+      headers: {
+        'vmware-api-session-id': sessionId,
+      },
+      httpsAgent,
+    });
+
+    // Obtener detalles adicionales de cada VM
+    const vmDetailsPromises = vmsResponse.data.value.map(async (vm) => {
+      const hardwareDetails = await getVmHardwareDetails(vm.vm, sessionId);
+      const networkDetails = await getVmNetworkDetails(vm.vm, sessionId);
+      const storageDetails = await getVmStorageDetails(vm.vm, sessionId);
+      const snapshots = await getVmSnapshots(vm.vm, sessionId);
+      const vmDetails = await getVmDetails(vm.vm, sessionId);
+
+      return {
+        ...vm,
+        hardware: hardwareDetails,
+        network: networkDetails,
+        storage: storageDetails,
+        snapshots: snapshots,
+        vmDetails: vmDetails,
+      };
+    });
+
+    const detailedVms = await Promise.all(vmDetailsPromises);
+
+    res.json(detailedVms);
+    console.log('Lista de VMs obtenida con detalles completos');
+  } catch (error) {
+    console.error('Error fetching VMs:', error.message);
+    res.status(500).send('Error fetching VMs');
+  }
+});*/
+
+/*// Ruta para resetear una VM
+app.post('/vms/:vmId/reset', async (req, res) => {
+  try {
+    const sessionId = await getSessionId();
+    const { vmId } = req.params;
+    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/reset`, {}, {
+      headers: {
+        'vmware-api-session-id': sessionId
+      },
+      httpsAgent: httpsAgent
+    });
+    res.send('VM reset successfully');
+    logEvent(`VM ${vmId} reiniciada`);
+  } catch (error) {
+    console.error('Error resetting VM:', error.message);
+    logEvent(`Error al reiniciar la VM ${vmId}: ${error.message}`);
+    res.status(500).send('Error resetting VM');
+  }
+});
+
+// Ruta para apagar el sistema operativo invitado de una VM
+app.post('/vms/:vmId/shutdown-guest', async (req, res) => {
+  try {
+    const sessionId = await getSessionId();
+    const { vmId } = req.params;
+    await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/guest/power/stop`, {}, {
+      headers: {
+        'vmware-api-session-id': sessionId
+      },
+      httpsAgent: httpsAgent
+    });
+    res.send('VM guest OS shut down successfully');
+  } catch (error) {
+    console.error('Error shutting down guest OS:', error.message);
+    res.status(500).send('Error shutting down guest OS');
+  }
+});
+
+// Ruta para reiniciar el sistema operativo invitado de una VM
+app.post('/vms/:vmId/restart-guest', async (req, res) => {
+try {
+  const sessionId = await getSessionId();
+  const { vmId } = req.params;
+  await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/guest/power/reboot`, {}, {
+    headers: {
+      'vmware-api-session-id': sessionId
+    },
+    httpsAgent: httpsAgent
+  });
+  res.send('VM guest OS restarted successfully');
+} catch (error) {
+  console.error('Error restarting guest OS:', error.message);
+  res.status(500).send('Error restarting guest OS');
+}
+});*/
+
+// Similarmente, puedes agregar endpoints para suspender, hibernar y reiniciar

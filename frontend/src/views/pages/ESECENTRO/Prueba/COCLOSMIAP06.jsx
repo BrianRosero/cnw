@@ -129,7 +129,7 @@ const SENSOR1 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.200.155:8081/prtg-api/ESECENTRO');
+        const response = await axios.get('http://192.168.200.155:8083/prtg-api/ESECENTRO');
         setSensorData(response.data.sensors);
 
         const sensorValues = response.data.sensors.map(sensor => parseFloat(sensor.lastvalue.replace(/[^0-9.-]+/g, "")));
