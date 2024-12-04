@@ -164,6 +164,11 @@ const colors = {
       main: '#000000',
       state: '#3a416f',
     },
+
+    red: {
+      main: '#e31313',
+      state: '#ffffff',
+    },
   },
 
   socialMediaColors: {

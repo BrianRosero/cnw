@@ -117,8 +117,8 @@ const routes = [
       },
       {
         name: 'Automotive',
-        key: 'automotive',
-        route: '/dashboards/automotive',
+        key: 'GLAKECNW',
+        route: '/dashboards/GLAKECNW',
         component: <Automotive />,
       },
       {

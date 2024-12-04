@@ -15,10 +15,28 @@ const pdfRoute = require('./pdfRoutes');
 const env = require('dotenv')
 const speakeasy = require('speakeasy');
 const httpsAgent = require('./config/httpsAgent');
+const { spawn } = require("child_process");
 
 // Importar modelos
 const SensorData = require('./models/SensorData');
 const VmData = require('./models/VmData');
+
+// Importar datos vsphere
+const {
+  authenticate,
+  getClusters,
+  getDatacenters,
+  getHosts,
+  getAllVirtualMachines,
+  getVirtualMachines,
+  getDatastores,
+  getDatastoreDetails,
+  getNetworks,
+  getEvents,
+  getPerformance,
+  getVmDetailss,
+  getClusterMetrics,
+} = require('./controllers/vcenter');
 
 // Configurar y crear instancias de servidor y Socket.IO
 const app = express();
@@ -32,7 +50,251 @@ app.use(express.json());
 app.use(express.urlencoded({ limit: '500mb', extended: true }));
 app.use(pdfRoute)
 
-let secret = null;
+let cachedDataGlake = null; // Datos en caché
+let lastUpdatedGlake = null;
+// Función para ejecutar el script Python periódicamente
+const updateDataGlake = () => {
+  const pythonProcess = spawn("python", ["./resourcesglake.py"]); // Cambia el nombre del script si es necesario
+
+  let data = "";
+  let error = "";
+
+  pythonProcess.stdout.on("data", (chunk) => {
+    data += chunk.toString();
+  });
+
+  pythonProcess.stderr.on("data", (chunk) => {
+    error += chunk.toString();
+  });
+
+  pythonProcess.on("close", (code) => {
+    if (code === 0) {
+      try {
+        cachedDataGlake = JSON.parse(data); // Parsear datos JSON
+        lastUpdatedGlake = new Date(); // Guardar la hora de actualización
+      } catch (parseError) {
+        console.error("Error al parsear datos de Python:", parseError.message); //parserar datos según contexto
+      }
+    } else {
+      console.error("Error al ejecutar el script de Python:", error);
+    }
+  });
+};
+// Ejecutar el script cada 5 segundos
+setInterval(updateDataGlake, 5000);
+updateDataGlake(); // Ejecutar inmediatamente al iniciar el servidor
+// Endpoint para obtener datos
+app.get("/vcenter/resources-glake", (req, res) => {
+  if (cachedDataGlake) {
+    res.status(200).json({ data: cachedDataGlake, lastUpdatedGlake });
+  } else {
+    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+  }
+});
+
+let cachedDataCNWS = null; // Datos en caché
+let lastUpdatedCNWS = null;
+// Función para ejecutar el script Python periódicamente
+const updateDataCNWS = () => {
+  const pythonProcess = spawn("python", ["./resourcescnws.py"]); // Cambia el nombre del script si es necesario
+
+  let data = "";
+  let error = "";
+
+  pythonProcess.stdout.on("data", (chunk) => {
+    data += chunk.toString();
+  });
+
+  pythonProcess.stderr.on("data", (chunk) => {
+    error += chunk.toString();
+  });
+
+  pythonProcess.on("close", (code) => {
+    if (code === 0) {
+      try {
+        cachedDataCNWS = JSON.parse(data); // Parsear datos JSON
+        lastUpdatedCNWS = new Date(); // Guardar la hora de actualización
+      } catch (parseError) {
+        console.error("Error al parsear datos de Python:", parseError.message); //parserar datos según contexto
+      }
+    } else {
+      console.error("Error al ejecutar el script de Python:", error);
+    }
+  });
+};
+// Ejecutar el script cada 5 segundos
+setInterval(updateDataCNWS, 5000);
+updateDataCNWS(); // Ejecutar inmediatamente al iniciar el servidor
+// Endpoint para obtener datos
+app.get("/vcenter/resources-cnws", (req, res) => {
+  if (cachedDataCNWS) {
+    res.status(200).json({ data: cachedDataCNWS, lastUpdatedCNWS });
+  } else {
+    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+  }
+});
+
+
+app.get('/api/clusters', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getClusters(sessionId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/datacenters', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getDatacenters(sessionId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/hosts', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getHosts(sessionId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/virtual-machines', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getVirtualMachines(sessionId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/datastores', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const datastores = await getDatastores(sessionId);
+    res.json({ value: datastores }); // Aseguramos compatibilidad con frontend
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Ruta para obtener detalles completos de una VM por ID
+app.get('/api/vm/:vmId/details', async (req, res) => {
+  try {
+    const { vmId } = req.params; // Obtener el ID de la VM desde la ruta
+    const sessionId = await authenticate(); // Obtener token de sesión
+    const vmDetails = await getVmDetailss(sessionId, vmId); // Obtener detalles de la VM
+    res.json(vmDetails); // Devolver detalles al cliente
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+app.get('/api/networks', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getNetworks(sessionId);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+
+app.get('/api/hosts/:id', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getHosts(sessionId, req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/clusters/:id', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getClusters(sessionId, req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/vms', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const vms = await getAllVirtualMachines(sessionId);
+    res.json(vms);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/vms/:id', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getVirtualMachines(sessionId, req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/datastores/:id', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getDatastores(sessionId, req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/clusters/:id/events', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getEvents(sessionId, req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/clusters/:id/performance', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const data = await getPerformance(sessionId, req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+app.get('/api/cluster/metrics', async (req, res) => {
+  try {
+    const sessionId = await authenticate();
+    const clusterId = 'domain-c8'; // ID del único clúster
+    const metrics = await getClusterMetrics(sessionId, clusterId);
+    res.json(metrics);
+  } catch (error) {
+    console.error('Error al procesar solicitud de métricas:', error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Verifica el token ingresado por el usuario
 app.post('/verify', (req, res) => {
@@ -91,9 +353,9 @@ app.use((req, res, next) => {
 });
 
 // Configuración de autenticación vCenter
-const vcenterUrl = 'https://10.80.0.31';
-const username = 'monprtg@vsphere.local';
-const password = 'Est3rnocl1d0.2024*.*';
+const vcenterUrl = process.env.VCENTER_SERVER_CNWS;
+const username = process.env.VCENTER_USER_CNWS;
+const password = process.env.VCENTER_PASSWORD_CNWS;
 
 // Middleware para registrar la solicitud y la autenticación
 app.use(async (req, res, next) => {
@@ -382,6 +644,9 @@ cron.schedule('* * * * *', () => {
   sensorNames.forEach((sensorName) => fetchDataFromSensor(sensorName));
 });
 
+const usernamecosmi = process.env.USERNAMECOSMI;
+const passwordcosmi = process.env.PASSWORDCOSMI;
+
 // Ruta para obtener datos directamente desde la API de PRTG por el nombre
 app.get('/prtg-api/name/:sensorName', async (req, res) => {
   const sensorName = req.params.sensorName;
@@ -396,8 +661,8 @@ app.get('/prtg-api/name/:sensorName', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId,
-        username: 'HORUS',
-        password: 'Bkirhen1',
+        username: usernamecosmi,
+        password: passwordcosmi,
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -424,8 +689,8 @@ app.get('/prtg-api/:sensorId', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId,
-        username: 'HORUS',
-        password: 'Bkirhen1',
+        username: usernamecosmi,
+        password: passwordcosmi,
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -473,8 +738,8 @@ app.get('/sensor/:sensorId', async (req, res) => {
       params: {
         content: 'sensors',
         columns: 'objid,channel,name,lastvalue,probe,group,device,status,message,priority,favorite',
-        username: 'HORUS',
-        password: 'Bkirhen1',
+        username: usernamecosmi,
+        password: passwordcosmi,
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -507,8 +772,8 @@ app.get('/canales/:sensorId', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId, // Especificar el ID del sensor para obtener sus canales
-        username: 'HORUS',
-        password: 'Bkirhen1',
+        username: usernamecosmi,
+        password: passwordcosmi,
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -555,6 +820,9 @@ cron.schedule('* * * * *', () => {
   sensorNamesAlt.forEach((sensorName) => fetchDataFromSensorAlt(sensorName));
 });
 
+const usernameccc = process.env.USERNAMECCC;
+const passwordccc = process.env.PASSWORDCCC;
+
 // Ruta para obtener datos directamente desde la API de PRTG por el nombre (PRTG 192.168.200.160)
 app.get('/prtg-api-alt/name/:sensorName', async (req, res) => {
   const sensorName = req.params.sensorName;
@@ -569,8 +837,8 @@ app.get('/prtg-api-alt/name/:sensorName', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId,
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: usernameccc,
+        password: passwordccc,
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -597,8 +865,8 @@ app.get('/prtg-api-alt/:sensorId', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId,
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: usernameccc,
+        password: passwordccc,
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -624,8 +892,8 @@ app.get('/sensor-alt/:sensorId', async (req, res) => {
       params: {
         content: 'sensors',
         columns: 'objid,channel,name,lastvalue,probe,group,device,status,message,priority,favorite',
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: usernameccc,
+        password: passwordccc,
       },
       paramsSerializer: params => {
         return Object.entries(params)
@@ -658,8 +926,8 @@ app.get('/canales-alt/:sensorId', async (req, res) => {
         content: 'channels',
         columns: 'objid,channel,name,lastvalue',
         id: sensorId, // Especificar el ID del sensor para obtener sus canales
-        username: 'prtgadmin',
-        password: 'prtgadmin',
+        username: usernameccc,
+        password: passwordccc,
       },
       paramsSerializer: params => {
         return Object.entries(params)

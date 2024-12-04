@@ -18,14 +18,15 @@ const UtilsTablerIcons = Loadable(lazy(() => import('../views/pages/utilities/Ta
 const Graficos = Loadable(lazy(() => import('../views/dashboard/Default/index.jsx')));
 
 import Panel from '../views/pages/INICIO/Panel.jsx';
-import Home from '../layout/dashboards/default';
+import Home from '../layout/dashboards/WAVE-DC/default';
 import Profile from '../views/pages/Perfil/Profile.jsx';
 import Administrador from '../views/pages/Administrador.jsx';
-import Kanban from '../layout/dashboards/automotive';
+import Kanban from '../layout/dashboards/WAVE-DC/GLAKECNW';
 import Estadisticas from '../views/pages/Estadisticas.jsx';
 import BoardModerator from '../views/pages/BoardModerator.jsx';
 import Rendimiento from '../views/pages/Rendimiento.jsx';
-import Chat from '../views/pages/Chat.jsx';
+//import Chat from '../layout/dashboards/GLAKECNW/Datastores.jsx';
+import Chat from '../layout/dashboards/WAVE-DC/default/index.jsx';
 import Calendario from '../views/pages/Calendario.jsx';
 import CRM from '../views/pages/CRM.jsx';
 import Consulnetworks from '../views/pages/Consulnetworks.jsx';

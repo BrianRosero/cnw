@@ -51,8 +51,8 @@ const pageRoutes = [
       },
       {
         name: "Automotive",
-        key: "automotive",
-        route: "/dashboards/automotive",
+        key: "GLAKECNW",
+        route: "/dashboards/GLAKECNW",
       },
       {
         name: "Smart Home",

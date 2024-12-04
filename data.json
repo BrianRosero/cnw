@@ -1,0 +1,169 @@
+
+{
+  "value": {
+    "instant_clone_frozen": false,
+    "cdroms": [
+      {
+        "value": {
+          "start_connected": false,
+          "backing": {
+            "device_access_type": "PASSTHRU",
+            "type": "CLIENT_DEVICE"
+          },
+          "allow_guest_control": true,
+          "label": "CD/DVD drive 1",
+          "state": "NOT_CONNECTED",
+          "type": "SATA",
+          "sata": {
+            "bus": 0,
+            "unit": 0
+          }
+        },
+        "key": "16000"
+      }
+    ],
+    "memory": {
+      "hot_add_increment_size_MiB": 4096,
+      "size_MiB": 98304,
+      "hot_add_enabled": true,
+      "hot_add_limit_MiB": 1572864
+    },
+    "disks": [
+      {
+        "value": {
+          "scsi": {
+            "bus": 0,
+            "unit": 0
+          },
+          "backing": {
+            "vmdk_file": "[STGPOOLAP02] COCLOSSFIAST02/COCLOSSFIAST02.vmdk",
+            "type": "VMDK_FILE"
+          },
+          "label": "Hard disk 1",
+          "type": "SCSI",
+          "capacity": 214748364800
+        },
+        "key": "2000"
+      }
+    ],
+    "parallel_ports": [],
+    "sata_adapters": [
+      {
+        "value": {
+          "bus": 0,
+          "pci_slot_number": 33,
+          "label": "SATA controller 0",
+          "type": "AHCI"
+        },
+        "key": "15000"
+      }
+    ],
+    "cpu": {
+      "hot_remove_enabled": false,
+      "count": 48,
+      "hot_add_enabled": false,
+      "cores_per_socket": 1
+    },
+    "scsi_adapters": [
+      {
+        "value": {
+          "pci_slot_number": 160,
+          "scsi": {
+            "bus": 0,
+            "unit": 7
+          },
+          "label": "SCSI controller 0",
+          "sharing": "NONE",
+          "type": "PVSCSI"
+        },
+        "key": "1000"
+      }
+    ],
+    "power_state": "POWERED_ON",
+    "floppies": [],
+    "identity": {
+      "name": "COCLOSSFIAST02",
+      "instance_uuid": "500d0f7a-ef32-789c-2c7f-e95f3b489c93",
+      "bios_uuid": "420d5790-9c36-217b-2863-0550146ab2a4"
+    },
+    "nvme_adapters": [],
+    "name": "COCLOSSFIAST02",
+    "nics": [
+      {
+        "value": {
+          "start_connected": true,
+          "pci_slot_number": 192,
+          "backing": {
+            "connection_cookie": 1261029748,
+            "distributed_port": "127",
+            "distributed_switch_uuid": "50 0d dc 23 5e 00 cd d0-cb d4 16 1c 01 44 81 3f",
+            "type": "DISTRIBUTED_PORTGROUP",
+            "network": "dvportgroup-4053"
+          },
+          "mac_address": "00:50:56:8d:9b:55",
+          "mac_type": "ASSIGNED",
+          "allow_guest_control": false,
+          "wake_on_lan_enabled": true,
+          "label": "Network adapter 1",
+          "state": "CONNECTED",
+          "type": "E1000E"
+        },
+        "key": "4000"
+      }
+    ],
+    "boot": {
+      "delay": 0,
+      "efi_legacy_boot": false,
+      "retry_delay": 10000,
+      "enter_setup_mode": false,
+      "network_protocol": "IPV4",
+      "type": "EFI",
+      "retry": false
+    },
+    "serial_ports": [],
+    "boot_devices": [],
+    "guest_OS": "RHEL_8_64",
+    "hardware": {
+      "upgrade_policy": "NEVER",
+      "upgrade_status": "NONE",
+      "version": "VMX_15"
+    }
+  }
+}
+
+cluster
+{
+  "value": {
+    "name": "CNWCLUSTER",
+    "resource_pool": "resgroup-9"
+  }
+}
+
+datastore
+{
+  "value": {
+    "accessible": true,
+    "multiple_host_access": false,
+    "name": "Local_esx02",
+    "type": "VMFS",
+    "free_space": 341009498112,
+    "thin_provisioning_supported": true
+  }
+}
+
+datacenter
+{
+  "value": [
+    {
+      "name": "CNW",
+      "datacenter": "datacenter-3"
+    }
+  ]
+}
+
+
+
+
+
+
+

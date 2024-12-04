@@ -26,8 +26,8 @@ import Footer from "examples/Footer";
 import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
 
 // Automotive dashboard components
-import AutomotiveDetails from "layouts/dashboards/automotive/components/AutomotiveDetails";
-import AutomotiveMonitor from "layouts/dashboards/automotive/components/AutomotiveMonitor";
+import AutomotiveDetails from "layouts/dashboards/GLAKECNW/components/ServerDetails";
+import AutomotiveMonitor from "layouts/dashboards/GLAKECNW/components/ServerMonitor";
 
 function Automotive() {
   return (

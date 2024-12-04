@@ -1,6 +1,6 @@
 // react-leaflet map components
 import { MapContainer, TileLayer } from 'react-leaflet';
-import '../../../../../../../frontend/node_modules/leaflet/dist/leaflet.css'; // Necesario para el estilo de Leaflet
+import '../../../../../../../../frontend/node_modules/leaflet/dist/leaflet.css'; // Necesario para el estilo de Leaflet
 
 // @mui material components
 import Grid from '@mui/material/Grid';
@@ -11,15 +11,15 @@ import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mui/material/Icon';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from '../../../../../components/SoftBox';
-import SoftTypography from '../../../../../components/SoftTypography';
-import SoftButton from '../../../../../components/SoftButton';
-import SoftInput from '../../../../../components/SoftInput';
-import SoftAvatar from '../../../../../components/SoftAvatar';
+import SoftBox from '@/components/SoftBox';
+import SoftTypography from '@/components/SoftTypography';
+import SoftButton from '@/components/SoftButton';
+import SoftInput from '@/components/SoftInput';
+import SoftAvatar from '@/components/SoftAvatar';
 
 // Images
-import curved10 from '../../../../../assets/images/curved-images/curved10.jpg';
-import spotifyLogo from '../../../../../assets/images/small-logos/logo-spotify.svg';
+import curved10 from '@/assets/images/curved-images/curved10.jpg';
+import spotifyLogo from '@/assets/images/small-logos/logo-spotify.svg';
 
 function AutomotiveMonitor() {
   return (
