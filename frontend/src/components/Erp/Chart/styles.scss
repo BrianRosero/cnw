@@ -1,0 +1,47 @@
+.legend-legend {
+  .legend-legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 8px;
+  }
+
+  .legend-legend-item-left {
+    display: flex;
+    align-items: center;
+
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .legend-name {
+      color: var(--title);
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      padding-top: 1px;
+    }
+  }
+
+  .legend-legend-item-right {
+    .legend-data {
+      color: var(--title);
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+    }
+  }
+}
+
+.legend-divider {
+  border: 0;
+  height: 1px;
+  background-color: #EBEFF5;
+}

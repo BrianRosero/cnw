@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import {
   Avatar,
-  Box,
+  Box, Button,
   Card,
   CardContent,
   Chip,

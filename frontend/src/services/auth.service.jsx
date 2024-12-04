@@ -34,7 +34,6 @@ const verify2FA = (userId, token) => {
   });
 };
 
-
 const logout = () => {
   localStorage.removeItem('user');
 };

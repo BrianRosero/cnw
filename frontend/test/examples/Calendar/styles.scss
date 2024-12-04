@@ -1,0 +1,252 @@
+:root {
+  --title: #344767;
+}
+
+.event-secondary {
+  background-image: linear-gradient(310deg, #627594, #a8b8d8) !important;
+}
+
+.event-info {
+  background-image: linear-gradient(310deg, #2152ff, #21d4fd) !important;
+}
+
+.event-success {
+  background-image: linear-gradient(310deg, #17ad37, #98ec2d) !important;
+}
+
+.event-warning {
+  background-image: linear-gradient(310deg, #f53939, #fbcf33) !important;
+}
+
+.event-error {
+  background-image: linear-gradient(310deg, #ea0606, #ff667c) !important;
+}
+
+.ant-modal-mask {
+  z-index: 1200 !important;
+}
+
+.ant-modal-wrap {
+  z-index: 1200 !important;
+
+  .modal-form-add-event-calendar {
+    .ant-modal-content {
+      border-radius: 10px !important;
+      width: 480px;
+
+      .ant-modal-header {
+        .ant-modal-title {
+          font-size: 18px;
+          font-weight: 700;
+          font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+          color: var(--title);
+        }
+      }
+
+      .ant-modal-body {
+        .btn-delete {
+          box-shadow: none;
+          position: absolute;
+          top: 17px;
+          inset-inline-end: 18px;
+
+          img {
+            width: 24px;
+            height: 24px;
+          }
+
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+          }
+
+          &:active {
+            transform: scale(0.9);
+            transition: transform 0.1s ease;
+          }
+        }
+
+        .form-container {
+          padding: 24px;
+          border: 1px solid #ebeff5;
+          border-radius: 10px;
+
+          .form {
+            max-width: 600px;
+            margin: 0 auto;
+
+            .select-type-event {
+              height: 40px;
+              width: 100%;
+
+              .ant-select-selector {
+                padding: 8px 12px;
+                border-radius: 8px;
+                border-color: #ebeff5;
+                height: 40px;
+
+                span {
+                  font-size: 14px;
+                }
+
+                input {
+                  font-size: 14px;
+                }
+              }
+
+              .ant-select-arrow {
+                font-size: 14px;
+                top: 43%;
+              }
+            }
+
+            .form-item-footer {
+              margin-bottom: 0 !important;
+            }
+
+            .full-width {
+              width: 100%;
+            }
+
+            .ant-form-item-required {
+              font-size: 14px;
+              color: #344767;
+            }
+
+            .ant-picker-focused {
+              z-index: 1200 !important;
+            }
+
+            .ant-picker {
+              padding: 8px 12px;
+              border-radius: 8px;
+              border-color: #ebeff5;
+
+              input {
+                font-size: 14px;
+              }
+            }
+
+            .ant-input {
+              border-radius: 8px;
+              font-size: 14px;
+              padding: 8px 12px;
+            }
+
+            .ant-space-gap-col-small {
+              column-gap: 12px;
+            }
+
+            .ant-form-item-control {
+              .ant-form-item-control-input {
+                .ant-form-item-control-input-content {
+                  display: flex;
+                  justify-content: space-evenly;
+                  gap: 10px;
+
+                  button {
+                    width: 50%;
+                    font-size: 14px;
+                    border-radius: 8px;
+                    border-color: #ebeff5;
+                  }
+
+                  .btn-submit {
+                    background: var(--primary,
+                        linear-gradient(90deg, #21d4fd 5.6%, #2152ff 96.47%));
+                    border: none;
+                    box-shadow: none;
+
+                    &:hover {
+                      background: linear-gradient(90deg, #1ba8f0 5.6%, #1b3cdc 96.47%);
+                    }
+                  }
+
+                  .ant-input-outlined {
+                    border-color: #ebeff5;
+                  }
+                }
+              }
+
+              .ant-form-item-explain-error {
+                margin: 10px 0;
+              }
+            }
+          }
+        }
+      }
+
+      .ant-modal-footer {
+        .ant-btn {
+          span {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ant-picker-dropdown {
+  z-index: 1201 !important;
+}
+
+.ant-select-dropdown {
+  z-index: 1200 !important;
+}
+
+.modal-confirm-delete {
+  top: 35% !important;
+
+  .ant-modal-content {
+    width: 480px;
+
+    .ant-modal-header {
+      .ant-modal-title {
+        font-size: 18px;
+
+        .anticon {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .ant-modal-body {
+      font-size: 14px;
+    }
+
+    .ant-modal-footer {
+      margin-top: 14px;
+
+      .btn-submit {
+        background: var(--primary, linear-gradient(90deg, #21d4fd 5.6%, #2152ff 96.47%));
+        border: none;
+        box-shadow: none;
+
+        &:hover {
+          background: linear-gradient(90deg, #1ba8f0 5.6%, #1b3cdc 96.47%);
+        }
+      }
+
+      button {
+        font-weight: 600;
+        padding: 8px 12px;
+      }
+
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.custom-label .ant-form-item-required::before {
+  content: none;
+}
+
+.custom-label .ant-form-item-required::after {
+  content: '*' !important;
+  color: red !important;
+  margin-left: 5px !important;
+}

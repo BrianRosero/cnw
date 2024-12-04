@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
@@ -6,113 +6,117 @@ import { useTheme } from '@mui/material/styles';
 import {
   Drawer,
   Fab,
-  FormControl,
-  FormControlLabel,
-  Grid,
   IconButton,
-  Radio,
-  RadioGroup,
-  Slider,
+  TextField,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
   Tooltip,
   Typography,
+  Grid,
 } from '@mui/material';
-import { IconSettings } from '@tabler/icons-react';
+
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import desing from './ButtonHorus/horus.svg';
 
 // project imports
 import SubCard from '../../ui-component/cards/SubCard';
 import AnimateButton from '../../ui-component/extended/AnimateButton';
 import { SET_BORDER_RADIUS, SET_FONT_FAMILY } from '../../actions/types.jsx';
 import { gridSpacing } from '../../actions/types.jsx';
+import design from '@/layout/Customization/ButtonHorus/horuswhite.svg';
 
-// concat 'px'
-function valueText(value) {
-  return `${value}px`;
-}
 
 // ==============================|| LIVE CUSTOMIZATION ||============================== //
 
-const Customization = () => {
+const ChatAI = () => {
   const theme = useTheme();
-  const dispatch = useDispatch();
-  const customization = useSelector((state) => state.customization) || {};
 
-  // drawer on/off
+  // Drawer state
   const [open, setOpen] = useState(false);
-  const handleToggle = () => {
-    setOpen(!open);
+  const handleToggle = () => setOpen(!open);
+
+  // Chat state
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+
+  // Dummy function to simulate API call
+  const sendMessageToAI = async (message) => {
+    // Simula una respuesta de IA
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(`Respuesta de la IA a: "${message}"`);
+      }, 1000);
+    });
   };
 
-  // state - border radius
-  const [borderRadius, setBorderRadius] = useState(customization.borderRadius);
-  const handleBorderRadius = (event, newValue) => {
-    setBorderRadius(newValue);
+  const handleSend = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = { text: input, sender: 'user' };
+    setMessages((prev) => [...prev, userMessage]);
+
+    setInput('');
+
+    const aiResponseText = await sendMessageToAI(input);
+    const aiMessage = { text: aiResponseText, sender: 'ai' };
+
+    setMessages((prev) => [...prev, aiMessage]);
   };
-
-  useEffect(() => {
-    dispatch({ type: SET_BORDER_RADIUS, borderRadius });
-  }, [dispatch, borderRadius]);
-
-  let initialFont;
-  switch (customization.fontFamily) {
-    case `'Inter', sans-serif`:
-      initialFont = 'Inter';
-      break;
-    case `'Poppins', sans-serif`:
-      initialFont = 'Poppins';
-      break;
-    case `'Roboto', sans-serif`:
-    default:
-      initialFont = 'Roboto';
-      break;
-  }
-
-  // state - font family
-  const [fontFamily, setFontFamily] = useState(initialFont);
-  useEffect(() => {
-    let newFont;
-    switch (fontFamily) {
-      case 'Inter':
-        newFont = `'Inter', sans-serif`;
-        break;
-      case 'Poppins':
-        newFont = `'Poppins', sans-serif`;
-        break;
-      case 'Roboto':
-      default:
-        newFont = `'Roboto', sans-serif`;
-        break;
-    }
-    dispatch({ type: SET_FONT_FAMILY, fontFamily: newFont });
-  }, [dispatch, fontFamily]);
 
   return (
     <>
       {/* toggle button */}
-      <Tooltip title="Live Customize">
+      <Tooltip title="HORUS IA">
         <Fab
           component="div"
           onClick={handleToggle}
           size="medium"
           variant="circular"
-          color="secondary"
+          color="primary"
           sx={{
             borderRadius: 0,
             borderTopLeftRadius: '50%',
             borderBottomLeftRadius: '50%',
             borderTopRightRadius: '50%',
             borderBottomRightRadius: '4px',
-            top: '25%',
+            top: '15%',
             position: 'fixed',
             right: 10,
             zIndex: theme.zIndex.speedDial,
           }}
         >
-          <AnimateButton type="rotate">
+          <AnimateButton>
             <IconButton color="inherit" size="large" disableRipple>
-              <IconSettings />
+              <style>
+                {`
+          .rotating-svg {
+            width: 70px; /* Tamaño ajustable */
+            height: auto; /* Mantiene la proporción */
+            animation: spin 2s linear infinite;
+            transform-origin: center; /* Centro exacto del círculo */
+          }
+          @keyframes spin {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        `}
+              </style>
+              <img
+                src={design}
+                alt="Diseño girando"
+                className="rotating-svg"
+                style={{
+                  display: 'block', // Elimina espacios no deseados
+                }}
+              />
             </IconButton>
           </AnimateButton>
         </Fab>
@@ -120,99 +124,61 @@ const Customization = () => {
 
       <Drawer
         anchor="right"
-        onClose={handleToggle}
         open={open}
+        onClose={handleToggle}
         PaperProps={{
-          sx: {
-            width: 280,
-          },
+          sx: { width: 400, display: 'flex', flexDirection: 'column' },
         }}
       >
-        <PerfectScrollbar component="div">
-          <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
-            <Grid item xs={12}>
-              {/* font family */}
-              <SubCard title="Font Family">
-                <FormControl>
-                  <RadioGroup
-                    aria-label="font-family"
-                    value={fontFamily}
-                    onChange={(e) => setFontFamily(e.target.value)}
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      value="Roboto"
-                      control={<Radio />}
-                      label="Roboto"
-                      sx={{
-                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
-                      }}
-                    />
-                    <FormControlLabel
-                      value="Poppins"
-                      control={<Radio />}
-                      label="Poppins"
-                      sx={{
-                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
-                      }}
-                    />
-                    <FormControlLabel
-                      value="Inter"
-                      control={<Radio />}
-                      label="Inter"
-                      sx={{
-                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
-                      }}
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </SubCard>
-            </Grid>
-            <Grid item xs={12}>
-              {/* border radius */}
-              <SubCard title="Border Radius">
-                <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
-                  <Grid item>
-                    <Typography variant="h6" color="secondary">
-                      4px
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Slider
-                      size="small"
-                      value={borderRadius}
-                      onChange={handleBorderRadius}
-                      getAriaValueText={valueText}
-                      valueLabelDisplay="on"
-                      aria-labelledby="discrete-slider-small-steps"
-                      marks
-                      step={2}
-                      min={4}
-                      max={24}
-                      color="secondary"
-                      sx={{
-                        '& .MuiSlider-valueLabel': {
-                          color: 'secondary.light',
-                        },
-                      }}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="h6" color="secondary">
-                      24px
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </SubCard>
-            </Grid>
+        <PerfectScrollbar component="div" style={{ flex: 1 }}>
+          <Grid container sx={{ p: 2 }}>
+            <Typography variant="h6" color="primary" sx={{ mb: 2 }}>
+              Chat con Inteligencia Artificial
+            </Typography>
           </Grid>
+
+          <List sx={{ flex: 1, overflow: 'auto', px: 2 }}>
+            {messages.map((msg, index) => (
+              <ListItem key={index} sx={{ justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start' }}>
+                <ListItemText
+                  primary={msg.text}
+                  sx={{
+                    maxWidth: '80%',
+                    bgcolor: msg.sender === 'user' ? theme.palette.primary.main : theme.palette.grey[300],
+                    color: msg.sender === 'user' ? theme.palette.primary.contrastText : theme.palette.text.primary,
+                    borderRadius: 2,
+                    p: 1,
+                  }}
+                />
+              </ListItem>
+            ))}
+          </List>
         </PerfectScrollbar>
+
+        <Grid container sx={{ p: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            size="small"
+            placeholder="Escribe un mensaje..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') handleSend();
+            }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSend}
+            sx={{ ml: 1, flexShrink: 0 }}
+          >
+            Enviar
+          </Button>
+        </Grid>
       </Drawer>
     </>
   );
 };
 
-export default Customization;
+export default ChatAI;

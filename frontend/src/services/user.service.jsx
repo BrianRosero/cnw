@@ -6,11 +6,11 @@ const API_URL = import.meta.env.VITE_API_URL + '/api/test';
 
 /*const getPublicContent = () => {
   return axios.get(API_URL + 'all');
-};
+};*/
 
 const getUserBoard = () => {
-  return axios.get(API_URL + 'user', { headers: authHeader() });
-};*/
+  return axios.get(API_URL + '/user', { headers: authHeader() });
+};
 
 const getModeratorBoard = () => {
   return axios.get(API_URL + '/mod', { headers: authHeader() });
@@ -41,6 +41,7 @@ const getAdminROCHE = () => {
 };
 
 export default {
+  getUserBoard,
   getModeratorBoard,
   getAdminBoard,
   getAdminCAMARACC,

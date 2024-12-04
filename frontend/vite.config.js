@@ -25,9 +25,11 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       // eslint-disable-next-line no-undef
       '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
+      'leaflet': 'leaflet/dist/leaflet-src.esm.js'
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
+
   server: {
     open: true,
     port: 8082,

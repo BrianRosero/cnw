@@ -1,14 +1,30 @@
-import dashboard from './dashboard.jsx';
+// menu-items/index.jsx
+import administrador from './Administrador.jsx';
 import pages from './pages.jsx';
 import utilities from './utilities.jsx';
 import other from './other.jsx';
-import profile from '../menu-items/profile.jsx';
+import profile from './profile.jsx';
 import { widget } from './widget.jsx';
-import integrations from '../menu-items/integrations.jsx';
+import integrations from './integrations.jsx';
+import { useAuth } from '../services/AuthContext';
+import user from '@/menu-items/User.jsx';
 
-// ==============================|| MENU ITEMS ||============================== //
+const MenuItems = () => {
+  const { isAdmin, isUser } = useAuth();
 
-const menuItems = {
-  items: [dashboard, profile, /*integrations, widget, pages, utilities, other*/],
+  return {
+    items: [
+      administrador(isAdmin),
+      user(isUser),
+      profile(isUser),
+      profile(isAdmin),
+      utilities,
+      integrations,
+      widget,
+      pages,
+      other,
+    ].filter(Boolean), // Eliminar elementos nulos
+  };
 };
-export default menuItems;
+
+export default MenuItems;

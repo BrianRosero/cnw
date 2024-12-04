@@ -79,7 +79,7 @@ function BoardESECENTRO() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             CRM Dashboard
           </Typography>
-          <Button component={Link} to="/dashboard" color="inherit">Dashboard</Button>
+          <Button component={Link} to="/administrador" color="inherit">Dashboard</Button>
           <Button component={Link} to="/reports" color="inherit">Reports</Button>
         </Toolbar>
       </AppBar>

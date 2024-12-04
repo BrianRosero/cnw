@@ -12,12 +12,16 @@ import { store } from './redux/Store.jsx';
 import './assets/scss/style.scss';
 import config from './config';
 
+import { SoftUIControllerProvider } from "./context";
+
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <BrowserRouter basename={config.basename}>
+      <SoftUIControllerProvider>
       <App />
+      </SoftUIControllerProvider>
     </BrowserRouter>
   </Provider>,
 );

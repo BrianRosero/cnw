@@ -9,6 +9,7 @@ import LogoSection from '../LogoSection';
 import SearchSection from './SearchSection';
 import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
+import ButtonHorus from '../../Customization/ButtonHorus';
 
 // assets
 import { IconMenu2 } from '@tabler/icons-react';
@@ -54,12 +55,22 @@ const Header = ({ handleLeftDrawerToggle }) => {
           </Avatar>
         </ButtonBase>
       </Box>
-
       {/* header search */}
       <SearchSection />
+      {/*<Box sx={{ flexGrow: 1, position: 'relative' }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-20%, -50%)',
+            zIndex: 10, // Ensures it stays above other elements
+          }}
+        >
+          <ButtonHorus />
+        </Box>
+      </Box>*/}
       <Box sx={{ flexGrow: 1 }} />
-      <Box sx={{ flexGrow: 1 }} />
-
       {/* notification & profile */}
       <NotificationSection />
       <ProfileSection />

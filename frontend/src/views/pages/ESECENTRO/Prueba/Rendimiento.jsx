@@ -129,7 +129,7 @@ const BoardModerator = () => {
         <DashboardDescription>
           Bienvenido al Dashboard {selectedCompany.nombre}. Aquí encontrarás diversas métricas y datos de rendimiento en tiempo real.
         </DashboardDescription>
-        <List component="nav" aria-label="dashboard components">
+        <List component="nav" aria-label="administrador components">
           <StyledListItem onClick={() => handleComponentChange('prtg-barras.jsx')}>PRTG Barras</StyledListItem>
           <StyledListItem onClick={() => handleComponentChange('prtg-lineas.jsx')}>PRTG Líneas</StyledListItem>
           <StyledListItem onClick={() => handleComponentChange('prtg-pastel.jsx')}>PRTG Pastel</StyledListItem>
@@ -151,7 +151,7 @@ const BoardModerator = () => {
         <Typography variant="h5" component="div" sx={{ marginTop: '2rem' }}>
           Empresas:
         </Typography>
-        <List component="nav" aria-label="dashboard companies">
+        <List component="nav" aria-label="administrador companies">
           {empresas.map((empresa, index) => (
             <StyledListItem key={index} onClick={() => handleCompanyChange(empresa)}>
               {empresa.nombre}
