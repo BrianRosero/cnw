@@ -1,30 +1,51 @@
-// menu-items/index.jsx
-import administrador from './Administrador.jsx';
-import pages from './pages.jsx';
-import utilities from './utilities.jsx';
-import other from './other.jsx';
-import profile from './profile.jsx';
-import { widget } from './widget.jsx';
-import integrations from './integrations.jsx';
 import { useAuth } from '../services/AuthContext';
-import user from '@/menu-items/User.jsx';
+
+import administrador from './Roles/Administrador.jsx';
+import moderator from './Roles/Moderador.jsx';
+import user from './Roles/User.jsx';
+
+import inicio from './inicio.jsx'
+import gestion from './gestion.jsx';
+import comunicacion from './comunicación.jsx'
+import administracion from './administracion.jsx'
+import profile from './profile.jsx';
+import utilities from './utilities.jsx';
+import integrations from './integrations.jsx';
+import { widget } from './widget.jsx';
+
+import pages from './pages.jsx';
+import other from './other.jsx';
 
 const MenuItems = () => {
-  const { isAdmin, isUser } = useAuth();
+  const { isAdmin, isUser, isModerator, isAdminCOSMITET } = useAuth();
+
+  console.log('Roles asignados:', { isAdmin, isUser, isModerator, isAdminCOSMITET });
+
+  const roleBasedItems = [
+    isAdmin || isAdminCOSMITET ? administrador(true) :
+      isModerator ? moderator(true) :
+        isUser ? user(true) : null,
+  ].filter(Boolean);
+
+  const roleBasedItems1 = [
+    isAdmin || isAdminCOSMITET || isModerator || isUser ? profile(true) : null,
+  ].filter(Boolean);
 
   return {
     items: [
-      administrador(isAdmin),
-      user(isUser),
-      profile(isUser),
-      profile(isAdmin),
+      inicio,
+      ...roleBasedItems,
+      gestion,
+      comunicacion,
+      administracion,
+      ...roleBasedItems1,
       utilities,
       integrations,
       widget,
-      pages,
-      other,
-    ].filter(Boolean), // Eliminar elementos nulos
+    ],
   };
 };
 
+
 export default MenuItems;
+

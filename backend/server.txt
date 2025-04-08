@@ -480,3 +480,73 @@ try {
 });*/
 
 // Similarmente, puedes agregar endpoints para suspender, hibernar y reiniciar
+
+
+
+ {
+    name: 'COCLOPENIBK01',
+    instance_uuid: '500ddccb-9eda-8e10-1300-42157ddae0a2',
+    bios_uuid: '420d9f21-37f2-4fbe-6a4c-065d202f9393',
+    path: '[STGPOOLBK02] COCLOPENIBK01/COCLOPENIBK01.vmx',
+    cpu_cores: 4,
+    cores_per_socket: 4,
+    memory_gb: 16,
+    cpu_usage_mhz: 62,
+    memory_usage_mb: 163,
+    power_state: 'poweredOn',
+    uptime_seconds: 566087,
+    host: 'esxdl360g1002.cnw.local',
+    disks: [ [Object] ],
+    network_adapters: [ [Object] ],
+    guest_info: {
+      hostname: 'bksrv.clipesincelejo.com',
+      os_fullname: 'Oracle Linux 8 (64-bit)',
+      ip_addresses: [Array],
+      tools_status: 'toolsOk',
+      tools_version: '12357'
+    },
+    annotation: '',
+    folder: 'PENITAS'
+  },
+
+{
+    "name": "COCLOPENIAP03",
+    "instance_uuid": "500d6ebe-72ef-68ce-f8f1-fca1a915d0bc",
+    "bios_uuid": "420d9cda-4543-d2d2-5739-b21bdf1f265f",
+    "path": "[STGPOOLAP02] COCLOPENIAP03/COCLOPENIAP03.vmx",
+    "cpu_cores": 8,
+    "cores_per_socket": 4,
+    "memory_gb": 24.0,
+    "cpu_usage_mhz": 104,
+    "memory_usage_mb": 245,
+    "power_state": "poweredOn",
+    "uptime_seconds": 7096,
+    "host": "esxdl360g1003.cnw.local",
+    "disks": [
+      {
+        "label": "Hard disk 1",
+        "capacity_gb": 200.0,
+        "backing_file": "[STGPOOLAP02] COCLOPENIAP03/COCLOPENIAP03.vmdk",
+        "thin_provisioned": false
+      }
+    ],
+    "network_adapters": [
+      {
+        "label": "Network adapter 1",
+        "mac_address": "00:50:56:8d:3a:39",
+        "connected": true,
+        "network": "DVSwitch: 50 0d dc 23 5e 00 cd d0-cb d4 16 1c 01 44 81 3f"
+      }
+    ],
+    "guest_info": {
+      "hostname": "acceso-apps.clipesincelejo.com",
+      "os_fullname": "Oracle Linux 8 (64-bit)",
+      "ip_addresses": [
+        "10.250.50.8"
+      ],
+      "tools_status": "toolsOk",
+      "tools_version": "12293"
+    },
+    "annotation": "string",
+    "folder": "PENITAS"
+  },

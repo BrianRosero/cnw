@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-// material-ui
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
   Drawer,
@@ -16,41 +13,32 @@ import {
   Typography,
   Grid,
 } from '@mui/material';
-
-
-// third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import desing from './ButtonHorus/horus.svg';
-
-// project imports
-import SubCard from '../../ui-component/cards/SubCard';
-import AnimateButton from '../../ui-component/extended/AnimateButton';
-import { SET_BORDER_RADIUS, SET_FONT_FAMILY } from '../../actions/types.jsx';
-import { gridSpacing } from '../../actions/types.jsx';
 import design from '@/layout/Customization/ButtonHorus/horuswhite.svg';
-
-
-// ==============================|| LIVE CUSTOMIZATION ||============================== //
 
 const ChatAI = () => {
   const theme = useTheme();
-
-  // Drawer state
   const [open, setOpen] = useState(false);
-  const handleToggle = () => setOpen(!open);
-
-  // Chat state
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
-  // Dummy function to simulate API call
+  const messagesEndRef = useRef(null); // Referencia para el scroll automático
+  const API_URL = import.meta.env.VITE_API_URL || "http://192.168.200.155:8083";
+
   const sendMessageToAI = async (message) => {
-    // Simula una respuesta de IA
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(`Respuesta de la IA a: "${message}"`);
-      }, 1000);
-    });
+    try {
+      const response = await fetch(`${API_URL}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: message })
+      });
+
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.error('Error comunicándose con el servidor:', error);
+      return 'Error al conectar con la IA';
+    }
   };
 
   const handleSend = async () => {
@@ -58,7 +46,6 @@ const ChatAI = () => {
 
     const userMessage = { text: input, sender: 'user' };
     setMessages((prev) => [...prev, userMessage]);
-
     setInput('');
 
     const aiResponseText = await sendMessageToAI(input);
@@ -67,15 +54,18 @@ const ChatAI = () => {
     setMessages((prev) => [...prev, aiMessage]);
   };
 
+  // Efecto para hacer scroll automático al último mensaje
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <>
-      {/* toggle button */}
       <Tooltip title="HORUS IA">
         <Fab
           component="div"
-          onClick={handleToggle}
+          onClick={() => setOpen(!open)}
           size="medium"
-          variant="circular"
           color="primary"
           sx={{
             borderRadius: 0,
@@ -89,53 +79,24 @@ const ChatAI = () => {
             zIndex: theme.zIndex.speedDial,
           }}
         >
-          <AnimateButton>
-            <IconButton color="inherit" size="large" disableRipple>
-              <style>
-                {`
-          .rotating-svg {
-            width: 70px; /* Tamaño ajustable */
-            height: auto; /* Mantiene la proporción */
-            animation: spin 2s linear infinite;
-            transform-origin: center; /* Centro exacto del círculo */
-          }
-          @keyframes spin {
-            from {
-              transform: rotate(0deg);
-            }
-            to {
-              transform: rotate(360deg);
-            }
-          }
-        `}
-              </style>
-              <img
-                src={design}
-                alt="Diseño girando"
-                className="rotating-svg"
-                style={{
-                  display: 'block', // Elimina espacios no deseados
-                }}
-              />
-            </IconButton>
-          </AnimateButton>
+          <IconButton color="inherit" size="large" disableRipple>
+            <img src={design} alt="Diseño girando" style={{ width: 70, animation: "spin 2s linear infinite" }} />
+          </IconButton>
         </Fab>
       </Tooltip>
 
       <Drawer
         anchor="right"
         open={open}
-        onClose={handleToggle}
+        onClose={() => setOpen(false)}
         PaperProps={{
           sx: { width: 400, display: 'flex', flexDirection: 'column' },
         }}
       >
-        <PerfectScrollbar component="div" style={{ flex: 1 }}>
-          <Grid container sx={{ p: 2 }}>
-            <Typography variant="h6" color="primary" sx={{ mb: 2 }}>
-              Chat con Inteligencia Artificial
-            </Typography>
-          </Grid>
+        <PerfectScrollbar component="div" style={{ flex: 1, padding: '10px' }}>
+          <Typography variant="h6" color="primary" sx={{ mb: 2, px: 2 }}>
+            Chat con Inteligencia Artificial
+          </Typography>
 
           <List sx={{ flex: 1, overflow: 'auto', px: 2 }}>
             {messages.map((msg, index) => (
@@ -152,6 +113,7 @@ const ChatAI = () => {
                 />
               </ListItem>
             ))}
+            <div ref={messagesEndRef} /> {/* Elemento invisible para hacer scroll al final */}
           </List>
         </PerfectScrollbar>
 
@@ -163,16 +125,9 @@ const ChatAI = () => {
             placeholder="Escribe un mensaje..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') handleSend();
-            }}
+            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSend}
-            sx={{ ml: 1, flexShrink: 0 }}
-          >
+          <Button variant="contained" color="primary" onClick={handleSend} sx={{ ml: 1 }}>
             Enviar
           </Button>
         </Grid>

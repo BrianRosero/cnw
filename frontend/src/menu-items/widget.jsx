@@ -19,8 +19,8 @@ const icons = {
 //-----------------------|| EXTRA PAGES MENU ITEMS ||-----------------------//
 export const widget = {
   id: 'widget',
-  title: 'Widget',
-  caption: 'Widget',
+  title: 'Recursos UI / UX',
+  // caption: 'Widget',
   type: 'group',
   children: [
 

@@ -50,11 +50,358 @@ app.use(express.json());
 app.use(express.urlencoded({ limit: '500mb', extended: true }));
 app.use(pdfRoute)
 
+app.post('/chat', async (req, res) => {
+  const { prompt } = req.body;
+  if (!prompt) {
+    return res.status(400).json({ error: 'Prompt requerido' });
+  }
+
+  try {
+    const response = await fetch('http://192.168.200.155:11434/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'llama3.2:1b',
+        prompt: prompt,
+        stream: false
+      })
+    });
+
+    const data = await response.json();
+    res.json({ response: data.response });
+  } catch (error) {
+    console.error('Error en la API de Ollama:', error);
+    res.status(500).json({ error: 'Error al obtener respuesta de la IA' });
+  }
+});
+
+
+let cachedDataHosts = null;
+let lastUpdatedHosts = null;
+
+// Función para ejecutar el script Python y obtener los datos de los hosts
+const updateHostsData = () => {
+  const pythonProcess = spawn("python", ["./vcenter/get_hosts.py"]);
+
+  let data = "";
+  let error = "";
+
+  pythonProcess.stdout.on("data", (chunk) => {
+    data += chunk.toString();
+  });
+
+  pythonProcess.stderr.on("data", (chunk) => {
+    error += chunk.toString();
+  });
+
+  pythonProcess.on("close", (code) => {
+    if (code === 0) {
+      try {
+        cachedDataHosts = JSON.parse(data);
+        lastUpdatedHosts = new Date();
+      } catch (parseError) {
+        console.error("Error al parsear datos de Python:", parseError.message);
+      }
+    } else {
+      console.error("Error al ejecutar el script de Python:", error);
+    }
+  });
+};
+
+// Ejecutar cada 5 segundos para mantener datos actualizados
+setInterval(updateHostsData, 5000);
+updateHostsData();
+
+// Nueva ruta para obtener los datos de los hosts
+app.get("/vcenter/hosts", (req, res) => {
+  if (cachedDataHosts) {
+    res.status(200).json({ data: cachedDataHosts, lastUpdatedHosts });
+  } else {
+    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+  }
+});
+
+let cachedDataHosts1 = null;
+let lastUpdatedHosts1 = null;
+
+// Función para ejecutar el script Python y obtener los datos de los hosts
+const updateHostsData1 = () => {
+  const pythonProcess = spawn("python", ["./vcenter/get_hosts1.py"]);
+
+  let data = "";
+  let error = "";
+
+  pythonProcess.stdout.on("data", (chunk) => {
+    data += chunk.toString();
+  });
+
+  pythonProcess.stderr.on("data", (chunk) => {
+    error += chunk.toString();
+  });
+
+  pythonProcess.on("close", (code) => {
+    if (code === 0) {
+      try {
+        cachedDataHosts1 = JSON.parse(data);
+        lastUpdatedHosts1 = new Date();
+      } catch (parseError) {
+        console.error("Error al parsear datos de Python:", parseError.message);
+      }
+    } else {
+      console.error("Error al ejecutar el script de Python:", error);
+    }
+  });
+};
+
+// Ejecutar cada 5 segundos para mantener datos actualizados
+setInterval(updateHostsData1, 5000);
+updateHostsData1();
+
+// Nueva ruta para obtener los datos de los hosts
+app.get("/vcenter/hosts1", (req, res) => {
+  if (cachedDataHosts1) {
+    res.status(200).json({ data: cachedDataHosts1, lastUpdatedHosts1 });
+  } else {
+    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+  }
+});
+
+const VmDataGlake = require("./models/VmDataGlake");
+
+let cachedDataVms = null;
+let cachedVmsHistory = null;
+let lastUpdatedVms = null;
+let isUpdating = false;
+
+const updateVmsData = async () => {
+  if (isUpdating) {
+    console.warn("⚠️ Ya hay una actualización en proceso, omitiendo...");
+    return;
+  }
+  isUpdating = true;
+
+  try {
+    const pythonProcess = spawn("python", ["./vcenter/get_vms.py"]);
+    let data = "", error = "";
+
+    pythonProcess.stdout.on("data", (chunk) => (data += chunk.toString()));
+    pythonProcess.stderr.on("data", (chunk) => (error += chunk.toString()));
+
+    pythonProcess.on("close", async (code) => {
+      isUpdating = false; isUpdating = false;
+      if (code === 0) {
+        try {
+          const parsedData = JSON.parse(data);
+          if (!parsedData || parsedData.length === 0) throw new Error("No se recibieron datos.");
+          const formattedData = parsedData.map((vm) => ({
+            name: vm.name,
+            instance_uuid: vm.instance_uuid,
+            cpu_usage_mhz: vm.cpu_usage_mhz,
+            memory_usage_mb: vm.memory_usage_mb,
+            storage_usage_gb: vm.disks.reduce(
+              (sum, disk) => sum + (disk.capacity_gb || 0),
+              0
+            ),
+            cpu_cores: vm.cpu_cores || 0,
+            cores_per_socket: vm.cores_per_socket || 0,
+            memory_gb: vm.memory_gb || 0,
+            power_state: vm.power_state || "Desconocido",
+            host: vm.host || "Desconocido",
+            disks: (vm.disks || []).map((disk) => ({
+              name: disk.name || "Desconocido",
+              capacity_gb: disk.capacity_gb || 0,
+            })),
+            guest_info: {
+              hostname: vm.guest_info.hostname || "Desconocido",
+              os_fullname: vm.guest_info.os_fullname || "Desconocido",
+              ip_addresses: vm.guest_info.ip_addresses || [],
+              tools_status: vm.guest_info.tools_status || "Desconocido",
+              tools_version: vm.guest_info.tools_version || "Desconocido",
+            },
+            timestamp: new Date(),
+          }));
+
+          await VmDataGlake.insertMany(formattedData, { ordered: false }).catch((err) =>
+            console.error("❌ Error al insertar datos:", err.message)
+          );
+
+          cachedDataVms = formattedData;
+          lastUpdatedVms = new Date();
+          console.log("✅ Datos actualizados correctamente y guardados en caché.");
+        } catch (parseError) {
+          console.error("❌ Error al parsear datos:", parseError.message);
+        }
+      } else {
+        console.error("❌ Error al ejecutar el script:", error);
+      }
+    });
+  } catch (err) {
+    isUpdating = false;
+    console.error("❌ Error general en updateVmsData:", err.message);
+  }
+};
+
+const updateVmsHistoryCache = async () => {
+  try {
+    cachedVmsHistory = await VmDataGlake.find()
+      .sort({ timestamp: -1 })
+      .limit(5000)
+      .lean();
+    console.log("✅ Historial de VMs actualizado en caché.");
+  } catch (error) {
+    console.error("❌ Error al actualizar caché de historial:", error.message);
+  }
+};
+
+// 🚀 Nueva ruta con caché para historial
+app.get("/vcenter/vms-db", async (req, res) => {
+  if (cachedVmsHistory) {
+    res.status(200).json({ data: cachedVmsHistory });
+    updateVmsHistoryCache(); // Actualizar caché en segundo plano
+  } else {
+    await updateVmsHistoryCache();
+    res.status(200).json({ data: cachedVmsHistory || [] });
+  }
+});
+
+// Responder siempre desde caché
+app.get("/vcenter/vms", (req, res) => {
+  if (cachedDataVms) {
+    res.status(200).json({ data: cachedDataVms, lastUpdatedVms });
+  } else {
+    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+  }
+});
+
+setInterval(updateVmsData, 50000);
+setInterval(updateVmsHistoryCache, 50000);
+updateVmsData();
+updateVmsHistoryCache();
+
+
+
+
+const VmDataCNWS = require("./models/VmDataCNWS");
+
+let cachedDataVms1 = null;
+let cachedVmsHistory1 = null;
+let lastUpdatedVms1 = null;
+let isUpdating1 = false;
+
+// Función para ejecutar el script Python y obtener los datos de los hosts
+const updateVmsData1 = async () => {
+  if (isUpdating1) {
+    console.warn("⚠️ Ya hay una actualización en proceso, omitiendo...");
+    return;
+  }
+  isUpdating1 = true;
+
+  try {
+    const pythonProcess = spawn("python", ["./vcenter/get_vms1.py"]);
+    let data = "", error = "";
+
+  pythonProcess.stdout.on("data", (chunk) => (data += chunk.toString()));
+  pythonProcess.stderr.on("data", (chunk) => (error += chunk.toString()));
+
+  pythonProcess.on("close", async (code) => {
+    isUpdating1 = false;
+    if (code === 0) {
+      try {
+        const parsedData = JSON.parse(data);
+        if (!parsedData || parsedData.length === 0) throw new Error("No se recibieron datos.");
+
+        const formattedData = parsedData.map((vm) => ({
+          name: vm.name,
+          instance_uuid: vm.instance_uuid,
+          cpu_usage_mhz: vm.cpu_usage_mhz,
+          memory_usage_mb: vm.memory_usage_mb,
+          storage_usage_gb: vm.disks.reduce(
+            (sum, disk) => sum + (disk.capacity_gb || 0),
+            0
+          ),
+          cpu_cores: vm.cpu_cores || 0,
+          cores_per_socket: vm.cores_per_socket || 0,
+          memory_gb: vm.memory_gb || 0,
+          power_state: vm.power_state || "Desconocido",
+          host: vm.host || "Desconocido",
+          disks: (vm.disks || []).map((disk) => ({
+            name: disk.name || "Desconocido",
+            capacity_gb: disk.capacity_gb || 0,
+          })),
+          guest_info: {
+            hostname: vm.guest_info.hostname || "Desconocido",
+            os_fullname: vm.guest_info.os_fullname || "Desconocido",
+            ip_addresses: vm.guest_info.ip_addresses || [],
+            tools_status: vm.guest_info.tools_status || "Desconocido",
+            tools_version: vm.guest_info.tools_version || "Desconocido",
+          },
+          timestamp: new Date(),
+        }));
+
+        await VmDataCNWS.insertMany(formattedData, { ordered: false }).catch((err) =>
+          console.error("❌ Error al insertar datos:", err.message)
+        );
+
+        cachedDataVms1 = parsedData;
+        lastUpdatedVms1 = new Date();
+        console.log("✅ Datos actualizados correctamente y guardados en caché.");
+      } catch (parseError) {
+        console.error("Error al parsear datos de Python:", parseError.message);
+      }
+    } else {
+      console.error("Error al ejecutar el script de Python:", error);
+    }
+  });
+  } catch (err) {
+    isUpdating1 = false;
+    console.error("Error general en updateVmsData1:", err.message);
+  }
+};
+
+const updateVmsHistoryCache1 = async () => {
+  try {
+    cachedVmsHistory1 = await VmDataCNWS.find()
+      .sort({ timestamp: -1 })
+      .limit(5000)
+      .lean();
+    console.log("✅ Historial de VMs actualizado en caché.");
+  } catch (error) {
+    console.error("❌ Error al actualizar caché de historial:", error.message);
+  }
+};
+
+// 🚀 Nueva ruta con caché para historial
+app.get("/vcenter/vms-db1", async (req, res) => {
+  if (cachedVmsHistory1) {
+    res.status(200).json({ data: cachedVmsHistory1 });
+    updateVmsHistoryCache1(); // Actualizar caché en segundo plano
+  } else {
+    await updateVmsHistoryCache1();
+    res.status(200).json({ data: cachedVmsHistory1 || [] });
+  }
+});
+
+// Nueva ruta para obtener los datos de los hosts
+app.get("/vcenter/vms1", (req, res) => {
+  if (cachedDataVms1) {
+    res.status(200).json({ data: cachedDataVms1, lastUpdatedVms1 });
+  } else {
+    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+  }
+});
+
+// Ejecutar cada 5 segundos para mantener datos actualizados 👀
+setInterval(updateVmsData1, 50000);
+setInterval(updateVmsHistoryCache1, 50000);
+updateVmsData1();
+updateVmsHistoryCache1();
+
 let cachedDataGlake = null; // Datos en caché
 let lastUpdatedGlake = null;
+
 // Función para ejecutar el script Python periódicamente
 const updateDataGlake = () => {
-  const pythonProcess = spawn("python", ["./resourcesglake.py"]); // Cambia el nombre del script si es necesario
+  const pythonProcess = spawn("python", ["./vcenter/resourcesglake.py"]); // Cambia el nombre del script si es necesario
 
   let data = "";
   let error = "";
@@ -80,10 +427,11 @@ const updateDataGlake = () => {
     }
   });
 };
-// Ejecutar el script cada 5 segundos
-setInterval(updateDataGlake, 5000);
+
+// Ejecutar el script cada 50 segundos
+setInterval(updateDataGlake, 50000);
 updateDataGlake(); // Ejecutar inmediatamente al iniciar el servidor
-// Endpoint para obtener datos
+// Endpoint para obtener datos correcto
 app.get("/vcenter/resources-glake", (req, res) => {
   if (cachedDataGlake) {
     res.status(200).json({ data: cachedDataGlake, lastUpdatedGlake });
@@ -94,9 +442,10 @@ app.get("/vcenter/resources-glake", (req, res) => {
 
 let cachedDataCNWS = null; // Datos en caché
 let lastUpdatedCNWS = null;
-// Función para ejecutar el script Python periódicamente
+
+// Función para ejecutar el script Python periódicamente y obtener datos de CNWS
 const updateDataCNWS = () => {
-  const pythonProcess = spawn("python", ["./resourcescnws.py"]); // Cambia el nombre del script si es necesario
+  const pythonProcess = spawn("python", ["./vcenter/resourcescnws.py"]); // Cambia el nombre del script si es necesario
 
   let data = "";
   let error = "";
@@ -122,8 +471,9 @@ const updateDataCNWS = () => {
     }
   });
 };
-// Ejecutar el script cada 5 segundos
-setInterval(updateDataCNWS, 5000);
+
+// Ejecutar el script cada 50 segundos
+setInterval(updateDataCNWS, 50000);
 updateDataCNWS(); // Ejecutar inmediatamente al iniciar el servidor
 // Endpoint para obtener datos
 app.get("/vcenter/resources-cnws", (req, res) => {
@@ -133,7 +483,6 @@ app.get("/vcenter/resources-cnws", (req, res) => {
     res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
   }
 });
-
 
 app.get('/api/clusters', async (req, res) => {
   try {
@@ -197,8 +546,6 @@ app.get('/api/vm/:vmId/details', async (req, res) => {
   }
 });
 
-
-
 app.get('/api/networks', async (req, res) => {
   try {
     const sessionId = await authenticate();
@@ -208,9 +555,6 @@ app.get('/api/networks', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-
-
 
 app.get('/api/hosts/:id', async (req, res) => {
   try {
@@ -282,7 +626,6 @@ app.get('/api/clusters/:id/performance', async (req, res) => {
   }
 });
 
-
 app.get('/api/cluster/metrics', async (req, res) => {
   try {
     const sessionId = await authenticate();
@@ -294,7 +637,6 @@ app.get('/api/cluster/metrics', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 // Verifica el token ingresado por el usuario
 app.post('/verify', (req, res) => {
@@ -341,6 +683,42 @@ mongoose.connection.once('open', () => {
   console.log('Conectado a MongoDB');
   logEvent('Conectado a MongoDB');
 });
+
+// Función para limpiar la colección sensordatas
+async function cleanSensorData() {
+  try {
+    console.log('Iniciando limpieza de datos en la colección sensordatas...');
+    const documents = await SensorData.find()
+      .sort({ _id: -1 }) // Ordena de más reciente a más antiguo
+      .skip(10080) // Salta los últimos 10080 documentos
+      .limit(1); // Obtén el primer registro fuera del rango
+
+    if (documents.length === 0) {
+      console.log('No hay datos para eliminar.');
+      return { message: 'No hay datos para eliminar.' };
+    }
+
+    const thresholdId = documents[0]._id;
+
+    // Eliminar registros más antiguos que el límite
+    const result = await SensorData.deleteMany({ _id: { $lt: thresholdId } });
+    console.log(`${result.deletedCount} registros eliminados.`);
+    return { message: `${result.deletedCount} registros eliminados.` };
+  } catch (error) {
+    console.error('Error limpiando los datos:', error);
+    return { error: 'Error limpiando los datos.' };
+  }
+}
+
+// Ejecutar la limpieza de datos automáticamente al iniciar el servidor
+(async () => {
+  const response = await cleanSensorData();
+  if (response.error) {
+    console.error('Error en la limpieza automática:', response.error);
+  } else {
+    console.log('Limpieza automática completada:', response.message);
+  }
+})();
 
 // Middleware para registrar logs
 app.use((req, res, next) => {
@@ -946,6 +1324,31 @@ app.get('/canales-alt/:sensorId', async (req, res) => {
   } catch (error) {
     console.error('Error fetching channels from PRTG API (Alt):', error.message);
     res.status(500).json({ error: 'Failed to fetch channels from PRTG API (Alt)' });
+  }
+});
+
+app.get('/prtg-api', async (req, res) => {
+  try {
+    const response = await axios.get('https://192.168.200.158/api/table.json', {
+      params: {
+        content: 'sensors',
+        columns: 'objid,name,device,lastvalue',
+        username: usernamecosmi,
+        password: passwordcosmi,
+      },
+      paramsSerializer: params => {
+        return Object.entries(params)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('&');
+      },
+      httpsAgent,
+    });
+
+    const sensors = response.data.sensors || [];
+    res.json({ sensors });
+  } catch (error) {
+    console.error('Error fetching sensor data from PRTG API:', error.message);
+    res.status(500).json({ error: 'Failed to fetch sensor data from PRTG API' });
   }
 });
 

@@ -7,7 +7,6 @@ import { css } from "@emotion/react";
 
 const BoardESECENTRO = () => {
   const [content, setContent] = useState("");
-  const [isAdminESECENTRO, setIsAdminESECENTRO] = useState(false);
   const [realtimedata, setRealTimeData] = useState(null);
   const [filteredSensors, setFilteredSensors] = useState(null);
   const [sensorTypeFilter, setSensorTypeFilter] = useState("Todos");
@@ -31,29 +30,6 @@ const BoardESECENTRO = () => {
     const intervalId = setInterval(fetchData, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    UserService.getAdminESECENTRO().then(
-      (response) => {
-        setContent(response.data);
-        setIsAdminESECENTRO(true);
-      },
-      (error) => {
-        const errorMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(errorMessage);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
-        }
-      }
-    );
   }, []);
 
   useEffect(() => {
@@ -102,17 +78,6 @@ const BoardESECENTRO = () => {
     setSensorTypeFilter(event.target.value);
   };
 
-  if (content === "Requiere permisos de Moderador normal") {
-    return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>{content}</h3>
-        </header>
-      </div>
-    );
-  }
-
-  if (isAdminESECENTRO) {
     return (
       <div style={{ background: "#fff", padding: "20px" }}>
         <h1 style={{ color: "#333", textAlign: "center" }}>Datos en Tiempo Real de PRTG:</h1>
@@ -145,15 +110,6 @@ const BoardESECENTRO = () => {
         </div>
       </div>
     );
-  }
-
-  return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
-    </div>
-  );
 };
 
 export default BoardESECENTRO;

@@ -15,7 +15,7 @@ export default function themePalette(theme = {}) {
       black: dark.paper || '#000',
     },
     primary: {
-      light: primary.light || '#e3f2fd',
+      light: primary.light || '#004a8f',
       main: primary.main || '#2196f3',
       dark: primary.dark || '#1e88e5',
       200: primary[200] || '#90caf9',

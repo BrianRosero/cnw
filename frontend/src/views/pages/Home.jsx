@@ -49,8 +49,6 @@ const Home = () => {
     },
   });
 
-
-
   return (
     <Container maxWidth="lg">
       <Typography variant="h4" gutterBottom style={{ marginBottom: '1.5rem', textAlign: 'center' }}>

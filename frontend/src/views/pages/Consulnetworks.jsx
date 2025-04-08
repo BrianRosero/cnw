@@ -455,7 +455,7 @@ const IFrameWrapper = styled('iframe')(({ theme }) => ({
 
 const MaterialIcons = () => (
   <Card sx={{ overflow: 'hidden' }}>
-    <IFrameWrapper title="Pagina Consulnetworks" width="100%" src="https://support.cnw.co/scp/tasks.php?id=462" />
+    <IFrameWrapper title="Pagina Consulnetworks" width="100%" src="https://jhugheswebdev.github.io/sound-equalizer-threejs/" />
   </Card>
 );
 

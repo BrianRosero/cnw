@@ -4,7 +4,6 @@ import {
   IconPalette,
   IconShadow,
   IconWindmill,
-  IconHome,
   IconUserCircle,
   IconUserCog,
   IconDashboard,
@@ -16,7 +15,6 @@ const icons = {
   IconPalette,
   IconShadow,
   IconWindmill,
-  IconHome,
   IconUserCircle,
   IconUserCog,
   IconDashboard
@@ -33,15 +31,7 @@ const profile = (isVisible) => {
     title: 'Perfil',
     type: 'group',
     children: [
-      {
-        id: 'home',
-        key: 'home', // Agrega la clave aquí
-        title: 'Home',
-        type: 'item',
-        url: '/profile/home',
-        icon: icons.IconHome,
-        breadcrumbs: false,
-      },
+
       {
         id: 'perfil',
         key: 'perfil', // Agrega la clave aquí
@@ -51,14 +41,7 @@ const profile = (isVisible) => {
         icon: icons.IconUserCircle,
         breadcrumbs: false,
       },
-      {
-        id: 'panel',
-        title: 'Panel de control',
-        type: 'item',
-        url: '/dashboard/panel-de-control',
-        icon: icons.IconDashboard,
-        breadcrumbs: false,
-      },
+
       {
         id: 'Admin',
         key: 'Admin', // Agrega la clave aquí

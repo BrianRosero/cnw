@@ -1,29 +1,37 @@
-const BASE_URL = 'http://192.168.200.155:8083/api';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-// Función para obtener el resumen del host
-export const getHostSummary = async () => {
-  const response = await fetch(`${BASE_URL}/host-summary`);
-  if (!response.ok) throw new Error('Error obteniendo resumen del host');
-  return response.json();
+const Tickets = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://192.168.200.155:8083/tickets');
+        setData(response.data);
+      } catch (err) {
+        setError('Error al obtener datos');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      <h2>Datos de la API de osTicket</h2>
+      {loading && <p>Cargando datos...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+                {data ? JSON.stringify(data, null, 2) : "No hay datos"}
+            </pre>
+    </div>
+  );
 };
 
-// Función para obtener las máquinas virtuales
-export const getVirtualMachines = async () => {
-  const response = await fetch(`${BASE_URL}/vms`);
-  if (!response.ok) throw new Error('Error obteniendo máquinas virtuales');
-  return response.json();
-};
-
-// Función para obtener las redes
-export const getNetworks = async () => {
-  const response = await fetch(`${BASE_URL}/networks`);
-  if (!response.ok) throw new Error('Error obteniendo redes');
-  return response.json();
-};
-
-// Función para obtener los almacenes de datos
-export const getDatastores = async () => {
-  const response = await fetch(`${BASE_URL}/datastores`);
-  if (!response.ok) throw new Error('Error obteniendo almacenes de datos');
-  return response.json();
-};
+export default Tickets;

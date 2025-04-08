@@ -17,25 +17,28 @@ const UtilsTablerIcons = Loadable(lazy(() => import('../views/pages/utilities/Ta
 
 const Graficos = Loadable(lazy(() => import('../views/dashboard/Default/index.jsx')));
 
-import Panel from '../views/pages/INICIO/Panel.jsx';
-import Home from '../layout/dashboards/WAVE-DC/default';
+import Panel from '../layout/pages/Panel-Monitoreo/WAVE-DC/default/index.jsx';
+import Datacenter from '../layout/pages/Clientes-Datacenter/INICIO/Panel.jsx';
+import PrtgMonitoreo from '../layout/pages/Clientes-Datacenter/INICIO/Panel.jsx';
+
+import Home from '../views/pages/Home.jsx';
 import Profile from '../views/pages/Perfil/Profile.jsx';
 import Administrador from '../views/pages/Administrador.jsx';
-import Kanban from '../layout/dashboards/WAVE-DC/GLAKECNW';
+import Kanban from '../layout/pages/Panel-Monitoreo//WAVE-DC/GLAKECNW';
 import Estadisticas from '../views/pages/Estadisticas.jsx';
 import BoardModerator from '../views/pages/BoardModerator.jsx';
 import Rendimiento from '../views/pages/Rendimiento.jsx';
 //import Chat from '../layout/dashboards/GLAKECNW/Datastores.jsx';
-import Chat from '../layout/dashboards/WAVE-DC/default/index.jsx';
+import Chat from '../layout/pages/Panel-Monitoreo/WAVE-DC/default/index.jsx';
 import Calendario from '../views/pages/Calendario.jsx';
-import CRM from '../views/pages/CRM.jsx';
+//import CRM from '../layout/dashboards/crm';
+import CRM from '../views/pages/CRM/test.jsx'
 import Consulnetworks from '../views/pages/Consulnetworks.jsx';
 import Preguntas from '../views/pages/Preguntas.jsx';
 import Reportes from '../views/pages/Reportes.jsx';
 import Tickets from '../views/pages/Tickets.jsx';
 import BoardAdmin from '../views/pages/BoardAdmin.jsx';
-import BoardUser from '../views/pages/BoardUser.jsx';
-import BoardESECENTRO from '../views/pages/ESECENTRO/Prueba/BoardESECENTRO2.jsx';
+import BoardUser from '../views/pages/api/vsphere.jsx';
 
 import Statistics from '@/views/pages/statistics.jsx';
 
@@ -59,14 +62,56 @@ const MainRoutes = () => {
       ...(isAdmin
         ? [
           {
-            path: 'dashboard',
+            path: 'control',
             children: [
-              { path: 'inicio', element: <DashboardDefault1 /> },
               { path: 'panel-de-control', element: <Panel /> },
+              { path: 'datacenter', element: <Datacenter />, },
+              { path: 'prtg', element: <PrtgMonitoreo />, },
+
               { path: 'crm', element: <CRM /> },
               { path: 'rendimiento', element: <Rendimiento /> },
               { path: 'BoardAdministrator', element: <BoardAdmin /> },
               { path: 'Statistics', element: <Statistics /> },
+              // Otras rutas de Dashboard para administradores
+            ],
+          },
+        ]
+        : []), // Si no es admin, omite el grupo de rutas de Dashboard
+      ...(isAdmin
+        ? [
+          {
+            path: 'gestion',
+            children: [
+              { path: 'crm', element: <CRM /> },
+              { path: 'tickets', element: <Tickets /> },
+              { path: 'monitoreo-int', element: <Tickets /> },
+              // Otras rutas de Dashboard para administradores
+            ],
+          },
+        ]
+        : []), // Si no es admin, omite el grupo de rutas de Dashboard
+      ...(isAdmin
+        ? [
+          {
+            path: 'comunicacion',
+            children: [
+              { path: 'chat', element: <CRM /> },
+              { path: 'tickets1', element: <Tickets /> },
+              { path: 'helpdesk', element: <Tickets /> },
+              { path: 'email', element: <Tickets /> },
+              // Otras rutas de Dashboard para administradores
+            ],
+          },
+        ]
+        : []), // Si no es admin, omite el grupo de rutas de Dashboard
+      ...(isAdmin
+        ? [
+          {
+            path: 'administracion',
+            children: [
+              { path: 'panel', element: <Tickets /> },
+              { path: 'estadisticas', element: <Tickets /> },
+              { path: 'Perfil', element: <Tickets /> },
               // Otras rutas de Dashboard para administradores
             ],
           },
@@ -78,7 +123,6 @@ const MainRoutes = () => {
           {
             path: 'dashboard',
             children: [
-              { path: 'inicio', element: <DashboardDefault1 /> },
               { path: 'Statistics', element: <Statistics /> },
               // Otras rutas de Dashboard para Usuarios
             ],
@@ -86,7 +130,16 @@ const MainRoutes = () => {
         ]
         : []), // Si no es admin, omite el grupo de rutas de Dashboard
       {
-        path: 'profile',
+        path: 'inicio',
+        children: [
+          {
+            path: 'inicio',
+            element: <DashboardDefault1/>,
+          },
+        ],
+      },
+      {
+        path: 'inicio',
         children: [
           {
             path: 'home',
@@ -94,6 +147,7 @@ const MainRoutes = () => {
           },
         ],
       },
+
       {
         path: 'profile',
         children: [
