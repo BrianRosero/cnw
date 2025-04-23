@@ -24873,3 +24873,15 @@
 {"level":"info","message":"Conectado a MongoDB","timestamp":"2025-04-07T19:36:52.309Z"}
 {"level":"info","message":"Conectado a MongoDB","timestamp":"2025-04-07T20:46:56.450Z"}
 {"level":"info","message":"Conectado a MongoDB","timestamp":"2025-04-07T21:01:33.673Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-04-07T22:15:47.017Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-04-08T14:08:10.693Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-04-08T14:08:22.962Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-04-21T14:48:16.890Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-04-21T14:49:49.249Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-04-21T14:49:57.561Z"}
+{"level":"info","message":"Lista de archivos PDF obtenida","timestamp":"2025-04-21T14:58:44.531Z"}
+{"level":"info","message":"Lista de archivos PDF obtenida","timestamp":"2025-04-21T19:44:09.217Z"}
+{"level":"info","message":"Request: GET /pdfs/COSMITET/Informe%20Diario%20BK%20COSMITET%20LTDA%2002-07-2024.pdf","timestamp":"2025-04-21T19:44:12.727Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-04-22T21:32:21.803Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-04-22T21:32:57.540Z"}
+{"level":"info","message":"Lista de archivos PDF obtenida","timestamp":"2025-04-22T21:36:30.503Z"}

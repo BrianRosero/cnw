@@ -16,7 +16,7 @@ import logo from '@/assets/images/ESECENTRO/LOGO-WEB.png'
 // Importar componentes de páginas
 //import Rendimiento from './info/Vms.jsx'
 //import Rendimiento from './Prueba1.jsx'
-import Rendimiento from './SensorGlake.jsx'
+import Rendimiento from './Sensores'
 import Informes from './Informes.jsx'
 import INICIO from './Inicio.jsx'
 
