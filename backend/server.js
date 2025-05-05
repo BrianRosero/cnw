@@ -358,6 +358,7 @@ const updateVmsData1 = async () => {
   }
 };
 
+
 const updateVmsHistoryCache1 = async () => {
   try {
     cachedVmsHistory1 = await VmDataCNWS.find()
