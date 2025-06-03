@@ -12,10 +12,10 @@ const http = require('http');
 const { Server } = require('socket.io');
 const winston = require('winston');
 const pdfRoute = require('./pdfRoutes');
-const env = require('dotenv')
+const env = require('dotenv');
 const speakeasy = require('speakeasy');
 const httpsAgent = require('./config/httpsAgent');
-const { spawn } = require("child_process");
+const { spawn } = require('child_process');
 
 // Importar modelos
 const SensorData = require('./models/SensorData');
@@ -48,7 +48,7 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '500mb' }));
 app.use(express.json());
 app.use(express.urlencoded({ limit: '500mb', extended: true }));
-app.use(pdfRoute)
+app.use(pdfRoute);
 
 app.post('/chat', async (req, res) => {
   const { prompt } = req.body;
@@ -63,8 +63,8 @@ app.post('/chat', async (req, res) => {
       body: JSON.stringify({
         model: 'llama3.2:1b',
         prompt: prompt,
-        stream: false
-      })
+        stream: false,
+      }),
     });
 
     const data = await response.json();
@@ -79,31 +79,31 @@ app.post('/chat', async (req, res) => {
 let cachedDataHosts = null;
 let lastUpdatedHosts = null;
 
-// Función para ejecutar el script Python y obtener los datos de los hosts
+// Función para ejecutar el script Python y obtener los datos de los hosts GLAKE
 const updateHostsData = () => {
-  const pythonProcess = spawn("python", ["./vcenter/get_hosts.py"]);
+  const pythonProcess = spawn('python', ['./vcenter/get_hosts.py']);
 
-  let data = "";
-  let error = "";
+  let data = '';
+  let error = '';
 
-  pythonProcess.stdout.on("data", (chunk) => {
+  pythonProcess.stdout.on('data', (chunk) => {
     data += chunk.toString();
   });
 
-  pythonProcess.stderr.on("data", (chunk) => {
+  pythonProcess.stderr.on('data', (chunk) => {
     error += chunk.toString();
   });
 
-  pythonProcess.on("close", (code) => {
+  pythonProcess.on('close', (code) => {
     if (code === 0) {
       try {
         cachedDataHosts = JSON.parse(data);
         lastUpdatedHosts = new Date();
       } catch (parseError) {
-        console.error("Error al parsear datos de Python:", parseError.message);
+        console.error('Error al parsear datos de Python:', parseError.message);
       }
     } else {
-      console.error("Error al ejecutar el script de Python:", error);
+      console.error('Error al ejecutar el script de Python:', error);
     }
   });
 };
@@ -112,43 +112,43 @@ const updateHostsData = () => {
 setInterval(updateHostsData, 5000);
 updateHostsData();
 
-// Nueva ruta para obtener los datos de los hosts
-app.get("/vcenter/hosts", (req, res) => {
+// Nueva ruta para obtener los datos de los hosts GLAKE
+app.get('/vcenter/hosts', (req, res) => {
   if (cachedDataHosts) {
     res.status(200).json({ data: cachedDataHosts, lastUpdatedHosts });
   } else {
-    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+    res.status(503).json({ error: 'Datos no disponibles. Intenta nuevamente.' });
   }
 });
 
 let cachedDataHosts1 = null;
 let lastUpdatedHosts1 = null;
 
-// Función para ejecutar el script Python y obtener los datos de los hosts
+// Función para ejecutar el script Python y obtener los datos de los hosts CNWS
 const updateHostsData1 = () => {
-  const pythonProcess = spawn("python", ["./vcenter/get_hosts1.py"]);
+  const pythonProcess = spawn('python', ['./vcenter/get_hosts1.py']);
 
-  let data = "";
-  let error = "";
+  let data = '';
+  let error = '';
 
-  pythonProcess.stdout.on("data", (chunk) => {
+  pythonProcess.stdout.on('data', (chunk) => {
     data += chunk.toString();
   });
 
-  pythonProcess.stderr.on("data", (chunk) => {
+  pythonProcess.stderr.on('data', (chunk) => {
     error += chunk.toString();
   });
 
-  pythonProcess.on("close", (code) => {
+  pythonProcess.on('close', (code) => {
     if (code === 0) {
       try {
         cachedDataHosts1 = JSON.parse(data);
         lastUpdatedHosts1 = new Date();
       } catch (parseError) {
-        console.error("Error al parsear datos de Python:", parseError.message);
+        console.error('Error al parsear datos de Python:', parseError.message);
       }
     } else {
-      console.error("Error al ejecutar el script de Python:", error);
+      console.error('Error al ejecutar el script de Python:', error);
     }
   });
 };
@@ -157,16 +157,16 @@ const updateHostsData1 = () => {
 setInterval(updateHostsData1, 5000);
 updateHostsData1();
 
-// Nueva ruta para obtener los datos de los hosts
-app.get("/vcenter/hosts1", (req, res) => {
+// Nueva ruta para obtener los datos de los hosts CNWS
+app.get('/vcenter/hosts1', (req, res) => {
   if (cachedDataHosts1) {
     res.status(200).json({ data: cachedDataHosts1, lastUpdatedHosts1 });
   } else {
-    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+    res.status(503).json({ error: 'Datos no disponibles. Intenta nuevamente.' });
   }
 });
 
-const VmDataGlake = require("./models/VmDataGlake");
+const VmDataGlake = require('./models/VmDataGlake');
 
 let cachedDataVms = null;
 let cachedVmsHistory = null;
@@ -175,24 +175,23 @@ let isUpdating = false;
 
 const updateVmsData = async () => {
   if (isUpdating) {
-    console.warn("⚠️ Ya hay una actualización en proceso, omitiendo...");
+    console.warn('⚠️ Ya hay una actualización en proceso, omitiendo...');
     return;
   }
   isUpdating = true;
-
   try {
-    const pythonProcess = spawn("python", ["./vcenter/get_vms.py"]);
-    let data = "", error = "";
+    const pythonProcess = spawn('python', ['./vcenter/get_vms.py']);
+    let data = '', error = '';
 
-    pythonProcess.stdout.on("data", (chunk) => (data += chunk.toString()));
-    pythonProcess.stderr.on("data", (chunk) => (error += chunk.toString()));
+    pythonProcess.stdout.on('data', (chunk) => (data += chunk.toString()));
+    pythonProcess.stderr.on('data', (chunk) => (error += chunk.toString()));
 
-    pythonProcess.on("close", async (code) => {
-      isUpdating = false; isUpdating = false;
+    pythonProcess.on('close', async (code) => {
+      isUpdating = false;
       if (code === 0) {
         try {
           const parsedData = JSON.parse(data);
-          if (!parsedData || parsedData.length === 0) throw new Error("No se recibieron datos.");
+          if (!parsedData || parsedData.length === 0) throw new Error('No se recibieron datos (GLAKECNW).');
           const formattedData = parsedData.map((vm) => ({
             name: vm.name,
             instance_uuid: vm.instance_uuid,
@@ -200,44 +199,45 @@ const updateVmsData = async () => {
             memory_usage_mb: vm.memory_usage_mb,
             storage_usage_gb: vm.disks.reduce(
               (sum, disk) => sum + (disk.capacity_gb || 0),
-              0
+              0,
             ),
+            totalGuestDiskUsedSpaceGB: vm.totalGuestDiskUsedSpaceGB || 0,
             cpu_cores: vm.cpu_cores || 0,
             cores_per_socket: vm.cores_per_socket || 0,
             memory_gb: vm.memory_gb || 0,
-            power_state: vm.power_state || "Desconocido",
-            host: vm.host || "Desconocido",
+            power_state: vm.power_state || 'Desconocido',
+            host: vm.host || 'Desconocido',
             disks: (vm.disks || []).map((disk) => ({
-              name: disk.name || "Desconocido",
+              name: disk.name || 'Desconocido',
               capacity_gb: disk.capacity_gb || 0,
             })),
             guest_info: {
-              hostname: vm.guest_info.hostname || "Desconocido",
-              os_fullname: vm.guest_info.os_fullname || "Desconocido",
+              hostname: vm.guest_info.hostname || 'Desconocido',
+              os_fullname: vm.guest_info.os_fullname || 'Desconocido',
               ip_addresses: vm.guest_info.ip_addresses || [],
-              tools_status: vm.guest_info.tools_status || "Desconocido",
-              tools_version: vm.guest_info.tools_version || "Desconocido",
+              tools_status: vm.guest_info.tools_status || 'Desconocido',
+              tools_version: vm.guest_info.tools_version || 'Desconocido',
             },
             timestamp: new Date(),
           }));
 
           await VmDataGlake.insertMany(formattedData, { ordered: false }).catch((err) =>
-            console.error("❌ Error al insertar datos:", err.message)
+            console.error('❌ Error al insertar datos:', err.message),
           );
 
-          cachedDataVms = formattedData;
+          cachedDataVms = parsedData;
           lastUpdatedVms = new Date();
-          console.log("✅ Datos actualizados correctamente y guardados en caché.");
+          console.log('✅ Datos actualizados correctamente y guardados en caché (GLAKECNW).');
         } catch (parseError) {
-          console.error("❌ Error al parsear datos:", parseError.message);
+          console.error('❌ Error al parsear datos GLAKECNWS:', parseError.message);
         }
       } else {
-        console.error("❌ Error al ejecutar el script:", error);
+        console.error('❌ Error al ejecutar el script de Python para GLAKECNW:', error);
       }
     });
   } catch (err) {
     isUpdating = false;
-    console.error("❌ Error general en updateVmsData:", err.message);
+    console.error('❌ Error general en updateVmsData (GLAKECNW):', err.message);
   }
 };
 
@@ -247,14 +247,14 @@ const updateVmsHistoryCache = async () => {
       .sort({ timestamp: -1 })
       .limit(5000)
       .lean();
-    console.log("✅ Historial de VMs actualizado en caché.");
+    console.log('✅ Historial de VMs actualizado en caché.');
   } catch (error) {
-    console.error("❌ Error al actualizar caché de historial:", error.message);
+    console.error('❌ Error al actualizar caché de historial:', error.message);
   }
 };
 
 // 🚀 Nueva ruta con caché para historial
-app.get("/vcenter/vms-db", async (req, res) => {
+app.get('/vcenter/vms-db', async (req, res) => {
   if (cachedVmsHistory) {
     res.status(200).json({ data: cachedVmsHistory });
     updateVmsHistoryCache(); // Actualizar caché en segundo plano
@@ -265,11 +265,11 @@ app.get("/vcenter/vms-db", async (req, res) => {
 });
 
 // Responder siempre desde caché
-app.get("/vcenter/vms", (req, res) => {
+app.get('/vcenter/vms', (req, res) => {
   if (cachedDataVms) {
     res.status(200).json({ data: cachedDataVms, lastUpdatedVms });
   } else {
-    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+    res.status(503).json({ error: 'Datos no disponibles. Intenta nuevamente.' });
   }
 });
 
@@ -279,9 +279,89 @@ updateVmsData();
 updateVmsHistoryCache();
 
 
+app.use(cors());
+
+// Cola y estado de ejecución
+let cachedDataAllVMs = null;
+let lastUpdatedVMs = null;
+
+const updateQueue = [];
+let isUpdating5 = false;
+
+const runNextInQueue = async () => {
+  if (isUpdating5 || updateQueue.length === 0) return;
+
+  const nextUpdate = updateQueue.shift();
+  isUpdating5 = true;
+
+  try {
+    await nextUpdate();
+  } catch (err) {
+    console.error('❌ Error en proceso de actualización:', err.message);
+  } finally {
+    isUpdating5 = false;
+    runNextInQueue(); // Ejecutar siguiente en la cola
+  }
+};
+
+const enqueueUpdate = (updateFunction) => {
+  updateQueue.push(updateFunction);
+  runNextInQueue();
+};
+
+// Función para ejecutar script Python
+const updateAllVMsData = () => {
+  return new Promise((resolve, reject) => {
+    console.log('🔄 Ejecutando script get_vms_all.py...');
+    const pythonProcess = spawn('python', ['./vcenter/get_vms.py']);
+
+    let data = '', error = '';
+
+    pythonProcess.stdout.on('data', (chunk) => {
+      data += chunk.toString();
+    });
+
+    pythonProcess.stderr.on('data', (chunk) => {
+      error += chunk.toString();
+    });
+
+    pythonProcess.on('close', (code) => {
+      if (code === 0) {
+        try {
+          cachedDataAllVMs = JSON.parse(data);
+          lastUpdatedVMs = new Date();
+          console.log('✅ Datos de VMs actualizados correctamente.');
+          resolve();
+        } catch (parseError) {
+          console.error('❌ Error al parsear datos:', parseError.message);
+          reject(parseError);
+        }
+      } else {
+        console.error('❌ Error al ejecutar script Python:', error);
+        reject(new Error(error));
+      }
+    });
+  });
+};
+
+// Ruta para obtener VMs
+app.get('/vcenter/vms-all', async (req, res) => {
+  if (cachedDataAllVMs) {
+    res.status(200).json({ data: cachedDataAllVMs, lastUpdated: lastUpdatedVMs });
+  } else {
+    res.status(503).json({ error: 'Datos no disponibles. Intenta nuevamente.' });
+  }
+
+  // Encolar actualización en segundo plano
+  enqueueUpdate(updateAllVMsData);
+});
+
+// Inicializar
+enqueueUpdate(updateAllVMsData); // Cargar al inicio
+setInterval(() => enqueueUpdate(updateAllVMsData), 60000); // Ejecutar cada 60 seg
 
 
-const VmDataCNWS = require("./models/VmDataCNWS");
+const VmDataCNWS = require('./models/VmDataCNWS');
 
 let cachedDataVms1 = null;
 let cachedVmsHistory1 = null;
@@ -291,70 +371,69 @@ let isUpdating1 = false;
 // Función para ejecutar el script Python y obtener los datos de los hosts
 const updateVmsData1 = async () => {
   if (isUpdating1) {
-    console.warn("⚠️ Ya hay una actualización en proceso, omitiendo...");
+    console.warn('⚠️ Ya hay una actualización en proceso, omitiendo...');
     return;
   }
   isUpdating1 = true;
-
   try {
-    const pythonProcess = spawn("python", ["./vcenter/get_vms1.py"]);
-    let data = "", error = "";
+    const pythonProcess = spawn('python', ['./vcenter/get_vms1.py']);
+    let data = '', error = '';
 
-  pythonProcess.stdout.on("data", (chunk) => (data += chunk.toString()));
-  pythonProcess.stderr.on("data", (chunk) => (error += chunk.toString()));
+    pythonProcess.stdout.on('data', (chunk) => (data += chunk.toString()));
+    pythonProcess.stderr.on('data', (chunk) => (error += chunk.toString()));
 
-  pythonProcess.on("close", async (code) => {
-    isUpdating1 = false;
-    if (code === 0) {
-      try {
-        const parsedData = JSON.parse(data);
-        if (!parsedData || parsedData.length === 0) throw new Error("No se recibieron datos.");
+    pythonProcess.on('close', async (code) => {
+      isUpdating1 = false;
+      if (code === 0) {
+        try {
+          const parsedData = JSON.parse(data);
+          if (!parsedData || parsedData.length === 0) throw new Error('No se recibieron datos (CNWS).');
+          const formattedData = parsedData.map((vm) => ({
+            name: vm.name,
+            instance_uuid: vm.instance_uuid,
+            cpu_usage_mhz: vm.cpu_usage_mhz,
+            memory_usage_mb: vm.memory_usage_mb,
+            storage_usage_gb: vm.disks.reduce(
+              (sum, disk) => sum + (disk.capacity_gb || 0),
+              0,
+            ),
+            totalGuestDiskUsedSpaceGB: vm.totalGuestDiskUsedSpaceGB || 0,
+            cpu_cores: vm.cpu_cores || 0,
+            cores_per_socket: vm.cores_per_socket || 0,
+            memory_gb: vm.memory_gb || 0,
+            power_state: vm.power_state || 'Desconocido',
+            host: vm.host || 'Desconocido',
+            disks: (vm.disks || []).map((disk) => ({
+              name: disk.name || 'Desconocido',
+              capacity_gb: disk.capacity_gb || 0,
+            })),
+            guest_info: {
+              hostname: vm.guest_info.hostname || 'Desconocido',
+              os_fullname: vm.guest_info.os_fullname || 'Desconocido',
+              ip_addresses: vm.guest_info.ip_addresses || [],
+              tools_status: vm.guest_info.tools_status || 'Desconocido',
+              tools_version: vm.guest_info.tools_version || 'Desconocido',
+            },
+            timestamp: new Date(),
+          }));
 
-        const formattedData = parsedData.map((vm) => ({
-          name: vm.name,
-          instance_uuid: vm.instance_uuid,
-          cpu_usage_mhz: vm.cpu_usage_mhz,
-          memory_usage_mb: vm.memory_usage_mb,
-          storage_usage_gb: vm.disks.reduce(
-            (sum, disk) => sum + (disk.capacity_gb || 0),
-            0
-          ),
-          cpu_cores: vm.cpu_cores || 0,
-          cores_per_socket: vm.cores_per_socket || 0,
-          memory_gb: vm.memory_gb || 0,
-          power_state: vm.power_state || "Desconocido",
-          host: vm.host || "Desconocido",
-          disks: (vm.disks || []).map((disk) => ({
-            name: disk.name || "Desconocido",
-            capacity_gb: disk.capacity_gb || 0,
-          })),
-          guest_info: {
-            hostname: vm.guest_info.hostname || "Desconocido",
-            os_fullname: vm.guest_info.os_fullname || "Desconocido",
-            ip_addresses: vm.guest_info.ip_addresses || [],
-            tools_status: vm.guest_info.tools_status || "Desconocido",
-            tools_version: vm.guest_info.tools_version || "Desconocido",
-          },
-          timestamp: new Date(),
-        }));
+          await VmDataCNWS.insertMany(formattedData, { ordered: false }).catch((err) =>
+            console.error('❌ Error al insertar datos:', err.message),
+          );
 
-        await VmDataCNWS.insertMany(formattedData, { ordered: false }).catch((err) =>
-          console.error("❌ Error al insertar datos:", err.message)
-        );
-
-        cachedDataVms1 = parsedData;
-        lastUpdatedVms1 = new Date();
-        console.log("✅ Datos actualizados correctamente y guardados en caché.");
-      } catch (parseError) {
-        console.error("Error al parsear datos de Python:", parseError.message);
+          cachedDataVms1 = parsedData;
+          lastUpdatedVms1 = new Date();
+          console.log('✅ Datos actualizados correctamente y guardados en caché (CNWS).');
+        } catch (parseError) {
+          console.error('❌ Error al parsear datos CNWS:', parseError.message);
+        }
+      } else {
+        console.error('❌ Error al ejecutar el script de Python para CNWS:', error);
       }
-    } else {
-      console.error("Error al ejecutar el script de Python:", error);
-    }
-  });
+    });
   } catch (err) {
     isUpdating1 = false;
-    console.error("Error general en updateVmsData1:", err.message);
+    console.error('❌ Error general en updateVmsData1 (CNWS):', err.message);
   }
 };
 
@@ -365,14 +444,14 @@ const updateVmsHistoryCache1 = async () => {
       .sort({ timestamp: -1 })
       .limit(5000)
       .lean();
-    console.log("✅ Historial de VMs actualizado en caché.");
+    console.log('✅ Historial de VMs actualizado en caché.');
   } catch (error) {
-    console.error("❌ Error al actualizar caché de historial:", error.message);
+    console.error('❌ Error al actualizar caché de historial:', error.message);
   }
 };
 
 // 🚀 Nueva ruta con caché para historial
-app.get("/vcenter/vms-db1", async (req, res) => {
+app.get('/vcenter/vms-db1', async (req, res) => {
   if (cachedVmsHistory1) {
     res.status(200).json({ data: cachedVmsHistory1 });
     updateVmsHistoryCache1(); // Actualizar caché en segundo plano
@@ -383,11 +462,11 @@ app.get("/vcenter/vms-db1", async (req, res) => {
 });
 
 // Nueva ruta para obtener los datos de los hosts
-app.get("/vcenter/vms1", (req, res) => {
+app.get('/vcenter/vms1', (req, res) => {
   if (cachedDataVms1) {
     res.status(200).json({ data: cachedDataVms1, lastUpdatedVms1 });
   } else {
-    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+    res.status(503).json({ error: 'Datos no disponibles. Intenta nuevamente.' });
   }
 });
 
@@ -402,29 +481,29 @@ let lastUpdatedGlake = null;
 
 // Función para ejecutar el script Python periódicamente
 const updateDataGlake = () => {
-  const pythonProcess = spawn("python", ["./vcenter/resourcesglake.py"]); // Cambia el nombre del script si es necesario
+  const pythonProcess = spawn('python', ['./vcenter/resourcesglake.py']); // Cambia el nombre del script si es necesario
 
-  let data = "";
-  let error = "";
+  let data = '';
+  let error = '';
 
-  pythonProcess.stdout.on("data", (chunk) => {
+  pythonProcess.stdout.on('data', (chunk) => {
     data += chunk.toString();
   });
 
-  pythonProcess.stderr.on("data", (chunk) => {
+  pythonProcess.stderr.on('data', (chunk) => {
     error += chunk.toString();
   });
 
-  pythonProcess.on("close", (code) => {
+  pythonProcess.on('close', (code) => {
     if (code === 0) {
       try {
         cachedDataGlake = JSON.parse(data); // Parsear datos JSON
         lastUpdatedGlake = new Date(); // Guardar la hora de actualización
       } catch (parseError) {
-        console.error("Error al parsear datos de Python:", parseError.message); //parserar datos según contexto
+        console.error('Error al parsear datos de Python:', parseError.message); //parserar datos según contexto
       }
     } else {
-      console.error("Error al ejecutar el script de Python:", error);
+      console.error('Error al ejecutar el script de Python:', error);
     }
   });
 };
@@ -433,11 +512,11 @@ const updateDataGlake = () => {
 setInterval(updateDataGlake, 50000);
 updateDataGlake(); // Ejecutar inmediatamente al iniciar el servidor
 // Endpoint para obtener datos correcto
-app.get("/vcenter/resources-glake", (req, res) => {
+app.get('/vcenter/resources-glake', (req, res) => {
   if (cachedDataGlake) {
     res.status(200).json({ data: cachedDataGlake, lastUpdatedGlake });
   } else {
-    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+    res.status(503).json({ error: 'Datos no disponibles. Intenta nuevamente.' });
   }
 });
 
@@ -446,29 +525,29 @@ let lastUpdatedCNWS = null;
 
 // Función para ejecutar el script Python periódicamente y obtener datos de CNWS
 const updateDataCNWS = () => {
-  const pythonProcess = spawn("python", ["./vcenter/resourcescnws.py"]); // Cambia el nombre del script si es necesario
+  const pythonProcess = spawn('python', ['./vcenter/resourcescnws.py']); // Cambia el nombre del script si es necesario
 
-  let data = "";
-  let error = "";
+  let data = '';
+  let error = '';
 
-  pythonProcess.stdout.on("data", (chunk) => {
+  pythonProcess.stdout.on('data', (chunk) => {
     data += chunk.toString();
   });
 
-  pythonProcess.stderr.on("data", (chunk) => {
+  pythonProcess.stderr.on('data', (chunk) => {
     error += chunk.toString();
   });
 
-  pythonProcess.on("close", (code) => {
+  pythonProcess.on('close', (code) => {
     if (code === 0) {
       try {
         cachedDataCNWS = JSON.parse(data); // Parsear datos JSON
         lastUpdatedCNWS = new Date(); // Guardar la hora de actualización
       } catch (parseError) {
-        console.error("Error al parsear datos de Python:", parseError.message); //parserar datos según contexto
+        console.error('Error al parsear datos de Python:', parseError.message); //parserar datos según contexto
       }
     } else {
-      console.error("Error al ejecutar el script de Python:", error);
+      console.error('Error al ejecutar el script de Python:', error);
     }
   });
 };
@@ -477,11 +556,11 @@ const updateDataCNWS = () => {
 setInterval(updateDataCNWS, 50000);
 updateDataCNWS(); // Ejecutar inmediatamente al iniciar el servidor
 // Endpoint para obtener datos
-app.get("/vcenter/resources-cnws", (req, res) => {
+app.get('/vcenter/resources-cnws', (req, res) => {
   if (cachedDataCNWS) {
     res.status(200).json({ data: cachedDataCNWS, lastUpdatedCNWS });
   } else {
-    res.status(503).json({ error: "Datos no disponibles. Intenta nuevamente." });
+    res.status(503).json({ error: 'Datos no disponibles. Intenta nuevamente.' });
   }
 });
 
@@ -645,7 +724,7 @@ app.post('/verify', (req, res) => {
   const verified = speakeasy.totp.verify({
     secret: secret.base32,
     encoding: 'base32',
-    token
+    token,
   });
   if (verified) {
     res.json({ verified: true });
@@ -662,7 +741,7 @@ const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
   transports: [
-    new winston.transports.File({ filename: 'logs/app.log' })
+    new winston.transports.File({ filename: 'logs/app.log' }),
   ],
 });
 
@@ -673,7 +752,7 @@ const logEvent = (message) => {
   io.emit('log', logEntry);
 };
 
-env.config()
+env.config();
 
 // Conectar a MongoDB
 mongoose.connect('mongodb://localhost:27017/sensorData', {
@@ -724,7 +803,7 @@ async function cleanSensorData() {
 // Middleware para registrar logs
 app.use((req, res, next) => {
   // Excluir rutas específicas de ser registradas en los logs
-  const excludedPaths = ['/logs', '/prtg-api', '/sensor-data', '/sensor', '/canales', '/socket.io', '/api/test', '/api/pdfs' ]; // Puedes añadir más rutas si es necesario
+  const excludedPaths = ['/logs', '/prtg-api', '/sensor-data', '/sensor', '/canales', '/socket.io', '/api/test', '/api/pdfs']; // Puedes añadir más rutas si es necesario
   if (!excludedPaths.some(path => req.url.startsWith(path))) {
     logEvent(`Request: ${req.method} ${req.url}`);
   }
@@ -756,9 +835,9 @@ async function getSessionId() {
   const authResponse = await axios.post(`${vcenterUrl}/rest/com/vmware/cis/session`, {}, {
     auth: {
       username,
-      password
+      password,
     },
-    httpsAgent: httpsAgent
+    httpsAgent: httpsAgent,
   });
   return authResponse.data.value;
 }
@@ -767,9 +846,9 @@ async function getSessionId() {
 async function getVmDetails(vmId, sessionId) {
   const detailsResponse = await axios.get(`${vcenterUrl}/rest/vcenter/vm/${vmId}`, {
     headers: {
-      'vmware-api-session-id': sessionId
+      'vmware-api-session-id': sessionId,
     },
-    httpsAgent: httpsAgent
+    httpsAgent: httpsAgent,
   });
   return detailsResponse.data.value;
 }
@@ -780,7 +859,7 @@ async function getVmHardwareDetails(vmId, sessionId) {
     headers: {
       'vmware-api-session-id': sessionId,
     },
-    httpsAgent: httpsAgent
+    httpsAgent: httpsAgent,
   });
   return response.data.value;
 }
@@ -791,7 +870,7 @@ async function getVmNetworkDetails(vmId, sessionId) {
     headers: {
       'vmware-api-session-id': sessionId,
     },
-    httpsAgent: httpsAgent
+    httpsAgent: httpsAgent,
   });
   return response.data.value;
 }
@@ -802,7 +881,7 @@ async function getVmStorageDetails(vmId, sessionId) {
     headers: {
       'vmware-api-session-id': sessionId,
     },
-    httpsAgent: httpsAgent
+    httpsAgent: httpsAgent,
   });
   return response.data.value;
 }
@@ -813,7 +892,7 @@ async function getVmSnapshots(vmId, sessionId) {
     headers: {
       'vmware-api-session-id': sessionId,
     },
-    httpsAgent: httpsAgent
+    httpsAgent: httpsAgent,
   });
   return response.data.value;
 }
@@ -863,12 +942,12 @@ app.get('/get-vm-data', async (req, res) => {
 
 // Configuración de multer para la subida de archivos
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function(req, file, cb) {
     cb(null, pdfDirectory);
   },
-  filename: function (req, file, cb) {
+  filename: function(req, file, cb) {
     cb(null, file.originalname);
-  }
+  },
 });
 const upload = multer({ storage: storage });
 
@@ -878,9 +957,9 @@ app.get('/vms', async (req, res) => {
 
     const vmsResponse = await axios.get(`${vcenterUrl}/rest/vcenter/vm`, {
       headers: {
-        'vmware-api-session-id': sessionId
+        'vmware-api-session-id': sessionId,
       },
-      httpsAgent: httpsAgent
+      httpsAgent: httpsAgent,
     });
 
     // Obtener detalles adicionales de cada VM
@@ -890,7 +969,7 @@ app.get('/vms', async (req, res) => {
     // Combinar la información básica con los detalles
     const combinedData = vmsResponse.data.value.map((vm, index) => ({
       ...vm,
-      ...vmDetails[index]
+      ...vmDetails[index],
     }));
 
     res.json(combinedData);
@@ -919,9 +998,9 @@ app.post('/vms/:vmId/power-on', async (req, res) => {
     vmId = req.params.vmId;  // Asignar vmId dentro del bloque try
     await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/start`, {}, {
       headers: {
-        'vmware-api-session-id': sessionId
+        'vmware-api-session-id': sessionId,
       },
-      httpsAgent: httpsAgent
+      httpsAgent: httpsAgent,
     });
     res.send('VM powered on successfully');
     logEvent(`VM ${vmId} encendida`);
@@ -940,9 +1019,9 @@ app.post('/vms/:vmId/power-off', async (req, res) => {
     vmId = req.params.vmId;  // Asignar vmId dentro del bloque try
     await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/stop`, {}, {
       headers: {
-        'vmware-api-session-id': sessionId
+        'vmware-api-session-id': sessionId,
       },
-      httpsAgent: httpsAgent
+      httpsAgent: httpsAgent,
     });
     res.send('VM powered off successfully');
     logEvent(`VM ${vmId} apagada`);
@@ -961,9 +1040,9 @@ app.post('/vms/:vmId/suspend', async (req, res) => {
     vmId = req.params.vmId;  // Asignar vmId dentro del bloque try
     await axios.post(`${vcenterUrl}/rest/vcenter/vm/${vmId}/power/suspend`, {}, {
       headers: {
-        'vmware-api-session-id': sessionId
+        'vmware-api-session-id': sessionId,
       },
-      httpsAgent: httpsAgent
+      httpsAgent: httpsAgent,
     });
     res.send('VM suspended successfully');
     logEvent(`VM ${vmId} suspendida`);
@@ -998,7 +1077,7 @@ app.post('/api/upload/COSMITET', upload.single('file'), (req, res) => {
 });
 
 const { sensorNames, sensorNamesAlt } = require('./sensorList');
-const getSensorIdByName  = require ("./controllers/getSensorIdByName")
+const getSensorIdByName = require('./controllers/getSensorIdByName');
 
 // Función para obtener datos del sensor y guardarlos en MongoDB
 const fetchDataFromSensor = async (sensorName) => {
@@ -1174,7 +1253,7 @@ app.get('/canales/:sensorId', async (req, res) => {
   }
 });
 
-const getSensorIdByNameAlt = require ('./controllers/getSensorIdByNameAlt')
+const getSensorIdByNameAlt = require('./controllers/getSensorIdByNameAlt');
 
 // Función para obtener datos del sensor y guardarlos en MongoDB (PRTG 192.168.200.160)
 const fetchDataFromSensorAlt = async (sensorName) => {

@@ -87,7 +87,7 @@ const StatusButton = styled(Button)(({ theme, active }) => ({
 
 const RadialBarComponent = ({ selectedVm, chartData }) => {
   if (!selectedVm || !chartData || !chartData.cpu?.length || !chartData.memory?.length || !chartData.timestamps?.length) {
-    return <p>No hay datos disponibles</p>;
+    return <p>Cargando maquinas virtuales...</p>;
   }
 
   const latestCpu = chartData.cpu.at(-1);
@@ -132,8 +132,8 @@ const RadialBarComponent = ({ selectedVm, chartData }) => {
           <div className="text-left mt-4">
             <InfoText variant="body2"><strong>Núcleos:</strong> {selectedVm.nucleos} VCPU´s</InfoText>
             <InfoText variant="body2"><strong>Memoria RAM:</strong> {selectedVm.memory_gb} GB</InfoText>
-            <InfoText variant="body2"><strong>Almacenamiento:</strong> {selectedVm.storage_usage_gb} GB</InfoText>
-            {/*
+            <InfoText variant="body2"><strong>Almacenamiento:</strong> {selectedVm.storage_total_gb} GB</InfoText>
+            {/*disks: latestVm?.disks,
             <InfoText variant="body2"><strong>Cores por Socket:</strong> {selectedVm.cores_per_socket}</InfoText>
 */}
           </div>
@@ -176,15 +176,15 @@ const RadialBarComponent = ({ selectedVm, chartData }) => {
             </ul>
           </div>*/}
 
-          <Divider style={{ backgroundColor: '#282c60', margin: '0px 0 0px 0' }} />
+          {/*<Divider style={{ backgroundColor: '#282c60', margin: '0px 0 0px 0' }} />
 
           {/* Gráficos y métricas */}
-          <div className="text-left mt-4">
+          {/*<div className="text-left mt-4">
             <InfoText variant="body2"><strong>CPU:</strong> {latestCpu} MHz</InfoText>
             <InfoText variant="body2"><strong>Memoria:</strong> {latestMemory} MB</InfoText>
           </div>
 
-          {/*<div className="flex justify-center my-4">
+          <div className="flex justify-center my-4">
             <RadialBarChart width={300} height={300} cx="50%" cy="50%" innerRadius="10%" outerRadius="80%" barSize={20}
                             data={data}>
               <RadialBar minAngle={15} clockWise dataKey="value" fill="#4CAF50" />

@@ -1,87 +1,47 @@
-import React,{useState} from 'react'
-// Import the main component
-import { Viewer } from '@react-pdf-viewer/core'; // install this library
-// Plugins
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'; // install this library
-// Import the styles
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-// Worker
-import { Worker } from '@react-pdf-viewer/core'; // install this library
+import { useEffect, useState } from "react";
 
-export const Reportes = () => {
+function App() {
+  const [vms, setVms] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Create new plugin instance
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+  useEffect(() => {
+    fetch("http://192.168.200.155:8083/vcenter/vms-all")
+      .then((res) => {
+        if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+        return res.json();
+      })
+      .then(({ data }) => {
+        console.log("Datos recibidos:", data);
+        setVms(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error al cargar VMs:", err.message);
+        setLoading(false);
+      });
+  }, []);
 
-  // for onchange event
-  const [pdfFile, setPdfFile]=useState(null);
-  const [pdfFileError, setPdfFileError]=useState('');
-
-  // for submit event
-  const [viewPdf, setViewPdf]=useState(null);
-
-  // onchange event
-  const fileType=['application/pdf'];
-  const handlePdfFileChange=(e)=>{
-    let selectedFile=e.target.files[0];
-    if(selectedFile){
-      if(selectedFile&&fileType.includes(selectedFile.type)){
-        let reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onloadend = (e) =>{
-          setPdfFile(e.target.result);
-          setPdfFileError('');
-        }
-      }
-      else{
-        setPdfFile(null);
-        setPdfFileError('Por favor selecciona un archivo PDF');
-      }
-    }
-    else{
-      console.log('Selecciona tu archivo');
-    }
-  }
-
-  // form submit
-  const handlePdfFileSubmit=(e)=>{
-    e.preventDefault();
-    if(pdfFile!==null){
-      setViewPdf(pdfFile);
-    }
-    else{
-      setViewPdf(null);
-    }
-  }
   return (
-    <div className='container'>
-      <br></br>
-      <form className='form-group' onSubmit={handlePdfFileSubmit}>
-        <input type="file" className='form-control'
-               required onChange={handlePdfFileChange}
-        />
-        {pdfFileError&&<div className='error-msg'>{pdfFileError}</div>}
-        <br></br>
-        <button type="submit" className='btn btn-success btn-lg'>
-          Visualizar
-        </button>
-      </form>
-      <br></br>
-      <h4>Vizualizador PDF</h4>
-      <div className='pdf-container'>
-        {/* show pdf conditionally (if we have one)  */}
-        {viewPdf&&<><Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
-        <Viewer fileUrl={viewPdf}
-                  plugins={[defaultLayoutPluginInstance]} />
-        </Worker></>}
-
-        {/* if we dont have pdf or viewPdf state is null */}
-        {!viewPdf&&<>No se ha seleccionado ningun PDF</>}
-      </div>
-
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">🔍 Información Completa de VMs</h1>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : vms.length === 0 ? (
+        <p>No se encontraron máquinas virtuales.</p>
+      ) : (
+        <div className="space-y-4">
+          {vms.map((vm, idx) => (
+            <pre
+              key={idx}
+              className="bg-gray-100 p-2 rounded text-sm overflow-auto max-h-96"
+            >
+              {JSON.stringify(vm, null, 2)}
+            </pre>
+          ))}
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default Reportes
+export default App;

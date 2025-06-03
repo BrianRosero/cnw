@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Tabs, Tab, Box, CardContent, CardActionArea, Typography, ButtonGroup, Button } from '@mui/material';
+import { Tabs, Tab, Box, CardContent, CardActionArea, Typography, ButtonGroup, Button, Grid } from '@mui/material';
 import SwipeableViews from 'react-swipeable-views-react-18-fix';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
@@ -7,6 +7,8 @@ import 'react-resizable/css/styles.css';
 import { GraficasArea } from '../Test/GraficoArea.jsx';
 import { getChartOptions } from '../Test/GraficoArea.jsx';
 import RadialBar from '../Test/RadialBar.jsx';
+//import RadialBar from '../info/Vms.jsx'
+import Information from '../Test/Information.jsx';
 import { styled } from '@mui/system';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -143,6 +145,13 @@ const CustomButton = styled(Button)(({ variant }) => ({
   },
 }));
 
+// Estilos personalizados para el texto de información
+const InfoText = styled(Typography)(({ theme }) => ({
+  color: '#282c60',
+  fontSize: '0.9rem',
+  marginRight: theme.spacing(1),
+}));
+
 const VmCard = ({ name, isSelected, onClick }) => (
   <CardActionArea onClick={onClick} style={{ ...styles.card, ...(isSelected ? styles.selectedCard : {}) }}>
     <CardContent><Typography>{name}</Typography></CardContent>
@@ -203,7 +212,9 @@ export default function VmTable() {
           host: vm.host || 'Desconocido',
           nucleos: vm.cpu_cores || 0,
           memory_gb: vm.memory_gb || 0,
-          storage_usage_gb: vm.storage_usage_gb || 0,  // Almacenamiento usado en GB
+          storage_total_gb: vm.storage_usage_gb || 0,  // Almacenamiento usado en GB
+          storage_usage_gb: vm.storage_usage_gb || 0,
+          totalGuestDiskUsedSpaceGB: vm.totalGuestDiskUsedSpaceGB || 0,
           cores_per_socket: vm.cores_per_socket || 0,  // Núcleos por socket
           instance_uuid: vm.instance_uuid || 'Desconocido',    // UUID de la instancia
           guest_info: vm.guest_info || {},             // Información del sistema operativo
@@ -246,7 +257,8 @@ export default function VmTable() {
               host: latestVm?.host,
               nucleos: latestVm?.nucleos,
               memory_gb: latestVm?.memory_gb,
-              storage_usage_gb: latestVm?.storage_usage_gb,
+              storage_total_gb: latestVm?.storage_total_gb,
+              totalGuestDiskUsedSpaceGB: latestVm?.totalGuestDiskUsedSpaceGB,
               cores_per_socket: latestVm?.cores_per_socket,
               instance_uuid: latestVm?.instance_uuid,
               os_fullname: latestVm?.os_fullname,
@@ -296,7 +308,8 @@ export default function VmTable() {
       host: latestVm?.host,
       nucleos: latestVm?.nucleos,
       memory_gb: latestVm?.memory_gb,
-      storage_usage_gb: latestVm?.storage_usage_gb,
+      storage_total_gb: latestVm?.storage_total_gb,
+      totalGuestDiskUsedSpaceGB: latestVm?.totalGuestDiskUsedSpaceGB,
       cores_per_socket: latestVm?.cores_per_socket,
       instance_uuid: latestVm?.instance_uuid,
       os_fullname: latestVm?.os_fullname,
@@ -371,7 +384,6 @@ export default function VmTable() {
     COCLOESECAP23: { RadialBar: <RadialBar22 />, Info: <Info22 />, Area: <Area22 /> },
     COCLOESECAP24: { RadialBar: <RadialBar23 />, Info: <Info23 />, Area: <Area23 /> },
     COCLOESECCDA01: { RadialBar: <RadialBar24 />, Info: <Info24 />, Area: <Area24 /> },
-
     COCLOESECAP25: { RadialBar: <RadialBar24 />, Info: <Info24 />, Area: <Area24 /> },
   };
 
@@ -416,7 +428,8 @@ export default function VmTable() {
                     host={latestVm.host}
                     nucleos={latestVm.nucleos}
                     memory_gb={latestVm.memory_gb}
-                    storage_usage_gb={latestVm.storage_usage_gb}
+                    storage_total_gb={latestVm.storage_total_gb}
+                    totalGuestDiskUsedSpaceGB={latestVm.totalGuestDiskUsedSpaceGB}
                     cores_per_socket={latestVm.cores_per_socket}
                     os_fullname={latestVm.os_fullname}
                     hostname={latestVm.hostname}
@@ -433,7 +446,8 @@ export default function VmTable() {
                         host: latestVm.host,
                         nucleos: latestVm.nucleos,
                         memory_gb: latestVm.memory_gb,
-                        storage_usage_gb: latestVm.storage_usage_gb,
+                        storage_total_gb: latestVm.storage_total_gb,
+                        totalGuestDiskUsedSpaceGB: latestVm.totalGuestDiskUsedSpaceGB,
                         cores_per_socket: latestVm.cores_per_socket,
                         os_fullname: latestVm.os_fullname,
                         hostname: latestVm.hostname,
@@ -506,10 +520,20 @@ export default function VmTable() {
                 alignItems: 'center',
                 width: '100%',
                 height: '100%',
-                padding: '16px',
+                padding: '1px',
               }}
             >
-              {getComponent('Info')}
+              <Grid >
+                <InfoText
+                  sx={{
+                    color: 'rgba(51,51,51,0.75)',
+                    fontSize: '0.8rem',
+                  }}
+                >
+                  <strong>Medidas de Consumos</strong>
+                </InfoText>
+              </Grid>
+              <Information selectedVm={selectedVm} chartData={chartData} />
             </CardContent>
           </CardActionArea>
         </div>
@@ -524,13 +548,13 @@ export default function VmTable() {
               >
                 Detalle
               </CustomButton>
-              <CustomButton
+              {/*<CustomButton
                 variant={activeGraph === 'graph2' ? 'default' : 'outline'}
                 onClick={() => handleToggle('graph2')}
                 style={{ flex: 1 }}
               >
                 General
-              </CustomButton>
+              </CustomButton>*/}
             </div>
           </ButtonGroup>
           <CardActionArea style={{

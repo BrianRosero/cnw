@@ -32,6 +32,28 @@ def get_virtual_machines():
             guest = vm.guest
             full_config = vm.config
 
+            disk_info_list = []
+            total_guest_capacity_gb = 0
+            total_guest_free_space_gb = 0
+
+            if guest and guest.disk:
+                for disk in guest.disk:
+                    if disk.capacity is not None and disk.freeSpace is not None:
+                        capacity_gb = disk.capacity / (1024 ** 3)
+                        free_space_gb = disk.freeSpace / (1024 ** 3)
+
+                        disk_data = {
+                            "diskPath": disk.diskPath,
+                            "capacityGB": round(capacity_gb, 2),
+                            "freeSpaceGB": round(free_space_gb, 2),
+                            "capacityBytes": disk.capacity,
+                            "freeSpaceBytes": disk.freeSpace,
+                        }
+                        disk_info_list.append(disk_data)
+
+                        total_guest_capacity_gb += capacity_gb
+                        total_guest_free_space_gb += free_space_gb
+
             # Discos
             disks = []
             for device in full_config.hardware.device:
@@ -85,7 +107,11 @@ def get_virtual_machines():
                     "tools_version": guest.toolsVersion
                 },
                 "annotation": summary_config.annotation if summary_config.annotation else "",
-                "folder": vm.parent.name if hasattr(vm.parent, 'name') else "Desconocido"
+                "folder": vm.parent.name if hasattr(vm.parent, 'name') else "Desconocido",
+                "guestDiskPartitions": disk_info_list,
+                "totalGuestDiskCapacityGB": round(total_guest_capacity_gb, 2),
+                "totalGuestDiskFreeSpaceGB": round(total_guest_free_space_gb, 2),
+                "totalGuestDiskUsedSpaceGB": round(total_guest_capacity_gb - total_guest_free_space_gb, 2)
             }
 
             vm_list.append(vm_info)
