@@ -57,7 +57,7 @@ import Curve from "./Curve.jsx";
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-import SoftBox from "@/components/SoftBox/index.jsx";
+import SoftBox from "@/layout/Ui-Components/Components/SoftBox/index.jsx";
 
 function Globe({
                  cities = [],

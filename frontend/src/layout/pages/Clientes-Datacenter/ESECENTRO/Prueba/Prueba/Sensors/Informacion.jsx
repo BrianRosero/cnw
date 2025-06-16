@@ -83,7 +83,7 @@ const Sensor = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.200.155:8083/prtg-api/ESECENTRO/COCLOESECAP02');
+        const response = await axios.get('http://localhost:8083/prtg-api/ESECENTRO/COCLOESECAP02');
         console.log('Data fetched from API:', response.data);
         setChannelData(response.data.channels || []);
         setLoading(false);

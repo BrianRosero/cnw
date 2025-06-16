@@ -11,7 +11,7 @@ export default function ResourceFetcher() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://192.168.200.155:8083/vcenter/resources-glake");
+      const response = await fetch("http://localhost:8083/vcenter/resources-glake");
       const result = await response.json();
       if (response.ok) {
         setData(result.data);

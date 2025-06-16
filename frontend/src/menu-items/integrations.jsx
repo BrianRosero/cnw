@@ -8,7 +8,7 @@ const icons = { IconBrandChrome, IconHelp, IconDeviceDesktopQuestion };
 
 const other = {
   id: 'integrations',
-  title: 'Integraciones',
+  title: 'Integraciones.jsx',
   caption: 'integrations',
   type: 'group',
   children: [

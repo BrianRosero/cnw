@@ -57,7 +57,7 @@ app.post('/chat', async (req, res) => {
   }
 
   try {
-    const response = await fetch('http://192.168.200.155:11434/api/generate', {
+    const response = await fetch('http://localhost:11434/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -811,9 +811,9 @@ app.use((req, res, next) => {
 });
 
 // Configuración de autenticación vCenter
-const vcenterUrl = process.env.VCENTER_SERVER_CNWS;
-const username = process.env.VCENTER_USER_CNWS;
-const password = process.env.VCENTER_PASSWORD_CNWS;
+const vcenterUrl = process.env.VCENTER_SERVER_CNWS1;
+const username = process.env.VCENTER_USER_CNWS1;
+const password = process.env.VCENTER_PASSWORD_CNWS1;
 
 // Middleware para registrar la solicitud y la autenticación
 app.use(async (req, res, next) => {
@@ -1086,7 +1086,7 @@ const fetchDataFromSensor = async (sensorName) => {
     if (!sensorId) {
       throw new Error(`Sensor con nombre ${sensorName} no disponible`);
     }
-    const response = await axios.get(`http://192.168.200.155:8083/prtg-api/${sensorId}`);
+    const response = await axios.get(`http://localhost:8083/prtg-api/${sensorId}`);
     const data = response.data;
     const sensorData = new SensorData({ sensorId, data });
     await sensorData.save();
@@ -1262,7 +1262,7 @@ const fetchDataFromSensorAlt = async (sensorName) => {
     if (!sensorId) {
       throw new Error(`Sensor con nombre ${sensorName} no disponible`);
     }
-    const response = await axios.get(`http://192.168.200.155:8083/prtg-api-alt/${sensorId}`);
+    const response = await axios.get(`http://localhost:8083/prtg-api-alt/${sensorId}`);
     const data = response.data;
     const sensorData = new SensorData({ sensorId, data });
     await sensorData.save();

@@ -13,7 +13,7 @@ const icons = {
 
 const administracion = {
   id: 'administracion',
-  title: 'Administración y Configuración',
+  title: 'Administración y Configurac',
   type: 'group',
   children: [
     {

@@ -12,7 +12,7 @@ import { store } from './redux/Store.jsx';
 import './assets/scss/style.scss';
 import config from './config';
 
-import { SoftUIControllerProvider } from "./context";
+import { SoftUIControllerProvider } from "./layout/context";
 
 const container = document.getElementById('root');
 const root = createRoot(container);

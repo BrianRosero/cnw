@@ -61,7 +61,7 @@ function Overview() {
           </Grid>
           <Grid item xs={12} md={6} xl={4}>
             <ProfileInfoCard
-              title="profile information"
+              title="usuarios information"
               description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
               info={{
                 fullName: "Alec M. Thompson",
@@ -118,7 +118,7 @@ function Overview() {
                   description="As Uber works through a huge amount of internal management turmoil."
                   action={{
                     type: "internal",
-                    route: "/pages/profile/profile-overview",
+                    route: "/pages/usuarios/usuarios-overview",
                     color: "info",
                     label: "view project",
                   }}
@@ -138,7 +138,7 @@ function Overview() {
                   description="Music is something that every person has his or her own specific opinion about."
                   action={{
                     type: "internal",
-                    route: "/pages/profile/profile-overview",
+                    route: "/pages/usuarios/usuarios-overview",
                     color: "info",
                     label: "view project",
                   }}
@@ -158,7 +158,7 @@ function Overview() {
                   description="Different people have different taste, and various types of music."
                   action={{
                     type: "internal",
-                    route: "/pages/profile/profile-overview",
+                    route: "/pages/usuarios/usuarios-overview",
                     color: "info",
                     label: "view project",
                   }}

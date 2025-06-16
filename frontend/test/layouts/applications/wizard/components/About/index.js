@@ -47,7 +47,7 @@ function About() {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4} container justifyContent="center">
             <SoftBox position="relative" height="max-content" mx="auto">
-              <SoftAvatar src={team2} alt="profile picture" size="xxl" variant="rounded" />
+              <SoftAvatar src={team2} alt="usuarios picture" size="xxl" variant="rounded" />
               <SoftBox alt="spotify logo" position="absolute" right={0} bottom={0} mr={-1} mb={-1}>
                 <SoftButton variant="gradient" color="light" size="small" iconOnly>
                   <Icon>edit</Icon>

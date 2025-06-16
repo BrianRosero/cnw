@@ -13,8 +13,8 @@ import {
   Alert,
 } from '@mui/material';
 import Detalles from '../../../../../layout/pages/Panel-Monitoreo/WAVE-DC/GLAKECNW/index.jsx';
-import SoftTypography from '@/components/SoftTypography/index.jsx';
-import SoftBox from '@/components/SoftBox/index.jsx';
+import SoftTypography from '@/layout/Ui-Components/Components/SoftTypography/index.jsx';
+import SoftBox from '@/layout/Ui-Components/Components/SoftBox/index.jsx';
 import Chart from 'react-apexcharts';
 
 // Soft UI Dashboard PRO React example components

@@ -36,7 +36,7 @@ function Basic() {
       <Card>
         <SoftBox py={4} px={3} textAlign="center">
           <SoftBox display="flex" justifyContent="center" mb={3}>
-            <SoftAvatar src={team4} alt="profile-picture" size="xxl" variant="rounded" />
+            <SoftAvatar src={team4} alt="usuarios-picture" size="xxl" variant="rounded" />
           </SoftBox>
           <SoftTypography variant="h4" fontWeight="bold">
             Mike Priesler

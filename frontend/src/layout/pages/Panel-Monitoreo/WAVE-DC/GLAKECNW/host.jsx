@@ -62,7 +62,7 @@ const VCenter = () => {
       try {
         setError(null);
         setLoading(true);
-        const response = await axios.get('http://192.168.200.155:8083/api/vms');
+        const response = await axios.get('http://localhost:8083/api/vms');
         const groupedVms = groupVmsByName(response.data.value || []); // Agrupar las VMs por nombre
         setVms(groupedVms); // Guardar las VMs agrupadas
         setLoading(false);
@@ -79,7 +79,7 @@ const VCenter = () => {
     try {
       setError(null);
       setLoading(true);
-      const response = await axios.get(`http://192.168.200.155:8083/api/vms/${vmId}`);
+      const response = await axios.get(`http://localhost:8083/api/vms/${vmId}`);
       setSelectedVm(response.data.value);
       setLoading(false);
     } catch (err) {

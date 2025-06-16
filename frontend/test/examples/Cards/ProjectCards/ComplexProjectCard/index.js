@@ -35,7 +35,7 @@ function ComplexProjectCard({ color = "dark", image, title, dateTime = "", descr
       <SoftAvatar
         key={memberKey}
         src={member}
-        alt="member profile"
+        alt="member usuarios"
         size="xs"
         sx={({ borders: { borderWidth }, palette: { white } }) => ({
           border: `${borderWidth[2]} solid ${white.main}`,

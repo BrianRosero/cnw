@@ -106,7 +106,7 @@ function Post() {
         py={2}
         px={3}
       >
-        <SoftAvatar src={team4} alt="profile-image" variant="rounded" />
+        <SoftAvatar src={team4} alt="usuarios-image" variant="rounded" />
         <SoftBox mx={2} lineHeight={1}>
           <SoftTypography component="a" href="#" variant="button" fontWeight="regular">
             John Snow
@@ -182,7 +182,7 @@ function Post() {
           {renderComments}
           <SoftBox display="flex" alignItems="center" mt={3}>
             <SoftBox flexShrink={0} mr={2}>
-              <SoftAvatar src={team4} alt="profile picture" />
+              <SoftAvatar src={team4} alt="usuarios picture" />
             </SoftBox>
             <SoftBox flexGrow={1}>
               <SoftInput placeholder="Write your comment" multiline />

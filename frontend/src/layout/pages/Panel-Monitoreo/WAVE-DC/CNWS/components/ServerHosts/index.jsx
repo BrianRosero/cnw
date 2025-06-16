@@ -10,8 +10,8 @@ import {
 import StorageIcon from '@mui/icons-material/Storage';
 
 // Soft UI components
-import SoftBox from '@/components/SoftBox';
-import SoftTypography from '@/components/SoftTypography';
+import SoftBox from '../../../../../../Ui-Components/Components/SoftBox';
+import SoftTypography from '../../../../../../Ui-Components/Components/SoftTypography';
 
 export default function HostsFetcher() {
   const [data, setData] = useState(null);
@@ -23,7 +23,7 @@ export default function HostsFetcher() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://192.168.200.155:8083/vcenter/hosts1');
+      const response = await fetch('http://localhost:8083/vcenter/hosts1');
       const result = await response.json();
       if (response.ok) {
         setData(result.data);

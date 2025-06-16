@@ -22,7 +22,7 @@ import Info4 from '../Sensores/COCLOESECAP05/info.jsx';
 import RadialBar4 from '../Sensores/COCLOESECAP05/bar.jsx';
 import Area4 from '../Sensores/COCLOESECAP05/area.jsx';
 
-const API_URL = 'http://192.168.200.155:8083/vcenter/vms-db';
+const API_URL = 'http://localhost:8083/vcenter/vms-db';
 const ResponsiveGridLayout = WidthProvider(Responsive);
 const MAX_DATA_POINTS = 50;
 

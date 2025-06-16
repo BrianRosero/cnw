@@ -23,7 +23,7 @@ const ChatAI = () => {
   const [input, setInput] = useState('');
 
   const messagesEndRef = useRef(null); // Referencia para el scroll automático
-  const API_URL = import.meta.env.VITE_API_URL || "http://192.168.200.155:8083";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8083";
 
   const sendMessageToAI = async (message) => {
     try {

@@ -4,8 +4,8 @@ import { useMemo } from 'react'
 import Grid from '@mui/material/Grid'
 
 // Soft UI Dashboard PRO React components
-import SoftBox from '@/components/SoftBox'
-import SoftTypography from '@/components/SoftTypography'
+import SoftBox from '../../../Ui-Components/Components/SoftBox'
+import SoftTypography from '../../../Ui-Components/Components/SoftTypography'
 
 // Soft UI Dashboard PRO React example components
 import DashboardLayout from '@/examples/LayoutContainers/DashboardLayout'

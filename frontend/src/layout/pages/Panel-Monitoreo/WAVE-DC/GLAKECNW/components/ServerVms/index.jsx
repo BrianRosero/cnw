@@ -40,7 +40,7 @@ import CpuImage from '@/images/vm-preview.png';
 //import NetworkImage from '@/src/images/network.png';
 
 import Chart from 'react-apexcharts';
-import SoftTypography from '@/components/SoftTypography/index.jsx';
+import SoftTypography from '@/layout/Ui-Components/Components/SoftTypography/index.jsx';
 
 const gaugeChartOptions = (label, color) => ({
   chart: {
@@ -139,7 +139,7 @@ export default function VMDashboard() {
     const currentVMName = selectedVM?.name; // 👉 Guarda el nombre de la VM actualmente seleccionada
 
     try {
-      const response = await fetch('http://192.168.200.155:8083/vcenter/vms');
+      const response = await fetch('http://localhost:8083/vcenter/vms');
       const result = await response.json();
 
       if (response.ok) {

@@ -31,8 +31,8 @@ import {
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 // project imports
-import MainCard from '../../../../ui-component/cards/MainCard';
-import Transitions from '../../../../ui-component/extended/Transitions';
+import MainCard from '../../../Ui-Components/Cards/MainCard.jsx';
+import Transitions from '../../../Ui-Components/extended/Transitions';
 //import UpgradePlanCard from './UpgradePlanCard';
 import User1 from '../../../../assets/images/users/user-round.svg';
 
@@ -175,7 +175,7 @@ const ProfileSection = () => {
                     </Stack>
                     {/*<OutlinedInput
                       sx={{ width: '100%', pr: 1, pl: 2, my: 2 }}
-                      id="input-search-profile"
+                      id="input-search-usuarios"
                       value={value}
                       onChange={(e) => setValue(e.target.value)}
                       placeholder="Buscar opciones en el Perfil"
@@ -262,7 +262,7 @@ const ProfileSection = () => {
                             primary={
                               <Grid container spacing={1} justifyContent="space-between">
                                 <Grid item>
-                                  <Typography variant="body2" href="/profile/profile">Perfil Social</Typography>
+                                  <Typography variant="body2" href="/usuarios/usuarios">Perfil Social</Typography>
                                 </Grid>
                                 <Grid item>
                                   <Chip

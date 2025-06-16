@@ -96,18 +96,18 @@ const pageRoutes = [
     collapse: [
       {
         name: "Profile Overview",
-        key: "profile-overview",
-        route: "/pages/profile/profile-overview",
+        key: "usuarios-overview",
+        route: "/pages/usuarios/usuarios-overview",
       },
       {
         name: "Teams",
         key: "teams",
-        route: "/pages/profile/teams",
+        route: "/pages/usuarios/teams",
       },
       {
         name: "All Projects",
         key: "all-projects",
-        route: "/pages/profile/all-projects",
+        route: "/pages/usuarios/all-projects",
       },
     ],
   },

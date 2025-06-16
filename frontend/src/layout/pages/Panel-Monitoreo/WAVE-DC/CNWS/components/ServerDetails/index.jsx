@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Grid, Divider, Typography } from '@mui/material';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from '@/components/SoftBox';
-import SoftTypography from '@/components/SoftTypography';
-import SoftButton from '@/components/SoftButton';
+import SoftBox from '../../../../../../Ui-Components/Components/SoftBox';
+import SoftTypography from '../../../../../../Ui-Components/Components/SoftTypography';
+import SoftButton from '../../../../../../Ui-Components/Components/SoftButton';
 
 // Images
 import serverpng from '@/assets/images/vcenter (2).png';
@@ -14,7 +14,7 @@ import wavesWhite from '@/assets/images/shapes/waves-white.svg';
 import Chart from 'react-apexcharts';
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-const API_URL = 'http://192.168.200.155:8083/vcenter/resources-cnws';
+const API_URL = 'http://localhost:8083/vcenter/resources-cnws';
 
 function ServerDetails() {
   const [data, setData] = useState(null);

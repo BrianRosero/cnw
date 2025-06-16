@@ -93,7 +93,7 @@ const form = {
       label: "twitter handle",
       type: "text",
       placeholder: "@soft",
-      errorMsg: "Twitter profile is required.",
+      errorMsg: "Twitter usuarios is required.",
     },
     facebook: {
       name: "facebook",

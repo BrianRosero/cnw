@@ -12,7 +12,7 @@ const administrador = (isVisible = false) => {
     children: [
       /*{
         id: 'default',
-        title: 'Inicio',
+        title: '1 Inicio',
         type: 'item',
         url: '/dashboard/inicio',
         icon: icons.IconHome,

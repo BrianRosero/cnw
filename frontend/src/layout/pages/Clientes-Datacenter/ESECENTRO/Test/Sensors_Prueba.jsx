@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Chart from "react-apexcharts";
 
-const API_URL = "http://192.168.200.155:8083/vcenter/vms-db";
+const API_URL = "http://localhost:8083/vcenter/vms-db";
 
 export default function VmTable() {
   const [vmsData, setVmsData] = useState({ dbVms: {}, appVms: {}, otherVms: {} });

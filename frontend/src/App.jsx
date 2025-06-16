@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import NavigationScroll from './layout/NavigationScroll';
-import theme from './themes';
+import theme from './layout/Ui-Components/themes';
 import Routes from './routes/index.jsx';
-import Auth from './views/authentication/authentication.jsx';
+import Auth from './layout/authentication/authentication.jsx';
 
 import { AuthProvider } from './services/AuthContext';
 

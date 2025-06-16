@@ -24958,3 +24958,93 @@
 {"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-05-14T13:20:03.701Z"}
 {"level":"info","message":"Conectado a MongoDB","timestamp":"2025-05-14T13:47:40.449Z"}
 {"level":"info","message":"Conectado a MongoDB","timestamp":"2025-05-19T18:32:06.280Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-06-04T02:52:38.638Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-04T03:28:28.154Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-06-04T03:40:53.037Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-06-04T03:41:00.917Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-06-04T03:41:19.455Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-05T20:53:50.340Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-06-06T01:00:59.455Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-06-06T01:01:10.822Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-10T21:27:55.338Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-11T13:25:06.556Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-11T13:39:24.032Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-11T13:41:23.785Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-06-11T13:42:26.691Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-06-11T13:42:49.106Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-11T13:48:59.445Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-11T13:55:12.492Z"}
+{"level":"info","message":"Request: GET /","timestamp":"2025-06-11T14:04:59.152Z"}
+{"level":"info","message":"Request: GET /inicio/accesos-rapidos","timestamp":"2025-06-11T14:04:59.176Z"}
+{"level":"info","message":"Request: GET /.well-known/appspecific/com.chrome.devtools.json","timestamp":"2025-06-11T14:04:59.239Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-12T16:15:00.652Z"}
+{"level":"info","message":"Request: GET /","timestamp":"2025-06-12T17:22:47.834Z"}
+{"level":"info","message":"Request: GET /","timestamp":"2025-06-12T17:22:47.861Z"}
+{"level":"info","message":"Request: GET /favicon.ico","timestamp":"2025-06-12T17:22:47.935Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-12T17:26:45.492Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-13T00:22:03.762Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-06-13T00:30:06.378Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-06-13T00:30:19.325Z"}
+{"level":"info","message":"Lista de archivos PDF obtenida","timestamp":"2025-06-13T00:31:34.517Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:32:06.962Z"}
+{"level":"info","message":"Error al obtener la lista de VMs: Invalid URL","timestamp":"2025-06-13T00:32:06.964Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:32:06.965Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:32:06.977Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:32:26.274Z"}
+{"level":"info","message":"Error al obtener la lista de VMs: Invalid URL","timestamp":"2025-06-13T00:32:26.276Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:32:26.278Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:32:26.280Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:32:27.924Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:32:27.929Z"}
+{"level":"info","message":"Error al obtener la lista de VMs: Invalid URL","timestamp":"2025-06-13T00:32:27.931Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:32:27.932Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:34:59.819Z"}
+{"level":"info","message":"Error al obtener la lista de VMs: Invalid URL","timestamp":"2025-06-13T00:34:59.826Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:34:59.830Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:34:59.942Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:35:19.979Z"}
+{"level":"info","message":"Error al obtener la lista de VMs: Invalid URL","timestamp":"2025-06-13T00:35:19.981Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:35:19.982Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:35:19.985Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:37:36.396Z"}
+{"level":"info","message":"Error al obtener la lista de VMs: Invalid URL","timestamp":"2025-06-13T00:37:36.400Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:37:36.410Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:37:36.414Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:46:04.650Z"}
+{"level":"info","message":"Error al obtener la lista de VMs: Invalid URL","timestamp":"2025-06-13T00:46:04.655Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:46:04.657Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:46:04.674Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-13T00:52:03.275Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:52:49.589Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:52:49.726Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:52:49.792Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2025-06-13T00:52:51.596Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:52:52.108Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:53:38.662Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:53:38.689Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:53:38.725Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2025-06-13T00:53:46.331Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:53:47.419Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-13T00:55:30.970Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:55:45.098Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:55:45.101Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:55:45.136Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2025-06-13T00:55:45.993Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:55:46.134Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T00:56:45.559Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T00:56:45.565Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:56:45.573Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2025-06-13T00:56:46.366Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T00:56:46.511Z"}
+{"level":"info","message":"Request: POST /api/auth/signin","timestamp":"2025-06-13T14:33:54.987Z"}
+{"level":"info","message":"Request: POST /api/auth/verify-2fa","timestamp":"2025-06-13T14:34:03.555Z"}
+{"level":"info","message":"Lista de archivos PDF obtenida","timestamp":"2025-06-13T14:48:44.313Z"}
+{"level":"info","message":"Request: GET /pdfs/COSMITET/Informe%20Diario%20BK%20COSMITET%20LTDA%2002-07-2024.pdf","timestamp":"2025-06-13T14:48:52.796Z"}
+{"level":"info","message":"Request: GET /vms","timestamp":"2025-06-13T14:49:49.145Z"}
+{"level":"info","message":"Request: GET /get-vm-data","timestamp":"2025-06-13T14:49:49.161Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T14:49:49.208Z"}
+{"level":"info","message":"Lista de VMs obtenida","timestamp":"2025-06-13T14:49:50.449Z"}
+{"level":"info","message":"Request: POST /store-vm-data","timestamp":"2025-06-13T14:49:50.633Z"}
+{"level":"info","message":"Lista de archivos PDF obtenida","timestamp":"2025-06-13T15:21:14.904Z"}
+{"level":"info","message":"Request: GET /","timestamp":"2025-06-13T15:53:31.534Z"}
+{"level":"info","message":"Conectado a MongoDB","timestamp":"2025-06-16T14:47:33.607Z"}

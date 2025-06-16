@@ -169,6 +169,17 @@ function App() {
   };
 
   useEffect(() => {
+    UserService.getAdminBoard().then(
+      (response) => {
+        setIsAdminCAMARACC(true);
+      },
+      (error) => {
+        handleErrorResponse(error);
+      }
+    );
+  }, []);
+
+  useEffect(() => {
     UserService.getModeratorBoard().then(
       (response) => {
         setIsModerator(true);

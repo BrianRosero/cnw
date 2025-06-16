@@ -1,5 +1,5 @@
-import { IconDashboard, IconTimeline, IconAlignBoxBottomCenter, IconHome } from '@tabler/icons-react';
-const icons = { IconDashboard, IconTimeline, IconAlignBoxBottomCenter, IconHome };
+import { IconServerCog, IconTournament, IconHeartRateMonitor, IconVectorBezierCircle, IconArrowIteration } from '@tabler/icons-react';
+const icons = { IconServerCog, IconTournament, IconHeartRateMonitor, IconVectorBezierCircle, IconArrowIteration };
 
 const administrador = (isVisible = false) => {
   // Verificar si debe mostrarse el administrador
@@ -7,31 +7,55 @@ const administrador = (isVisible = false) => {
 
   return {
     id: 'administrador',
-    title: 'Panel de Control',
+    title: 'Infraestructura y Tecnología',
     type: 'group',
     children: [
       {
         id: 'panel',
-        title: 'Panel de control',
+        title: 'Panel de Control del Datacenter',
         type: 'item',
-        url: '/control/panel-de-control',
-        icon: icons.IconDashboard,
+        url: '/datacenter/panel-control',
+        icon: icons.IconServerCog,
         breadcrumbs: false,
       },
       {
-        id: 'datacenter',
-        title: 'Clientes Datacenter',
+        id: 'monitoreo',
+        title: 'Monitoreo en Tiempo Real',
         type: 'item',
-        url: '/control/datacenter',
-        icon: icons.IconTimeline,
+        url: '/datacenter/monitoreo',
+        icon: icons.IconHeartRateMonitor,
         breadcrumbs: false,
       },
       {
-        id: 'prtg',
-        title: 'Prtg Monitoreo',
+        id: 'gestion',
+        title: 'Gestión de Clientes',
         type: 'item',
-        url: '/control/prtg',
-        icon: icons.IconTimeline,
+        url: '/datacenter/gestion-clientes',
+        icon: icons.IconTournament,
+        breadcrumbs: false,
+      },
+      {
+        id: 'infraestructura',
+        title: 'Infraestructura',
+        type: 'item',
+        url: '/datacenter/infraestructura',
+        icon: icons.IconVectorBezierCircle,
+        breadcrumbs: false,
+      },
+      {
+        id: 'mapa fibra',
+        title: 'Mapa de Fibra Optica',
+        type: 'item',
+        url: '/datacenter/mapa fibra',
+        icon: icons.IconVectorBezierCircle,
+        breadcrumbs: false,
+      },
+      {
+        id: 'continuidad',
+        title: 'Continuidad Operativa',
+        type: 'item',
+        url: '/datacenter/continuidad-op',
+        icon: icons.IconArrowIteration,
         breadcrumbs: false,
       },
     ],

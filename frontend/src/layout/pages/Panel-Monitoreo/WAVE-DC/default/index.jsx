@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 
 import axios from 'axios';
-import SoftTypography from '@/components/SoftTypography/index.jsx';
-import SoftBox from '@/components/SoftBox/index.jsx';
+import SoftTypography from '@/layout/Ui-Components/Components/SoftTypography/index.jsx';
+import SoftBox from '@/layout/Ui-Components/Components/SoftBox/index.jsx';
 import Chart from 'react-apexcharts';
 import GLAKE from '../GLAKECNW/index.jsx';
 import CNWS from '../CNWS/index.jsx';

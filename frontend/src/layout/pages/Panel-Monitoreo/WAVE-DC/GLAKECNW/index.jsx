@@ -1,4 +1,4 @@
-import SoftBox from "@/components/SoftBox";
+import SoftBox from "../../../../Ui-Components/Components/SoftBox";
 
 // Automotive dashboard components
 import ServerDetails from "./components/ServerDetails";

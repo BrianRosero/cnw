@@ -7,8 +7,8 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from '@/components/SoftBox/index.jsx';
-import SoftTypography from '@/components/SoftTypography/index.jsx';
+import SoftBox from '@/layout/Ui-Components/Components/SoftBox/index.jsx';
+import SoftTypography from '@/layout/Ui-Components/Components/SoftTypography/index.jsx';
 
 // Soft UI Dashboard PRO React example components
 import MiniStatisticsCard from '@/examples/Cards/StatisticsCards/MiniStatisticsCard/index.jsx';
@@ -229,7 +229,7 @@ function Default() {
                     onMouseDown={(e) => (e.currentTarget.style.opacity = '0.7')} // Cambio al presionar
                     onMouseUp={(e) => (e.currentTarget.style.opacity = '1')} // Volver al normal
                     onClick={() => {
-                      window.location.href = 'http://192.168.200.155:8082/widget/kanban'; // Redirigir a la ruta
+                      window.location.href = 'http://localhost:8082/widget/kanban'; // Redirigir a la ruta
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(0,168,130,0.27)')} // Hover (entrada)
                     onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(0,168,130,0.18)')} // Hover (salida)

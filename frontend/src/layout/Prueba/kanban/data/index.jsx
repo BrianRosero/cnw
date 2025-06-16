@@ -49,7 +49,7 @@ const boards = {
             <Card
               image={officeDark}
               badge={{ color: 'dark', label: 'pending' }}
-              content="Website Design: New cards for blog section and profile details"
+              content="Website Design: New cards for blog section and usuarios details"
               attachedFiles={3}
               members={[team1, team2, team3]}
             />

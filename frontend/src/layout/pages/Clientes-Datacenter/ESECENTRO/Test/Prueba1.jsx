@@ -6,8 +6,8 @@ import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import RadialBar from './RadialBar.jsx';
 
-const API_URL = 'http://192.168.200.155:8083/vcenter/vms-db';
-const API_URL_1 = 'http://192.168.200.155:8083/vcenter/vms-db1';
+const API_URL = 'http://localhost:8083/vcenter/vms-db';
+const API_URL_1 = 'http://localhost:8083/vcenter/vms-db1';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 const MAX_DATA_POINTS = 50;

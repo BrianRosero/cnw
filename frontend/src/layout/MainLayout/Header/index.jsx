@@ -71,7 +71,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
         </Box>
       </Box>*/}
       <Box sx={{ flexGrow: 1 }} />
-      {/* notification & profile */}
+      {/* notification & usuarios */}
       <NotificationSection />
       <ProfileSection />
     </>

@@ -1,5 +1,5 @@
 // Soft UI Dashboard PRO React components
-import SoftTypography from "@/components/SoftTypography";
+import SoftTypography from "../../../../Ui-Components/Components/SoftTypography";
 
 const categoriesListData = [
   {

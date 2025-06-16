@@ -11,11 +11,11 @@ import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mui/material/Icon';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from '@/components/SoftBox';
-import SoftTypography from '@/components/SoftTypography';
-import SoftButton from '@/components/SoftButton';
-import SoftInput from '@/components/SoftInput';
-import SoftAvatar from '@/components/SoftAvatar';
+import SoftBox from '../../../../../../Ui-Components/Components/SoftBox';
+import SoftTypography from '../../../../../../Ui-Components/Components/SoftTypography';
+import SoftButton from '../../../../../../Ui-Components/Components/SoftButton';
+import SoftInput from '../../../../../../Ui-Components/Components/SoftInput';
+import SoftAvatar from '../../../../../../Ui-Components/Components/SoftAvatar';
 
 // Images
 import curved10 from '@/assets/images/curved-images/curved10.jpg';
